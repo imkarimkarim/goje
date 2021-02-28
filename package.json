@@ -76,6 +76,16 @@
     "style-loader": "^1.2.1"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.8",
+    "@babel/preset-react": "^7.12.13",
+    "@material-ui/core": "^4.11.3",
+    "babel-loader": "^8.2.2",
+    "electron-squirrel-startup": "^1.0.0",
+    "jalali-date": "^1.1.2",
+    "nedb": "^1.8.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
   }
 }
