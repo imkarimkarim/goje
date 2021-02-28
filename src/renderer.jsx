@@ -1,5 +1,6 @@
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App/App.jsx';
 
-ReactDOM.render(<div>به گوجه خوش اومدی...</div>, document.getElementById('root'));
+ReactDOM.render(<React.StrictMode><App /></React.StrictMode>, document.getElementById('root'));

@@ -1,20 +1,18 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es6": true,
+        "es2021": true,
         "node": true
     },
-    "extends": "airbnb",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
+        "ecmaVersion": 12
     },
     "plugins": [
         "react"
