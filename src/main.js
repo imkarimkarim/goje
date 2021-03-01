@@ -1,5 +1,53 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+require('./db');
+const productsDoc = require('./db/productsDoc');
+const {generateNewCustomId} = require('./modules/idGenerator');
+
+setTimeout(() => {
+    // const newProduct = {
+    //   customeId: null,
+    //   productName: 'سیب قرمز',
+    //   owner: 'کاک رسول آذربایجان',
+    //   weight: 200,
+    //   amount: 20,
+    //   arrivalDate: new Date(),
+    //   finishDate: false,
+    //   ownerCardNumber: '2222-1243-1532-1821',
+    //   isProductFinish: false,
+    //   commission: 5,
+    //   driverInfo: {
+    //     name: 'کریم گورابی',
+    //     plaque: '۱۲ت۱۹ایران۱۸',
+    //     car: 'نیسان',
+    //     phoneNumber: '09118561211',
+    //   }
+    // }
+    const newProduct = {
+      customeId: null,
+      productName: 'سیب سفید',
+      owner: 'کاک رسول آذربایجان',
+      weight: 200,
+      amount: 20,
+      arrivalDate: new Date(),
+      finishDate: false,
+      ownerCardNumber: '2222-1243-1532-1821',
+      isProductFinish: false,
+      commission: 5,
+      driverInfo: {
+        name: 'کریم گورابی',
+        plaque: '۱۲ت۱۹ایران۱۸',
+        car: 'نیسان',
+        phoneNumber: '09118561211',
+      }
+    }
+    generateNewCustomId((id) => {
+      newProduct.customeId = id;
+      productsDoc.insert(newProduct, () => {
+        console.log('okk im in db :)))');
+      })
+    })
+}, 4000)
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
