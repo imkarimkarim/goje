@@ -4,7 +4,7 @@ const getAll = (callback) => {
   db.find({ doc: "products" }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
-      callback(docs);
+      callback(docs[0].data);
     }
   });
 };
