@@ -4,39 +4,39 @@ const fs = require("fs");
 
 const init = () => {
   // making sure database will have 3 object in first init
-  db.find(
-    {
-      doc: "products",
-    },
-    (err, docs) => {
-      if (err) throw err;
-      if (docs.length === 0) {
-        db.insert({ doc: "products", data: [] });
-      }
-    }
-  );
-  db.find(
-    {
-      doc: "factors",
-    },
-    (err, docs) => {
-      if (err) throw err;
-      if (docs.length === 0) {
-        db.insert({ doc: "factors", data: [] });
-      }
-    }
-  );
-  db.find(
-    {
-      doc: "customers",
-    },
-    (err, docs) => {
-      if (err) throw err;
-      if (docs.length === 0) {
-        db.insert({ doc: "customers", data: [] });
-      }
-    }
-  );
+  // db.find(
+  //   {
+  //     doc: "products",
+  //   },
+  //   (err, docs) => {
+  //     if (err) throw err;
+  //     if (docs.length === 0) {
+  //       db.insert({ doc: "products", data: [] });
+  //     }
+  //   }
+  // );
+  // db.find(
+  //   {
+  //     doc: "factors",
+  //   },
+  //   (err, docs) => {
+  //     if (err) throw err;
+  //     if (docs.length === 0) {
+  //       db.insert({ doc: "factors", data: [] });
+  //     }
+  //   }
+  // );
+  // db.find(
+  //   {
+  //     doc: "customers",
+  //   },
+  //   (err, docs) => {
+  //     if (err) throw err;
+  //     if (docs.length === 0) {
+  //       db.insert({ doc: "customers", data: [] });
+  //     }
+  //   }
+  // );
   db.find(
     {
       doc: "customId",

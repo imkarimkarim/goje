@@ -4,24 +4,26 @@ const {ipcRenderer} = require('electron');
 const ProductsContext = createContext();
 
 const ProductsProvider = ({children}) => {
-  const [products, setProducts] = useState({name: 'karim'});
+  const [products, setProducts] = useState({allProducts: false, oneProduct: false});
 
-  // making sure component will not get in
-  // re-rendering hell
-  const stopReRendering = useRef(false);
-  if(!stopReRendering.current){
+  const sendAllProducts = () => {
     ipcRenderer.send('send-allProducts');
-    console.log('sending ipc');
-    stopReRendering.current = true;
   }
-
-  ipcRenderer.on('allProducts', (event, arg) => {
-    console.log('catcy');
-    setProducts(arg);
+  ipcRenderer.on('allProducts', (event, allProducts) => {
+    console.log('allProducts');
+    setProducts({...products, allProducts: allProducts});
+  })
+  
+  const sendOneProduct = (id) => {
+    ipcRenderer.send('send-oneProduct', id);
+  }
+  ipcRenderer.on('oneProduct', (event, oneProduct) => {
+    console.log('oneProduct');
+    setProducts({...products, oneProduct: oneProduct});
   })
 
   return (<ProductsContext.Provider value={{
-      products
+      products, sendAllProducts, sendOneProduct
     }}>
     {children}
   </ProductsContext.Provider>);

@@ -7,8 +7,8 @@ import NewFactor from './Screens/NewFactor/NewFactor.jsx';
 import NewCustomer from './Screens/NewCustomer/NewCustomer.jsx';
 import Reports from './Screens/Reports/Reports.jsx';
 import Nav from './Components/Nav.jsx';
-import SearchFactors from './Screens/Reports/SearchFactors.jsx';
-
+import searchProducts from './Screens/Reports/SearchProducts.jsx';
+import ShowProduct from './Screens/Reports/Components/Product/ShowProduct.jsx';
 import {ProductsProvider} from './Contexts/ProductsContext.js';
 
 export default function App() {
@@ -39,7 +39,8 @@ export default function App() {
             <Route path='/newFactor' component={NewFactor} />
             <Route path='/newCustomer' component={NewCustomer} />
             <Route path='/reports' component={Reports} />
-            <Route path='/searchFactors' component={SearchFactors} />
+            <Route path='/searchProducts' component={searchProducts} />
+            <Route path='/showProduct' component={ShowProduct} />
           </Switch>
         </ProductsProvider>
       </Container>

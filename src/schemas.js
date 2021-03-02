@@ -1,4 +1,5 @@
 const newProduct = {
+  docType: 'product',
   customeId: null,
   productName: 'سیب سفید',
   owner: 'کاک رسول آذربایجان',
@@ -18,6 +19,7 @@ const newProduct = {
 }
 
 const newCustomer = {
+  docType: 'customer',
   customeId: null,
   name: 'نقی',
   phoneNumber: null,
@@ -26,6 +28,7 @@ const newCustomer = {
 }
 
 const newFactor = {
+  docType: 'factor',
   owner: 'b79b',
   customeId: null,
   isPayed: false,

@@ -1,7 +1,7 @@
 const { db } = require("../db");
 
 const getAll = (callback) => {
-  db.find({ doc: "customers" }, (err, docs) => {
+  db.find({ docType: 'factor' }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
       callback(docs);
@@ -13,7 +13,7 @@ const insert = (obj = {}, callback) => {
   if (typeof obj !== "object") {
     return;
   }
-  db.update({ doc: "customers" }, { $addToSet: { data: obj } }, {}, function () {
+  db.insert( obj , function () {
     if (typeof callback === "function") {
       callback();
     }
