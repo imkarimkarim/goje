@@ -86,6 +86,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/system": "^4.11.3",
     "babel-loader": "^8.2.2",
+    "cleave.js": "^1.6.0",
     "electron-squirrel-startup": "^1.0.0",
     "jalali-date": "^1.1.2",
     "nedb": "^1.8.0",

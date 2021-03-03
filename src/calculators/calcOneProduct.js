@@ -1,12 +1,14 @@
 const factorDocs = require('../db/factorDocs');
 const productDocs = require('../db/productDocs');
 // TODO: refactoring
+// TODO: add کرایه و کارگری
 let RESULTS = {
   SALE_AVERAGE: 0,
   SUM_KG: 0,
   SUM_AMOUNT: 0,
   COMMISSION: 0,
   FULL_SALE: 0,
+  productData: {}
 };
 
 let productData = {
@@ -74,8 +76,10 @@ function calculateAllTheStuffFinally(callback) {
     RESULTS.SUM_AMOUNT += product[0];
     RESULTS.FULL_SALE += (product[1] * product[2]);
   });
-  RESULTS.SALE_AVERAGE = RESULTS.FULL_SALE / RESULTS.SUM_KG;
-  RESULTS.COMMISSION = RESULTS.FULL_SALE * (productData.commission * .01);
+  RESULTS.SALE_AVERAGE = Math.floor(RESULTS.FULL_SALE / RESULTS.SUM_KG);
+  RESULTS.FULL_SALE = RESULTS.SUM_KG * RESULTS.SALE_AVERAGE;
+  RESULTS.COMMISSION = Math.floor((RESULTS.SUM_KG * RESULTS.SALE_AVERAGE) * (productData.commission * .01));
+  RESULTS.productData = productData;
   if (typeof callback === "function") {
     callback(RESULTS);
   }
