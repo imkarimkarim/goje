@@ -1,0 +1,9 @@
+.product-wrapper .info{
+  position: relative;
+}
+.product-wrapper .info .customeId{
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: #999;
+}

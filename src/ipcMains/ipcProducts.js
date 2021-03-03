@@ -1,8 +1,10 @@
 const { ipcMain } = require("electron");
 const productDocs = require("../db/productDocs");
+const calcOneProduct = require('../calculators/calcOneProduct');
 
 let allProducts = {};
 let oneProduct = {};
+let resultsCalcOneProduct = {};
 
 ipcMain.on("send-allProducts", (event) => {
   productDocs.getUnFinishedProducts((docs) => {
@@ -12,10 +14,15 @@ ipcMain.on("send-allProducts", (event) => {
 });
 
 ipcMain.on("send-oneProduct", (event, id) => {
-  console.log(id);
   productDocs.getOneProduct(id, (docs) => {
     oneProduct = docs;
-    console.log(oneProduct);
     event.reply("oneProduct", oneProduct);
+  });
+});
+
+ipcMain.on("send-oneProductCalcs", (event, id) => {
+  calcOneProduct.calculate(id, (results) => {
+    resultsCalcOneProduct = results;
+    event.reply("oneProductCalcs", resultsCalcOneProduct);
   });
 });

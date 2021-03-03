@@ -5,7 +5,7 @@ const newProduct = {
   owner: 'کاک رسول آذربایجان',
   weight: 200,
   amount: 20,
-  arrivalDate: new Date(),
+  arrivalDate: new JDate,
   finishDate: false,
   ownerCardNumber: '2222-1243-1532-1821',
   isProductFinish: false,
@@ -33,7 +33,7 @@ const newFactor = {
   customeId: null,
   isPayed: false,
   payedDate: null,
-  factorDate: new Date(),
+  factorDate: new JDate,
   changeDate : null,
   payedRecords: [
     {

@@ -1,11 +1,14 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
+const JDate = require('jalali-date');
 require("./db");
 require('./ipcMains/ipcProducts');
 const {generateNewCustomId} = require('./modules/idGenerator');
 const customerDocs = require('./db/customerDocs');
 const factorDocs = require('./db/factorDocs');
 const productDocs = require('./db/productDocs');
+const calcOnProduct = require('./calculators/calcOneProduct');
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {

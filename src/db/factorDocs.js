@@ -9,6 +9,16 @@ const getAll = (callback) => {
   });
 };
 
+const factorsWithProduct = (id, callback) => {
+  if(!id) return;
+  db.find({ "products.productId": id }, (err, docs) => {
+    if (err) throw err;
+    if (typeof callback === "function") {
+      callback(docs);
+    }
+  });
+};
+
 const insert = (obj = {}, callback) => {
   if (typeof obj !== "object") {
     return;
@@ -21,5 +31,5 @@ const insert = (obj = {}, callback) => {
 };
 
 module.exports = {
-  getAll, insert
+  getAll, insert, factorsWithProduct
 };

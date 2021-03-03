@@ -4,7 +4,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import './ResultsListItem.css';
 
-export default function ResultsListItem({productName, owner, customeId}) {
+const ResultsListItem = React.memo(({productName, owner, customeId}) => {
   return(
     <>
       <Divider />
@@ -13,4 +13,6 @@ export default function ResultsListItem({productName, owner, customeId}) {
       </ListItem>
     </>
   )
-}
+})
+
+export default ResultsListItem;

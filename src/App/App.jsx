@@ -9,7 +9,6 @@ import Reports from './Screens/Reports/Reports.jsx';
 import Nav from './Components/Nav.jsx';
 import searchProducts from './Screens/Reports/SearchProducts.jsx';
 import ShowProduct from './Screens/Reports/Components/Product/ShowProduct.jsx';
-import {ProductsProvider} from './Contexts/ProductsContext.js';
 
 export default function App() {
   
@@ -31,7 +30,6 @@ export default function App() {
           : <div></div>
       }   
       <Container fixed>
-        <ProductsProvider>
           <Nav />
           <Switch>
             <Route path='/welcome' component={Welcome} />
@@ -40,9 +38,8 @@ export default function App() {
             <Route path='/newCustomer' component={NewCustomer} />
             <Route path='/reports' component={Reports} />
             <Route path='/searchProducts' component={searchProducts} />
-            <Route path='/showProduct' component={ShowProduct} />
+            <Route path='/showProduct/:id' component={ShowProduct} />
           </Switch>
-        </ProductsProvider>
       </Container>
     </Router>
   );
