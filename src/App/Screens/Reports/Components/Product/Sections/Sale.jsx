@@ -16,7 +16,6 @@ export default function Info({productId}) {
   
   useEffect(() => {
     if (init.current) {
-      console.log(productId);
       sendOneProductCalcs(productId);
       ipcRenderer.on("oneProductCalcs", (event, oneProduct) => {
         init.current = false;
@@ -30,18 +29,23 @@ export default function Info({productId}) {
     };
   });
   
-  if(salesInfo) console.log(salesInfo);
-  
   return (
     salesInfo ? (
-      <div className="sale">
-        <h3>فروش <Divider /></h3>
-        <div>{`${salesInfo.SUM_KG} کیلوگرم از ${salesInfo.productData.KG} کیلو فروخته شد.`}</div>
-        <div>{`${salesInfo.SUM_AMOUNT} عدد از ${salesInfo.productData.Amount} عدد فروخته شد.`}</div>
-        <div>مبلغ کل فروش: {<Expense num={salesInfo.FULL_SALE} />}</div>
-        <div>میانگین فی فروش: {<Expense num={salesInfo.SALE_AVERAGE } />}</div>
-        <div>کمیسیون (٪{salesInfo.productData.commission}): {<Expense num={salesInfo.COMMISSION} />}</div>
-        <div>کارگری و کرایه... + اطلاعات راننده باید اضافه شه...</div>
+      <div>
+        <div className="sale">
+          <h3>فروش <Divider /></h3>
+          <div>{salesInfo.SUM_AMOUNT} عدد</div>
+          <div>{salesInfo.SUM_KG} کیلوگرم</div>
+          <div>میانگین فی فروش: {<Expense num={salesInfo.SALE_AVERAGE } />}</div>
+          <div>مبلغ کل فروش: {<Expense num={salesInfo.FULL_SALE} />}</div>
+          
+          <h3>صافی <Divider /></h3>
+          <div>کرایه:‌ {<Expense num={salesInfo.productData.portage} />}</div>
+          <div>تخلیه: {<Expense num={salesInfo.productData.unload} />}</div>
+          <div>کارمزد (٪{salesInfo.productData.commission}): {<Expense num={salesInfo.COMMISSION} />}</div>
+          <div>دستی: {<Expense num={salesInfo.productData.cash} />}</div>
+          <div className='owner-earning'><h3>صافی: {<Expense num={salesInfo.OWNER_ERNINGS} />}</h3></div>
+        </div>
       </div>
     ) : (
       <Loading />

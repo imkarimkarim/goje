@@ -1,9 +1,25 @@
-body, a, span, div, button{
-  font-family: Vazir;
+body,
+a,
+span,
+div,
+button,
+input,
+.MuiInputLabel-outlined.MuiInputLabel-marginDense,
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+  font-family: Vazir !important;
 }
 
-a{
-  color: #312A45;
+.MuiInputLabel-outlined.MuiInputLabel-marginDense,
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+  direction: rtl;
+}
+
+body {
+  background-color: #f7f7f7;
+  direction: rtl;
+}
+
+a {
+  color: #312a45;
   text-decoration: none;
 }
-

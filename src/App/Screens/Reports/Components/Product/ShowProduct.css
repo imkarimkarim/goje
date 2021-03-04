@@ -7,3 +7,7 @@
   left: 5px;
   color: #999;
 }
+
+.product-wrapper .info .driverInfo{
+  font-size: .8em;
+}

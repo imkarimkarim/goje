@@ -3,33 +3,33 @@ const newProduct = {
   customeId: null,
   productName: 'سیب سفید',
   owner: 'کاک رسول آذربایجان',
-  weight: 200,
-  amount: 20,
+  basculeWeight: 2000,
+  amount: 190,
   arrivalDate: new JDate,
   finishDate: false,
-  ownerCardNumber: '2222-1243-1532-1821',
   isProductFinish: false,
   commission: 5,
+  unload: 1500000,
+  portage: 10000000,
+  cash: 1000000,
   driverInfo: {
     name: 'کریم گورابی',
     plaque: '۱۲ت۱۹ایران۱۸',
     car: 'نیسان',
-    phoneNumber: '09118561211',
   }
 }
 
 const newCustomer = {
   docType: 'customer',
   customeId: null,
-  name: 'نقی',
-  phoneNumber: null,
-  address: 'لولمان',
-  by: 'طالب لولمان',
+  name: 'افشین',
+  address: 'آستانه',
 }
 
 const newFactor = {
   docType: 'factor',
-  owner: 'b79b',
+  owner: 'b79a',
+  by: 'b799',
   customeId: null,
   isPayed: false,
   payedDate: null,
@@ -44,15 +44,9 @@ const newFactor = {
   products : [
     {
       productId: 'b798',
-      amount: 5,
-      weight: 50,
+      amount: 50,
+      weight: 545,
       price: 80000,
     },
-    {
-      productId: 'b799',
-      amount: 4,
-      weight: 42,
-      price: 100000,
-    }
   ]  
 }

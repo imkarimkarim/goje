@@ -8,6 +8,7 @@ let RESULTS = {
   SUM_AMOUNT: 0,
   COMMISSION: 0,
   FULL_SALE: 0,
+  OWNER_ERNINGS: 0,
   productData: {}
 };
 
@@ -15,7 +16,10 @@ let productData = {
   KG: 0,
   Amount: 0,
   ID: 0 ,
-  commission: 5
+  unload: 0,
+  portage: 0,
+  cash: 0,
+  commission: 0,
 }
 
 let factorsDatas = ['amount', 'kg', 'price'];
@@ -46,8 +50,11 @@ function extractDataFromFactor(factor){
 function extractDataFromProduct(product){
   if(!product) return;
   productData.Amount = product.amount;
-  productData.KG = product.weight;
+  productData.KG = product.basculeWeight;
   productData.commission = product.commission;
+  productData.unload = product.unload;
+  productData.portage = product.portage;
+  productData.cash = product.cash;
 }
 
 function extractData(data, callback){
@@ -70,6 +77,8 @@ function calculateAllTheStuffFinally(callback) {
     SUM_AMOUNT: 0,
     COMMISSION: 0,
     FULL_SALE: 0,
+    OWNER_ERNINGS: 0,
+    productData: {}
   };
   factorsDatas.forEach((product) => {
     RESULTS.SUM_KG += product[1];
@@ -79,6 +88,7 @@ function calculateAllTheStuffFinally(callback) {
   RESULTS.SALE_AVERAGE = Math.floor(RESULTS.FULL_SALE / RESULTS.SUM_KG);
   RESULTS.FULL_SALE = RESULTS.SUM_KG * RESULTS.SALE_AVERAGE;
   RESULTS.COMMISSION = Math.floor((RESULTS.SUM_KG * RESULTS.SALE_AVERAGE) * (productData.commission * .01));
+  RESULTS.OWNER_ERNINGS = RESULTS.FULL_SALE - productData.portage - productData.unload - RESULTS.COMMISSION - productData.cash;
   RESULTS.productData = productData;
   if (typeof callback === "function") {
     callback(RESULTS);

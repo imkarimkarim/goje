@@ -18,7 +18,6 @@ const getUnFinishedProducts = (callback) => {
   });
 }
 
-
 const getOneProduct = (id, callback) => {
   if(!id) return;
   db.findOne({ customeId: id }, function (err, doc) {
