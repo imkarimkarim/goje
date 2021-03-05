@@ -1,0 +1,25 @@
+form .MuiFormControl-root {
+  margin: 10px;
+}
+
+.MuiGrid-grid-xs-12{
+  text-align: center;
+   
+}
+
+/* TODO: drop down راننده, calender, cleave js, english numbers */
+
+.IncludeProduct-form .arrivalDate{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.IncludeProduct-form .arrivalDate span{
+  margin-left: 10px;
+}
+
+form .MuiButton-outlinedPrimary{
+  width: 80%;
+}

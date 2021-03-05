@@ -15,7 +15,7 @@ export default function Welcome() {
           <Button variant="outlined">فاکتور جدید
         </Button></Link>
       
-        <Link className='usefull-link' to='/includePrfoduct'>
+        <Link className='usefull-link' to='/includeProduct'>
           <Button variant="outlined">وارد کردن بار
         </Button></Link>
       

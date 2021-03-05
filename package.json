@@ -89,6 +89,7 @@
     "cleave.js": "^1.6.0",
     "electron-squirrel-startup": "^1.0.0",
     "jalali-date": "^1.1.2",
+    "jalali-react-datepicker": "^1.2.1",
     "nedb": "^1.8.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

@@ -1,0 +1,15 @@
+nav{
+  display: flex;
+  align-items: center;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+nav .screen-title{
+  margin-right: 10px;
+  font-size: .85em;
+  color: #666;
+}
+
+.goje-icon{ 
+}

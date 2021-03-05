@@ -1,0 +1,11 @@
+
+.expenseInput {
+  display: inline-grid;
+}
+
+.expense-input-sub {
+  font-size: .85em;
+    color: #999;
+    margin: -10px 0 0 10px;
+    text-align: left;
+}

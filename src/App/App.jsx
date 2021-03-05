@@ -6,7 +6,6 @@ import IncludeProduct from './Screens/IncludeProduct/IncludeProduct.jsx';
 import NewFactor from './Screens/NewFactor/NewFactor.jsx';
 import NewCustomer from './Screens/NewCustomer/NewCustomer.jsx';
 import Reports from './Screens/Reports/Reports.jsx';
-import Nav from './Components/Nav.jsx';
 import searchProducts from './Screens/Reports/SearchProducts.jsx';
 import ShowProduct from './Screens/Reports/Components/Product/ShowProduct.jsx';
 
@@ -30,7 +29,6 @@ export default function App() {
           : <div></div>
       }   
       <Container fixed>
-          <Nav />
           <Switch>
             <Route path='/welcome' component={Welcome} />
             <Route path='/includeProduct' component={IncludeProduct} />

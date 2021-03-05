@@ -1,15 +1,17 @@
 const { ipcMain } = require("electron");
 const customerDocs = require("../db/customerDocs");
 
-ipcMain.on("isCustomerExists", (event, customer) => {
+ipcMain.on("addCustomer", (event, customer) => {
+  if(!customer.name && !customer.address) event.reply('addCustomer', false);
   customerDocs.isCustomerExists(customer.name, customer.address, (docs) => {
     if (docs.length === 0) {
       customerDocs.insert(customer.name, customer.address, () => {
-        console.log("object created succesfuully");
+        // log customer added...
+        event.reply('addCustomer', true);
       });
     } else {
-      console.log("its there already");
+      // custer is already there
+      event.reply('addCustomer', false);
     }
-    // event.reply("customerExists", allProducts);
   });
 });

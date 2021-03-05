@@ -1,0 +1,35 @@
+.notif {
+  position: fixed;
+  display: flex;
+  top: 10px;
+  left: 10px;
+  background: transparent;
+  color: #111;
+  padding: 10px 24px;
+  border-radius: 5px;
+  border: 1px solid #bbb;
+  font-family: Vazir;
+  font-size: .9em;
+}
+
+.notif-success {
+  border: 1px solid #07870b;
+}
+
+.notif-success .MuiSvgIcon-root{
+  color: #07870b;
+}
+
+.notif-error {
+  border: 1px solid #b80b0b;
+}
+
+.notif-error .MuiSvgIcon-root{
+  color: #b80b0b;
+  
+}
+
+.notif .MuiSvgIcon-root{
+  font-size: 1.5em;
+  margin-left: 3px;
+}

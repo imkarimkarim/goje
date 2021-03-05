@@ -5,7 +5,7 @@ const newProduct = {
   owner: 'کاک رسول آذربایجان',
   basculeWeight: 2000,
   amount: 190,
-  arrivalDate: new JDate,
+  arrivalDate: Date.now(),
   finishDate: false,
   isProductFinish: false,
   commission: 5,
