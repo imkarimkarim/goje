@@ -1,0 +1,27 @@
+
+.customerInput {
+  display: inline-grid;
+}
+
+.customer-input-sub {
+  font-size: .85em;
+    color: #999;
+    margin: -10px 0 0 10px;
+    text-align: left;
+}
+
+.customerPicker {
+  position: fixed;
+  background: #eee;
+  box-shadow: 0 0 100px 20px #999;
+  z-index: 100;
+  left: 44%;
+}
+
+.customerPicker .ListItemOdd{
+  background: #fff;
+}
+
+.customerPicker .ListItemEven{
+  
+}

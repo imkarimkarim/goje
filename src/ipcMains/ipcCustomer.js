@@ -1,6 +1,12 @@
 const { ipcMain } = require("electron");
 const customerDocs = require("../db/customerDocs");
 
+ipcMain.on('allCustomers', (event) => {
+  customerDocs.getAll((customers) => {
+    event.reply('allCustomers', customers);
+  })
+})
+
 ipcMain.on("addCustomer", (event, customer) => {
   if(!customer.name && !customer.address) event.reply('addCustomer', false);
   customerDocs.isCustomerExists(customer.name, customer.address, (docs) => {

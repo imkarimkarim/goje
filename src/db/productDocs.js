@@ -1,4 +1,5 @@
 const { db } = require("../db");
+const objectCreator = require('../modules/objectCreator');
 
 const getAll = (callback) => {
   db.find({ docType: 'product' }, (err, docs) => {
@@ -29,16 +30,15 @@ const getOneProduct = (id, callback) => {
 }
 
 
-const insert = (obj = {}, callback) => {
-  if (typeof obj !== "object") {
-    return;
-  }
-  db.insert( obj , function (err) {
-    if (err) throw err;
-    if (typeof callback === "function") {
-      callback();
-    }
-  });
+const insert = (product, callback) => {
+  objectCreator.createProduct(product, (obj) => {
+    db.insert( obj , function (err) {
+      if (err) throw err;
+      if (typeof callback === "function") {
+        callback();
+      }
+    });
+  })
 };
 
 module.exports = {

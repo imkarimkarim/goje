@@ -1,0 +1,8 @@
+.ProductsTable table{
+  width: 100%;
+}
+
+.ProductsTable table td,
+.ProductsTable table th{
+  text-align: right;
+}

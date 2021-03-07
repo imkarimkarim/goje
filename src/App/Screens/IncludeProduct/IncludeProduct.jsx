@@ -11,24 +11,24 @@ import './IncludeProduct.css';
 import Grid from '@material-ui/core/Grid';
 import { DatePicker } from "jalali-react-datepicker";
 
-export default function IncludeProduct() {
-  
-  const newProduct = {
-    productName: '',
-    owner: '',
-    basculeWeight: '',
-    amount: '',
-    arrivalDate: Date.now(),
-    commission: '',
-    unload: '',
-    portage: '',
-    cash: '',
-    driverInfo: {
-      name: '',
-      plaque: '',
-      car: '',
-    }
+const newProduct = {
+  productName: '',
+  owner: '',
+  basculeWeight: '',
+  amount: '',
+  arrivalDate: Date.now(),
+  commission: '',
+  unload: '',
+  portage: '',
+  cash: '',
+  driverInfo: {
+    name: '',
+    plaque: '',
+    car: '',
   }
+}
+
+export default function IncludeProduct() {
   
   const [formData, setFormData] = useState(newProduct);
   const [submit, setSubmit] = useState(false);
@@ -63,9 +63,9 @@ export default function IncludeProduct() {
         setCreateStatus(createStatus);
         if(createStatus !== null){
           if(createStatus === true){
+            setFormData(newProduct);
             setNotif(null);
             setNotif('success');
-            setFormData(newProduct);
           }
           if(createStatus === false){
             setNotif(null);
@@ -76,7 +76,7 @@ export default function IncludeProduct() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("addCustomer");
+      ipcRenderer.removeAllListeners("includeProduct");
     };
   });
   

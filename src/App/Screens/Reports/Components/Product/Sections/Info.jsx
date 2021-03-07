@@ -8,7 +8,7 @@ export default function Info({product}) {
     let tmpJdate;
     let arrivalDate;
     if (product) {
-      tmpJdate = new JDate(product.arrivalDate.date);
+      tmpJdate = new JDate(new Date(product.arrivalDate));
       arrivalDate = tmpJdate.format("dddd DD MMMM YYYY");
     }
 

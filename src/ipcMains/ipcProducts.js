@@ -1,6 +1,8 @@
 const { ipcMain } = require("electron");
 const productDocs = require("../db/productDocs");
-const calcOneProduct = require('../calculators/calcOneProduct');
+const calcOneProduct = require("../calculators/calcOneProduct");
+const {isProductValid} = require('../modules/validator');
+const {productNormalize} = require('../modules/nomalizer');
 
 let allProducts = {};
 let oneProduct = {};
@@ -25,4 +27,22 @@ ipcMain.on("send-oneProductCalcs", (event, id) => {
     resultsCalcOneProduct = results;
     event.reply("oneProductCalcs", resultsCalcOneProduct);
   });
+});
+
+ipcMain.on("includeProduct", (event, id) => {
+  calcOneProduct.calculate(id, (results) => {
+    resultsCalcOneProduct = results;
+    event.reply("includeProduct");
+  });
+});
+
+ipcMain.on("includeProduct", (event, product) => {
+  product = productNormalize(product);
+  if(isProductValid(product)){
+    productDocs.insert(product, () => {
+      event.reply('includeProduct', true)
+    })
+  } else {
+    event.reply('includeProduct', false)
+  }
 });
