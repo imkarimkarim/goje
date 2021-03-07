@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
-import "./NewCustomer.css";
-import Button from "@material-ui/core/Button";
 const { ipcRenderer } = require("electron");
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import Notif from '../../Components/Notif.jsx';
 import Nav from '../../Components/Nav.jsx';
 import Input from '../../Components/Input.jsx';
 import Grid from '@material-ui/core/Grid';
+import "./NewCustomer.css";
 
 export default function NewCustomer() {
   const [formData, setFormData] = useState({ name: "", address: "" });

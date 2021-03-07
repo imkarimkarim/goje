@@ -1,11 +1,11 @@
-.welcome-message{
+.welcome-screen .welcome-message{
   text-align: center;
 }
 
-.usefull-links_wrapper{
+.welcome-screen .usefull-links_wrapper{
   text-align: center;
 }
 
-.usefull-link{
+.welcome-screen .usefull-links_wrapper .usefull-link{
   margin: 0 5px;
 }

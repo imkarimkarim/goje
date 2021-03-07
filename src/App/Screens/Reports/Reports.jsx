@@ -4,9 +4,8 @@ import Button from '@material-ui/core/Button';
 
 export default function Reports() {
   return (
-    <div>
+    <div className="reports-screen">
       <Link to='/searchProducts'><Button variant="outlined">صافی ها</Button></Link>
-      صافی |‌ نسیه ها |‌ نقدی ها
     </div>
   )
 }

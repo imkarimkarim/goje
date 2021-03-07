@@ -5,7 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Expense from "./Expense.jsx";
+import Expense from "../Expense.jsx";
 import Paper from "@material-ui/core/Paper";
 import "./ProductsTable.css";
 
@@ -25,7 +25,7 @@ export default function ProductsTable({ products }) {
         <tbody>
           {products.length > 0
             ? products.map((p) => (
-                <tr>
+                <tr key={p.customeId}>
                   <td>{p.productId}</td>
                   <td>{p.amount}</td>
                   <td>{p.weight}</td>
@@ -33,7 +33,7 @@ export default function ProductsTable({ products }) {
                   <td>{<Expense num={p.price * p.weight} />}</td>
                 </tr>
               ))
-            : ""}
+            : null}
         </tbody>
       </table>
     </div>

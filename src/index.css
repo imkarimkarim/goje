@@ -24,3 +24,7 @@ a {
   color: #312a45;
   text-decoration: none;
 }
+
+.hint {
+  color: #666 !important;
+}

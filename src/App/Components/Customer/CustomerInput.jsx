@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
-import "./CustomerInput.css";
+import { FixedSizeList } from "react-window";
 const { ipcRenderer } = require("electron");
+import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import { FixedSizeList } from "react-window";
+import "./CustomerInput.css";
+
 
 function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
   const [search, setSearch] = useState("");
@@ -24,7 +25,7 @@ function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
       className={index % 2 ? "ListItemOdd" : "ListItemEven"}
       style={style}
     >
-      {customers[index].name}
+      {customers[index].name + ' ' + customers[index].address}
     </ListItem>
   );
 
@@ -40,10 +41,10 @@ function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
       ></input>
       <FixedSizeList
         className="List"
-        height={300}
+        height={400}
         itemCount={customers.length}
         itemSize={30}
-        width={200}
+        width={300}
       >
         {renderedItems}
       </FixedSizeList>
@@ -51,8 +52,9 @@ function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
   );
 }
 
-export default function CustomerInput({ owner, formDispatch, label }) {
+const CustomerInput = React.memo(({ owner, formDispatch, label }) => {
   const [customerName, setCustomerName] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
   const [allCustomers, setAllCustomers] = useState();
   const [showCustomerPicker, setShowCustomerPicker] = useState(false);
 
@@ -71,6 +73,7 @@ export default function CustomerInput({ owner, formDispatch, label }) {
       let theCustomer = allCustomers.filter((c) => c.customeId === owner);
       if(theCustomer.length > 0){
         setCustomerName(theCustomer[0].name);
+        setCustomerAddress(theCustomer[0].address)
       }
     }
     ipcRenderer.on("allCustomers", (event, dbCustomers) => {
@@ -101,7 +104,9 @@ export default function CustomerInput({ owner, formDispatch, label }) {
         label={label}
         onFocus={handleFocus}
       />
-      <span className="customer-input-sub">{owner}</span>
+    <span className="customer-input-sub hint">{owner} | {customerAddress}</span>
     </span>
   );
-}
+})
+
+export default CustomerInput;

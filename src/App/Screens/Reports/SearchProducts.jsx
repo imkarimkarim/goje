@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import Loading from "../../Components/Loading.jsx";
-import List from "@material-ui/core/List";
-import ResultsListItem from "./Components/ResultsListItem.jsx";
 import {Link} from "react-router-dom";
 const {ipcRenderer} = require('electron');
+import List from "@material-ui/core/List";
+import SearchResultItem from '../../Components/SearchResultItem.jsx';
+import Loading from "../../Components/Loading.jsx";
 
 export default function SearchProducts() {
   const [products, setProducts] = useState(false);
@@ -33,10 +33,10 @@ export default function SearchProducts() {
   if(products){
     resultsList = products.map((product) => {
       return (
-        <Link key={product.customeId} to={`/showProduct/${product.customeId}`}>
-          <ResultsListItem
-            productName={product.productName}
-            owner={product.owner}
+        <Link key={product.customeId} to={`/productReports/${product.customeId}`}>
+          <SearchResultItem
+            itemTitle={product.productName}
+            titleHint={product.owner}
             customeId={product.customeId}
           />
       </Link>

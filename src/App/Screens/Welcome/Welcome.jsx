@@ -6,7 +6,7 @@ import './Welcome.css';
 import Button from '@material-ui/core/Button';
 
 export default function Welcome() {
-  return (<div>
+  return (<div className="welcome-screen">
     <div className='welcome-message'>
       <h2>به گوجه خوش اومدی...</h2>
     </div>

@@ -14,7 +14,7 @@ import './ExpenseInput.css';
       onChange={fun}
       label={label}
     />
-  <span className="expense-input-sub"><Expense num={value} /></span>
+  <span className="expense-input-sub hint"><Expense num={value} /></span>
   </span>
   );
 });

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
+import { FixedSizeList } from "react-window";
 const { ipcRenderer } = require("electron");
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import { FixedSizeList } from "react-window";
 import Button from "@material-ui/core/Button";
-import Input from "./Input.jsx";
-import ExpenseInput from './ExpenseInput.jsx';
+import TextField from "@material-ui/core/TextField";
+import ListItem from "@material-ui/core/ListItem";
+import Input from "../Input.jsx";
+import ExpenseInput from '../ExpenseInput.jsx';
+import './ProductInput.css';
 
 function CustomerPicker({
   products,
@@ -34,7 +35,7 @@ function CustomerPicker({
       className={index % 2 ? "ListItemOdd" : "ListItemEven"}
       style={style}
     >
-      {products[index].productName}
+      {products[index].productName + ' ' + products[index].owner}
     </ListItem>
   );
 
@@ -61,7 +62,7 @@ function CustomerPicker({
   );
 }
 
-export default function ProductInput({ formDispatch, label }) {
+const ProductInput = React.memo(({ formDispatch, label }) => {
   const [productState, setProductState] = useState({ name: "", id: "" });
   const [allproducts, setAllproducts] = useState();
   const [showCustomerPicker, setShowCustomerPicker] = useState(false);
@@ -133,21 +134,21 @@ export default function ProductInput({ formDispatch, label }) {
       />
       <Input
         value={amount}
-        label="تعداد"
+        label="تعداد*"
         fun={(e) => {
           setAmount(e.target.value);
         }}
       />
       <Input
         value={weight}
-        label="وزن"
+        label="وزن*"
         fun={(e) => {
           setWeight(e.target.value);
         }}
       />
       <ExpenseInput
         value={price}
-        label="فی"
+        label="فی*"
         fun={(e) => {
           setPrice(e.target.value);
         }}
@@ -163,4 +164,6 @@ export default function ProductInput({ formDispatch, label }) {
       </Button>
     </div>
   );
-}
+})
+
+export default ProductInput;

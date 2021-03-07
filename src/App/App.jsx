@@ -6,8 +6,8 @@ import IncludeProduct from './Screens/IncludeProduct/IncludeProduct.jsx';
 import NewFactor from './Screens/NewFactor/NewFactor.jsx';
 import NewCustomer from './Screens/NewCustomer/NewCustomer.jsx';
 import Reports from './Screens/Reports/Reports.jsx';
+import ProductReports from './Components/Product/ProductReports.jsx';
 import searchProducts from './Screens/Reports/SearchProducts.jsx';
-import ShowProduct from './Screens/Reports/Components/Product/ShowProduct.jsx';
 
 export default function App() {
   
@@ -36,7 +36,7 @@ export default function App() {
             <Route path='/newCustomer' component={NewCustomer} />
             <Route path='/reports' component={Reports} />
             <Route path='/searchProducts' component={searchProducts} />
-            <Route path='/showProduct/:id' component={ShowProduct} />
+            <Route path='/productReports/:id' component={ProductReports} />
           </Switch>
       </Container>
     </Router>

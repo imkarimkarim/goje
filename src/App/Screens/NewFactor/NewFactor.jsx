@@ -1,20 +1,20 @@
 import React, { useState, useReducer, useEffect } from "react";
-import Button from "@material-ui/core/Button";
 const { ipcRenderer } = require("electron");
+import { DatePicker } from "jalali-react-datepicker";
+import JDate from "jalali-date";
+import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+import Radio from "@material-ui/core/Radio";
+import Button from "@material-ui/core/Button";
 import Notif from "../../Components/Notif.jsx";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
-import CustomerInput from "../../Components/CustomerInput.jsx";
+import CustomerInput from "../../Components/Customer/CustomerInput.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
-import ProductsTable from "../../Components/ProductsTable.jsx";
-import JDate from "jalali-date";
+import ProductsTable from "../../Components/Product/ProductsTable.jsx";
 import Expense from "../../Components/Expense.jsx";
-import Grid from "@material-ui/core/Grid";
-import { DatePicker } from "jalali-react-datepicker";
+import ProductInput from "../../Components/Product/ProductInput.jsx";
 import "./NewFactor.css";
-import Divider from "@material-ui/core/Divider";
-import Radio from "@material-ui/core/Radio";
-import ProductInput from "../../Components/ProductInput.jsx";
 
 const newFactor = {
   docType: "factor",
@@ -25,14 +25,7 @@ const newFactor = {
   factorDate: Date.now(),
   changeDate: Date.now(),
   payedRecords: [],
-  products: [
-    {
-      productId: "121",
-      amount: "22",
-      weight: "200",
-      price: "100000",
-    },
-  ],
+  products: [],
 };
 
 function reducer(state, action) {
@@ -170,7 +163,7 @@ export default function NewFactor() {
             <ProductsTable products={formData.products} />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
-            <ProductInput formDispatch={formDispatch} label="شرح کالا" />
+            <ProductInput formDispatch={formDispatch} label="شرح کالا*" />
           </Grid>
           <Divider />
           <Grid item xs={12}>

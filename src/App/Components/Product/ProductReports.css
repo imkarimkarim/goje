@@ -1,13 +1,13 @@
-.product-wrapper .info{
+.product-reports .info{
   position: relative;
 }
-.product-wrapper .info .customeId{
+.product-reports .info .customeId{
   position: absolute;
   top: 5px;
   left: 5px;
   color: #999;
 }
 
-.product-wrapper .info .driverInfo{
+.product-reports .info .driverInfo{
   font-size: .8em;
 }
