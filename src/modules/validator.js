@@ -34,7 +34,6 @@ const isProductValid = (product) => {
 
 function isPValid(p) {
   let pPass = true;
-  console.log("checking p validation...", p);
   if (typeof p.productId !== "string" || p.productId.length === 0) {
     pPass = false;
   }

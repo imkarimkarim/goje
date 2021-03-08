@@ -1,3 +1,7 @@
+.ProductsTable{
+  height: 35vh;
+  overflow-y: scroll;
+}
 .ProductsTable table{
   width: 100%;
 }

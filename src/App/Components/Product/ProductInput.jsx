@@ -17,6 +17,18 @@ function CustomerPicker({
 }) {
   const [search, setSearch] = useState("");
 
+  const handleKeyBoardEvent = (e) => {
+    if(e.key === 'Escape') setShowCustomerPicker(false);
+  }
+  
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyBoardEvent);
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyBoardEvent);
+    }
+  })
+
   if (search) {
     products = products.filter((p) => p.productName.includes(search));
   }
@@ -48,6 +60,7 @@ function CustomerPicker({
         value={search}
         placeholder="جستجو..."
         className="search"
+        autoFocus
       ></input>
       <FixedSizeList
         className="List"

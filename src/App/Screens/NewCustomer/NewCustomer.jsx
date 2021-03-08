@@ -9,21 +9,18 @@ import Grid from '@material-ui/core/Grid';
 import "./NewCustomer.css";
 
 export default function NewCustomer() {
-  const [formData, setFormData] = useState({ name: "", address: "" });
+  const [formData, setFormData] = useState('');
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus]  = useState(null);
   const [notif, setNotif] = useState(null);
   
   const setName = (e) => {
-    setFormData({ ...formData, name: e.target.value });
-  };
-
-  const setAddress = (e) => {
-    setFormData({ ...formData, address: e.target.value });
+    setFormData(e.target.value);
   };
 
   const handleSubmit = () => {
     setSubmit(true);
+    console.log(formData);
     addCustomer(formData);
   };
   
@@ -39,7 +36,7 @@ export default function NewCustomer() {
           if(createStatus === true){
             setNotif(null);
             setNotif('success');
-            setFormData({ name: "", address: "" });
+            setFormData('');
           }
           if(createStatus === false){
             setNotif(null);
@@ -70,12 +67,11 @@ export default function NewCustomer() {
       <form className="NewCustomer-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Input label="نام" fun={setName} value={formData.name}/>
-            <Input label="آدرس" fun={setAddress} value={formData.address}/>
+            <Input label="نام" fun={setName} value={formData}/>
           </Grid>
           <br />
           <Grid item xs={12}>
-            <Button disabled={submit} onClick={handleSubmit} variant="outlined" color="primary">
+            <Button disabled={submit || formData.length === 0} onClick={handleSubmit} variant="outlined" color="primary">
               ثبت
             </Button>
           </Grid>

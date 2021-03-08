@@ -29,13 +29,6 @@ ipcMain.on("send-oneProductCalcs", (event, id) => {
   });
 });
 
-// ipcMain.on("includeProduct", (event, id) => {
-//   calcOneProduct.calculate(id, (results) => {
-//     resultsCalcOneProduct = results;
-//     event.reply("includeProduct");
-//   });
-// });
-
 ipcMain.on("includeProduct", (event, product) => {
   product = normalizeProduct(product);
   if(isProductValid(product)){

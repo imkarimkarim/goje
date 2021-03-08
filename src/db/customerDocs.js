@@ -10,9 +10,9 @@ const getAll = (callback) => {
   });
 };
 
-const isCustomerExists = (name, address, callback) => {
+const isCustomerExists = (name, callback) => {
   db.find(
-    { docType: "customer", name: name, address: address },
+    { docType: "customer", name: name },
     (err, docs) => {
       if (err) throw err;
       if (typeof callback === "function") {
@@ -22,8 +22,8 @@ const isCustomerExists = (name, address, callback) => {
   );
 };
 
-const insert = (name, address, callback) => {
-  objectCreator.createCustomer(name, address, (obj) => {
+const insert = (name, callback) => {
+  objectCreator.createCustomer(name, (obj) => {
     db.insert(obj, function () {
       if (typeof callback === "function") {
         callback();

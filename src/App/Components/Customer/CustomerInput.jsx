@@ -9,6 +9,18 @@ import "./CustomerInput.css";
 
 function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
   const [search, setSearch] = useState("");
+  
+  const handleKeyBoardEvent = (e) => {
+    if(e.key === 'Escape') setShowCustomerPicker(false);
+  }
+  
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyBoardEvent);
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyBoardEvent);
+    }
+  })
 
   if (search) {
     customers = customers.filter((c) => c.name.includes(search));
@@ -25,7 +37,7 @@ function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
       className={index % 2 ? "ListItemOdd" : "ListItemEven"}
       style={style}
     >
-      {customers[index].name + ' ' + customers[index].address}
+      {customers[index].name}
     </ListItem>
   );
 
@@ -38,6 +50,7 @@ function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
         value={search}
         placeholder="جستجو..."
         className="search"
+        autoFocus
       ></input>
       <FixedSizeList
         className="List"
@@ -54,7 +67,6 @@ function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
 
 const CustomerInput = React.memo(({ owner, formDispatch, label }) => {
   const [customerName, setCustomerName] = useState('');
-  const [customerAddress, setCustomerAddress] = useState('');
   const [allCustomers, setAllCustomers] = useState();
   const [showCustomerPicker, setShowCustomerPicker] = useState(false);
 
@@ -73,12 +85,12 @@ const CustomerInput = React.memo(({ owner, formDispatch, label }) => {
       let theCustomer = allCustomers.filter((c) => c.customeId === owner);
       if(theCustomer.length > 0){
         setCustomerName(theCustomer[0].name);
-        setCustomerAddress(theCustomer[0].address)
       }
     }
     ipcRenderer.on("allCustomers", (event, dbCustomers) => {
       setAllCustomers(dbCustomers);
     });
+    
     // clean up
     return () => {
       ipcRenderer.removeAllListeners("allCustomers");
@@ -104,7 +116,7 @@ const CustomerInput = React.memo(({ owner, formDispatch, label }) => {
         label={label}
         onFocus={handleFocus}
       />
-    <span className="customer-input-sub hint">{owner} | {customerAddress}</span>
+    <span className="customer-input-sub hint">{owner}</span>
     </span>
   );
 })
