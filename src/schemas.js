@@ -29,18 +29,10 @@ const newCustomer = {
 const newFactor = {
   docType: 'factor',
   owner: 'b79a',
-  by: 'b799',
   customeId: null,
   isPayed: false,
-  payedDate: null,
   factorDate: new JDate,
   changeDate : null,
-  payedRecords: [
-    {
-      payedDate: null,
-      payedAmount: null,
-    }
-  ],
   products : [
     {
       productId: 'b798',

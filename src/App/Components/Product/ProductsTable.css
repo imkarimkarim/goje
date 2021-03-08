@@ -6,3 +6,8 @@
 .ProductsTable table th{
   text-align: right;
 }
+
+.fullSum{
+  padding-top: 20px;
+  color: #07870b;
+}

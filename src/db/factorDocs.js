@@ -1,4 +1,5 @@
 const { db } = require("../db");
+const objectCreator = require('../modules/objectCreator');
 
 const getAll = (callback) => {
   db.find({ docType: 'factor' }, (err, docs) => {
@@ -19,11 +20,9 @@ const factorsWithProduct = (id, callback) => {
   });
 };
 
-const insert = (obj = {}, callback) => {
-  if (typeof obj !== "object") {
-    return;
-  }
-  db.insert( obj , function () {
+const insert = (factor, callback) => {
+  objectCreator.createFactor(factor, callback)
+  db.insert( factor , function () {
     if (typeof callback === "function") {
       callback();
     }

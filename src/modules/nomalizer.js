@@ -1,4 +1,4 @@
-const productNormalize = (product) => {
+const normalizeProduct = (product) => {
   if(!product) return;
   let nProduct;
   nProduct = {};
@@ -14,6 +14,22 @@ const productNormalize = (product) => {
   return nProduct;
 }
 
+const normalizeFactor = (factor) => {
+  if(!factor) return;
+  let nFactor;
+  nFactor = {};
+  nFactor = factor;
+  nFactor.factorDate = parseInt(factor.factorDate);
+  nFactor.changeDate = parseInt(factor.changeDate);
+  for(let i = 0; i < nFactor.products.length; i++) {
+    nFactor.products[i].amount = parseInt(factor.products[i].amount);
+    nFactor.products[i].weight = parseInt(factor.products[i].weight);
+    nFactor.products[i].price = parseInt(factor.products[i].price);
+  }
+  
+  return nFactor;
+}
+
 module.exports ={
-  productNormalize,
+  normalizeProduct, normalizeFactor
 }

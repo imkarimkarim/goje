@@ -16,40 +16,28 @@ import Expense from "../../Components/Expense.jsx";
 import ProductInput from "../../Components/Product/ProductInput.jsx";
 import "./NewFactor.css";
 
-const newFactor = {
+const newFactorSchema = {
   docType: "factor",
   owner: "",
-  by: "",
   isPayed: "",
-  payedDate: "",
   factorDate: Date.now(),
   changeDate: Date.now(),
-  payedRecords: [],
-  products: [],
+  products: []
 };
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'reset': {
+      return newFactorSchema;
+    }
     case "setOwner":
       return { ...state, owner: action.payload };
-    case "setBy":
-      return { ...state, by: action.payload };
     case "setIsPayed":
       return { ...state, isPayed: action.payload };
-    case "setPayedDate":
-      return { ...state, payedDate: action.payload };
     case "setFactorDate":
       return { ...state, factorDate: action.payload };
     case "setChangeDate":
       return { ...state, changeDate: action.payload };
-    case "setPayedRecords":
-      return {
-        ...state,
-        payedRecords: [
-          ...state.payedRecords,
-          { payedDate: action.payload1, payedAmount: action.payload2 },
-        ],
-      };
     case "addProduct":
       return {
         ...state,
@@ -63,13 +51,19 @@ function reducer(state, action) {
           },
         ],
       };
-      break;
+    case "removeProduct":
+      state.products.splice(action.payload, 1);
+      return {
+        ...state,
+        products: state.products,
+      };
     default:
+    return state;
   }
 }
 
 export default function NewFactor() {
-  const [formData, formDispatch] = useReducer(reducer, newFactor);
+  const [formData, formDispatch] = useReducer(reducer, newFactorSchema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
   const [notif, setNotif] = useState(null);
@@ -77,42 +71,41 @@ export default function NewFactor() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    console.log(formData);
-    // includeProduct(formData);
+    newFactor(formData);
   };
 
-  // const includeProduct = (product) => {
-  //   ipcRenderer.send("includeProduct", product);
-  // }
+  const newFactor = (factor) => {
+    ipcRenderer.send("newFactor", factor);
+  };
 
-  // useEffect(() => {
-  //     ipcRenderer.on("includeProduct", (event, createStatus) => {
-  //       setSubmit(false);
-  //       setCreateStatus(createStatus);
-  //       if(createStatus !== null){
-  //         if(createStatus === true){
-  //           setFormData(newProduct);
-  //           setNotif(null);
-  //           setNotif('success');
-  //         }
-  //         if(createStatus === false){
-  //           setNotif(null);
-  //           setNotif('error');
-  //         }
-  //       }
-  //     });
+  useEffect(() => {
+      ipcRenderer.on("newFactor", (event, createStatus) => {
+        setSubmit(false);
+        setCreateStatus(createStatus);
+        if(createStatus !== null){
+          if(createStatus === true){
+            formDispatch({type: 'reset'});
+            setNotif(null);
+            setNotif('success');
+          }
+          if(createStatus === false){
+            setNotif(null);
+            setNotif('error');
+          }
+        }
+      });
 
-  //   // clean up
-  //   return () => {
-  //     ipcRenderer.removeAllListeners("includeProduct");
-  //   };
-  // });
+    // clean up
+    return () => {
+      ipcRenderer.removeAllListeners("newFactor");
+    };
+  });
 
   let notifJsx;
   if (notif === "success")
-    notifJsx = <Notif type="success" message="بار با موفقیت وارد شد" />;
+    notifJsx = <Notif type="success" message="فاکتور با موفقیت ثبت شد" />;
   if (notif === "error")
-    notifJsx = <Notif type="error" message="خطا در وارد کردن بار" />;
+    notifJsx = <Notif type="error" message="خطا در ثبت کردن فاکتور" />;
 
   return (
     <div>
@@ -125,7 +118,7 @@ export default function NewFactor() {
               label="صاحب فاکتور*"
               className="customerInput"
               formDispatch={formDispatch}
-              owner={formData.owner}
+              owner={formData && formData.owner}
             />
             <div>
               نقدی
@@ -153,14 +146,24 @@ export default function NewFactor() {
                 timePicker={false}
                 value={formData.factorDate}
                 onClickSubmitButton={({ value }) => {
-                  setarrivalDate(value);
+                  formDispatch({
+                    type: "setFactorDate",
+                    payload: value._d.getTime(),
+                  });
+                  formDispatch({
+                    type: "setChangeDate",
+                    payload: value._d.getTime(),
+                  });
                 }}
               />
             </div>
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>
-            <ProductsTable products={formData.products} />
+            <ProductsTable
+              products={formData.products}
+              formDispatch={formDispatch}
+            />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
             <ProductInput formDispatch={formDispatch} label="شرح کالا*" />

@@ -56,7 +56,7 @@ export default function NewCustomer() {
   
   let notifJsx;
   if(notif === 'success') notifJsx = <Notif type="success" message="مشتری با موفقیت ثبت شد" />;
-  if(notif === 'error') notifJsx = <Notif type="error" message="مشتری با همین نام قبلا ثبت شده است" />
+  if(notif === 'error') notifJsx = <Notif type="error" message="خطا در ثبت مشتری(شاید مشتری با همین نام قبلا ثبت شده باشد)" />
 
 
   return (

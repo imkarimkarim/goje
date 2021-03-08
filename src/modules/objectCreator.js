@@ -56,6 +56,30 @@ const createProduct = (product, callback) => {
   })
 }
 
+const createFactor = (factor, callback) => {
+  generateNewCustomId((id) => {
+    let newFactor = {
+      docType: 'factor',
+      owner: '',
+      customeId: null,
+      isPayed: false,
+      factorDate: null,
+      changeDate : null,
+      products : []  
+    }
+    
+    newFactor.owner = factor.owner;
+    newFactor.customeId = id;
+    newFactor.isPayed = factor.isPayed;
+    newFactor.factorDate = factor.factorDate;
+    newFactor.changeDate = factor.changeDate;
+    newFactor.products = factor.products;
+    if (typeof callback === "function") {
+      callback(newFactor);
+    }
+  })
+}
+
 module.exports = {
-  createCustomer, createProduct
+  createCustomer, createProduct, createFactor
 }

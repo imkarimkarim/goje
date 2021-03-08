@@ -4,6 +4,7 @@ const JDate = require('jalali-date');
 require("./db");
 require('./ipcMains/ipcProducts');
 require('./ipcMains/ipcCustomer');
+require('./ipcMains/ipcFactors');
 
 const {generateNewCustomId} = require('./modules/idGenerator');
 const customerDocs = require('./db/customerDocs');
