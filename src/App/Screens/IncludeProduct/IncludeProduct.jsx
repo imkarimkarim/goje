@@ -21,11 +21,7 @@ const newProduct = {
   unload: '',
   portage: '',
   cash: '',
-  driverInfo: {
-    name: '',
-    plaque: '',
-    car: '',
-  }
+  plaque: '',
 }
 
 export default function IncludeProduct() {
@@ -44,9 +40,7 @@ export default function IncludeProduct() {
   const setunload = (e) => {setFormData({ ...formData, unload: e.target.value });};
   const setportage = (e) => {setFormData({ ...formData, portage: e.target.value });};
   const setcash = (e) => {setFormData({ ...formData, cash: e.target.value });};
-  const setdriverInfoname = (e) => {setFormData({ ...formData, driverInfo:{...formData.driverInfo, name: e.target.value}});};
-  const setdriverInfoplaque = (e) => {setFormData({ ...formData, driverInfo:{...formData.driverInfo, plaque: e.target.value }});};
-  const setdriverInfocar = (e) => {setFormData({ ...formData, driverInfo:{...formData.driverInfo, car: e.target.value }});};
+  const setPlaque = (e) => {setFormData({ ...formData, plaque: e.target.value });};
 
   const handleSubmit = () => {
     setSubmit(true);
@@ -97,17 +91,15 @@ export default function IncludeProduct() {
           <Grid item xs={12}>
             <Input label="شرح بار*" fun={setproductName} value={formData.name}/>
             <Input label="صاحب بار*" fun={setowner} value={formData.owner}/>
-            <Input label="نام راننده" fun={setdriverInfoname} value={formData.driverInfo.name}/>
-            <Input label="ماشین" fun={setdriverInfocar} value={formData.driverInfo.car}/>
-            <Input label="پلاک ماشین" fun={setdriverInfoplaque} value={formData.driverInfo.plaque}/>
+            <Input label="پلاک ماشین" fun={setPlaque} value={formData.plaque}/>
             <div className="arrivalDate">
               <span>تاریخ ورود:</span>
               <DatePicker timePicker={false} value={formData.arrivalDate} 
                 onClickSubmitButton={({ value }) => {setarrivalDate(value)}}/>
             </div>
-            <Input label="وزن باسکول(kg)*" fun={setbasculeWeight}  value={formData.basculeWeight}/>
+            <Input label="باسکول(kg)*" fun={setbasculeWeight}  value={formData.basculeWeight}/>
             <Input label="تعداد" fun={setamount}  value={formData.amount}/>
-            <Input label="کمیسیون(٪)*" fun={setcommission}  value={formData.commission}/>
+            <Input label="کارمزد(٪)*" fun={setcommission}  value={formData.commission}/>
             <ExpenseInput label="تخلیه*" fun={setunload}  value={formData.unload}/>
             <ExpenseInput label="کرایه*" fun={setportage}  value={formData.portage}/>
             <ExpenseInput label="دستی" fun={setcash}  value={formData.cash}/>

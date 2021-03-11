@@ -1,3 +1,7 @@
+.welcome-screen{
+  margin-top: 24vh;
+}
+
 .welcome-screen .welcome-message{
   text-align: center;
 }

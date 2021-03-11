@@ -9,7 +9,7 @@ const SearchResultItem = React.memo(({itemTitle, titleHint, customeId}) => {
     <>
       <Divider />
       <ListItem button>
-          {`${itemTitle} ${titleHint}`} <span className='grayHint'> | {customeId}</span>
+          {itemTitle} <span className='grayHint'> {titleHint}</span>
       </ListItem>
     </>
   )

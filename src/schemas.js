@@ -12,11 +12,7 @@ const newProduct = {
   unload: 1500000,
   portage: 10000000,
   cash: 1000000,
-  driverInfo: {
-    name: 'کریم گورابی',
-    plaque: '۱۲ت۱۹ایران۱۸',
-    car: 'نیسان',
-  }
+  plaque: '۱۲ت۱۹ایران۱۸',
 }
 
 const newCustomer = {

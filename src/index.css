@@ -28,3 +28,20 @@ a {
 .hint {
   color: #666 !important;
 }
+
+.customButton button{
+  padding: 30px 10px;
+}
+
+.customButton button .MuiButton-label{
+  display: flex;
+  flex-direction: column;
+}
+
+.customButton button .MuiButton-label .button-icon{
+  
+}
+
+.customButton button .MuiButton-label .button-title{
+  
+}

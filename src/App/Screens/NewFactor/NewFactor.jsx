@@ -117,7 +117,9 @@ export default function NewFactor() {
             <CustomerInput
               label="صاحب فاکتور*"
               className="customerInput"
-              formDispatch={formDispatch}
+              onPick={(id) => {
+                formDispatch({type: "setOwner", payload: id})
+              }}
               owner={formData && formData.owner}
             />
             <div>

@@ -20,7 +20,6 @@ export default function NewCustomer() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    console.log(formData);
     addCustomer(formData);
   };
   
@@ -52,8 +51,8 @@ export default function NewCustomer() {
   });
   
   let notifJsx;
-  if(notif === 'success') notifJsx = <Notif type="success" message="مشتری با موفقیت ثبت شد" />;
-  if(notif === 'error') notifJsx = <Notif type="error" message="خطا در ثبت مشتری(شاید مشتری با همین نام قبلا ثبت شده باشد)" />
+  if(notif === 'success') notifJsx = <Notif type="success" message="حساب جدید با موفقیت ایجاد شد" />;
+  if(notif === 'error') notifJsx = <Notif type="error" message="خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)" />
 
 
   return (
@@ -63,7 +62,7 @@ export default function NewCustomer() {
           notifJsx
         ) : ('')
       }
-      <Nav title="/مشتری جدید" />
+      <Nav title="/حساب جدید" />
       <form className="NewCustomer-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>

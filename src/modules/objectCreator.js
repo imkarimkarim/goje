@@ -1,4 +1,5 @@
 const {generateNewCustomId} = require('./idGenerator');
+const calcSumFactor = require('../calculators/calcSumFactor');
 
 const createCustomer = (name, callback) => {
   generateNewCustomId((id) => {
@@ -31,11 +32,7 @@ const createProduct = (product, callback) => {
       unload: 0,
       portage: 0,
       cash: 0,
-      driverInfo: {
-        name: '',
-        plaque: '',
-        car: '',
-      }
+      plaque: '',
     }
     newProduct.customeId = id;
     newProduct.productName = product.productName;
@@ -47,7 +44,7 @@ const createProduct = (product, callback) => {
     newProduct.unload = product.unload;
     newProduct.portage = product.portage;
     newProduct.cash = product.cash;
-    newProduct.driverInfo = product.driverInfo;
+    newProduct.plaque = product.plaque;
     if (typeof callback === "function") {
       callback(newProduct);
     }
@@ -63,7 +60,11 @@ const createFactor = (factor, callback) => {
       isPayed: false,
       factorDate: null,
       changeDate : null,
-      products : []  
+      products : [],
+      calcs: {
+        fullSum : 0,
+        sums: []
+      }
     }
     
     newFactor.owner = factor.owner;
@@ -72,6 +73,9 @@ const createFactor = (factor, callback) => {
     newFactor.factorDate = factor.factorDate;
     newFactor.changeDate = factor.changeDate;
     newFactor.products = factor.products;
+    calcSumFactor.calculate(newFactor.products, (calcs) => {
+      newFactor.calcs = calcs;
+    })
     if (typeof callback === "function") {
       callback(newFactor);
     }

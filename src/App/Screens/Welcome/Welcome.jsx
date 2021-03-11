@@ -1,32 +1,57 @@
-import React from 'react';
+import React from "react";
 // TODO: add: (سایت گوجه +‌ آموزش استفاده)
-import {Link} from "react-router-dom";
-import Box from '@material-ui/core/Box';
-import './Welcome.css';
-import Button from '@material-ui/core/Button';
+import { Link } from "react-router-dom";
+import Box from "@material-ui/core/Box";
+import "./Welcome.css";
+import Button from "@material-ui/core/Button";
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 export default function Welcome() {
-  return (<div className="welcome-screen">
-    <div className='welcome-message'>
-      <h2>به گوجه خوش اومدی...</h2>
+  return (
+    <div className="welcome-screen">
+      <div className="welcome-message">
+        <h2>به گوجه خوش اومدی...</h2>
+      </div>
+      <div className="usefull-links_wrapper">
+        <Link className="usefull-link" to="/newFactor">
+          <span className="customButton">
+            <Button variant="outlined">
+              <span className="button-icon"><NoteAddIcon /></span>
+              <span className="button-title">فاکتور جدید</span>
+            </Button>
+          </span>
+        </Link>
+
+        <Link className="usefull-link" to="/includeProduct">
+          <span className="customButton">
+            <Button variant="outlined">
+              <span className="button-icon"><ImportExportIcon /></span>
+              <span className="button-title">واردن کردن بار</span>
+            </Button>
+          </span>
+        </Link>
+
+        <Link className="usefull-link" to="/newCustomer">
+          <span className="customButton">
+            <Button variant="outlined">
+              <span className="button-icon"><PersonAddIcon /></span>
+              <span className="button-title">حساب جدید</span>
+            </Button>
+          </span>
+        </Link>
+
+        <Link className="usefull-link" to="/reports">
+          <span className="customButton">
+            <Button variant="outlined">
+              <span className="button-icon"><EqualizerIcon /></span>
+              <span className="button-title">گزارش گیری</span>
+            </Button>
+          </span>
+        </Link>
+      </div>
     </div>
-    <div className='usefull-links_wrapper'>
-        <Link className='usefull-link' to='/newFactor'>
-          <Button variant="outlined">فاکتور جدید
-        </Button></Link>
-      
-        <Link className='usefull-link' to='/includeProduct'>
-          <Button variant="outlined">وارد کردن بار
-        </Button></Link>
-      
-        <Link className='usefull-link' to='/newCustomer'>
-          <Button variant="outlined">مشتری جدید
-        </Button></Link>
-      
-        <Link className='usefull-link' to='/reports'>
-          <Button variant="outlined">گزارش گیری
-        </Button></Link>
-      
-    </div>
-  </div>);
+  );
 }

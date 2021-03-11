@@ -25,7 +25,7 @@ export default function App() {
       {/* redirect to / in first load */}
       {
         (redirectToIndex.current)
-          ? <Redirect to='/welcome'/>
+          ? <Redirect to='/searchProducts'/>
           : <div></div>
       }   
       <Container fixed>

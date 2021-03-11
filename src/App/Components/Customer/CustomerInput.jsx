@@ -7,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import "./CustomerInput.css";
 
 
-function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
+const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker }) => {
   const [search, setSearch] = useState("");
   
   const handleKeyBoardEvent = (e) => {
@@ -30,7 +30,7 @@ function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
     <ListItem
       button
       onClick={() => {
-        formDispatch({ type: "setOwner", payload: customers[index].customeId });
+        onPick(customers[index].customeId);
         setShowCustomerPicker(false);
       }}
       key={index}
@@ -63,9 +63,9 @@ function CustomerPicker({ customers, formDispatch, setShowCustomerPicker }) {
       </FixedSizeList>
     </div>
   );
-}
+})
 
-const CustomerInput = React.memo(({ owner, formDispatch, label }) => {
+const CustomerInput = React.memo(({ owner, onPick, label }) => {
   const [customerName, setCustomerName] = useState('');
   const [allCustomers, setAllCustomers] = useState();
   const [showCustomerPicker, setShowCustomerPicker] = useState(false);
@@ -80,9 +80,9 @@ const CustomerInput = React.memo(({ owner, formDispatch, label }) => {
   };
 
   useEffect(() => {
-    console.log('log');
     if (allCustomers) {
       let theCustomer = allCustomers.filter((c) => c.customeId === owner);
+      console.log(allCustomers[0].customeId, owner);
       if(theCustomer.length > 0){
         setCustomerName(theCustomer[0].name);
       }
@@ -102,7 +102,7 @@ const CustomerInput = React.memo(({ owner, formDispatch, label }) => {
       {showCustomerPicker && allCustomers ? (
         <CustomerPicker
           customers={allCustomers}
-          formDispatch={formDispatch}
+          onPick={onPick}
           setShowCustomerPicker={setShowCustomerPicker}
         />
       ) : (

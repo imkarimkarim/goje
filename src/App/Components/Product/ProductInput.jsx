@@ -108,7 +108,6 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
   };
 
   useEffect(() => {
-    console.log("log");
     // if (allproducts || productState.id !== '') {
     //   let theProduct = allproducts.filter((p) => p.customeId === productState.id);
     //   if (theProduct.length > 0) {

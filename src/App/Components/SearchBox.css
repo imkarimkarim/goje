@@ -1,0 +1,14 @@
+.SearchBox{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.SearchBox .labels{
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiFormControl-root,
+.searchbox-datePicker{
+}

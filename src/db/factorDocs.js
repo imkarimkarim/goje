@@ -21,12 +21,13 @@ const factorsWithProduct = (id, callback) => {
 };
 
 const insert = (factor, callback) => {
-  objectCreator.createFactor(factor, callback)
-  db.insert( factor , function () {
-    if (typeof callback === "function") {
-      callback();
-    }
-  });
+  objectCreator.createFactor(factor, (newFactor) => {
+    db.insert( newFactor , function () {
+      if (typeof callback === "function") {
+        callback();
+      }
+    });
+  })
 };
 
 module.exports = {
