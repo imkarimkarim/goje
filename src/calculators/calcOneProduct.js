@@ -86,9 +86,9 @@ function calculateAllTheStuffFinally(callback) {
     RESULTS.FULL_SALE += (product[1] * product[2]);
   });
   RESULTS.SALE_AVERAGE = Math.floor(RESULTS.FULL_SALE / RESULTS.SUM_KG);
-  RESULTS.FULL_SALE = RESULTS.SUM_KG * RESULTS.SALE_AVERAGE;
+  RESULTS.FULL_SALE = Math.floor(RESULTS.SUM_KG * RESULTS.SALE_AVERAGE);
   RESULTS.COMMISSION = Math.floor((RESULTS.SUM_KG * RESULTS.SALE_AVERAGE) * (productData.commission * .01));
-  RESULTS.OWNER_ERNINGS = RESULTS.FULL_SALE - productData.portage - productData.unload - RESULTS.COMMISSION - productData.cash;
+  RESULTS.OWNER_ERNINGS = Math.floor(RESULTS.FULL_SALE - productData.portage - productData.unload - RESULTS.COMMISSION - productData.cash);
   RESULTS.productData = productData;
   if (typeof callback === "function") {
     callback(RESULTS);

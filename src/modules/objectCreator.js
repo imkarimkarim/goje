@@ -56,6 +56,7 @@ const createFactor = (factor, callback) => {
     let newFactor = {
       docType: 'factor',
       owner: '',
+      ownerName: '',
       customeId: null,
       isPayed: false,
       factorDate: null,
@@ -68,6 +69,7 @@ const createFactor = (factor, callback) => {
     }
     
     newFactor.owner = factor.owner;
+    newFactor.ownerName = factor.ownerName;
     newFactor.customeId = id;
     newFactor.isPayed = factor.isPayed;
     newFactor.factorDate = factor.factorDate;
@@ -76,6 +78,7 @@ const createFactor = (factor, callback) => {
     calcSumFactor.calculate(newFactor.products, (calcs) => {
       newFactor.calcs = calcs;
     })
+    
     if (typeof callback === "function") {
       callback(newFactor);
     }

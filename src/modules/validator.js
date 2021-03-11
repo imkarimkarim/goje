@@ -58,6 +58,10 @@ const isFactorValid = (factor) => {
     pass = false;
   }
 
+  if (typeof factor.ownerName !== "string" || factor.ownerName.length === 0) {
+    pass = false;
+  }
+
   if (typeof factor.isPayed !== "boolean") {
     pass = false;
   }

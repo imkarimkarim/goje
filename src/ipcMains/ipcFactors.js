@@ -14,3 +14,9 @@ ipcMain.on('newFactor', (event, factor) => {
     event.reply('newFactor', false);
   }
 })
+
+ipcMain.on("search-factors", (event, searchFilters) => {
+  factorDocs.SearchFactors(searchFilters, (docs) => {
+    event.reply("search-factors", docs);
+  });
+});

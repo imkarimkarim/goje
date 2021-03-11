@@ -9,7 +9,7 @@ import JDate from "jalali-date";
 import "./SearchBox.css";
 
 
-const SearchBox = React.memo(({ defaultState, onSubmit, label1, label2 }) => {
+const SearchBox = React.memo(({ defaultState, placeholder, onSubmit, label1, label2 }) => {
   const [searchState, setSearchState] = useState(defaultState);
 
   return (
@@ -17,7 +17,7 @@ const SearchBox = React.memo(({ defaultState, onSubmit, label1, label2 }) => {
       <TextField
         id="standard-basic"
         label="جستجو..."
-        placeholder="..."
+        placeholder={placeholder}
         onChange={(e) => {
           setSearchState({ ...searchState, text: e.target.value });
         }}

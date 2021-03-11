@@ -6,8 +6,10 @@ import IncludeProduct from './Screens/IncludeProduct/IncludeProduct.jsx';
 import NewFactor from './Screens/NewFactor/NewFactor.jsx';
 import NewCustomer from './Screens/NewCustomer/NewCustomer.jsx';
 import Reports from './Screens/Reports/Reports.jsx';
-import ProductReports from './Components/Product/ProductReports.jsx';
-import searchProducts from './Screens/Reports/SearchProducts.jsx';
+import Product from './Components/Product/Product.jsx';
+import SearchProducts from './Screens/Reports/SearchProducts.jsx';
+import SearchFactors from './Screens/Reports/SearchFactors.jsx';
+
 
 export default function App() {
   
@@ -35,8 +37,9 @@ export default function App() {
             <Route path='/newFactor' component={NewFactor} />
             <Route path='/newCustomer' component={NewCustomer} />
             <Route path='/reports' component={Reports} />
-            <Route path='/searchProducts' component={searchProducts} />
-            <Route path='/productReports/:id' component={ProductReports} />
+            <Route path='/searchProducts' component={SearchProducts} />
+            <Route path='/searchFactors' component={SearchFactors} />
+            <Route path='/product/:id' component={Product} />
           </Switch>
       </Container>
     </Router>

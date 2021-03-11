@@ -25,6 +25,7 @@ const newCustomer = {
 const newFactor = {
   docType: 'factor',
   owner: 'b79a',
+  ownerName: '',
   customeId: null,
   isPayed: false,
   factorDate: new JDate,
@@ -32,6 +33,7 @@ const newFactor = {
   products : [
     {
       productId: 'b798',
+      productName: '',
       amount: 50,
       weight: 545,
       price: 80000,

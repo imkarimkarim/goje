@@ -19,6 +19,7 @@ import "./NewFactor.css";
 const newFactorSchema = {
   docType: "factor",
   owner: "",
+  ownerName: "",
   isPayed: "",
   factorDate: Date.now(),
   changeDate: Date.now(),
@@ -31,7 +32,7 @@ function reducer(state, action) {
       return newFactorSchema;
     }
     case "setOwner":
-      return { ...state, owner: action.payload };
+      return { ...state, owner: action.payload1, ownerName: action.payload2 };
     case "setIsPayed":
       return { ...state, isPayed: action.payload };
     case "setFactorDate":
@@ -45,6 +46,7 @@ function reducer(state, action) {
           ...state.products,
           {
             productId: action.payload1,
+            productName: action.payload5,
             amount: action.payload2,
             weight: action.payload3,
             price: action.payload4,
@@ -117,8 +119,9 @@ export default function NewFactor() {
             <CustomerInput
               label="صاحب فاکتور*"
               className="customerInput"
-              onPick={(id) => {
-                formDispatch({type: "setOwner", payload: id})
+              onPick={(id, name) => {
+                console.log(id, name);
+                formDispatch({type: "setOwner", payload1: id, payload2: name})
               }}
               owner={formData && formData.owner}
             />

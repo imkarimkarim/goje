@@ -87,6 +87,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
     formDispatch({
       type: "addProduct",
       payload1: productState.id,
+      payload5: productState.name,
       payload2: amount,
       payload3: weight,
       payload4: price,

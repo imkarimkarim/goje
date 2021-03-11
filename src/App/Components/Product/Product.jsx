@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
 import Expense from "../Expense.jsx";
-import "./ProductReports.css";
+import "./Product.css";
 
 function InfoSection({ product }) {
   let tmpJdate;

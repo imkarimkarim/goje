@@ -38,8 +38,8 @@ export default function SearchProducts() {
       init.current = false;
     }
     
-    ipcRenderer.on("search-products", (event, allProducts) => {
-      setProducts(allProducts);
+    ipcRenderer.on("search-products", (event, findedProducts) => {
+      setProducts(findedProducts);
     });
 
     // clean up
@@ -49,14 +49,19 @@ export default function SearchProducts() {
   });
 
   let resultsList;
+  let filteredProducts;
   if (products) {
-    resultsList = products.map((product) => {
+    filteredProducts = products;
+    if(searchState.text.length > 0){
+      filteredProducts = products.filter((p) => (p.productName+' '+p.owner).includes(searchState.text));
+    }
+    resultsList = filteredProducts.map((product) => {
       let tmpShowDate = new JDate(new Date(product.arrivalDate));
       let arrivalDate = tmpShowDate.format("dddd DD MMMM YYYY");
       return (
         <Link
           key={product.customeId}
-          to={`/productReports/${product.customeId}`}
+          to={`/product/${product.customeId}`}
         >
           <SearchResultItem
             itemTitle={product.productName + ' ' + product.owner}
@@ -76,6 +81,7 @@ export default function SearchProducts() {
         onSubmit={(newSearchState) => {handleNewSearch(newSearchState)}}
         label1="صافی های باز"
         label2="صافی های بسته"
+        placeholder='مثال: آناناس پلنگ صورتی'
       />
       {products ? <List>{resultsList}</List> : <Loading />}
     </div>

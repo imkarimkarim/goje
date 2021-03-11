@@ -23,7 +23,7 @@ const normalizeFactor = (factor) => {
   nFactor.changeDate = parseInt(factor.changeDate);
   for(let i = 0; i < nFactor.products.length; i++) {
     nFactor.products[i].amount = parseInt(factor.products[i].amount);
-    nFactor.products[i].weight = parseInt(factor.products[i].weight);
+    nFactor.products[i].weight = parseFloat(factor.products[i].weight);
     nFactor.products[i].price = parseInt(factor.products[i].price);
   }
   

@@ -30,7 +30,7 @@ const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker })
     <ListItem
       button
       onClick={() => {
-        onPick(customers[index].customeId);
+        onPick(customers[index].customeId, customers[index].name);
         setShowCustomerPicker(false);
       }}
       key={index}
