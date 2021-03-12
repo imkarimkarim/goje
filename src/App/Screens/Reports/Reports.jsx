@@ -9,7 +9,7 @@ export default function Reports() {
       <Nav title="/گزارش گیری" />
       <h3>جستجو</h3>
       <Link to='/searchProducts'><Button variant="outlined">جستجوی صافی</Button></Link>
-      <Link to='/searchProducts'><Button variant="outlined">جستجوی فاکتور</Button></Link>
+      <Link to='/searchFactors'><Button variant="outlined">جستجوی فاکتور</Button></Link>
       <Link to='/searchProducts'><Button variant="outlined">جستجوی حساب</Button></Link>
       <h3>پرینت</h3>
       <Link to='/searchProducts'><Button variant="outlined">پرینت نسیه های روزانه</Button></Link>

@@ -50,8 +50,8 @@ export default function SearchProducts() {
 
   let resultsList;
   let filteredProducts;
+  filteredProducts = products;
   if (products) {
-    filteredProducts = products;
     if(searchState.text.length > 0){
       filteredProducts = products.filter((p) => (p.productName+' '+p.owner).includes(searchState.text));
     }

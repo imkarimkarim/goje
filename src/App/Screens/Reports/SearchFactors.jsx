@@ -18,7 +18,7 @@ const defalutSearchState = {
   till: Date.now()
 };
 
-export default function SearchProducts() {
+export default function SearchFactors() {
   const [factors, setFactors] = useState(false);
   const [searchState, setSearchState] = useState(defalutSearchState);
   const init = useRef(true);
@@ -40,6 +40,8 @@ export default function SearchProducts() {
     
     ipcRenderer.on("search-factors", (event, findedFactors) => {
       setFactors(findedFactors);
+      console.log(factors);
+      console.log(findedFactors);
     });
 
     // clean up
@@ -50,23 +52,23 @@ export default function SearchProducts() {
 
   let resultsList;
   let filteredFactors;
+  filteredFactors = factors;
   if (factors) {
-    filteredFactors = factors;
-    if(searchState.text.length > 0){
-      filteredFactors = factors.filter((p) => (p.productName+' '+p.owner).includes(searchState.text));
-    }
-    resultsList = filteredFactors.map((product) => {
-      let tmpShowDate = new JDate(new Date(product.arrivalDate));
-      let arrivalDate = tmpShowDate.format("dddd DD MMMM YYYY");
+    // if(searchState.text.length > 0){
+    //   filteredFactors = factors.filter((p) => (p.productName+' '+p.owner).includes(searchState.text));
+    // }
+    resultsList = filteredFactors.map((factor) => {
+      let tmpShowDate = new JDate(new Date(factor.factorDate));
+      let factorDate = tmpShowDate.format("dddd DD MMMM YYYY");
       return (
         <Link
-          key={product.customeId}
-          to={`/productReports/${product.customeId}`}
+          key={factor.customeId}
+          to={`/factor/${factor.customeId}`}
         >
           <SearchResultItem
-            itemTitle={product.productName + ' ' + product.owner}
-            titleHint={arrivalDate + '   ' + product.customeId}
-            customeId={product.customeId}
+            itemTitle={factor.ownerName}
+            titleHint={`(${factor.customeId}) ${factorDate}`}
+            customeId={factor.customeId}
           />
         </Link>
       );
@@ -75,13 +77,13 @@ export default function SearchProducts() {
 
   return (
     <div>
-      <Nav title="/گزارش گیری/صافی ها" />
+      <Nav title="/گزارش گیری/فاکتورها" />
       <SearchBox
         defaultState={searchState}
         onSubmit={(newSearchState) => {handleNewSearch(newSearchState)}}
-        label1="صافی های باز"
-        label2="صافی های بسته"
-        placeholder='مثال: آناناس پلنگ صورتی'
+        label1="نقدی"
+        label2="نسیه"
+        placeholder='مثال:‌‌ آرسن لوپین'
       />
     {factors ? <List>{resultsList}</List> : <Loading />}
     </div>

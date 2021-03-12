@@ -19,21 +19,17 @@ const factorsWithProduct = (id, callback) => {
     }
   });
 };
-// TODO: search for customers
-// TODO: rename to مشتری جدید
-// TODO: edit... and delete(with dialog)
 
 const SearchFactors = (searchFilters, callback) => {
   if (!searchFilters) return;
-  console.log(searchFilters);
   const sf = searchFilters;
   if(sf.checked1 === true && sf.checked2 === true){
     db.find(
       {
         $and: [
           { docType: "factor" },
-          { arrivalDate: { $gte: sf.fromm } },
-          { arrivalDate: { $lte: sf.till } },
+          { factorDate: { $gte: sf.fromm } },
+          { factorDate: { $lte: sf.till } },
         ],
       },
       function (err, docs) {
@@ -48,15 +44,16 @@ const SearchFactors = (searchFilters, callback) => {
     db.find(
       {
         $and: [
-          { docType: "product" },
-          { isProductFinish: false },
-          { arrivalDate: { $gte: sf.fromm } },
-          { arrivalDate: { $lte: sf.till } },
+          { docType: "factor" },
+          { isPayed: true },
+          { factorDate: { $gte: sf.fromm } },
+          { factorDate: { $lte: sf.till } },
         ],
       },
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
+          console.log('on naghdi', docs);
           callback(docs);
         }
       }
@@ -66,15 +63,16 @@ const SearchFactors = (searchFilters, callback) => {
     db.find(
       {
         $and: [
-          { docType: "product" },
-          { isProductFinish: true },
-          { arrivalDate: { $gte: sf.fromm } },
-          { arrivalDate: { $lte: sf.till } },
+          { docType: "factor" },
+          { isPayed: false },
+          { factorDate: { $gte: sf.fromm } },
+          { factorDate: { $lte: sf.till } },
         ],
       },
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
+          console.log('on nesye', docs);
           callback(docs);
         }
       }
