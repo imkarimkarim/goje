@@ -54,9 +54,9 @@ export default function SearchFactors() {
   let filteredFactors;
   filteredFactors = factors;
   if (factors) {
-    // if(searchState.text.length > 0){
-    //   filteredFactors = factors.filter((p) => (p.productName+' '+p.owner).includes(searchState.text));
-    // }
+    if(searchState.text.length > 0){
+      filteredFactors = factors.filter((f) => f.ownerName === searchState.text);
+    }
     resultsList = filteredFactors.map((factor) => {
       let tmpShowDate = new JDate(new Date(factor.factorDate));
       let factorDate = tmpShowDate.format("dddd DD MMMM YYYY");

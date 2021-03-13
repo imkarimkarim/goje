@@ -1,7 +1,5 @@
 const factorDocs = require('../db/factorDocs');
 const productDocs = require('../db/productDocs');
-// TODO: refactoring
-// TODO: add کرایه و کارگری
 let RESULTS = {
   SALE_AVERAGE: 0,
   SUM_KG: 0,
@@ -90,6 +88,12 @@ function calculateAllTheStuffFinally(callback) {
   RESULTS.COMMISSION = Math.floor((RESULTS.SUM_KG * RESULTS.SALE_AVERAGE) * (productData.commission * .01));
   RESULTS.OWNER_ERNINGS = Math.floor(RESULTS.FULL_SALE - productData.portage - productData.unload - RESULTS.COMMISSION - productData.cash);
   RESULTS.productData = productData;
+  
+  if(isNaN(RESULTS.SALE_AVERAGE)) RESULTS.SALE_AVERAGE = 0;
+  if(isNaN(RESULTS.FULL_SALE)) RESULTS.FULL_SALE = 0;
+  if(isNaN(RESULTS.COMMISSION)) RESULTS.COMMISSION = 0;
+  if(isNaN(RESULTS.OWNER_ERNINGS)) RESULTS.OWNER_ERNINGS = 0;
+  
   if (typeof callback === "function") {
     callback(RESULTS);
   }

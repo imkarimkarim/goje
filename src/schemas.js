@@ -19,7 +19,6 @@ const newCustomer = {
   docType: 'customer',
   customeId: null,
   name: 'افشین',
-  address: 'آستانه',
 }
 
 const newFactor = {
@@ -38,5 +37,12 @@ const newFactor = {
       weight: 545,
       price: 80000,
     },
-  ]  
+  ],
+  calcs: {
+    fullSum : 0,
+    sums: []
+  },
+  pays: [
+    {date: 0, amount: 0}
+  ]
 }

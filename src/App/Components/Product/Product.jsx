@@ -24,21 +24,19 @@ function InfoSection({ product }) {
 
   return (
     <div className="info">
-      <h3>
-        اطلاعات بار <Divider />
+      <h3 className="safiTitle">
+         صورتحساب {product.owner} بابت {product.productName}
       </h3>
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <div className="customeId">کد بار: {product.customeId}</div>
-          <div className="name">شرح بار: {product.productName}</div>
-          <div className="owner">صاحب بار: {product.owner}</div>
           <div className="arrivalDate">تاریخ ورود: {arrivalDate}</div>
           <div className="finishDate">
             تاریخ بستن صافی:
-            {product.isProductFinish ? finishDate : "صافی هنوز باز است"}
+            {product.isProductFinish ? finishDate : "صافی هنوز باز است "}
           </div>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={5}>
           <div>باسکول: {product.basculeWeight} کیلوگرم</div>
           <div>تعداد: {product.amount}</div>
           <div>پلاک ماشین: {product.plaque}</div>
@@ -48,7 +46,7 @@ function InfoSection({ product }) {
   );
 }
 
-function SaleSection({ productId }) {
+function SaleSection({ productId, product }) {
   const [salesInfo, setsalesInfo] = useState();
   const init = useRef(true);
 
@@ -74,25 +72,43 @@ function SaleSection({ productId }) {
   return salesInfo ? (
     <div>
       <div className="sale">
-        <h3>
-          فروش <Divider />
-        </h3>
-        <div>{salesInfo.SUM_AMOUNT} عدد</div>
-        <div>{salesInfo.SUM_KG} کیلوگرم</div>
-        <div>میانگین فی فروش: {<Expense num={salesInfo.SALE_AVERAGE} />}</div>
-        <div>مبلغ کل فروش: {<Expense num={salesInfo.FULL_SALE} />}</div>
-
-        <h3>
-          صافی <Divider />
-        </h3>
-        <div>کرایه:‌ {<Expense num={salesInfo.productData.portage} />}</div>
-        <div>تخلیه: {<Expense num={salesInfo.productData.unload} />}</div>
-        <div>
-          کارمزد (٪{salesInfo.productData.commission}):{" "}
-          {<Expense num={salesInfo.COMMISSION} />}
-        </div>
-        <div>دستی: {<Expense num={salesInfo.productData.cash} />}</div>
+        <Grid container spacing={3}>
+          <Grid className="saleInfo-table" item xs={7}>
+            <h4>فروش</h4>
+            <table>
+              <thead>
+              <tr>
+                <th>شرح بار</th>
+                <th>تعداد</th>
+                <th>وزن</th>
+                <th>میانگین فی</th>
+                <th>مبلغ کل</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{product.productName}</td>
+                <td>{salesInfo.SUM_AMOUNT}</td>
+                <td>{salesInfo.SUM_KG}</td>
+                <td>{<Expense num={salesInfo.SALE_AVERAGE} />}</td>
+                <td>{<Expense num={salesInfo.FULL_SALE} />}</td>
+              </tr>
+              </tbody>
+            </table>
+          </Grid>
+          <Grid className="costsInfo" item xs={5}>
+            <h4>هزینه‌ها</h4>
+            <div>کرایه:‌ {<Expense num={salesInfo.productData.portage} />}</div>
+            <div>تخلیه: {<Expense num={salesInfo.productData.unload} />}</div>
+            <div>
+              کارمزد (٪{salesInfo.productData.commission}):{" "}
+              {<Expense num={salesInfo.COMMISSION} />}
+            </div>
+            <div>دستی: {<Expense num={salesInfo.productData.cash} />}</div>
+          </Grid>
+        </Grid>
         <div className="owner-earning">
+          <h4>جمع هزینه‌ها: {<Expense num={salesInfo.COMMISSION + salesInfo.productData.portage + salesInfo.productData.unload + salesInfo.productData.cash} />}</h4>
           <h3>صافی: {<Expense num={salesInfo.OWNER_ERNINGS} />}</h3>
         </div>
       </div>
@@ -131,7 +147,12 @@ export default function ProductReports() {
       <Nav title={"گزارش گیری/صافی ها/" + product.customeId} />
       <div className="product-reports">
         <InfoSection product={product} />
-        <SaleSection productId={product.customeId} />
+        <SaleSection productId={product.customeId} product={product} />
+          <div className="actions">
+            <button>ویرایش</button>
+            <button>حذف</button>
+            <button>پرینت</button>
+          </div>
       </div>
     </div>
   ) : (

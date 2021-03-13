@@ -14,6 +14,7 @@ import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import ProductsTable from "../../Components/Product/ProductsTable.jsx";
 import Expense from "../../Components/Expense.jsx";
 import ProductInput from "../../Components/Product/ProductInput.jsx";
+import Pays from "../../Components/Pays.jsx";
 import "./NewFactor.css";
 
 const newFactorSchema = {
@@ -23,12 +24,13 @@ const newFactorSchema = {
   isPayed: "",
   factorDate: Date.now(),
   changeDate: Date.now(),
-  products: []
+  products: [],
+  pays: [],
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'reset': {
+    case "reset": {
       return newFactorSchema;
     }
     case "setOwner":
@@ -59,8 +61,25 @@ function reducer(state, action) {
         ...state,
         products: state.products,
       };
+    case 'addPay':
+    return {
+      ...state,
+      pays: [
+        ...state.pays,
+        {
+          date: action.payload1,
+          amount: action.payload2
+        },
+      ],
+    };
+    case "removePay":
+      state.pays.splice(action.payload, 1);
+      return {
+        ...state,
+        pays: state.pays,
+      };
     default:
-    return state;
+      return state;
   }
 }
 
@@ -81,21 +100,21 @@ export default function NewFactor() {
   };
 
   useEffect(() => {
-      ipcRenderer.on("newFactor", (event, createStatus) => {
-        setSubmit(false);
-        setCreateStatus(createStatus);
-        if(createStatus !== null){
-          if(createStatus === true){
-            formDispatch({type: 'reset'});
-            setNotif(null);
-            setNotif('success');
-          }
-          if(createStatus === false){
-            setNotif(null);
-            setNotif('error');
-          }
+    ipcRenderer.on("newFactor", (event, createStatus) => {
+      setSubmit(false);
+      setCreateStatus(createStatus);
+      if (createStatus !== null) {
+        if (createStatus === true) {
+          formDispatch({ type: "reset" });
+          setNotif(null);
+          setNotif("success");
         }
-      });
+        if (createStatus === false) {
+          setNotif(null);
+          setNotif("error");
+        }
+      }
+    });
 
     // clean up
     return () => {
@@ -121,7 +140,11 @@ export default function NewFactor() {
               className="customerInput"
               onPick={(id, name) => {
                 console.log(id, name);
-                formDispatch({type: "setOwner", payload1: id, payload2: name})
+                formDispatch({
+                  type: "setOwner",
+                  payload1: id,
+                  payload2: name,
+                });
               }}
               owner={formData && formData.owner}
             />
@@ -167,6 +190,7 @@ export default function NewFactor() {
           <Grid item className="products-section" xs={12}>
             <ProductsTable
               products={formData.products}
+              pays={formData.pays}
               formDispatch={formDispatch}
             />
           </Grid>
@@ -174,6 +198,15 @@ export default function NewFactor() {
             <ProductInput formDispatch={formDispatch} label="شرح کالا*" />
           </Grid>
           <Divider />
+          {formData && formData.isPayed === false ? (
+            <Grid item className="addpay-section" xs={12}>
+              <Pays formDispatch={formDispatch} pays={formData.pays} onSubmit={(pay) => {
+                  formDispatch({type: 'addPay', payload1: pay.date, payload2: pay.amount})
+                }}/>
+            </Grid>
+          ) : (
+            <div></div>
+          )}
           <Grid item xs={12}>
             <Button
               disabled={submit}

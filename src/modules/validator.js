@@ -46,12 +46,11 @@ function isPValid(p) {
   if (typeof p.price !== "number" || isNaN(p.price)) {
     pPass = false;
   }
-  
+
   return pPass;
 }
 
 const isFactorValid = (factor) => {
-
   let pass = true;
 
   if (typeof factor.owner !== "string" || factor.owner.length === 0) {
@@ -77,6 +76,18 @@ const isFactorValid = (factor) => {
 
   for (let i = 0; i < factor.products.length; i++) {
     if (!isPValid(factor.products[i])) {
+      pass = false;
+      break;
+    }
+  }
+
+  for (let i2 = 0; i2 < factor.pays.length; i2++) {
+    if (
+      typeof factor.pays[i2].amount !== "number" ||
+      isNaN(factor.pays[i2].amount) ||
+      typeof factor.pays[i2].date !== "number" ||
+      isNaN(factor.pays[i2].date)
+    ) {
       pass = false;
       break;
     }

@@ -75,8 +75,10 @@ function CustomerPicker({
   );
 }
 
+const defaultState = { name: "", id: "" };
+
 const ProductInput = React.memo(({ formDispatch, label }) => {
-  const [productState, setProductState] = useState({ name: "", id: "" });
+  const [productState, setProductState] = useState(defaultState);
   const [allproducts, setAllproducts] = useState();
   const [showCustomerPicker, setShowCustomerPicker] = useState(false);
   const [amount, setAmount] = useState("");
@@ -92,6 +94,10 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
       payload3: weight,
       payload4: price,
     });
+    setProductState(defaultState);
+    setAmount('');
+    setWeight('');
+    setPrice('');
   };
 
   const sendAllproducts = () => {

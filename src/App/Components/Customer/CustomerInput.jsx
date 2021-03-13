@@ -80,9 +80,8 @@ const CustomerInput = React.memo(({ owner, onPick, label }) => {
   };
 
   useEffect(() => {
-    if (allCustomers) {
+    if (allCustomers && allCustomers.length > 0) {
       let theCustomer = allCustomers.filter((c) => c.customeId === owner);
-      console.log(allCustomers[0].customeId, owner);
       if(theCustomer.length > 0){
         setCustomerName(theCustomer[0].name);
       }
@@ -116,7 +115,6 @@ const CustomerInput = React.memo(({ owner, onPick, label }) => {
         label={label}
         onFocus={handleFocus}
       />
-    <span className="customer-input-sub hint">{owner}</span>
     </span>
   );
 })

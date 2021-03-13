@@ -20,3 +20,9 @@ ipcMain.on("search-factors", (event, searchFilters) => {
     event.reply("search-factors", docs);
   });
 });
+
+ipcMain.on("send-oneFactor", (event, factorId) => {
+  factorDocs.getOne(factorId, (docs) => {
+    event.reply("send-oneFactor", docs);
+  });
+});

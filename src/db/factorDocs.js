@@ -10,6 +10,24 @@ const getAll = (callback) => {
   });
 };
 
+const getOne = (id, callback) => {
+  if(!id) return;
+  db.find(
+    {
+      $and: [
+        { docType: "factor" },
+        { customeId: id },
+      ],
+    },
+    function (err, docs) {
+      if (err) throw err;
+      if (typeof callback === "function") {
+        callback(docs[0]);
+      }
+    }
+  );
+};
+
 const factorsWithProduct = (id, callback) => {
   if(!id) return;
   db.find({ "products.productId": id }, (err, docs) => {
@@ -53,7 +71,6 @@ const SearchFactors = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
-          console.log('on naghdi', docs);
           callback(docs);
         }
       }
@@ -72,7 +89,6 @@ const SearchFactors = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
-          console.log('on nesye', docs);
           callback(docs);
         }
       }
@@ -91,5 +107,5 @@ const insert = (factor, callback) => {
 };
 
 module.exports = {
-  getAll, insert, factorsWithProduct, SearchFactors
+  getAll, getOne, insert, factorsWithProduct, SearchFactors
 };

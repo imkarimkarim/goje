@@ -1,28 +1,28 @@
-const {generateNewCustomId} = require('./idGenerator');
-const calcSumFactor = require('../calculators/calcSumFactor');
+const { generateNewCustomId } = require("./idGenerator");
+const calcSumFactor = require("../calculators/calcSumFactor");
 
 const createCustomer = (name, callback) => {
   generateNewCustomId((id) => {
     let newCustomer = {
-      docType: 'customer',
+      docType: "customer",
       customeId: null,
-      name: '',
-    }
+      name: "",
+    };
     newCustomer.name = name;
     newCustomer.customeId = id;
     if (typeof callback === "function") {
       callback(newCustomer);
     }
-  })
-}
+  });
+};
 
 const createProduct = (product, callback) => {
   generateNewCustomId((id) => {
     let newProduct = {
-      docType: 'product',
+      docType: "product",
       customeId: null,
-      productName: '',
-      owner: '',
+      productName: "",
+      owner: "",
       basculeWeight: 0,
       amount: 0,
       arrivalDate: 0,
@@ -32,8 +32,8 @@ const createProduct = (product, callback) => {
       unload: 0,
       portage: 0,
       cash: 0,
-      plaque: '',
-    }
+      plaque: "",
+    };
     newProduct.customeId = id;
     newProduct.productName = product.productName;
     newProduct.owner = product.owner;
@@ -48,26 +48,32 @@ const createProduct = (product, callback) => {
     if (typeof callback === "function") {
       callback(newProduct);
     }
-  })
-}
+  });
+};
 
 const createFactor = (factor, callback) => {
   generateNewCustomId((id) => {
     let newFactor = {
-      docType: 'factor',
-      owner: '',
-      ownerName: '',
+      docType: "factor",
+      owner: "",
+      ownerName: "",
       customeId: null,
       isPayed: false,
       factorDate: null,
-      changeDate : null,
-      products : [],
+      changeDate: null,
+      products: [],
       calcs: {
-        fullSum : 0,
-        sums: []
-      }
-    }
-    
+        fullSum: 0,
+        sums: [],
+      },
+      pays: [
+        {
+          date: 0,
+          amount: 0,
+        },
+      ],
+    };
+
     newFactor.owner = factor.owner;
     newFactor.ownerName = factor.ownerName;
     newFactor.customeId = id;
@@ -77,14 +83,17 @@ const createFactor = (factor, callback) => {
     newFactor.products = factor.products;
     calcSumFactor.calculate(newFactor.products, (calcs) => {
       newFactor.calcs = calcs;
-    })
-    
+    });
+    newFactor.pays = factor.pays;
+
     if (typeof callback === "function") {
       callback(newFactor);
     }
-  })
-}
+  });
+};
 
 module.exports = {
-  createCustomer, createProduct, createFactor
-}
+  createCustomer,
+  createProduct,
+  createFactor,
+};

@@ -1,13 +1,12 @@
-.product-reports .info{
-  position: relative;
-}
-.product-reports .info .customeId{
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  color: #999;
+.sale .saleInfo-table table{
+  width: 100%;
 }
 
-.product-reports .info .driverInfo{
-  font-size: .8em;
+.sale .saleInfo-table table td,
+.sale .saleInfo-table table th{
+  text-align: right;
+}
+
+.sale .costsInfo{
+  
 }
