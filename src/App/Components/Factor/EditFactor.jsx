@@ -1,38 +1,41 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer, useEffect, useRef } from "react";
 const { ipcRenderer } = require("electron");
+import { useParams } from "react-router-dom";
 import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
-import Notif from "../../Components/Notif.jsx";
-import Nav from "../../Components/Nav.jsx";
-import Input from "../../Components/Input.jsx";
-import CustomerInput from "../../Components/Customer/CustomerInput.jsx";
-import ExpenseInput from "../../Components/ExpenseInput.jsx";
-import ProductsTable from "../../Components/Product/ProductsTable.jsx";
-import Expense from "../../Components/Expense.jsx";
-import ProductInput from "../../Components/Product/ProductInput.jsx";
-import Pays from "../../Components/Pays.jsx";
-import "./NewFactor.css";
+import Notif from "../Notif.jsx";
+import Nav from "../Nav.jsx";
+import Input from "../Input.jsx";
+import CustomerInput from "../Customer/CustomerInput.jsx";
+import ExpenseInput from "../ExpenseInput.jsx";
+import ProductsTable from "../Product/ProductsTable.jsx";
+import Expense from "../Expense.jsx";
+import ProductInput from "../Product/ProductInput.jsx";
+import Pays from "../Pays.jsx";
+import "./EditFactor.css";
 
-const newFactorSchema = {
+const factorSchema = {
   docType: "factor",
   owner: "",
   ownerName: "",
+  customeId: "",
   isPayed: "",
-  factorDate: Date.now(),
-  changeDate: Date.now(),
+  factorDate: 0,
+  changeDate: 0,
   products: [],
+  calcs: [],
   pays: [],
+  id: "",
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "reset": {
-      return newFactorSchema;
-    }
+    case "setForm":
+      return action.payload;
     case "setOwner":
       return { ...state, owner: action.payload1, ownerName: action.payload2 };
     case "setIsPayed":
@@ -61,17 +64,17 @@ function reducer(state, action) {
         ...state,
         products: state.products,
       };
-    case 'addPay':
-    return {
-      ...state,
-      pays: [
-        ...state.pays,
-        {
-          date: action.payload1,
-          amount: action.payload2
-        },
-      ],
-    };
+    case "addPay":
+      return {
+        ...state,
+        pays: [
+          ...state.pays,
+          {
+            date: action.payload1,
+            amount: action.payload2,
+          },
+        ],
+      };
     case "removePay":
       state.pays.splice(action.payload, 1);
       return {
@@ -83,32 +86,47 @@ function reducer(state, action) {
   }
 }
 
-export default function NewFactor() {
-  const [formData, formDispatch] = useReducer(reducer, newFactorSchema);
+export default function EditFactor() {
+  const [formData, formDispatch] = useReducer(reducer, factorSchema);
   const [submit, setSubmit] = useState(false);
-  const [createStatus, setCreateStatus] = useState(null);
+  const [editStatue, setEditStatue] = useState(null);
   const [notif, setNotif] = useState(null);
+  const init = useRef(true);
+  let { id } = useParams();
 
   const handleSubmit = () => {
     setSubmit(true);
-    newFactor(formData);
+    console.log(formData);
+    // editFactor(formData);
   };
 
-  const newFactor = (factor) => {
-    ipcRenderer.send("newFactor", factor);
+  const editFactor = (factor) => {
+    ipcRenderer.send("editFactor", factor);
+  };
+
+  const sendOneFactor = (id) => {
+    ipcRenderer.send("send-oneFactor", id);
   };
 
   useEffect(() => {
-    ipcRenderer.on("newFactor", (event, createStatus) => {
+    if (init.current) {
+      sendOneFactor(id);
+      ipcRenderer.on("send-oneFactor", (event, oneFactor) => {
+        init.current = false;
+        formDispatch({ type: "setForm", payload: oneFactor });
+      });
+    }
+
+    ipcRenderer.on("editFactor", (event, editStatue) => {
       setSubmit(false);
-      setCreateStatus(createStatus);
-      if (createStatus !== null) {
-        if (createStatus === true) {
+      setEditStatue(editStatue);
+      if (editStatue !== null) {
+        if (editStatue === true) {
           formDispatch({ type: "reset" });
           setNotif(null);
           setNotif("success");
         }
-        if (createStatus === false) {
+        if (editStatue === false) {
           setNotif(null);
           setNotif("error");
         }
@@ -117,28 +135,34 @@ export default function NewFactor() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("newFactor");
+      ipcRenderer.removeAllListeners("editFactor");
     };
   });
 
+  let changeDate = "";
+  let tmpJdate;
+  if (formData && formData.changeDate) {
+    tmpJdate = new JDate(new Date(formData.changeDate));
+    changeDate = tmpJdate.format("dddd DD MMMM YYYY");
+  }
+
   let notifJsx;
   if (notif === "success")
-    notifJsx = <Notif type="success" message="فاکتور با موفقیت ثبت شد" />;
+    notifJsx = <Notif type="success" message="ویرایش با موفقیت انجام شد" />;
   if (notif === "error")
-    notifJsx = <Notif type="error" message="خطا در ثبت کردن فاکتور" />;
+    notifJsx = <Notif type="error" message="حطا در ویرایش" />;
 
   return (
     <div>
       {notifJsx ? notifJsx : ""}
-      <Nav title="/فاکتور جدید" />
-      <form className="NewFactor-form">
+      <Nav title={"/ویرایش فاکتور/" + id} />
+      <form className="EditFactor-form">
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
             <CustomerInput
               label="صاحب فاکتور*"
               className="customerInput"
               onPick={(id, name) => {
-                console.log(id, name);
                 formDispatch({
                   type: "setOwner",
                   payload1: id,
@@ -170,20 +194,25 @@ export default function NewFactor() {
               />
             </div>
             <div className="factorDate">
-              <DatePicker
-                timePicker={false}
-                value={formData.factorDate}
-                onClickSubmitButton={({ value }) => {
-                  formDispatch({
-                    type: "setFactorDate",
-                    payload: value._d.getTime(),
-                  });
-                  formDispatch({
-                    type: "setChangeDate",
-                    payload: Date.now(),
-                  });
-                }}
-              />
+              {formData && formData.factorDate > 0 ? (
+                <DatePicker
+                  timePicker={false}
+                  value={formData.factorDate}
+                  onClickSubmitButton={({ value }) => {
+                    formDispatch({
+                      type: "setFactorDate",
+                      payload: value._d.getTime(),
+                    });
+                    formDispatch({
+                      type: "setChangeDate",
+                      payload: Date.now(),
+                    });
+                  }}
+                />
+              ) : (
+                <span></span>
+              )}
+              <div className="hint">آخرین تغییر در {changeDate}</div>
             </div>
           </Grid>
           <Divider />
@@ -200,9 +229,17 @@ export default function NewFactor() {
           <Divider />
           {formData && formData.isPayed === false ? (
             <Grid item className="addpay-section" xs={12}>
-              <Pays formDispatch={formDispatch} pays={formData.pays} onSubmit={(pay) => {
-                  formDispatch({type: 'addPay', payload1: pay.date, payload2: pay.amount})
-                }}/>
+              <Pays
+                formDispatch={formDispatch}
+                pays={formData.pays}
+                onSubmit={(pay) => {
+                  formDispatch({
+                    type: "addPay",
+                    payload1: pay.date,
+                    payload2: pay.amount,
+                  });
+                }}
+              />
             </Grid>
           ) : (
             <div></div>
@@ -214,7 +251,7 @@ export default function NewFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت
+              ثبت ویرایش
             </Button>
           </Grid>
         </Grid>

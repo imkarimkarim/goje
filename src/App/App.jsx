@@ -10,6 +10,7 @@ import Product from './Components/Product/Product.jsx';
 import Factor from './Components/Factor/Factor.jsx';
 import SearchProducts from './Screens/Reports/SearchProducts.jsx';
 import SearchFactors from './Screens/Reports/SearchFactors.jsx';
+import EditFactor from './Components/Factor/EditFactor.jsx';
 
 export default function App() {
   
@@ -27,7 +28,7 @@ export default function App() {
       {/* redirect to / in first load */}
       {
         (redirectToIndex.current)
-          ? <Redirect to='/welcome'/>
+          ? <Redirect to='/searchFactors'/>
           : <div></div>
       }   
       <Container fixed>
@@ -41,6 +42,8 @@ export default function App() {
             <Route path='/searchFactors' component={SearchFactors} />
             <Route path='/product/:id' component={Product} />
             <Route path='/factor/:id' component={Factor} />
+            <Route path='/editFactor/:id' component={EditFactor} />
+            
           </Switch>
       </Container>
     </Router>

@@ -39,7 +39,7 @@ export default function ProductsTable({ products, formDispatch, pays }) {
         <tbody>
           {products && products.length > 0
             ? products.map((p, index) => (
-                <tr key={p.customeId}>
+                <tr key={index}>
                   <td>{p.productName}</td>
                   <td>{p.amount}</td>
                   <td>{p.weight}</td>
@@ -54,7 +54,7 @@ export default function ProductsTable({ products, formDispatch, pays }) {
                       {<DeleteIcon />}
                     </td>
                   ) : (
-                    ""
+                    <td></td>
                   )}
                 </tr>
               ))

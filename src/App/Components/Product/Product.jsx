@@ -144,7 +144,7 @@ export default function ProductReports() {
 
   return product ? (
     <div>
-      <Nav title={"گزارش گیری/صافی ها/" + product.customeId} />
+      <Nav title={"/صافی/" + product.customeId} />
       <div className="product-reports">
         <InfoSection product={product} />
         <SaleSection productId={product.customeId} product={product} />

@@ -47,31 +47,37 @@ const ProductInput = React.memo(({ onSubmit, pays, formDispatch }) => {
           </p>
         }) ) : ( <div></div> )
       }
-      <div className="paysinput-wrapper">
-        <DatePicker
-          timePicker={false}
-          value={state.date}
-          onClickSubmitButton={({ value }) => {
-            setState({ ...state, date: value._d.getTime() });
-          }}
-        />
-        <ExpenseInput
-          label="داده"
-          fun={(e) => {
-            setState({ ...state, amount: e.target.value });
-          }}
-          value={state.amount}
-        />
-        <Button
-          className="newFactorAddProductInputButton"
-          disabled={!(state.date && state.amount)}
-          onClick={handleSubmit}
-          variant="outlined"
-          color="primary"
-        >
-          اضافه
-        </Button>
-      </div>
+      {
+        (formDispatch && onSubmit) ? (
+          <div className="paysinput-wrapper">
+            <DatePicker
+              timePicker={false}
+              value={state.date}
+              onClickSubmitButton={({ value }) => {
+                setState({ ...state, date: value._d.getTime() });
+              }}
+            />
+            <ExpenseInput
+              label="داده"
+              fun={(e) => {
+                setState({ ...state, amount: e.target.value });
+              }}
+              value={state.amount}
+            />
+            <Button
+              className="newFactorAddProductInputButton"
+              disabled={!(state.date && state.amount)}
+              onClick={handleSubmit}
+              variant="outlined"
+              color="primary"
+            >
+              اضافه
+            </Button>
+          </div>          
+        ) : (
+          <div></div>
+        )
+      }
     </div>
   );
 });

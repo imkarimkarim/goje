@@ -81,10 +81,10 @@ const createFactor = (factor, callback) => {
     newFactor.factorDate = factor.factorDate;
     newFactor.changeDate = factor.changeDate;
     newFactor.products = factor.products;
-    calcSumFactor.calculate(newFactor.products, (calcs) => {
+    newFactor.pays = factor.pays;
+    calcSumFactor.calculate(newFactor.products, newFactor.pays, (calcs) => {
       newFactor.calcs = calcs;
     });
-    newFactor.pays = factor.pays;
 
     if (typeof callback === "function") {
       callback(newFactor);

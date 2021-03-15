@@ -1,24 +1,56 @@
 import React, { useState, useRef, useEffect } from "react";
 const { ipcRenderer } = require("electron");
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
 import Expense from "../Expense.jsx";
 import ProductsTable from "../Product/ProductsTable.jsx";
+import Pays from "../Pays.jsx";
 import "./Factor.css";
+// TODO: edit
+// TODO: $cleanings
+// TODO: style
+// TODO: delete
+// TODO: close proudct
+// TODO: $warning : product is about to finish
+// TODO: لیست حسابدار
+// TODO: print
+// TODO: print changes
+// TODO: print todays
+// TODO: last schema
+// TODO: backup
+// TODO: open
+// TODO: key
+// TODO: installer
+// TODO: test + test on windows
+
+const factorSchema = {
+  docType: "factor",
+  owner: "",
+  ownerName: "",
+  customeId: "",
+  isPayed: "",
+  factorDate: 0,
+  changeDate: 0,
+  products: [],
+  calcs: [],
+  pays: [],
+  id: ''
+};
 
 export default function ProductReports() {
-  const [factor, setFactor] = useState();
+  const [factor, setFactor] = useState(factorSchema);
   let { id } = useParams();
   const init = useRef(true);
 
   const sendOneFactor = (id) => {
     ipcRenderer.send("send-oneFactor", id);
   };
-
   useEffect(() => {
     if (init.current) {
       sendOneFactor(id);
@@ -27,7 +59,7 @@ export default function ProductReports() {
         setFactor(oneFactor);
       });
     }
-
+    
     // clean up
     return () => {
       ipcRenderer.removeAllListeners("send-oneFactor");
@@ -52,12 +84,41 @@ export default function ProductReports() {
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>
-            <ProductsTable products={factor.products} />
+            <ProductsTable pays={factor.pays} products={factor.products} />
           </Grid>
+          <Divider />
+          {factorDate && factor.isPayed === false ? (
+            <Grid item className="addpay-section" xs={12}>
+              <Pays pays={factor.pays} />
+            </Grid>
+          ) : (
+            <div></div>
+          )}
           <div className="actions">
-            <button>ویرایش</button>
-            <button>حذف</button>
-            <button>پرینت</button>
+            <Button
+              className="newFactorAddProductInputButton"
+              variant="outlined"
+              color="primary"
+            >
+              پرینت
+            </Button>
+            <Link to={`/editFactor/${factor.customeId}`}>
+              <Button
+                className="newFactorAddProductInputButton"
+                variant="outlined"
+                color="primary"
+              >
+                ویرایش
+              </Button>
+            </Link>
+            <Button
+              className="deleteProductButton"
+              disabled={true}
+              variant="outlined"
+              color="primary"
+            >
+              حذف
+            </Button>
           </div>
         </Grid>
       </div>

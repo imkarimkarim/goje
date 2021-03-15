@@ -65,8 +65,7 @@ const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker })
   );
 })
 
-const CustomerInput = React.memo(({ owner, onPick, label }) => {
-  const [customerName, setCustomerName] = useState('');
+const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
   const [allCustomers, setAllCustomers] = useState();
   const [showCustomerPicker, setShowCustomerPicker] = useState(false);
 
@@ -80,12 +79,6 @@ const CustomerInput = React.memo(({ owner, onPick, label }) => {
   };
 
   useEffect(() => {
-    if (allCustomers && allCustomers.length > 0) {
-      let theCustomer = allCustomers.filter((c) => c.customeId === owner);
-      if(theCustomer.length > 0){
-        setCustomerName(theCustomer[0].name);
-      }
-    }
     ipcRenderer.on("allCustomers", (event, dbCustomers) => {
       setAllCustomers(dbCustomers);
     });
@@ -111,7 +104,7 @@ const CustomerInput = React.memo(({ owner, onPick, label }) => {
         id="outlined-basic"
         size="small"
         variant="outlined"
-        value={customerName}
+        value={ownerName && ownerName}
         label={label}
         onFocus={handleFocus}
       />
