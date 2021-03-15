@@ -29,6 +29,7 @@ export default function ProductsTable({ products, formDispatch, pays }) {
       <table>
         <thead>
           <tr>
+            <th></th>
             <th>شرح بار</th>
             <th>تعداد</th>
             <th>وزن</th>
@@ -40,6 +41,7 @@ export default function ProductsTable({ products, formDispatch, pays }) {
           {products && products.length > 0
             ? products.map((p, index) => (
                 <tr key={index}>
+                  <td>{index+1}</td>
                   <td>{p.productName}</td>
                   <td>{p.amount}</td>
                   <td>{p.weight}</td>

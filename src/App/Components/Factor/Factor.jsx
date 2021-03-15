@@ -79,15 +79,16 @@ export default function ProductReports() {
       <div className="factor-reports">
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
-            <h3>صورتحساب {factor.ownerName}</h3>
-            {factorDate ? factorDate : "تایرخخخخخخخخخخ"}
+            <div><h3>صورتحساب {factor.ownerName}</h3></div>
+            <div>{factorDate ? factorDate : "تایرخخخخخخخخخخ"}</div>
+            <div>{factor && factor.isPayed ? 'نقدی' : 'نسیه'}</div>
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>
             <ProductsTable pays={factor.pays} products={factor.products} />
           </Grid>
           <Divider />
-          {factorDate && factor.isPayed === false ? (
+          {factor && factor.isPayed ? (
             <Grid item className="addpay-section" xs={12}>
               <Pays pays={factor.pays} />
             </Grid>

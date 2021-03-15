@@ -1,8 +1,9 @@
 const { db } = require("../db");
-const objectCreator = require('../modules/objectCreator');
+const objectCreator = require("../modules/objectCreator");
+const calcSumFactor = require("../calculators/calcSumFactor");
 
 const getAll = (callback) => {
-  db.find({ docType: 'factor' }, (err, docs) => {
+  db.find({ docType: "factor" }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
       callback(docs);
@@ -11,13 +12,10 @@ const getAll = (callback) => {
 };
 
 const getOne = (id, callback) => {
-  if(!id) return;
+  if (!id) return;
   db.find(
     {
-      $and: [
-        { docType: "factor" },
-        { customeId: id },
-      ],
+      $and: [{ docType: "factor" }, { customeId: id }],
     },
     function (err, docs) {
       if (err) throw err;
@@ -29,7 +27,7 @@ const getOne = (id, callback) => {
 };
 
 const factorsWithProduct = (id, callback) => {
-  if(!id) return;
+  if (!id) return;
   db.find({ "products.productId": id }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
@@ -41,7 +39,7 @@ const factorsWithProduct = (id, callback) => {
 const SearchFactors = (searchFilters, callback) => {
   if (!searchFilters) return;
   const sf = searchFilters;
-  if(sf.checked1 === true && sf.checked2 === true){
+  if (sf.checked1 === true && sf.checked2 === true) {
     db.find(
       {
         $and: [
@@ -57,8 +55,7 @@ const SearchFactors = (searchFilters, callback) => {
         }
       }
     );
-  }
-  else if(sf.checked1 === true){
+  } else if (sf.checked1 === true) {
     db.find(
       {
         $and: [
@@ -75,8 +72,7 @@ const SearchFactors = (searchFilters, callback) => {
         }
       }
     );
-  }
-  else if(sf.checked2 === true){
+  } else if (sf.checked2 === true) {
     db.find(
       {
         $and: [
@@ -98,14 +94,41 @@ const SearchFactors = (searchFilters, callback) => {
 
 const insert = (factor, callback) => {
   objectCreator.createFactor(factor, (newFactor) => {
-    db.insert( newFactor , function () {
+    db.insert(newFactor, function () {
       if (typeof callback === "function") {
         callback();
       }
     });
-  })
+  });
+};
+
+const update = (id, factor, callback) => {
+  calcSumFactor.calculate(factor.products, factor.pays, (calcs) => {
+    factor.calcs = calcs;
+    db.update({ _id: id }, { 
+      docType: factor.docType,
+      owner: factor.owner,
+      ownerName: factor.ownerName,
+      customeId: factor.customeId,
+      isPayed: factor.isPayed, 
+      factorDate: factor.factorDate,
+      changeDate: factor.changeDate,
+      products: factor.products,
+      calcs: factor.calcs,
+      pays: factor.pays,
+     }, {}, function () {
+      if (typeof callback === "function") {
+        callback();
+      }
+    });
+  });
 };
 
 module.exports = {
-  getAll, getOne, insert, factorsWithProduct, SearchFactors
+  getAll,
+  getOne,
+  insert,
+  update,
+  factorsWithProduct,
+  SearchFactors,
 };

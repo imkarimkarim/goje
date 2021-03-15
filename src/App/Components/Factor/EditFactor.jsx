@@ -97,7 +97,7 @@ export default function EditFactor() {
   const handleSubmit = () => {
     setSubmit(true);
     console.log(formData);
-    // editFactor(formData);
+    editFactor(formData);
   };
 
   const editFactor = (factor) => {
@@ -227,7 +227,7 @@ export default function EditFactor() {
             <ProductInput formDispatch={formDispatch} label="شرح کالا*" />
           </Grid>
           <Divider />
-          {formData && formData.isPayed === false ? (
+          {formData && formData.pays ? (
             <Grid item className="addpay-section" xs={12}>
               <Pays
                 formDispatch={formDispatch}

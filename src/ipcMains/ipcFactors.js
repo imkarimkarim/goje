@@ -15,6 +15,18 @@ ipcMain.on('newFactor', (event, factor) => {
   }
 })
 
+ipcMain.on('editFactor', (event, factor) => {
+  factor = normalizeFactor(factor);
+  if(isFactorValid(factor)){
+    factorDocs.update(factor._id, factor, () => {
+      event.reply('editFactor', true);
+    })
+  }
+  else {
+    event.reply('newFactor', false);
+  }
+})
+
 ipcMain.on("search-factors", (event, searchFilters) => {
   factorDocs.SearchFactors(searchFilters, (docs) => {
     event.reply("search-factors", docs);
