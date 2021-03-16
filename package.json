@@ -88,6 +88,7 @@
     "babel-loader": "^8.2.2",
     "cleave.js": "^1.6.0",
     "electron-squirrel-startup": "^1.0.0",
+    "html2pdf.js": "^0.9.2",
     "jalali-date": "^1.1.2",
     "jalali-react-datepicker": "^1.2.1",
     "nedb": "^1.8.0",

@@ -10,6 +10,7 @@ import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
 import Expense from "../Expense.jsx";
 import "./Product.css";
+import html2pdf from 'html2pdf.js';
 
 function InfoSection({ product }) {
   let tmpJdate;
@@ -130,7 +131,7 @@ export default function ProductReports() {
   const sendOneProduct = (id) => {
     ipcRenderer.send("send-oneProduct", id);
   };
-
+  
   useEffect(() => {
     if (init.current) {
       sendOneProduct(id);
@@ -163,7 +164,15 @@ export default function ProductReports() {
               </Button>
             </Link>
             <button>حذف</button>
-            <button>پرینت</button>
+              <Link to={`/printProduct/${product.customeId}`}>
+                <Button
+                  className="newProductAddProductInputButton"
+                  variant="outlined"
+                  color="primary"
+                >
+                  پرینت
+                </Button>
+              </Link>
           </div>
       </div>
     </div>
