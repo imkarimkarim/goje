@@ -113,9 +113,33 @@ const insert = (product, callback) => {
   });
 };
 
+const update = (id, product, callback) => {
+    db.update({ _id: id }, {
+      docType: product.docType ,
+      customeId: product.customeId ,
+      productName: product.productName ,
+      owner: product.owner ,
+      basculeWeight: product.basculeWeight, 
+      amount: product.amount ,
+      arrivalDate: product.arrivalDate ,
+      finishDate: product.finishDate ,
+      isProductFinish: product.isProductFinish ,
+      commission: product.commission ,
+      unload: product.unload,
+      portage: product.portage,
+      cash: product.cash,
+      plaque: product.plaque
+     }, {}, function () {
+      if (typeof callback === "function") {
+        callback();
+      }
+    });
+};
+
 module.exports = {
   getAll,
   insert,
+  update,
   getUnFinishedProducts,
   getFinishedProducts,
   getOneProduct,

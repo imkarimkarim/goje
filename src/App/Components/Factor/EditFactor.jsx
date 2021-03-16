@@ -96,7 +96,6 @@ export default function EditFactor() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    console.log(formData);
     editFactor(formData);
   };
 
@@ -111,18 +110,18 @@ export default function EditFactor() {
   useEffect(() => {
     if (init.current) {
       sendOneFactor(id);
-      ipcRenderer.on("send-oneFactor", (event, oneFactor) => {
-        init.current = false;
-        formDispatch({ type: "setForm", payload: oneFactor });
-      });
+      init.current = false;
     }
+    
+    ipcRenderer.on("send-oneFactor", (event, oneFactor) => {
+      formDispatch({ type: "setForm", payload: oneFactor });
+    });
 
     ipcRenderer.on("editFactor", (event, editStatue) => {
       setSubmit(false);
       setEditStatue(editStatue);
       if (editStatue !== null) {
         if (editStatue === true) {
-          formDispatch({ type: "reset" });
           setNotif(null);
           setNotif("success");
         }

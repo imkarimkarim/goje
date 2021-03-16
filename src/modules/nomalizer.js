@@ -6,6 +6,7 @@ const normalizeProduct = (product) => {
   nProduct.basculeWeight =  parseInt(product.basculeWeight);
   nProduct.amount = parseInt(product.amount);
   nProduct.arrivalDate = parseInt(product.arrivalDate);
+  nProduct.finishDate = parseInt(product.finishDate);
   nProduct.commission = parseInt(product.commission);
   nProduct.unload = parseInt(product.unload);
   nProduct.portage = parseInt(product.portage);

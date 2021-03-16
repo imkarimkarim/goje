@@ -23,8 +23,7 @@ ipcMain.on("search-products", (event, searchFilters) => {
 
 ipcMain.on("send-oneProduct", (event, id) => {
   productDocs.getOneProduct(id, (docs) => {
-    oneProduct = docs;
-    event.reply("oneProduct", oneProduct);
+    event.reply("oneProduct", docs);
   });
 });
 
@@ -45,3 +44,14 @@ ipcMain.on("includeProduct", (event, product) => {
     event.reply("includeProduct", false);
   }
 });
+
+ipcMain.on('editProduct', (event, product) => {
+  product = normalizeProduct(product);
+  if(isProductValid(product)) {
+    productDocs.update(product._id, product, () =>{
+      event.reply('editProduct', true);
+    })
+  } else {
+    event.reply('editProduct', false);
+  }
+})

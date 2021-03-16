@@ -7,14 +7,14 @@ form .MuiFormControl-root {
    
 }
 
-.IncludeProduct-form .arrivalDate{
+.EditProduct-form .arrivalDate{
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
 }
 
-.IncludeProduct-form .arrivalDate span{
+.EditProduct-form .arrivalDate span{
   margin-left: 10px;
 }
 

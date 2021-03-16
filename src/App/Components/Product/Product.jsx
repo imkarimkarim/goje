@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
 import Expense from "../Expense.jsx";
@@ -11,15 +13,17 @@ import "./Product.css";
 
 function InfoSection({ product }) {
   let tmpJdate;
+  let tmpJdate2;
   let arrivalDate;
+  let finishDate;
   if (product) {
     tmpJdate = new JDate(new Date(product.arrivalDate));
     arrivalDate = tmpJdate.format("dddd DD MMMM YYYY");
   }
 
   if (product && product.isProductFinish) {
-    tmpJdate = new JDate(product.finishDate.date);
-    finishDate = tmpJdate.format("dddd DD MMMM YYYY");
+    tmpJdate2 = new JDate(new Date(product.finishDate));
+    finishDate = tmpJdate2.format("dddd DD MMMM YYYY");
   }
 
   return (
@@ -149,7 +153,15 @@ export default function ProductReports() {
         <InfoSection product={product} />
         <SaleSection productId={product.customeId} product={product} />
           <div className="actions">
-            <button>ویرایش</button>
+            <Link to={`/editProduct/${product.customeId}`}>
+              <Button
+                className="newProductAddProductInputButton"
+                variant="outlined"
+                color="primary"
+              >
+                ویرایش
+              </Button>
+            </Link>
             <button>حذف</button>
             <button>پرینت</button>
           </div>
