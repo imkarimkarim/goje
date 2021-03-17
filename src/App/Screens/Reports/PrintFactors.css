@@ -1,2 +1,54 @@
-.printProduct{
+.printProductsTable table {
+  width: 100%;
+  padding: 0;
+  height: 12cm;
+  font-size: 12px;
+  flex: 5;
+}
+
+.printProductsTable table td,
+.printProductsTable table th {
+  text-align: right;
+}
+
+.printProductsTable{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.printfullSum {
+  padding: 0;
+  flex: 3;
+  margin: 0 0 32px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.printpaysRecords {
+  font-size: 11px;
+  flex: 4;
+  margin: 2px 0 0 0;
+  padding: 0;
+}
+
+.fl{
+  flex: 2;
+}
+
+.factorsPrint-wrapper {
+  display: block;
+}
+
+.factorsPrint-wrapper h5 {
+  margin: 5px 0;
+}
+
+.factorsPrint-wrapper .header {
+  text-align: center;
+}
+
+.factorsPrint-wrapper .MuiGrid-spacing-xs-3 > .MuiGrid-item {
+  padding: 0;
 }
