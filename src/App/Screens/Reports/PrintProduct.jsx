@@ -31,9 +31,11 @@ function InfoSection({ product }) {
   return (
     <div className="info">
       <h3 className="safiTitle">
-        <span> صورتحساب</span>
+        <span>صورتحساب</span>
+        <span> </span>
         <span>{product.owner} </span>
-        <span> بابت </span>
+        <span>بابت</span>
+          <span> </span>
         <span>{product.productName}</span>
       </h3>
       <Grid container spacing={3}>
@@ -199,11 +201,10 @@ function SaleSection({ productId, product }) {
   );
 }
 
-export default function ProductReports() {
+export default function PrintProduct() {
   const [product, setProduct] = useState();
   let { id } = useParams();
   const init = useRef(true);
-  const [loading, setLoading] = useState(true);
 
   const sendOneProduct = (id) => {
     ipcRenderer.send("send-oneProduct", id);

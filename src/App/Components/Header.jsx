@@ -3,7 +3,7 @@ import './Header.css';
 
 export default function Header() {
   return(
-    <div className="header">
+    <div className="headerheader">
       <h2>بارفروشی محمود</h2>
       <p><span>نشانی</span><span>:</span><span> آستانه اشرفیه</span><span> |</span>
     <span> بمدیریت</span><span>:</span><span>محمود مدنی</span><span> |</span>

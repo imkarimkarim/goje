@@ -40,8 +40,6 @@ export default function SearchFactors() {
     
     ipcRenderer.on("search-factors", (event, findedFactors) => {
       setFactors(findedFactors);
-      console.log(factors);
-      console.log(findedFactors);
     });
 
     // clean up

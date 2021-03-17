@@ -38,3 +38,10 @@ ipcMain.on("send-oneFactor", (event, factorId) => {
     event.reply("send-oneFactor", docs);
   });
 });
+
+ipcMain.on('print-factors', (event, date) => {
+  if(!date) return;
+  factorDocs.factorsWithChangeDate(date.from, date.till, (docs) => {
+    event.reply('print-factors', docs);
+  })
+})

@@ -13,6 +13,7 @@ import SearchFactors from './Screens/Reports/SearchFactors.jsx';
 import EditFactor from './Components/Factor/EditFactor.jsx';
 import EditProduct from './Components/Product/EditProduct.jsx';
 import PrintProduct from './Screens/Reports/PrintProduct.jsx';
+import PrintFactors from './Screens/Reports/PrintFactors.jsx';
 
 export default function App() {
   
@@ -30,7 +31,7 @@ export default function App() {
       {/* redirect to / in first load */}
       {
         (redirectToIndex.current)
-          ? <Redirect to='/searchProducts'/>
+          ? <Redirect to='/reports'/>
           : <div></div>
       }   
       <Container fixed>
@@ -47,6 +48,7 @@ export default function App() {
             <Route path='/editFactor/:id' component={EditFactor} />
             <Route path='/editProduct/:id' component={EditProduct} />
             <Route path='/printProduct/:id' component={PrintProduct} />
+            <Route path='/printFactors/:date' component={PrintFactors} />
           </Switch>
       </Container>
     </Router>

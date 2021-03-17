@@ -36,6 +36,27 @@ const factorsWithProduct = (id, callback) => {
   });
 };
 
+const factorsWithChangeDate = (fromm, till, callback) => {
+  if (!fromm && !till) return;
+
+  db.find(
+    {
+      $and: [
+        { docType: "factor" },
+        { 'changeDate': { $gte: fromm } },
+        { 'changeDate': { $lte: till } },
+        { 'isPayed': false }
+      ],
+    },
+    function (err, docs) {
+      if (err) throw err;
+      if (typeof callback === "function") {
+        callback(docs);
+      }
+    }
+  );
+};
+
 const SearchFactors = (searchFilters, callback) => {
   if (!searchFilters) return;
   const sf = searchFilters;
@@ -131,4 +152,5 @@ module.exports = {
   update,
   factorsWithProduct,
   SearchFactors,
+  factorsWithChangeDate,
 };
