@@ -27,6 +27,8 @@ import "./Factor.css";
 // TODO: backup
 // TODO: open
 // TODO: key
+// TODO: add delete button
+
 // TODO: installer
 // TODO: test + test on windows
 
@@ -113,7 +115,6 @@ export default function Factor() {
                 ویرایش
               </Button>
             </Link>
-            // TODO: add delete button
           </div>
         </Grid>
       </div>

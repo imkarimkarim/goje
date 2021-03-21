@@ -62,7 +62,7 @@ export default function NewCustomer() {
           notifJsx
         ) : ('')
       }
-      <Nav title="/حساب جدید" />
+      <Nav title="/مشتری جدید" />
       <form className="NewCustomer-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>

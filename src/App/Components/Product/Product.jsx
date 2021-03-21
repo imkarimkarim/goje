@@ -12,6 +12,7 @@ import Expense from "../Expense.jsx";
 import ShowDate from '../ShowDate.jsx';
 import "./Product.css";
 import html2pdf from 'html2pdf.js';
+// TODO: add delete button
 
 function InfoSection({ product }) {
   return (
@@ -158,7 +159,6 @@ export default function ProductReports() {
                 >
                   گزارش
                 </Button>
-                // TODO: add delete button
               </Link>
           </div>
       </div>

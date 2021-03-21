@@ -24,13 +24,12 @@ const RenderPays = ({ pays }) => {
         payDate = new JDate(new Date(p.date));
         return (
           <span>
-            <span>در تاریخ</span>
-            <span> </span>
-            <span>{<ShowDate timestamp={p.date} />}</span>
-            <span> - </span>
             <span>{<Expense num={p.amount} />}</span>
             <span> </span>
             <span>پرداخت شد</span>
+            <span>)</span>
+            <span>{<ShowDate timestamp={p.date} />}</span>
+            <span>(</span>
             <br />
           </span>
         );

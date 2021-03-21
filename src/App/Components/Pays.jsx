@@ -28,6 +28,7 @@ const ProductInput = React.memo(({ onSubmit, pays, formDispatch }) => {
     <div className="pays-wrapper">
       {
         (pays && pays.length > 0) ? ( pays.map((py, index) => {
+          console.log(py.date);
           return <p className='payedRecord' key={index}>            
             {<Expense num={py.amount} />}
             {' پرداخت شد. '}

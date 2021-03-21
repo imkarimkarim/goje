@@ -75,7 +75,7 @@ export default function SearchFactors() {
 
   return (
     <div>
-      <Nav title="/گزارش گیری/فاکتورها" />
+      <Nav title="/گزارشات/جستجوی فاکتور" />
       <SearchBox
         defaultState={searchState}
         onSubmit={(newSearchState) => {handleNewSearch(newSearchState)}}

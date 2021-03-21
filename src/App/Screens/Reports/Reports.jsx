@@ -10,7 +10,7 @@ export default function Reports() {
   const [date2, setDate2] = useState(Date.now());
   return (
     <div className="reports-screen">
-      <Nav title="/گزارش گیری" />
+      <Nav title="/گزارشات" />
       <h3>جستجو</h3>
       <Link to='/searchProducts'><Button variant="outlined">جستجوی صافی</Button></Link>
       <Link to='/searchFactors'><Button variant="outlined">جستجوی فاکتور</Button></Link>

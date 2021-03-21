@@ -13,7 +13,7 @@ export default function Welcome() {
   return (
     <div className="welcome-screen">
       <div className="welcome-message">
-        <h2>به گوجه خوش اومدی...</h2>
+        <h2>به <span className='goje'>گوجه</span> خوش اومدی...</h2>
       </div>
       <div className="usefull-links_wrapper">
         <Link className="usefull-link" to="/newFactor">

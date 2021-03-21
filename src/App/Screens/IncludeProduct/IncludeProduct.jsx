@@ -85,7 +85,7 @@ export default function IncludeProduct() {
           notifJsx
         ) : ('')
       }
-      <Nav title="/وارد کردن بار" />
+      <Nav title="/ورودی بار" />
       <form className="IncludeProduct-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>

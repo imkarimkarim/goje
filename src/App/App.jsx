@@ -31,7 +31,7 @@ export default function App() {
       {/* redirect to / in first load */}
       {
         (redirectToIndex.current)
-          ? <Redirect to='/reports'/>
+          ? <Redirect to='/welcome'/>
           : <div></div>
       }   
       <Container fixed>

@@ -29,6 +29,7 @@ const isProductValid = (product) => {
       break;
     }
   }
+  
   return pass;
 };
 
@@ -71,6 +72,10 @@ const isFactorValid = (factor) => {
     isNaN(factor.factorDate) ||
     isNaN(factor.changeDate)
   ) {
+    pass = false;
+  }
+  
+  if(factor.products.length <= 0){
     pass = false;
   }
 
