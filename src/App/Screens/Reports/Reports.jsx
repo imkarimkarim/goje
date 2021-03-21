@@ -6,7 +6,8 @@ import Nav from "../../Components/Nav.jsx";
 
 export default function Reports() {
   
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(Date.now());
+  const [date2, setDate2] = useState(Date.now());
   return (
     <div className="reports-screen">
       <Nav title="/گزارش گیری" />
@@ -14,18 +15,24 @@ export default function Reports() {
       <Link to='/searchProducts'><Button variant="outlined">جستجوی صافی</Button></Link>
       <Link to='/searchFactors'><Button variant="outlined">جستجوی فاکتور</Button></Link>
       <div className="printSection">
-        <h3>پرینت</h3>
+        <h3>گزارش گیری</h3>
         <div className="searchbox-datePicker">
-          گزارش روزانه:
+          از:          
           <DatePicker
-            timePicker={false}
             value={date}
             onClickSubmitButton={({ value }) => {
               setDate(value._d.getTime());
             }}
           />
+        تا:
+        <DatePicker
+          value={date2}
+          onClickSubmitButton={({ value }) => {
+            setDate2(value._d.getTime());
+          }}
+        />
         </div>
-        <Link to={'/printFactors/'+date}><Button variant="outlined">پرینت بگیر!</Button></Link>
+        <Link to={'/printFactors/' + date + '/' + date2}><Button variant="outlined">گزارش بگیر!</Button></Link>
       </div>
     </div>
   )

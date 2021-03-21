@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
 import Header from "../../Components/Header.jsx";
+import ShowDate from "../../Components/ShowDate.jsx";
 import ProductsTable from "../../Components/Product/ProductsTable.jsx";
 import Footer from "../../Components/Footer.jsx";
 import "./PrintFactors.css";
@@ -25,11 +26,11 @@ const RenderPays = ({ pays }) => {
           <span>
             <span>در تاریخ</span>
             <span> </span>
-            <span>{payDate.format('dddd DD MMMM YYYY')}</span>
+            <span>{<ShowDate timestamp={p.date} />}</span>
             <span> - </span>
             <span>{<Expense num={p.amount} />}</span>
             <span> </span>
-            <span>داده شد.</span>
+            <span>پرداخت شد</span>
             <br />
           </span>
         );
@@ -39,30 +40,48 @@ const RenderPays = ({ pays }) => {
 };
 
 const RenderFactor = ({ factor, index, factorsLength }) => {
-  let factorDate;
-  let tmpJdate;
-  if (factor && factor.factorDate) {
-    tmpJdate = new JDate(new Date(factor.factorDate));
-    factorDate = tmpJdate.format("dddd DD MMMM YYYY");
-  }
-
-  console.log(factor, index, factorsLength);
-
   useEffect(() => {
     if (factorsLength === index + 1) {
-      html2pdf(document.body);
+      const options = {
+        jsPDF: { format: "a5" },
+        filename: "factors.pdf",
+      };
+      html2pdf(document.body, options);
     }
   });
 
   return (
     <div className="factorsPrint-wrapper">
       <Header />
+      <div className="factorMetaData">
+        <div className="name">
+          <span>صورتحساب</span>
+          <span>: </span>
+          <span>
+            <h4>{factor.ownerName}</h4>
+          </span>
+          <span> </span>)<span>{factor.isPayed ? "نقدی" : "نسیه"}</span>
+          <span>(</span>
+          <span> </span>
+        </div>
+        <div className="date">
+          <span>تاریخ</span>
+          <span>: </span>
+          <span>
+            {factor && factor.factorDate ? (
+              <ShowDate timestamp={factor.factorDate} />
+            ) : (
+              <span></span>
+            )}
+          </span>
+        </div>
+      </div>
       <div className="printProductsTable">
         <table>
           <thead>
             <tr>
-              <th></th>
-              <th>شرح بار</th>
+              <th>ردیف</th>
+              <th>شرح</th>
               <th>تعداد</th>
               <th>وزن</th>
               <th>فی</th>
@@ -84,38 +103,30 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
               : null}
           </tbody>
         </table>
-        <div className="printfullSum">
+      </div>
+      <div className="printfullSum">
+        {factor.pays && factor.pays.length > 0 ? (
+          <RenderPays pays={factor.pays} />
+        ) : (
+          <span></span>
+        )}
+        <div className="fl">
           <h5>
-            <span>صورتحساب</span>
-            <span>: </span>
-            <span>{factor.ownerName}</span>
-            <span> </span>)<span>{factor.isPayed ? "نقدی" : "نسیه"}</span>
-            <span>(</span>
+            <span>جمع کل</span> :<span></span>
             <span> </span>
-            <br />
-            <span>تاریخ</span>
-            <span>: </span>
-            <span>{factorDate}</span>
+            <span>{<Expense num={factor.calcs.fullSum} />}</span>
           </h5>
-          <div className='fl'>
-            <h5>
-              <span>جمع کل</span> :<span></span>
-              <span> </span>
-              <span>{<Expense num={factor.calcs.fullSum} />}</span>
-            </h5>
-          </div>
-          {factor.pays && factor.pays.length > 0 ? (
-            <RenderPays pays={factor.pays} />
-          ) : (
-            <span></span>
-          )}
-          <div className='fl'>
-            <h5>
-              <span>قابل پرداخت</span> :<span></span>
-              <span> </span>
-              <span>{<Expense num={factor.calcs.fullSum - factor.calcs.fullSumPays} />}</span>
-            </h5>
-          </div>
+          <h5>
+            <span>قابل پرداخت</span> :<span></span>
+            <span> </span>
+            <span>
+              {
+                <Expense
+                  num={factor.calcs.fullSum - factor.calcs.fullSumPays}
+                />
+              }
+            </span>
+          </h5>
         </div>
       </div>
       <Footer />
@@ -125,19 +136,17 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
 
 export default function PrintFactors() {
   const [factors, setFactors] = useState();
-  let { date } = useParams();
+  let { date, date2 } = useParams();
   date = parseInt(date);
+  date2 = parseInt(date2);
   const init = useRef(true);
-
-  const oneDay = 86400000;
-
   const printFactors = (fromm, till) => {
     ipcRenderer.send("print-factors", { from: fromm, till: till });
   };
 
   useEffect(() => {
     if (init.current) {
-      printFactors(date, date + oneDay);
+      printFactors(date, date2);
       init.current = false;
     }
 

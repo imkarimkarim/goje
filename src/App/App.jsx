@@ -48,7 +48,7 @@ export default function App() {
             <Route path='/editFactor/:id' component={EditFactor} />
             <Route path='/editProduct/:id' component={EditProduct} />
             <Route path='/printProduct/:id' component={PrintProduct} />
-            <Route path='/printFactors/:date' component={PrintFactors} />
+            <Route path='/printFactors/:date/:date2' component={PrintFactors} />
           </Switch>
       </Container>
     </Router>

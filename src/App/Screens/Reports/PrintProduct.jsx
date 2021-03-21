@@ -10,6 +10,7 @@ import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
 import Header from "../../Components/Header.jsx";
 import Footer from "../../Components/Footer.jsx";
+import ShowDate from "../../Components/ShowDate.jsx";
 import "./PrintProduct.css";
 import html2pdf from "html2pdf.js";
 
@@ -18,26 +19,17 @@ function InfoSection({ product }) {
   let tmpJdate2;
   let arrivalDate;
   let finishDate;
-  if (product) {
-    tmpJdate = new JDate(new Date(product.arrivalDate));
-    arrivalDate = tmpJdate.format("dddd DD MMMM YYYY");
-  }
-
-  if (product && product.isProductFinish) {
-    tmpJdate2 = new JDate(new Date(product.finishDate));
-    finishDate = tmpJdate2.format("dddd DD MMMM YYYY");
-  }
 
   return (
     <div className="info">
-      <h3 className="safiTitle">
+      <p className="safiTitle">
         <span>صورتحساب</span>
         <span> </span>
-        <span>{product.owner} </span>
+        <span><h3>{product.owner} </h3></span>
         <span>بابت</span>
-          <span> </span>
-        <span>{product.productName}</span>
-      </h3>
+        <span> </span>
+        <span><h3>{product.productName}</h3></span>
+      </p>
       <Grid container spacing={3}>
         <Grid item xs={8}>
           <div className="customeId">
@@ -49,14 +41,14 @@ function InfoSection({ product }) {
           <div className="arrivalDate">
             <span>تاریخ ورود</span>
             <span> :</span>
-            <span>{arrivalDate}</span>
+            <span>{<ShowDate timestamp={product.arrivalDate} />}</span>
           </div>
 
           <div cl="finishDate">
             <span>تاریخ بستن صافی</span>
             <span> :</span>
             <span>
-              {product.isProductFinish ? finishDate : "صافی هنوز باز است "}
+              {product.isProductFinish ? <ShowDate timestamp={product.finishDate} /> : "صافی هنوز باز است "}
             </span>
           </div>
         </Grid>
@@ -97,7 +89,11 @@ function SaleSection({ productId, product }) {
     ipcRenderer.on("oneProductCalcs", (event, oneProduct) => {
       init.current = false;
       setsalesInfo(oneProduct);
-      html2pdf(document.body);
+      const options = {
+        jsPDF: { format: "a5" },
+        filename: "product.pdf",
+      };
+      html2pdf(document.body, options);
     });
 
     // clean up
@@ -109,16 +105,16 @@ function SaleSection({ productId, product }) {
   return salesInfo ? (
     <div>
       <div className="sale">
-        <Grid container spacing={3}>
-          <Grid className="saleInfo-table" item xs={8}>
-            <h4>فروش</h4>
+        <Grid container spacing={1}>
+          <Grid className="saleInfo-table" item xs={12}>
+            <h4>فروش<hr /></h4>
             <table>
               <thead>
                 <tr>
-                  <th>شرح بار</th>
+                  <th>شرح</th>
                   <th>تعداد</th>
                   <th>وزن</th>
-                  <th>میانگین فی</th>
+                  <th>فی فروش</th>
                   <th>مبلغ کل</th>
                 </tr>
               </thead>
@@ -133,8 +129,10 @@ function SaleSection({ productId, product }) {
               </tbody>
             </table>
           </Grid>
-          <Grid className="costsInfo" item xs={4}>
-            <h4>هزینه‌ها</h4>
+        </Grid>
+        <Grid container spacing={1}>
+          <Grid className="saleInfo-table" item xs={12}>
+            <h4>هزینه‌ها<hr /></h4>
 
             <div>
               <span>کرایه</span>

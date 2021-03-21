@@ -17,6 +17,7 @@ import Expense from "../Expense.jsx";
 import ProductInput from "../Product/ProductInput.jsx";
 import Pays from "../Pays.jsx";
 import "./EditFactor.css";
+import ShowDate from '../ShowDate.jsx';
 
 const factorSchema = {
   docType: "factor",
@@ -138,13 +139,6 @@ export default function EditFactor() {
     };
   });
 
-  let changeDate = "";
-  let tmpJdate;
-  if (formData && formData.changeDate) {
-    tmpJdate = new JDate(new Date(formData.changeDate));
-    changeDate = tmpJdate.format("dddd DD MMMM YYYY");
-  }
-
   let notifJsx;
   if (notif === "success")
     notifJsx = <Notif type="success" message="ویرایش با موفقیت انجام شد" />;
@@ -211,7 +205,7 @@ export default function EditFactor() {
               ) : (
                 <span></span>
               )}
-              <div className="hint">آخرین تغییر در {changeDate}</div>
+              <div className="hint">آخرین تغییر در {formData && formData.changeDate ? <ShowDate timestamp={formData.changeDate} /> : <span></span>}</div>
             </div>
           </Grid>
           <Divider />
@@ -223,7 +217,7 @@ export default function EditFactor() {
             />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
-            <ProductInput formDispatch={formDispatch} label="شرح کالا*" />
+            <ProductInput formDispatch={formDispatch} label="شرح*" />
           </Grid>
           <Divider />
           {formData && formData.pays ? (

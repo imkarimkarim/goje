@@ -7,7 +7,7 @@ import JDate from "jalali-date";
 import "./Pays.css";
 import Expense from "./Expense.jsx";
 import DeleteIcon from "@material-ui/icons/Delete";
-
+import ShowDate from './ShowDate.jsx';
 
 const defaultState = {
   date: Date.now(),
@@ -28,11 +28,10 @@ const ProductInput = React.memo(({ onSubmit, pays, formDispatch }) => {
     <div className="pays-wrapper">
       {
         (pays && pays.length > 0) ? ( pays.map((py, index) => {
-          payDate = new JDate(new Date(py.date))
-          return <p className='payedRecord' key={index}>
-            {'در تاریخ ' + payDate.format('dddd DD MMMM YYYY') + ' - '}
+          return <p className='payedRecord' key={index}>            
             {<Expense num={py.amount} />}
-            {' داده شد.'}
+            {' پرداخت شد. '}
+            {'(' + <ShowDate timestamp={py.date} /> + ')'}
             {formDispatch ? (
               <span
                 onDoubleClick={() =>

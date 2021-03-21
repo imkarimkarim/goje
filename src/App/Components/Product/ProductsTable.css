@@ -2,14 +2,6 @@
   height: 35vh;
   overflow-y: scroll;
 }
-.ProductsTable table{
-  width: 100%;
-}
-
-.ProductsTable table td,
-.ProductsTable table th{
-  text-align: right;
-}
 
 .fullSum{
   padding-top: 20px;

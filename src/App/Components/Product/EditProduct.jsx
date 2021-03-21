@@ -78,7 +78,6 @@ export default function IncludeProduct() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    console.log(formData);
     editProduct(formData);
   };
 
@@ -143,7 +142,7 @@ export default function IncludeProduct() {
             </Button>
             <Grid item xs={12}>
               <Input
-                label="شرح بار*"
+                label="شرح*"
                 fun={setproductName}
                 value={formData.productName}
               />
@@ -198,7 +197,7 @@ export default function IncludeProduct() {
                 variant="outlined"
                 color="primary"
               >
-                ثبت
+                ثبت ویرایش
               </Button>
             </Grid>
           </Grid>

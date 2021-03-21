@@ -30,11 +30,11 @@ export default function ProductsTable({ products, formDispatch, pays }) {
         <thead>
           <tr>
             <th></th>
-            <th>شرح بار</th>
+            <th>شرح</th>
             <th>تعداد</th>
             <th>وزن</th>
             <th>فی</th>
-            <th>قیمت</th>
+            <th>مبلغ کل</th>
           </tr>
         </thead>
         <tbody>

@@ -4,13 +4,12 @@
   border-radius: 50px;
   display: flex;
   font-size: .8em;
-  margin: 1px;
   padding: 1px;
   justify-content: space-around;
   align-items: center;
 }
 
-.headerheader h3,
+.headerheader h2,
 .headerheader p{
   margin: 0;
   padding: 0;

@@ -110,9 +110,6 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
     setShowCustomerPicker(true);
   };
 
-  const test = (e) => {
-    console.log(e.target.value);
-  };
 
   useEffect(() => {
     // if (allproducts || productState.id !== '') {

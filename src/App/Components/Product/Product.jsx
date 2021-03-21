@@ -9,24 +9,11 @@ import Button from "@material-ui/core/Button";
 import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
 import Expense from "../Expense.jsx";
+import ShowDate from '../ShowDate.jsx';
 import "./Product.css";
 import html2pdf from 'html2pdf.js';
 
 function InfoSection({ product }) {
-  let tmpJdate;
-  let tmpJdate2;
-  let arrivalDate;
-  let finishDate;
-  if (product) {
-    tmpJdate = new JDate(new Date(product.arrivalDate));
-    arrivalDate = tmpJdate.format("dddd DD MMMM YYYY");
-  }
-
-  if (product && product.isProductFinish) {
-    tmpJdate2 = new JDate(new Date(product.finishDate));
-    finishDate = tmpJdate2.format("dddd DD MMMM YYYY");
-  }
-
   return (
     <div className="info">
       <h3 className="safiTitle">
@@ -35,10 +22,10 @@ function InfoSection({ product }) {
       <Grid container spacing={3}>
         <Grid item xs={7}>
           <div className="customeId">کد بار: {product.customeId}</div>
-          <div className="arrivalDate">تاریخ ورود: {arrivalDate}</div>
+          <div className="arrivalDate">تاریخ ورود: {<ShowDate timestamp={product.arrivalDate} />}</div>
           <div className="finishDate">
             تاریخ بستن صافی:
-            {product.isProductFinish ? finishDate : "صافی هنوز باز است "}
+            {product.isProductFinish ? <ShowDate timestamp={product.finishDate} /> : "صافی هنوز باز است "}
           </div>
         </Grid>
         <Grid item xs={5}>
@@ -83,10 +70,10 @@ function SaleSection({ productId, product }) {
             <table>
               <thead>
               <tr>
-                <th>شرح بار</th>
+                <th>شرح</th>
                 <th>تعداد</th>
                 <th>وزن</th>
-                <th>میانگین فی</th>
+                <th>فی فروش</th>
                 <th>مبلغ کل</th>
               </tr>
               </thead>
@@ -163,15 +150,15 @@ export default function ProductReports() {
                 ویرایش
               </Button>
             </Link>
-            <button>حذف</button>
               <Link to={`/printProduct/${product.customeId}`}>
                 <Button
                   className="newProductAddProductInputButton"
                   variant="outlined"
                   color="primary"
                 >
-                  پرینت
+                  گزارش
                 </Button>
+                // TODO: add delete button
               </Link>
           </div>
       </div>

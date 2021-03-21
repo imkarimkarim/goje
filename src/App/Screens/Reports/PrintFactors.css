@@ -1,14 +1,8 @@
-.printProductsTable table {
+.printProductsTable > table {
   width: 100%;
   padding: 0;
-  height: 12cm;
+  height: 15.9cm;
   font-size: 12px;
-  flex: 5;
-}
-
-.printProductsTable table td,
-.printProductsTable table th {
-  text-align: right;
 }
 
 .printProductsTable{
@@ -19,36 +13,43 @@
 
 .printfullSum {
   padding: 0;
-  flex: 3;
-  margin: 0 0 32px 0;
   text-align: center;
   display: flex;
-  flex-direction: column;
+  height: 2cm;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.printfullSum .f1{
+  flex: 4;  
 }
 
 .printpaysRecords {
-  font-size: 11px;
-  flex: 4;
-  margin: 2px 0 0 0;
+  font-size: 12px;
   padding: 0;
-}
-
-.fl{
-  flex: 2;
-}
-
-.factorsPrint-wrapper {
-  display: block;
+  margin: 0
 }
 
 .factorsPrint-wrapper h5 {
   margin: 5px 0;
 }
 
-.factorsPrint-wrapper .header {
-  text-align: center;
+.factorMetaData {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
 }
-
-.factorsPrint-wrapper .MuiGrid-spacing-xs-3 > .MuiGrid-item {
-  padding: 0;
+.factorMetaData .name{
+  display: flex;
+  align-items: center;
+}
+.factorMetaData .name > span{
+  margin-left: 3px;
+}
+.factorMetaData .name h4{
+  font-size: 16px;
+  margin: 4px 0;
+}
+.factorMetaData .date{
+  
 }

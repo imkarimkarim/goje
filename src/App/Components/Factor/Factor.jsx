@@ -10,6 +10,7 @@ import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
 import Expense from "../Expense.jsx";
 import ProductsTable from "../Product/ProductsTable.jsx";
+import ShowDate from '../ShowDate.jsx'; 
 import Pays from "../Pays.jsx";
 import "./Factor.css";
 // TODO: edit
@@ -43,7 +44,7 @@ const factorSchema = {
   id: ''
 };
 
-export default function ProductReports() {
+export default function Factor() {
   const [factor, setFactor] = useState(factorSchema);
   let { id } = useParams();
   const init = useRef(true);
@@ -80,7 +81,7 @@ export default function ProductReports() {
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
             <div><h3>صورتحساب {factor.ownerName}</h3></div>
-            <div>{factorDate ? factorDate : "تایرخخخخخخخخخخ"}</div>
+            <div>{factor && factor.factorDate ? <ShowDate timestamp={factor.factorDate} /> : <span></span>}</div>
             <div>{factor && factor.isPayed ? 'نقدی' : 'نسیه'}</div>
           </Grid>
           <Divider />
@@ -88,7 +89,7 @@ export default function ProductReports() {
             <ProductsTable pays={factor.pays} products={factor.products} />
           </Grid>
           <Divider />
-          {factor && factor.isPayed ? (
+          {factor && factor.pays && factor.pays.length > 0 ? (
             <Grid item className="addpay-section" xs={12}>
               <Pays pays={factor.pays} />
             </Grid>
@@ -101,7 +102,7 @@ export default function ProductReports() {
               variant="outlined"
               color="primary"
             >
-              پرینت
+              گزارش
             </Button>
             <Link to={`/editFactor/${factor.customeId}`}>
               <Button
@@ -112,14 +113,7 @@ export default function ProductReports() {
                 ویرایش
               </Button>
             </Link>
-            <Button
-              className="deleteProductButton"
-              disabled={true}
-              variant="outlined"
-              color="primary"
-            >
-              حذف
-            </Button>
+            // TODO: add delete button
           </div>
         </Grid>
       </div>

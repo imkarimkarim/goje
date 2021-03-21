@@ -138,7 +138,6 @@ export default function NewFactor() {
               label="صاحب فاکتور*"
               className="customerInput"
               onPick={(id, name) => {
-                console.log(id, name);
                 formDispatch({
                   type: "setOwner",
                   payload1: id,
@@ -195,7 +194,7 @@ export default function NewFactor() {
             />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
-            <ProductInput formDispatch={formDispatch} label="شرح کالا*" />
+            <ProductInput formDispatch={formDispatch} label="شرح*" />
           </Grid>
           <Divider />
           {formData && formData.isPayed === false ? (

@@ -18,6 +18,7 @@ ipcMain.on('newFactor', (event, factor) => {
 ipcMain.on('editFactor', (event, factor) => {
   factor = normalizeFactor(factor);
   if(isFactorValid(factor)){
+    factor.changeDate = Date.now();
     factorDocs.update(factor._id, factor, () => {
       event.reply('editFactor', true);
     })
