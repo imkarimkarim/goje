@@ -1,16 +1,9 @@
 const { app, BrowserWindow } = require("electron");
-const path = require("path");
-const JDate = require('jalali-date');
+const path = require('path');
 require("./db");
 require('./ipcMains/ipcProducts');
 require('./ipcMains/ipcCustomer');
 require('./ipcMains/ipcFactors');
-
-const {generateNewCustomId} = require('./modules/idGenerator');
-const customerDocs = require('./db/customerDocs');
-const factorDocs = require('./db/factorDocs');
-const productDocs = require('./db/productDocs');
-const calcOnProduct = require('./calculators/calcOneProduct');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -24,6 +17,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
     minWidth: 700,
+    icon: __dirname + '/goje.png',
     webPreferences: {
       nodeIntegration: true,
     },
@@ -36,6 +30,7 @@ const createWindow = () => {
   if (process.env.DEBUG) {
     mainWindow.webContents.openDevTools();
   }
+  
 };
 
 // This method will be called when Electron has finished
