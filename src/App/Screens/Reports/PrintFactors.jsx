@@ -96,8 +96,8 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
                     <td>{p.productName}</td>
                     <td>{p.amount}</td>
                     <td>{p.weight}</td>
-                    <td>{<Expense num={p.price} />}</td>
-                    <td>{<Expense num={p.price * p.weight} />}</td>
+                    <td>{<Expense num={p.price} />}</td>                    
+                    <td>{<Expense num={Math.round(100 * (p.price * p.weight)) / 100} />}</td>
                   </tr>
                 ))
               : null}
