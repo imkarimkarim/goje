@@ -83,6 +83,8 @@ function calculateAllTheStuffFinally(callback) {
     RESULTS.SUM_AMOUNT += product[0];
     RESULTS.FULL_SALE += (product[1] * product[2]);
   });
+  
+  RESULTS.SUM_KG = Math.round(RESULTS.SUM_KG);
   RESULTS.SALE_AVERAGE = Math.floor(RESULTS.FULL_SALE / RESULTS.SUM_KG);
   RESULTS.FULL_SALE = Math.floor(RESULTS.SUM_KG * RESULTS.SALE_AVERAGE);
   RESULTS.COMMISSION = Math.floor((RESULTS.SUM_KG * RESULTS.SALE_AVERAGE) * (productData.commission * .01));
