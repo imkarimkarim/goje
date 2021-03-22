@@ -16,7 +16,7 @@ export default function ProductsTable({ products, formDispatch, pays }) {
   if (products) {
     sum.current = 0;
     for (let i = 0; i < products.length; i++) {
-      sum.current += products[i].weight * products[i].price;
+      sum.current += Math.round(100 * (products[i].weight * products[i].price)) / 100;
     }
     if(pays && pays.length > 0){
       for(let i2 = 0; i2 < pays.length; i2++) {
@@ -46,7 +46,7 @@ export default function ProductsTable({ products, formDispatch, pays }) {
                   <td>{p.amount}</td>
                   <td>{p.weight}</td>
                   <td>{<Expense num={p.price} />}</td>
-                  <td>{<Expense num={p.price * p.weight} />}</td>
+                  <td>{<Expense num={Math.round(100 * ( p.price * p.weight)) / 100} />}</td>
                   {formDispatch ? (
                     <td
                       onDoubleClick={() =>

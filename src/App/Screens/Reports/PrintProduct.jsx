@@ -94,6 +94,7 @@ function SaleSection({ productId, product }) {
         filename: "product.pdf",
       };
       html2pdf(document.body, options);
+      window.history.back();
     });
 
     // clean up

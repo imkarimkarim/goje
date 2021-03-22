@@ -7,6 +7,7 @@ import Loading from "../../Components/Loading.jsx";
 import Nav from "../../Components/Nav.jsx";
 import SearchBox from "../../Components/SearchBox.jsx";
 import JDate from 'jalali-date';
+import ShowDate from '../../Components/ShowDate.jsx';
 
 const oneMonth = 2419200000;
 
@@ -56,8 +57,6 @@ export default function SearchFactors() {
       filteredFactors = factors.filter((f) => f.ownerName === searchState.text);
     }
     resultsList = filteredFactors.map((factor) => {
-      let tmpShowDate = new JDate(new Date(factor.factorDate));
-      let factorDate = tmpShowDate.format("dddd DD MMMM YYYY");
       return (
         <Link
           key={factor.customeId}
@@ -65,7 +64,7 @@ export default function SearchFactors() {
         >
           <SearchResultItem
             itemTitle={factor.ownerName}
-            titleHint={`(${factor.customeId}) ${factorDate}`}
+            titleHint={<ShowDate timestamp={factor.factorDate} />}
             customeId={factor.customeId}
           />
         </Link>

@@ -2,8 +2,8 @@ import React from "react";
 import JDate from "jalali-date";
 
 export default function ShowDate({timestamp}) {
-  console.log(timestamp);
   const date = new JDate(new Date(timestamp));
+  console.log(timestamp);
   console.log(date);
   return <span>
     <span>{date.date[0]}</span>

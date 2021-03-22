@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Input from "../Input.jsx";
 import ExpenseInput from '../ExpenseInput.jsx';
 import './ProductInput.css';
+import ShowDate from '../ShowDate.jsx';
 
 function CustomerPicker({
   products,
@@ -47,7 +48,8 @@ function CustomerPicker({
       className={index % 2 ? "ListItemOdd" : "ListItemEven"}
       style={style}
     >
-      {products[index].productName + ' ' + products[index].owner}
+      {`${products[index].productName} ${products[index].owner}`}
+      <span style={{color: '#aaa'}}><ShowDate timestamp={products[index].arrivalDate} /></span>
     </ListItem>
   );
 
@@ -67,7 +69,7 @@ function CustomerPicker({
         height={400}
         itemCount={products.length}
         itemSize={30}
-        width={300}
+        width={400}
       >
         {renderedItems}
       </FixedSizeList>

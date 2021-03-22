@@ -7,7 +7,7 @@ const calculate = (products, pays, callback) => {
   }
   let tmp;
   for(let i = 0; i < products.length; i++){
-    tmp = products[i].weight * products[i].price;
+    tmp = Math.round(100 * ( products[i].weight * products[i].price)) / 100;
     calcs.sums.push(tmp);
     calcs.fullSum += tmp;
   }

@@ -57,7 +57,7 @@ const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker })
         height={400}
         itemCount={customers.length}
         itemSize={30}
-        width={300}
+        width={400}
       >
         {renderedItems}
       </FixedSizeList>

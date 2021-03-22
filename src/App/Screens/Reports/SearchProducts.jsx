@@ -7,6 +7,8 @@ import Loading from "../../Components/Loading.jsx";
 import Nav from "../../Components/Nav.jsx";
 import SearchBox from "../../Components/SearchBox.jsx";
 import JDate from 'jalali-date';
+import ShowDate from '../../Components/ShowDate.jsx';
+
 
 const oneMonth = 2419200000;
 
@@ -56,8 +58,6 @@ export default function SearchProducts() {
       filteredProducts = products.filter((p) => (p.productName+' '+p.owner).includes(searchState.text));
     }
     resultsList = filteredProducts.map((product) => {
-      let tmpShowDate = new JDate(new Date(product.arrivalDate));
-      let arrivalDate = tmpShowDate.format("dddd DD MMMM YYYY");
       return (
         <Link
           key={product.customeId}
@@ -65,7 +65,7 @@ export default function SearchProducts() {
         >
           <SearchResultItem
             itemTitle={product.productName + ' ' + product.owner}
-            titleHint={arrivalDate + '   ' + product.customeId}
+            titleHint={<ShowDate timestamp={product.arrivalDate} />}
             customeId={product.customeId}
           />
         </Link>
