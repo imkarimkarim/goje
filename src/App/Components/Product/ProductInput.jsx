@@ -43,6 +43,7 @@ function CustomerPicker({
           name: products[index].productName,
           id: products[index].customeId,
         });
+        document.getElementById('focusOnMe2').focus();
       }}
       key={index}
       className={index % 2 ? "ListItemOdd" : "ListItemEven"}
@@ -100,6 +101,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
     setAmount('');
     setWeight('');
     setPrice('');
+    document.getElementById('focusOnMe1').focus();
   };
 
   const sendAllproducts = () => {
@@ -143,7 +145,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
         ""
       )}
       <TextField
-        id="outlined-basic"
+        id="focusOnMe1"
         size="small"
         variant="outlined"
         value={productState.name}
@@ -151,6 +153,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
         onFocus={handleFocus}
       />
       <Input
+        id="focusOnMe2"
         value={amount}
         label="تعداد*"
         fun={(e) => {
