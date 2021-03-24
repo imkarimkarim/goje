@@ -46,7 +46,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
         filename: "factors.pdf",
       };
       html2pdf(document.body, options);
-      window.history.back();
+      // window.history.back();
     }
   });
   
@@ -60,13 +60,13 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
           <span>
             <h4>{factor.ownerName}</h4>
           </span>
-          <span> </span>)<span>{factor.isPayed ? "نقدی" : "نسیه"}</span>
+          <span></span>)<span>{factor.isPayed ? "نقدی" : "نسیه"}</span>
           <span>(</span>
           <span> </span>
         </div>
         <div className="date">
           <span>تاریخ</span>
-          <span>: </span>
+          <span> :</span>
           <span>
             {factor && factor.factorDate ? (
               <ShowDate timestamp={factor.factorDate} />
@@ -85,7 +85,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
               <th>تعداد</th>
               <th>وزن</th>
               <th>فی</th>
-              <th>قیمت</th>
+              <th>مبلغ</th>
             </tr>
           </thead>
           <tbody>
