@@ -46,7 +46,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
         filename: "factors.pdf",
       };
       html2pdf(document.body, options);
-      // window.history.back();
+      window.history.back();
     }
   });
   
