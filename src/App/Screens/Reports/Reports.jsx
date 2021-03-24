@@ -8,6 +8,7 @@ export default function Reports() {
   
   const [date, setDate] = useState(Date.now());
   const [date2, setDate2] = useState(Date.now());
+  
   return (
     <div className="reports-screen">
       <Nav title="/گزارشات" />

@@ -36,15 +36,15 @@ const factorsWithProduct = (id, callback) => {
   });
 };
 
-const factorsWithChangeDate = (fromm, till, callback) => {
+const factorsWithFactordate = (fromm, till, callback) => {
   if (!fromm && !till) return;
 
   db.find(
     {
       $and: [
         { docType: "factor" },
-        { 'changeDate': { $gte: fromm } },
-        { 'changeDate': { $lte: till } },
+        { 'factorDate': { $gte: fromm } },
+        { 'factorDate': { $lte: till } },
         { 'isPayed': false }
       ],
     },
@@ -152,5 +152,5 @@ module.exports = {
   update,
   factorsWithProduct,
   SearchFactors,
-  factorsWithChangeDate,
+  factorsWithFactordate,
 };

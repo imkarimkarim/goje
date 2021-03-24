@@ -49,7 +49,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
       window.history.back();
     }
   });
-
+  
   return (
     <div className="factorsPrint-wrapper">
       <Header />
