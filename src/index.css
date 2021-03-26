@@ -59,3 +59,8 @@ table {
   border-collapse: collapse;
   width: 100%;
 }
+
+.ps{
+  width: 100%;
+  height: 100px;
+}

@@ -141,6 +141,9 @@ export default function ProductReports() {
       <div className="product-reports">
         <InfoSection product={product} />
         <SaleSection productId={product.customeId} product={product} />
+        <div className="ps">
+          پی‌نوشت: {product && product.ps ? product.ps : ''}
+        </div>
           <div className="actions">
             <Link to={`/editProduct/${product.customeId}`}>
               <Button

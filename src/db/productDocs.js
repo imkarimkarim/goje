@@ -154,7 +154,8 @@ const update = (id, product, callback) => {
       unload: product.unload,
       portage: product.portage,
       cash: product.cash,
-      plaque: product.plaque
+      plaque: product.plaque,
+      ps: product.ps
      }, {}, function () {
       if (typeof callback === "function") {
         callback();

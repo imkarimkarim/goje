@@ -5,6 +5,7 @@ import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Notif from "../../Components/Notif.jsx";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
@@ -28,6 +29,7 @@ const productSchema = {
   portage: 0,
   cash: 0,
   plaque: "",
+  ps: '',
 };
 
 export default function IncludeProduct() {
@@ -74,6 +76,9 @@ export default function IncludeProduct() {
       isProductFinish: !formData.isProductFinish,
       finishDate: Date.now(),
     });
+  };
+  const setPs = (e) => {
+    setFormData({ ...formData, ps: e.target.value });
   };
 
   const handleSubmit = () => {
@@ -191,6 +196,8 @@ export default function IncludeProduct() {
             </Grid>
             <br />
             <Grid item xs={12}>
+              <TextareaAutosize onChange={setPs} value={formData.ps} rowsMin={3} placeholder="پی نوشت" />
+              <br />
               <Button
                 disabled={submit}
                 onClick={handleSubmit}

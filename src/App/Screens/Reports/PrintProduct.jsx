@@ -223,6 +223,9 @@ export default function PrintProduct() {
         <Header />
         <InfoSection product={product} />
         <SaleSection productId={product.customeId} product={product} />
+          <div className="ps">
+            <span>پی‌نوشت</span><span> :</span><span>{product && product.ps ? product.ps : ''}</span>
+          </div>
         <Footer />
       </div>
     </div>
