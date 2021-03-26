@@ -58,16 +58,16 @@ export default function SearchFactors() {
     }
     resultsList = filteredFactors.map((factor) => {
       return (
-        <Link
+        <div
           key={factor.customeId}
-          to={`/factor/${factor.customeId}`}
         >
           <SearchResultItem
             itemTitle={factor.ownerName}
             titleHint={<ShowDate timestamp={factor.factorDate} />}
             customeId={factor.customeId}
+            to={`/factor/${factor.customeId}`}
           />
-        </Link>
+      </div>
       );
     });
   }

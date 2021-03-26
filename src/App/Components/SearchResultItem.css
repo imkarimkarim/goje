@@ -1,4 +1,8 @@
-.grayHint{
-  color: #999;
-  margin: 0 10px;
+.SearchResultItem .MuiListItem-root{
+  display: flex;
+  flex-direction: column;
+}
+
+.SearchResultItem .MuiSvgIcon-root{
+  color: #666;
 }
