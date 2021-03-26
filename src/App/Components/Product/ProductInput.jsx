@@ -31,7 +31,7 @@ function CustomerPicker({
   })
 
   if (search) {
-    products = products.filter((p) => p.productName.includes(search));
+    products = products.filter((p) => (p.productName + " " + p.owner).includes(search));
   }
 
   const renderedItems = ({ index, style }) => (
