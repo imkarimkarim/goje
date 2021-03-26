@@ -11,12 +11,13 @@ import ShowDate from '../../Components/ShowDate.jsx';
 
 
 const oneMonth = 2419200000;
+const oneYear = oneMonth * 12;
 
 const defalutSearchState = {
   text: "",
   checked1: true,
   checked2: false,
-  fromm: Date.now() - oneMonth,
+  fromm: Date.now() - oneYear,
   till: Date.now()
 };
 
@@ -83,7 +84,7 @@ export default function SearchProducts() {
         label2="صافی های بسته"
         placeholder='مثال: آناناس پلنگ صورتی'
       />
-      {products ? <List>{resultsList}</List> : <Loading />}
+    {products ? <div><p className='hint'>{`${products.length} صافی پیدا شد.`}</p><List>{resultsList}</List></div> : <Loading />}
     </div>
   );
 }

@@ -1,10 +1,21 @@
 const { db } = require("../db");
 const objectCreator = require("../modules/objectCreator");
 
+const sortProductsArray = (producs) => {
+  if(!producs) return;
+  producs.sort((a, b) => {
+    return a.arrivalDate - b.arrivalDate;
+  }).reverse();
+  return producs;
+}
+
 const getAll = (callback) => {
   db.find({ docType: "product" }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
+      if(docs) {
+        docs = sortProductsArray(docs);
+      }
       callback(docs);
     }
   });
@@ -16,6 +27,9 @@ const getUnFinishedProducts = (callback) => {
     function (err, docs) {
       if (err) throw err;
       if (typeof callback === "function") {
+        if(docs) {
+          docs = sortProductsArray(docs);
+        }
         callback(docs);
       }
     }
@@ -37,6 +51,9 @@ const searchProducts = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
+          if(docs) {
+            docs = sortProductsArray(docs);
+          }
           callback(docs);
         }
       }
@@ -55,6 +72,9 @@ const searchProducts = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
+          if(docs) {
+            docs = sortProductsArray(docs);
+          }
           callback(docs);
         }
       }
@@ -73,6 +93,9 @@ const searchProducts = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
+          if(docs) {
+            docs = sortProductsArray(docs);
+          }
           callback(docs);
         }
       }
@@ -86,6 +109,9 @@ const getFinishedProducts = (callback) => {
     function (err, docs) {
       if (err) throw err;
       if (typeof callback === "function") {
+        if(docs) {
+          docs = sortProductsArray(docs);
+        }
         callback(docs);
       }
     }

@@ -9,13 +9,13 @@ import SearchBox from "../../Components/SearchBox.jsx";
 import JDate from 'jalali-date';
 import ShowDate from '../../Components/ShowDate.jsx';
 
-const oneMonth = 2419200000;
+const oneDay = 86400000;
 
 const defalutSearchState = {
   text: "",
   checked1: true,
   checked2: true,
-  fromm: Date.now() - oneMonth,
+  fromm: Date.now() - oneDay,
   till: Date.now()
 };
 
@@ -82,7 +82,7 @@ export default function SearchFactors() {
         label2="نسیه"
         placeholder='مثال:‌‌ آرسن لوپین'
       />
-    {factors ? <List>{resultsList}</List> : <Loading />}
+    {factors ? <div><p className='hint'>{`${factors.length} فاکتور پیدا شد.`}</p><List>{resultsList}</List></div> : <Loading />}
     </div>
   );
 }

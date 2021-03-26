@@ -2,10 +2,21 @@ const { db } = require("../db");
 const objectCreator = require("../modules/objectCreator");
 const calcSumFactor = require("../calculators/calcSumFactor");
 
+const sortFactorsArray = (factors) => {
+  if(!factors) return;
+  factors.sort((a, b) => {
+    return a.factorDate - b.factorDate;
+  });
+  return factors;
+}
+
 const getAll = (callback) => {
   db.find({ docType: "factor" }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
+      if(docs){
+        docs = sortFactorsArray(docs);
+      }
       callback(docs);
     }
   });
@@ -51,6 +62,9 @@ const factorsWithFactordate = (fromm, till, callback) => {
     function (err, docs) {
       if (err) throw err;
       if (typeof callback === "function") {
+        if(docs){
+          docs = sortFactorsArray(docs);
+        }
         callback(docs);
       }
     }
@@ -72,6 +86,9 @@ const SearchFactors = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
+          if(docs){
+            docs = sortFactorsArray(docs);
+          }
           callback(docs);
         }
       }
@@ -89,6 +106,9 @@ const SearchFactors = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
+          if(docs){
+            docs = sortFactorsArray(docs);
+          }
           callback(docs);
         }
       }
@@ -106,6 +126,9 @@ const SearchFactors = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
+          if(docs){
+            docs = sortFactorsArray(docs);
+          }
           callback(docs);
         }
       }
