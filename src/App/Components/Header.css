@@ -5,13 +5,17 @@
   display: flex;
   font-size: .8em;
   padding: 1px;
-  margin: 9.5px 0 0 0;
+  margin: 11.5px 0 0 0;
   justify-content: space-around;
   align-items: center;
 }
 
-.headerheader h2,
+.headerheader h3,
 .headerheader p{
   margin: 0;
   padding: 0;
+}
+
+.headerheader h3{
+  font-size: 1.3em;
 }

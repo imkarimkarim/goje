@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import { DatePicker } from "jalali-react-datepicker";
 import Nav from "../../Components/Nav.jsx";
+import './Reports.css';
 
 export default function Reports() {
   

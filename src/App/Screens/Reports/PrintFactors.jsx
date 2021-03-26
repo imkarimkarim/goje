@@ -116,7 +116,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
             <span> </span>
             <span>{<Expense num={factor.calcs.fullSum} />}</span>
           </h5>
-          <h5>
+          <h5 className="imBigger">
             <span>قابل پرداخت</span> :<span></span>
             <span> </span>
             <span>
