@@ -9,7 +9,7 @@
   border-radius: 5px;
   border: 1px solid #bbb;
   font-family: Vazir;
-  font-size: .9em;
+  font-size: 15px;
 }
 
 .notif-success {
@@ -30,6 +30,6 @@
 }
 
 .notif .MuiSvgIcon-root{
-  font-size: 1.5em;
+  font-size: 22px;
   margin-left: 3px;
 }

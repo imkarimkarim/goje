@@ -1,13 +1,13 @@
 nav{
   display: flex;
   align-items: center;
-  font-size: 1.1em;
+  font-size: 25px;
   margin-bottom: 20px;
 }
 
 nav .screen-title{
   margin-right: 10px;
-  font-size: .85em;
+  font-size: 20px;
   color: #666;
 }
 

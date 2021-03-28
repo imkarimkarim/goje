@@ -3,7 +3,7 @@
   border: 1px solid black;
   border-radius: 50px;
   display: flex;
-  font-size: .8em;
+  font-size: 12px;
   padding: 1px;
   margin: 11.5px 0 0 0;
   justify-content: space-around;
@@ -17,5 +17,5 @@
 }
 
 .headerheader h3{
-  font-size: 1.3em;
+  font-size: 17px;
 }

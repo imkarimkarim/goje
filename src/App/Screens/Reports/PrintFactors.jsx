@@ -42,7 +42,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
   useEffect(() => {
     if (factorsLength === index + 1) {
       const options = {
-        jsPDF: { format: "a5" },
+        jsPDF: { unit: 'cm', format: "a5" },
         filename: "factors.pdf",
         html2canvas:  { scale: 1 },
       };
