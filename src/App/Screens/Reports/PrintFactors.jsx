@@ -20,10 +20,10 @@ const RenderPays = ({ pays }) => {
   let payDate;
   return (
     <p className="printpaysRecords">
-      {pays.map((p) => {
+      {pays.map((p, index) => {
         payDate = new JDate(new Date(p.date));
         return (
-          <span>
+          <span key={index}>
             <span>{<Expense num={p.amount} />}</span>
             <span> </span>
             <span>پرداخت شد</span>
@@ -40,16 +40,20 @@ const RenderPays = ({ pays }) => {
 
 const RenderFactor = ({ factor, index, factorsLength }) => {
   useEffect(() => {
-    if (factorsLength === index + 1) {
+    if (index ===  1) {
       const options = {
         jsPDF: { format: "a5" },
         filename: "factors.pdf",
+        html2canvas:  { scale: 1 },
       };
-      html2pdf(document.body, options);
-      window.history.back();
+      html2pdf().set(options).from(document.body).save().then(
+        () => {
+          window.history.back();          
+        }
+      )
     }
   });
-  
+
   return (
     <div className="factorsPrint-wrapper">
       <Header />
@@ -96,8 +100,14 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
                     <td>{p.productName}</td>
                     <td>{p.amount}</td>
                     <td>{p.weight}</td>
-                    <td>{<Expense num={p.price} />}</td>                    
-                    <td>{<Expense num={Math.round(100 * (p.price * p.weight)) / 100} />}</td>
+                    <td>{<Expense num={p.price} />}</td>
+                    <td>
+                      {
+                        <Expense
+                          num={Math.round(100 * (p.price * p.weight)) / 100}
+                        />
+                      }
+                    </td>
                   </tr>
                 ))
               : null}
