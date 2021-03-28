@@ -82,7 +82,8 @@ export default function SearchFactors() {
         label2="نسیه"
         placeholder='مثال:‌‌ آرسن لوپین'
       />
-    {factors ? <div><p className='hint'>{`${factors.length} فاکتور پیدا شد.`}</p><List>{resultsList}</List></div> : <Loading />}
+    {factors ? <div><p className='hint'>{`${resultsList.length} فاکتور پیدا شد.`}</p><List>{resultsList}</List></div> : <Loading />}
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     </div>
   );
 }

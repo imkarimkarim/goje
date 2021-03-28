@@ -40,7 +40,7 @@ const RenderPays = ({ pays }) => {
 
 const RenderFactor = ({ factor, index, factorsLength }) => {
   useEffect(() => {
-    if (index ===  1) {
+    if (factorsLength === index + 1) {
       const options = {
         jsPDF: { format: "a5" },
         filename: "factors.pdf",

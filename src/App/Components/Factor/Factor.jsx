@@ -15,20 +15,10 @@ import Pays from "../Pays.jsx";
 import "./Factor.css";
 // TODO: edit
 // TODO: $cleanings
-// TODO: style
 // TODO: delete
-// TODO: close proudct
 // TODO: $warning : product is about to finish
-// TODO: لیست حسابدار
-// TODO: print
-// TODO: print changes
-// TODO: print todays
-// TODO: last schema
 // TODO: backup
 // TODO: open
-// TODO: key
-// TODO: add delete button
-
 // TODO: installer
 // TODO: test + test on windows
 
@@ -68,14 +58,7 @@ export default function Factor() {
       ipcRenderer.removeAllListeners("send-oneFactor");
     };
   });
-
-  let factorDate;
-  let tmpJdate;
-  if (factor && factor.factorDate) {
-    tmpJdate = new JDate(new Date(factor.factorDate));
-    factorDate = tmpJdate.format("dddd DD MMMM YYYY");
-  }
-
+  
   return factor ? (
     <div>
       <Nav title={"/فاکتور/" + factor.customeId} />
@@ -99,7 +82,9 @@ export default function Factor() {
             <div></div>
           )}
           <div className="actions">
+            <p>(در حال حاضر امکان گزارش گیری تکی وجود ندارد)</p>
             <Button
+              disabled={true}
               className="newFactorAddProductInputButton"
               variant="outlined"
               color="primary"

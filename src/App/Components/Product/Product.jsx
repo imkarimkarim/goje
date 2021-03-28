@@ -9,24 +9,30 @@ import Button from "@material-ui/core/Button";
 import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
 import Expense from "../Expense.jsx";
-import ShowDate from '../ShowDate.jsx';
+import ShowDate from "../ShowDate.jsx";
 import "./Product.css";
-import html2pdf from 'html2pdf.js';
+import html2pdf from "html2pdf.js";
 // TODO: add delete button
 
 function InfoSection({ product }) {
   return (
     <div className="info">
       <h3 className="safiTitle">
-         صورتحساب {product.owner} بابت {product.productName}
+        صورتحساب {product.owner} بابت {product.productName}
       </h3>
       <Grid container spacing={3}>
         <Grid item xs={7}>
           <div className="customeId">کد بار: {product.customeId}</div>
-          <div className="arrivalDate">تاریخ ورود: {<ShowDate timestamp={product.arrivalDate} />}</div>
+          <div className="arrivalDate">
+            تاریخ ورود: {<ShowDate timestamp={product.arrivalDate} />}
+          </div>
           <div className="finishDate">
             تاریخ بستن صافی:
-            {product.isProductFinish ? <ShowDate timestamp={product.finishDate} /> : "صافی هنوز باز است "}
+            {product.isProductFinish ? (
+              <ShowDate timestamp={product.finishDate} />
+            ) : (
+              "صافی هنوز باز است "
+            )}
           </div>
         </Grid>
         <Grid item xs={5}>
@@ -70,22 +76,22 @@ function SaleSection({ productId, product }) {
             <h4>فروش</h4>
             <table>
               <thead>
-              <tr>
-                <th>شرح</th>
-                <th>تعداد</th>
-                <th>وزن</th>
-                <th>فی فروش</th>
-                <th>مبلغ کل</th>
-              </tr>
+                <tr>
+                  <th>شرح</th>
+                  <th>تعداد</th>
+                  <th>وزن</th>
+                  <th>فی فروش</th>
+                  <th>مبلغ کل</th>
+                </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>{product.productName}</td>
-                <td>{salesInfo.SUM_AMOUNT}</td>
-                <td>{salesInfo.SUM_KG}</td>
-                <td>{<Expense num={salesInfo.SALE_AVERAGE} />}</td>
-                <td>{<Expense num={salesInfo.FULL_SALE} />}</td>
-              </tr>
+                <tr>
+                  <td>{product.productName}</td>
+                  <td>{salesInfo.SUM_AMOUNT}</td>
+                  <td>{salesInfo.SUM_KG}</td>
+                  <td>{<Expense num={salesInfo.SALE_AVERAGE} />}</td>
+                  <td>{<Expense num={salesInfo.FULL_SALE} />}</td>
+                </tr>
               </tbody>
             </table>
           </Grid>
@@ -101,7 +107,19 @@ function SaleSection({ productId, product }) {
           </Grid>
         </Grid>
         <div className="owner-earning">
-          <h4>جمع هزینه‌ها: {<Expense num={salesInfo.COMMISSION + salesInfo.productData.portage + salesInfo.productData.unload + salesInfo.productData.cash} />}</h4>
+          <h4>
+            جمع هزینه‌ها:{" "}
+            {
+              <Expense
+                num={
+                  salesInfo.COMMISSION +
+                  salesInfo.productData.portage +
+                  salesInfo.productData.unload +
+                  salesInfo.productData.cash
+                }
+              />
+            }
+          </h4>
           <h3>صافی: {<Expense num={salesInfo.OWNER_ERNINGS} />}</h3>
         </div>
       </div>
@@ -119,7 +137,7 @@ export default function ProductReports() {
   const sendOneProduct = (id) => {
     ipcRenderer.send("send-oneProduct", id);
   };
-  
+
   useEffect(() => {
     if (init.current) {
       sendOneProduct(id);
@@ -142,28 +160,33 @@ export default function ProductReports() {
         <InfoSection product={product} />
         <SaleSection productId={product.customeId} product={product} />
         <div className="ps">
-          پی‌نوشت: {product && product.ps ? product.ps : ''}
+          پی‌نوشت: {product && product.ps ? product.ps : ""}
         </div>
-          <div className="actions">
-            <Link to={`/editProduct/${product.customeId}`}>
+        <div className="actions">
+          {product.isProductFinish ? (
+            <Link to={`/printProducts/${product.customeId}`}>
               <Button
                 className="newProductAddProductInputButton"
                 variant="outlined"
                 color="primary"
               >
-                ویرایش
+                گزارش
               </Button>
             </Link>
-              <Link to={`/printProduct/${product.customeId}`}>
-                <Button
-                  className="newProductAddProductInputButton"
-                  variant="outlined"
-                  color="primary"
-                >
-                  گزارش
-                </Button>
-              </Link>
-          </div>
+          ) : (
+            <div>(به دلیل باز بودن صافی گزارش گیری مقدور نیست)</div>
+          )}
+
+          <Link to={`/editProduct/${product.customeId}`}>
+            <Button
+              className="newProductAddProductInputButton"
+              variant="outlined"
+              color="primary"
+            >
+              ویرایش
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   ) : (

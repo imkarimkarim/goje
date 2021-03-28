@@ -12,7 +12,7 @@ import SearchProducts from './Screens/Reports/SearchProducts.jsx';
 import SearchFactors from './Screens/Reports/SearchFactors.jsx';
 import EditFactor from './Components/Factor/EditFactor.jsx';
 import EditProduct from './Components/Product/EditProduct.jsx';
-import PrintProduct from './Screens/Reports/PrintProduct.jsx';
+import PrintProducts from './Screens/Reports/PrintProducts.jsx';
 import PrintFactors from './Screens/Reports/PrintFactors.jsx';
 
 export default function App() {
@@ -47,7 +47,7 @@ export default function App() {
             <Route path='/factor/:id' component={Factor} />
             <Route path='/editFactor/:id' component={EditFactor} />
             <Route path='/editProduct/:id' component={EditProduct} />
-            <Route path='/printProduct/:id' component={PrintProduct} />
+            <Route path='/printProducts/:ids' component={PrintProducts} />
             <Route path='/printFactors/:date/:date2' component={PrintFactors} />
           </Switch>
       </Container>

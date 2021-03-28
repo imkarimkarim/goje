@@ -2,12 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 const { ipcRenderer } = require("electron");
 import List from "@material-ui/core/List";
+import Button from "@material-ui/core/Button";
 import SearchResultItem from "../../Components/SearchResultItem.jsx";
 import Loading from "../../Components/Loading.jsx";
 import Nav from "../../Components/Nav.jsx";
 import SearchBox from "../../Components/SearchBox.jsx";
 import JDate from "jalali-date";
 import ShowDate from "../../Components/ShowDate.jsx";
+import './SearchProducts.css';
 
 const oneMonth = 2419200000;
 const oneYear = oneMonth * 12;
@@ -37,7 +39,8 @@ const toggleItems = (items, newItem, callback) => {
 export default function SearchProducts() {
   const [products, setProducts] = useState(false);
   const [searchState, setSearchState] = useState(defalutSearchState);
-  const [checkeds, setCheckeds] = useState([""]);
+  const [checkeds, setCheckeds] = useState([]);
+  const [productsToReport, setProductsToReport] = useState();
   const init = useRef(true);
 
   const handleNewSearch = (newSearchState) => {
@@ -75,21 +78,36 @@ export default function SearchProducts() {
       );
     }
     resultsList = filteredProducts.map((product) => {
-      return (
-        <div key={product.customeId}>
-          <SearchResultItem
-            itemTitle={product.productName + " " + product.owner}
-            titleHint={<ShowDate timestamp={product.arrivalDate} />}
-            customeId={product.customeId}
-            onChecked={(checked) => {
-              toggleItems(checkeds, checked, (newCheckeds) => {
-                setCheckeds(newCheckeds);
-              })
-            }}
-            to={`/product/${product.customeId}`}
-          />
-        </div>
-      );
+      if(product.isProductFinish){
+        return (
+          <div key={product.customeId}>
+            <SearchResultItem
+              itemTitle={product.productName + " " + product.owner + " (" + product.basculeWeight + ")"}
+              titleHint={<ShowDate timestamp={product.arrivalDate} />}
+              customeId={product.customeId}
+              onChecked={(checked) => {
+                toggleItems(checkeds, checked, (newCheckeds) => {
+                  setCheckeds(newCheckeds);
+                  setProductsToReport(newCheckeds.toString());
+                })
+              }}
+              to={`/product/${product.customeId}`}
+            />
+          </div>
+        )        
+      } else {
+        return (
+          <div key={product.customeId}>
+            <SearchResultItem
+              itemTitle={product.productName + " " + product.owner + " (" + product.basculeWeight + ")"}
+              titleHint={<ShowDate timestamp={product.arrivalDate} />}
+              customeId={product.customeId}
+              to={`/product/${product.customeId}`}
+            />
+          </div>
+        )    
+      }
+
     });
   }
 
@@ -107,8 +125,25 @@ export default function SearchProducts() {
       />
       {products ? (
         <div>
-          <p className="hint">{`${products.length} صافی پیدا شد.`}</p>
+          {
+            checkeds.length > 0 ?
+              <div className="advanceProductsPrint">
+                <Link to={'printProducts/' + productsToReport}>
+                  <Button
+                    className="newProductAddProductInputButton"
+                    variant="contained"
+                    color="primary"
+                  >
+                  گزارش پیشرفته
+                </Button>
+                </Link>
+              </div>
+              : <span></span>
+          }
+
+          <p className="hint">{`${resultsList.length} صافی پیدا شد.`}</p>
           <List>{resultsList}</List>
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </div>
       ) : (
         <Loading />
