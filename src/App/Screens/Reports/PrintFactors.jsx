@@ -53,7 +53,10 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
       )
     }
   });
-
+  let tmpStatus;
+  if(factor && factor.isPayed === true) tmpStatus = 'نقدی';
+  else if(factor && factor.isPayed === false) tmpStatus = 'نسیه';
+  else if(factor && factor.isPayed === 'receipt') tmpStatus = 'وصولی';
   return (
     <div className="factorsPrint-wrapper">
       <Header />
@@ -64,7 +67,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
           <span>
             <h4>{factor.ownerName}</h4>
           </span>
-          <span></span>)<span>{factor.isPayed ? "نقدی" : "نسیه"}</span>
+          <span></span>)<span>{tmpStatus}</span>
           <span>(</span>
           <span> </span>
         </div>

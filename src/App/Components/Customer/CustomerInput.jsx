@@ -42,7 +42,7 @@ const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker })
   );
 
   return (
-    <div className="customerPicker">
+    <div className="customePicker">
       <input
         onChange={(e) => {
           setSearch(e.target.value);
@@ -90,7 +90,7 @@ const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
   });
 
   return (
-    <span className="customerInput">
+    <span className="customeInputAndPicker">
       {showCustomerPicker && allCustomers ? (
         <CustomerPicker
           customers={allCustomers}

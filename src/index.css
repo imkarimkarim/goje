@@ -29,7 +29,7 @@ a {
 }
 
 .hint {
-  color: #666 !important;
+  color: #777 !important;
 }
 
 .customButton button{
@@ -66,4 +66,27 @@ table {
 .ps{
   width: 100%;
   font-size: 12px;
+}
+
+.customePicker .List{
+  direction: rtl !important;
+}
+
+.customePicker {
+  position: fixed;
+  background: #eee;
+  box-shadow: 0 0 100px 20px #999;
+  z-index: 100;
+  right: 10%;
+  top: 10%;
+}
+
+.customePicker .ListItemOdd{
+  background: #fff;
+}
+
+.customePicker .ListItemOdd,
+.customePicker .ListItemEven{
+  display: flex;
+  justify-content: space-between;
 }

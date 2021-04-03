@@ -101,6 +101,7 @@ export default function EditFactor() {
   };
 
   const editFactor = (factor) => {
+    console.log(factor);
     ipcRenderer.send("editFactor", factor);
   };
 
@@ -154,7 +155,7 @@ export default function EditFactor() {
           <Grid className="header" item xs={12}>
             <CustomerInput
               label="صاحب فاکتور*"
-              className="customerInput"
+              className="customeInputAndPicker"
               onPick={(id, name) => {
                 formDispatch({
                   type: "setOwner",
@@ -169,7 +170,7 @@ export default function EditFactor() {
               نقدی
               <Radio
                 checked={formData.isPayed === true}
-                color="primary"
+                style={{ color: 'blue' }}
                 onChange={() => {
                   formDispatch({ type: "setIsPayed", payload: true });
                 }}
@@ -179,11 +180,24 @@ export default function EditFactor() {
             <div>
               نسیه
               <Radio
+                style={{ color: 'red' }}
                 checked={formData.isPayed === false}
                 onChange={() => {
                   formDispatch({ type: "setIsPayed", payload: false });
                 }}
                 value={false}
+              />
+            </div>
+            <div>
+              وصولی
+              <Radio
+                style={{ color: 'green' }}
+                color="primary"
+                checked={formData.isPayed === 'receipt'}
+                onChange={() => {
+                  formDispatch({ type: "setIsPayed", payload: 'receipt' });
+                }}
+                value={'receipt'}
               />
             </div>
             <div className="factorDate">

@@ -6,7 +6,7 @@ const sortFactorsArray = (factors) => {
   if(!factors) return;
   factors.sort((a, b) => {
     return a.factorDate - b.factorDate;
-  });
+  }).reverse();
   return factors;
 }
 

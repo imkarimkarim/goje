@@ -49,13 +49,14 @@ function CustomerPicker({
       className={index % 2 ? "ListItemOdd" : "ListItemEven"}
       style={style}
     >
-      {`${products[index].productName} ${products[index].owner}`}
-      <span style={{color: '#aaa'}}><ShowDate timestamp={products[index].arrivalDate} /></span>
+      {`${products[index].productName} ${products[index].owner} `}
+      <span className="hint"><ShowDate timestamp={products[index].arrivalDate} /></span>
+      <span className="hint">{products[index].plaque}</span>
     </ListItem>
   );
 
   return (
-    <div className="customerPicker">
+    <div className="customePicker">
       <input
         onChange={(e) => {
           setSearch(e.target.value);
@@ -70,7 +71,7 @@ function CustomerPicker({
         height={400}
         itemCount={products.length}
         itemSize={30}
-        width={400}
+        width={550}
       >
         {renderedItems}
       </FixedSizeList>

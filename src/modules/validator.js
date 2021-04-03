@@ -62,10 +62,6 @@ const isFactorValid = (factor) => {
     pass = false;
   }
 
-  if (typeof factor.isPayed !== "boolean") {
-    pass = false;
-  }
-
   if (
     typeof factor.factorDate !== "number" ||
     typeof factor.changeDate !== "number" ||

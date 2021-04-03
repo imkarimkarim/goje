@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 const { ipcRenderer } = require("electron");
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import CloseIcon from '@material-ui/icons/Close';
 import SearchResultItem from "../../Components/SearchResultItem.jsx";
 import Loading from "../../Components/Loading.jsx";
 import Nav from "../../Components/Nav.jsx";
@@ -31,7 +33,6 @@ const toggleItems = (items, newItem, callback) => {
     items.splice(index, 1);
   }
   if (typeof callback === "function") {
-    console.log(items);
     callback(items);
   }
 }
@@ -83,7 +84,7 @@ export default function SearchProducts() {
           <div key={product.customeId}>
             <SearchResultItem
               itemTitle={product.productName + " " + product.owner + " (" + product.basculeWeight + ")"}
-              titleHint={<ShowDate timestamp={product.arrivalDate} />}
+              titleHint={<span><ShowDate timestamp={product.arrivalDate} /> {product.plaque ? <span>- {product.plaque}</span> : <span></span>}  <DoneAllIcon style={{ color: 'green' }}/></span>}
               customeId={product.customeId}
               onChecked={(checked) => {
                 toggleItems(checkeds, checked, (newCheckeds) => {
@@ -100,7 +101,7 @@ export default function SearchProducts() {
           <div key={product.customeId}>
             <SearchResultItem
               itemTitle={product.productName + " " + product.owner + " (" + product.basculeWeight + ")"}
-              titleHint={<ShowDate timestamp={product.arrivalDate} />}
+              titleHint={<span><ShowDate timestamp={product.arrivalDate} /> {product.plaque ? <span>- {product.plaque}</span> : <span></span>}  <CloseIcon style={{ color: 'red' }}/></span>}
               customeId={product.customeId}
               to={`/product/${product.customeId}`}
             />

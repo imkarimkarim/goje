@@ -58,7 +58,10 @@ export default function Factor() {
       ipcRenderer.removeAllListeners("send-oneFactor");
     };
   });
-  
+  let tmpStatus;
+  if(factor && factor.isPayed === true) tmpStatus = 'نقدی';
+  else if(factor && factor.isPayed === false) tmpStatus = 'نسیه';
+  else if(factor && factor.isPayed === 'receipt') tmpStatus = 'وصولی';
   return factor ? (
     <div>
       <Nav title={"/فاکتور/" + factor.customeId} />
@@ -67,7 +70,9 @@ export default function Factor() {
           <Grid className="header" item xs={12}>
             <div><h3>صورتحساب {factor.ownerName}</h3></div>
             <div>{factor && factor.factorDate ? <ShowDate timestamp={factor.factorDate} /> : <span></span>}</div>
-            <div>{factor && factor.isPayed ? 'نقدی' : 'نسیه'}</div>
+            <div>
+              {tmpStatus}
+            </div>
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>

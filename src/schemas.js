@@ -8,6 +8,7 @@ const newProduct = {
   arrivalDate: Date.now(),
   finishDate: false,
   isProductFinish: false,
+  isPayed: false || true,
   commission: 5,
   unload: 1500000,
   portage: 10000000,
@@ -26,7 +27,7 @@ const newFactor = {
   owner: 'b79a',
   ownerName: '',
   customeId: null,
-  isPayed: false,
+  isPayed: false || true || 'receipt',
   factorDate: new JDate,
   changeDate : null,
   products : [

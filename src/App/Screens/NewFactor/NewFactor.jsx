@@ -136,7 +136,7 @@ export default function NewFactor() {
           <Grid className="header" item xs={12}>
             <CustomerInput
               label="صاحب فاکتور*"
-              className="customerInput"
+              className="customeInputAndPicker"
               onPick={(id, name) => {
                 formDispatch({
                   type: "setOwner",
@@ -151,7 +151,7 @@ export default function NewFactor() {
               نقدی
               <Radio
                 checked={formData.isPayed === true}
-                color="primary"
+                style={{ color: 'blue' }}
                 onChange={() => {
                   formDispatch({ type: "setIsPayed", payload: true });
                 }}
@@ -162,6 +162,7 @@ export default function NewFactor() {
               نسیه
               <Radio
                 checked={formData.isPayed === false}
+                style={{ color: 'red' }}
                 onChange={() => {
                   formDispatch({ type: "setIsPayed", payload: false });
                 }}
