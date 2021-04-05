@@ -25,7 +25,6 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "goje"
           }
         },
         {
@@ -36,7 +35,10 @@
         },
         {
           "name": "@electron-forge/maker-deb",
-          "config": {}
+          "config": {
+            "icon": "./assets/goje.png",
+            "name": "goje"
+          }
         },
         {
           "name": "@electron-forge/maker-rpm",
