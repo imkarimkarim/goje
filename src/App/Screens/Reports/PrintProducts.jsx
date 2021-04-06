@@ -320,17 +320,31 @@ export default function PrintProducts() {
       ipcRenderer.removeAllListeners("oneProduct");
     };
   });
-  return ids && products && ids.length === products.length ? (
+  
+  const sortProductsArray = (producs) => {
+    if(!producs) return;
+    producs.sort((a, b) => {
+      return a.finishDate - b.finishDate;
+    }).reverse();
+    return producs;
+  }
+  
+  let sortedProducts;
+  if(products && products.length > 0) {
+    sortedProducts = sortProductsArray(products);
+  }
+  
+  return ids && sortedProducts && ids.length === sortedProducts.length ? (
     <div>
       <div className="printProducts">
         <Header />
-        <InfoSection products={products} />
-        <SaleSection products={products} />
+        <InfoSection products={sortedProducts} />
+        <SaleSection products={sortedProducts} />
         <div className="ps">
           <span>پی‌نوشت</span>
           <span> :</span>
           <br />
-          {products.map((p, index) => {
+          {sortedProducts.map((p, index) => {
             return (
               <span key={index}>
                 {p.ps ? (
