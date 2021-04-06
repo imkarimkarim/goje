@@ -12,16 +12,14 @@ import SearchBox from "../../Components/SearchBox.jsx";
 import JDate from "jalali-date";
 import ShowDate from "../../Components/ShowDate.jsx";
 import './SearchProducts.css';
-
-const oneMonth = 2419200000;
-const oneYear = oneMonth * 12;
+import {cleanTime, oneDay, oneYear} from '../../util.js';
 
 const defalutSearchState = {
   text: "",
   checked1: true,
   checked2: false,
-  fromm: Date.now() - oneYear,
-  till: Date.now(),
+  fromm: cleanTime(Date.now() - oneYear),
+  till: cleanTime(Date.now()) + oneDay,
 };
 
 const toggleItems = (items, newItem, callback) => {

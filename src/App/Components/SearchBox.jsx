@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import "./SearchBox.css";
-
+import {cleanTime, oneDay} from '../util.js';
 
 const SearchBox = React.memo(({ defaultState, placeholder, onSubmit, label1, label2 }) => {
   const [searchState, setSearchState] = useState(defaultState);
@@ -60,7 +60,7 @@ const SearchBox = React.memo(({ defaultState, placeholder, onSubmit, label1, lab
           timePicker={false}
           value={searchState.fromm}
           onClickSubmitButton={({ value }) => {
-            setSearchState({ ...searchState, fromm: value._d.getTime() });
+            setSearchState({ ...searchState, fromm: cleanTime(value._d.getTime()) });
           }}
         />
         تا تاریخ:
@@ -68,7 +68,7 @@ const SearchBox = React.memo(({ defaultState, placeholder, onSubmit, label1, lab
           timePicker={false}
           value={searchState.till}
           onClickSubmitButton={({ value }) => {
-            setSearchState({ ...searchState, till: value._d.getTime() });
+            setSearchState({ ...searchState, till: cleanTime(value._d.getTime()) + oneDay });
           }}
         />
       </div>

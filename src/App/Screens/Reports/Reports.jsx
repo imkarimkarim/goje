@@ -4,11 +4,11 @@ import Button from '@material-ui/core/Button';
 import { DatePicker } from "jalali-react-datepicker";
 import Nav from "../../Components/Nav.jsx";
 import './Reports.css';
+import {cleanTime, oneDay} from '../../util.js';
 
 export default function Reports() {
   
-  const [date, setDate] = useState(Date.now());
-  const [date2, setDate2] = useState(Date.now());
+  const [date, setDate] = useState(cleanTime(Date.now()));
   
   return (
     <div className="reports-screen">
@@ -17,24 +17,18 @@ export default function Reports() {
       <Link to='/searchProducts'><Button variant="outlined">جستجوی صافی</Button></Link>
       <Link to='/searchFactors'><Button variant="outlined">جستجوی فاکتور</Button></Link>
       <div className="printSection">
-        <h3>گزارش گیری</h3>
+        <h3>گزارشات</h3>
         <div className="searchbox-datePicker">
-          از:          
+          از نسیه های تاریخ:
           <DatePicker
             value={date}
+            timePicker={false}
             onClickSubmitButton={({ value }) => {
-              setDate(value._d.getTime());
+              setDate(cleanTime(value._d.getTime()));
             }}
           />
-        تا:
-        <DatePicker
-          value={date2}
-          onClickSubmitButton={({ value }) => {
-            setDate2(value._d.getTime());
-          }}
-        />
         </div>
-        <Link to={'/printFactors/' + date + '/' + date2}><Button variant="outlined">گزارش بگیر!</Button></Link>
+        <Link to={'/printFactors/' + date + '/' + date+oneDay}><Button variant="outlined">گزارش بگیر!</Button></Link>
       </div>
     </div>
   )

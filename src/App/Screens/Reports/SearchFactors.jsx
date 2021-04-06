@@ -11,15 +11,14 @@ import Nav from "../../Components/Nav.jsx";
 import SearchBox from "../../Components/SearchBox.jsx";
 import JDate from 'jalali-date';
 import ShowDate from '../../Components/ShowDate.jsx';
-
-const oneDay = 86400000;
+import {cleanTime, oneDay, oneWeek} from '../../util.js';
 
 const defalutSearchState = {
   text: "",
   checked1: true,
   checked2: true,
-  fromm: Date.now() - oneDay,
-  till: Date.now()
+  fromm: cleanTime(Date.now()) - oneWeek,
+  till: cleanTime(Date.now()) + oneDay
 };
 
 export default function SearchFactors() {
