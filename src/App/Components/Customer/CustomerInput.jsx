@@ -3,6 +3,8 @@ import { FixedSizeList } from "react-window";
 const { ipcRenderer } = require("electron");
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
+import CloseIcon from '@material-ui/icons/Close';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import ListItem from "@material-ui/core/ListItem";
 import "./CustomerInput.css";
 
@@ -43,6 +45,8 @@ const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker })
 
   return (
     <div className="customePicker">
+      <div className="closeIcon" onClick={() => {setShowCustomerPicker(false)}}><CloseIcon /></div>
+      <p className="title">لیست مشتری‌ها<SupervisorAccountIcon /></p>
       <input
         onChange={(e) => {
           setSearch(e.target.value);
@@ -57,7 +61,7 @@ const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker })
         height={400}
         itemCount={customers.length}
         itemSize={30}
-        width={400}
+        width={300}
       >
         {renderedItems}
       </FixedSizeList>

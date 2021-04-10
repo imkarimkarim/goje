@@ -81,6 +81,17 @@ table {
   top: 10%;
 }
 
+.customePicker .closeIcon{
+  display: flex;
+}
+
+.customePicker .title{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
 .customePicker .ListItemOdd{
   background: #fff;
 }

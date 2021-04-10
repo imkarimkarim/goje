@@ -3,6 +3,8 @@ import { FixedSizeList } from "react-window";
 const { ipcRenderer } = require("electron");
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
+import LocalGroceryStoreIcon from '@material-ui/icons/LocalGroceryStore';
+import CloseIcon from '@material-ui/icons/Close';
 import TextField from "@material-ui/core/TextField";
 import ListItem from "@material-ui/core/ListItem";
 import Input from "../Input.jsx";
@@ -57,6 +59,8 @@ function CustomerPicker({
 
   return (
     <div className="customePicker">
+      <div className="closeIcon" onClick={() => {setShowCustomerPicker(false)}}><CloseIcon /></div>
+      <p className="title">لیست بارها<LocalGroceryStoreIcon /></p>
       <input
         onChange={(e) => {
           setSearch(e.target.value);
