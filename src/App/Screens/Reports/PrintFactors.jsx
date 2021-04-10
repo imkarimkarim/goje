@@ -41,9 +41,11 @@ const RenderPays = ({ pays }) => {
 const RenderFactor = ({ factor, index, factorsLength }) => {
   useEffect(() => {
     if (factorsLength === index + 1) {
+      const date = new JDate(new Date(factor.factorDate));
+      const filename = `گزارش فاکتور های نسیه ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
       const options = {
         jsPDF: { unit: 'cm', format: "a5" },
-        filename: "factors.pdf",
+        filename: filename,
         html2canvas:  { scale: 1 },
       };
       html2pdf().set(options).from(document.body).save().then(
