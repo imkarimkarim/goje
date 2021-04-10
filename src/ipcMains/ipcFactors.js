@@ -47,3 +47,13 @@ ipcMain.on('print-factors', (event, date) => {
     event.reply('print-factors', docs);
   })
 })
+
+ipcMain.on('oneProductDetails', (event, id) => {
+  if(!id) return;
+  factorDocs.factorsWithProduct(id, (docs) => {
+    if(docs){
+      event.reply('oneProductDetails', docs);
+    }
+  })
+})
+

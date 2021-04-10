@@ -121,7 +121,7 @@ export default function SearchProducts() {
         }}
         label1="صافی های باز"
         label2="صافی های بسته"
-        placeholder="مثال: آناناس پلنگ صورتی"
+        placeholder="مثال: مثال نارگیل میمون اکوادور"
       />
       {products ? (
         <div>

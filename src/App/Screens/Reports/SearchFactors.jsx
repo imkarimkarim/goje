@@ -92,7 +92,7 @@ export default function SearchFactors() {
         onSubmit={(newSearchState) => {handleNewSearch(newSearchState)}}
         label1="نقدی"
         label2="نسیه"
-        placeholder='مثال:‌‌ آرسن لوپین'
+        placeholder='مثال:‌ جادی'
       />
     {factors ? <div><p className='hint'>{`${resultsList.length} فاکتور پیدا شد.`}</p><List>{resultsList}</List></div> : <Loading />}
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
