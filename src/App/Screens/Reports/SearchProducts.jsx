@@ -4,6 +4,7 @@ const { ipcRenderer } = require("electron");
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
 import DoneAllIcon from '@material-ui/icons/DoneAll';
+import DescriptionIcon from '@material-ui/icons/Description';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchResultItem from "../../Components/SearchResultItem.jsx";
 import Loading from "../../Components/Loading.jsx";
@@ -132,8 +133,9 @@ export default function SearchProducts() {
                     className="newProductAddProductInputButton"
                     variant="contained"
                     color="primary"
-                  >
+                  >                  
                   گزارش پیشرفته
+                  <DescriptionIcon />
                 </Button>
                 </Link>
               </div>

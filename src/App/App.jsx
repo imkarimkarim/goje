@@ -14,6 +14,7 @@ import EditFactor from './Components/Factor/EditFactor.jsx';
 import EditProduct from './Components/Product/EditProduct.jsx';
 import PrintProducts from './Screens/Reports/PrintProducts.jsx';
 import PrintFactors from './Screens/Reports/PrintFactors.jsx';
+import ProductDetails from './Components/Product/ProductDetails.jsx';
 
 export default function App() {
   
@@ -49,6 +50,7 @@ export default function App() {
             <Route path='/editProduct/:id' component={EditProduct} />
             <Route path='/printProducts/:ids' component={PrintProducts} />
             <Route path='/printFactors/:date/:date2' component={PrintFactors} />
+            <Route path='/productDetails/:id' component={ProductDetails} />
           </Switch>
       </Container>
     </Router>

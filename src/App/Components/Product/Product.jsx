@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import DescriptionIcon from '@material-ui/icons/Description';
 import Button from "@material-ui/core/Button";
 import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
@@ -170,7 +171,7 @@ export default function ProductReports() {
                 variant="outlined"
                 color="primary"
               >
-                گزارش
+                گزارش<DescriptionIcon />
               </Button>
             </Link>
           ) : (
@@ -184,6 +185,14 @@ export default function ProductReports() {
               color="primary"
             >
               ویرایش
+            </Button>
+          </Link>
+          <Link to={`/productDetails/${product.customeId}`}>
+            <Button
+              variant="outlined"
+              color="primary"
+            >
+              مشاهده ریز فروش
             </Button>
           </Link>
         </div>

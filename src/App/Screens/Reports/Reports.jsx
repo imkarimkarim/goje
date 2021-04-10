@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import { DatePicker } from "jalali-react-datepicker";
+import DescriptionIcon from '@material-ui/icons/Description';
 import Nav from "../../Components/Nav.jsx";
 import './Reports.css';
 import {cleanTime, oneDay} from '../../util.js';
@@ -28,7 +29,7 @@ export default function Reports() {
             }}
           />
         </div>
-        <Link to={'/printFactors/' + date + '/' + date+oneDay}><Button variant="outlined">گزارش بگیر!</Button></Link>
+        <Link to={'/printFactors/' + date + '/' + date+oneDay}><Button variant="outlined">گزارش بگیر!<DescriptionIcon /></Button></Link>
       </div>
     </div>
   )
