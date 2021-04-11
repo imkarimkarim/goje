@@ -234,7 +234,7 @@ export default function EditFactor() {
             <ProductInput formDispatch={formDispatch} label="شرح*" />
           </Grid>
           <Divider />
-          {formData && formData.pays ? (
+          {formData && formData.pays && formData.isPayed !== true ? (
             <Grid item className="addpay-section" xs={12}>
               <Pays
                 formDispatch={formDispatch}

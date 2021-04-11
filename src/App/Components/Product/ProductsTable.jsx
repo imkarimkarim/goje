@@ -12,16 +12,19 @@ import Paper from "@material-ui/core/Paper";
 import "./ProductsTable.css";
 
 export default function ProductsTable({ products, formDispatch, pays }) {
-  const sum = useRef(0);
+  const fullSum = useRef(0);
+  const fullSumPays = useRef(0);
   if (products) {
-    sum.current = 0;
+    fullSum.current = 0;
     for (let i = 0; i < products.length; i++) {
-      sum.current += Math.round(100 * (products[i].weight * products[i].price)) / 100;
+      fullSum.current += Math.round(100 * (products[i].weight * products[i].price)) / 100;
     }
     if(pays && pays.length > 0){
+      fullSumPays.current = 0;
       for(let i2 = 0; i2 < pays.length; i2++) {
-        sum.current -= pays[i2].amount;
+        fullSumPays.current += Math.round(100 * pays[i2].amount) / 100;
       }
+      console.log(fullSumPays.current, fullSum.current);
     }
   }
   return (
@@ -64,7 +67,8 @@ export default function ProductsTable({ products, formDispatch, pays }) {
         </tbody>
       </table>
       <Divider />
-      <div className="fullSum">جمع کل:‌ {<Expense num={sum.current} />}</div>
+      <div className="fullSum">جمع کل:‌ {<Expense num={fullSum.current} />}</div>
+      <div className="fullSum">قابل پرداخت:‌ {<Expense num={fullSum.current - fullSumPays.current} />}</div>
     </div>
   );
 }

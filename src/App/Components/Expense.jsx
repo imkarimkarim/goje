@@ -19,5 +19,5 @@ export default function Expense({num}) {
   
   num = letsWriterBetter(num);
   
-  return <>{num} ریال</>
+  return <>{num} ﷼</>
 }
