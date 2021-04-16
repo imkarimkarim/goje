@@ -24,8 +24,7 @@
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
-          "config": {
-          }
+          "config": {}
         },
         {
           "name": "@electron-forge/maker-zip",
@@ -97,6 +96,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "react-window": "^1.8.6"
+    "react-window": "^1.8.6",
+    "url-loader": "^4.1.1"
   }
 }

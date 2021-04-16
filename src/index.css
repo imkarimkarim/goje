@@ -1,6 +1,24 @@
+@font-face {
+  font-family: 'VazirMedium';
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url('./assets/Vazir-Medium-FD.woff') format('woff'),
+    url('./assets/Vazir-Medium-FD.woff2') format('woff2')
+}
+@font-face {
+  font-family: 'Vazir';
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url('./assets/Vazir-Regular-FD.woff') format('woff'),
+    url('./assets/Vazir-Regular-FD.woff2') format('woff2')
+}
+
 html, body{
   font-size: 15pt;
 }
+
 body,
 a,
 span,
@@ -9,7 +27,7 @@ button,
 input,
 .MuiInputLabel-outlined.MuiInputLabel-marginDense,
 .MuiInputLabel-outlined.MuiInputLabel-shrink {
-  font-family: Vazir !important;
+  font-family: 'VazirMedium', 'Vazir' !important;
 }
 
 .MuiInputLabel-outlined.MuiInputLabel-marginDense,
