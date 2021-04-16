@@ -29,7 +29,7 @@ export default function Reports() {
             }}
           />
         </div>
-        <Link to={'/printFactors/' + date + '/' + date+oneDay}><Button variant="outlined">گزارش بگیر!<DescriptionIcon /></Button></Link>
+        <Link to={'/printFactors/' + date + '/' + (parseInt(date)+oneDay)}><Button variant="outlined">گزارش بگیر!<DescriptionIcon /></Button></Link>
       </div>
     </div>
   )
