@@ -6,7 +6,7 @@
 
 .printProductsTable{
   display: flex;
-  height: 16cm;
+  height: 15.8cm;
   justify-content: center;
 }
 
@@ -14,7 +14,7 @@
   padding: 0;
   text-align: center;
   display: flex;
-  height: 2cm;
+  height: 2.1cm;
   flex-direction: row;
   justify-content: space-between;
 }
