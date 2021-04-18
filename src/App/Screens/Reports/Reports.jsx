@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import SubjectIcon from '@material-ui/icons/Subject';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import SearchIcon from '@material-ui/icons/Search';
+import NoteIcon from '@material-ui/icons/Note';
 import { DatePicker } from "jalali-react-datepicker";
 import DescriptionIcon from '@material-ui/icons/Description';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 import Nav from "../../Components/Nav.jsx";
 import './Reports.css';
 import {cleanTime, oneDay} from '../../util.js';
@@ -14,11 +19,12 @@ export default function Reports() {
   return (
     <div className="reports-screen">
       <Nav title="/گزارشات" />
-      <h3>جستجو</h3>
-      <Link to='/searchProducts'><Button variant="outlined">جستجوی صافی</Button></Link>
-      <Link to='/searchFactors'><Button variant="outlined">جستجوی فاکتور</Button></Link>
+      <h3 className="alignTextIcon">جستجو<SearchIcon /></h3>
+      <Link to='/searchProducts'><Button variant="outlined">جستجوی صافی<ShoppingCartIcon /></Button></Link>
+      <br />
+      <Link to='/searchFactors'><Button variant="outlined">جستجوی فاکتور<NoteIcon /></Button></Link>
       <div className="printSection">
-        <h3>گزارشات</h3>
+        <h3 className="alignTextIcon">گزارشات<EqualizerIcon /></h3>
         <div className="searchbox-datePicker">
           از نسیه های تاریخ:
           <DatePicker

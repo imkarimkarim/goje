@@ -119,3 +119,8 @@ table {
   display: flex;
   justify-content: space-between;
 }
+
+.alignTextIcon{
+  display: flex;
+  align-items: center;
+}

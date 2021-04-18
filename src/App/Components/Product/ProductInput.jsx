@@ -52,8 +52,7 @@ function CustomerPicker({
       style={style}
     >
       {`${products[index].productName} ${products[index].owner} `}
-      <span className="hint"><ShowDate timestamp={products[index].arrivalDate} /></span>
-      <span className="hint">{products[index].plaque}</span>
+      <span className="hint">{products[index].plaque} - <ShowDate timestamp={products[index].arrivalDate} /></span>
     </ListItem>
   );
 
@@ -75,7 +74,7 @@ function CustomerPicker({
         height={400}
         itemCount={products.length}
         itemSize={30}
-        width={550}
+        width={600}
       >
         {renderedItems}
       </FixedSizeList>
