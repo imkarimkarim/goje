@@ -15,8 +15,8 @@ const getAll = (callback) => {
     if (typeof callback === "function") {
       if(docs) {
         docs = sortProductsArray(docs);
+        callback(docs);
       }
-      callback(docs);
     }
   });
 };
@@ -29,8 +29,8 @@ const getUnFinishedProducts = (callback) => {
       if (typeof callback === "function") {
         if(docs) {
           docs = sortProductsArray(docs);
+          callback(docs);
         }
-        callback(docs);
       }
     }
   );
@@ -53,8 +53,8 @@ const searchProducts = (searchFilters, callback) => {
         if (typeof callback === "function") {
           if(docs) {
             docs = sortProductsArray(docs);
+            callback(docs);
           }
-          callback(docs);
         }
       }
     );
@@ -74,8 +74,8 @@ const searchProducts = (searchFilters, callback) => {
         if (typeof callback === "function") {
           if(docs) {
             docs = sortProductsArray(docs);
+            callback(docs);
           }
-          callback(docs);
         }
       }
     );
@@ -95,8 +95,8 @@ const searchProducts = (searchFilters, callback) => {
         if (typeof callback === "function") {
           if(docs) {
             docs = sortProductsArray(docs);
+            callback(docs);
           }
-          callback(docs);
         }
       }
     );
@@ -111,8 +111,8 @@ const getFinishedProducts = (callback) => {
       if (typeof callback === "function") {
         if(docs) {
           docs = sortProductsArray(docs);
+          callback(docs);
         }
-        callback(docs);
       }
     }
   );

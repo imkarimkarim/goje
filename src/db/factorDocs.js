@@ -16,8 +16,8 @@ const getAll = (callback) => {
     if (typeof callback === "function") {
       if(docs){
         docs = sortFactorsArray(docs);
+        callback(docs);
       }
-      callback(docs);
     }
   });
 };
@@ -44,8 +44,8 @@ const factorsWithProduct = (id, callback) => {
     if (typeof callback === "function") {
       if(docs){
         docs = sortFactorsArray(docs);
+        callback(docs);
       }
-      callback(docs);
     }
   });
 };
@@ -67,8 +67,8 @@ const factorsWithFactordate = (fromm, till, callback) => {
       if (typeof callback === "function") {
         if(docs){
           docs = sortFactorsArray(docs);
+          callback(docs);
         }
-        callback(docs);
       }
     }
   );
@@ -91,8 +91,8 @@ const SearchFactors = (searchFilters, callback) => {
         if (typeof callback === "function") {
           if(docs){
             docs = sortFactorsArray(docs);
+            callback(docs);
           }
-          callback(docs);
         }
       }
     );
@@ -111,8 +111,8 @@ const SearchFactors = (searchFilters, callback) => {
         if (typeof callback === "function") {
           if(docs){
             docs = sortFactorsArray(docs);
+            callback(docs);
           }
-          callback(docs);
         }
       }
     );
@@ -131,8 +131,8 @@ const SearchFactors = (searchFilters, callback) => {
         if (typeof callback === "function") {
           if(docs){
             docs = sortFactorsArray(docs);
+            callback(docs);
           }
-          callback(docs);
         }
       }
     );
