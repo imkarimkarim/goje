@@ -29,7 +29,7 @@ const isProductValid = (product) => {
       break;
     }
   }
-  
+
   return pass;
 };
 
@@ -58,6 +58,12 @@ const isFactorValid = (factor) => {
     pass = false;
   }
 
+  if (typeof factor.isPayed !== "boolean") {
+    if (typeof factor.isPayed !== "string") {
+      pass = false;
+    }
+  }
+
   if (typeof factor.ownerName !== "string" || factor.ownerName.length === 0) {
     pass = false;
   }
@@ -70,8 +76,8 @@ const isFactorValid = (factor) => {
   ) {
     pass = false;
   }
-  
-  if(factor.products.length <= 0){
+
+  if (factor.products.length <= 0) {
     pass = false;
   }
 

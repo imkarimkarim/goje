@@ -21,7 +21,7 @@ const newFactorSchema = {
   docType: "factor",
   owner: "",
   ownerName: "",
-  isPayed: "",
+  isPayed: 0,
   factorDate: Date.now(),
   changeDate: Date.now(),
   products: [],

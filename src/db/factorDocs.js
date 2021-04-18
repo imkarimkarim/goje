@@ -42,6 +42,9 @@ const factorsWithProduct = (id, callback) => {
   db.find({ "products.productId": id }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
+      if(docs){
+        docs = sortFactorsArray(docs);
+      }
       callback(docs);
     }
   });
