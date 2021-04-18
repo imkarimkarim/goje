@@ -2,11 +2,18 @@ const { db } = require("../db");
 const objectCreator = require("../modules/objectCreator");
 const calcSumFactor = require("../calculators/calcSumFactor");
 
-const sortFactorsArray = (factors) => {
+const sortFactorsArray = (factors, reverse = true) => {
   if(!factors) return;
-  factors.sort((a, b) => {
-    return a.factorDate - b.factorDate;
-  }).reverse();
+  if(reverse){
+    factors.sort((a, b) => {
+      return a.factorDate - b.factorDate;
+    }).reverse();
+  } else {
+    factors.sort((a, b) => {
+      return a.factorDate - b.factorDate;
+    });
+  }
+
   return factors;
 }
 
@@ -66,7 +73,7 @@ const factorsWithFactordate = (fromm, till, callback) => {
       if (err) throw err;
       if (typeof callback === "function") {
         if(docs){
-          docs = sortFactorsArray(docs);
+          docs = sortFactorsArray(docs, false);
           callback(docs);
         }
       }
