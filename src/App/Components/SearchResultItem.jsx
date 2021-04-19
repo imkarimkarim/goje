@@ -12,32 +12,33 @@ const SearchResultItem = React.memo(
     const [checked, setChecked] = useState(false);
 
     return (
-      <Link to={to}>
-        <div className="SearchResultItem">
-          <Divider />
-          <ListItem button>
+      <div className="SearchResultItem">
+        <Divider />
+        <ListItem button>
+          <Link to={to}>
             <div>
               {itemTitle} <span className="hint"> {titleHint}</span>
             </div>
-            {onChecked ? (
-              <div>
-                <ListItemSecondaryAction>
-                  <Checkbox
-                    edge="end"
-                    onChange={() => {
-                      setChecked(!checked);
-                      onChecked(customeId);
-                    }}
-                    checked={checked}
-                  />
-                </ListItemSecondaryAction>
-              </div>
-            ) : (
-              <span></span>
-            )}
-          </ListItem>
-        </div>
-      </Link>
+          </Link>
+
+          {onChecked ? (
+            <div>
+              <ListItemSecondaryAction>
+                <Checkbox
+                  edge="end"
+                  onChange={() => {
+                    setChecked(!checked);
+                    onChecked(customeId);
+                  }}
+                  checked={checked}
+                />
+              </ListItemSecondaryAction>
+            </div>
+          ) : (
+            <span></span>
+          )}
+        </ListItem>
+      </div>
     );
   }
 );
