@@ -13,6 +13,7 @@ import Input from "../Input.jsx";
 import CustomerInput from "../Customer/CustomerInput.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
 import ProductsTable from "../Product/ProductsTable.jsx";
+import Conclusion from "../../Components/Conclusion.jsx";
 import Expense from "../Expense.jsx";
 import ProductInput from "../Product/ProductInput.jsx";
 import Pays from "../Pays.jsx";
@@ -226,9 +227,9 @@ export default function EditFactor() {
           <Grid item className="products-section" xs={12}>
             <ProductsTable
               products={formData.products}
-              pays={formData.pays}
               formDispatch={formDispatch}
             />
+          <Conclusion products={formData.products} pays={formData.pays} />          
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
             <ProductInput formDispatch={formDispatch} label="شرح*" />

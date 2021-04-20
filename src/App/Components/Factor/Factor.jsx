@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Nav from "../Nav.jsx";
 import Loading from "../Loading.jsx";
+import Conclusion from "../../Components/Conclusion.jsx";
 import Expense from "../Expense.jsx";
 import ProductsTable from "../Product/ProductsTable.jsx";
 import ShowDate from '../ShowDate.jsx'; 
@@ -76,7 +77,8 @@ export default function Factor() {
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>
-            <ProductsTable pays={factor.pays} products={factor.products} />
+            <ProductsTable products={factor.products} />
+            <Conclusion products={factor.products} pays={factor.pays} />     
           </Grid>
           <Divider />
           {factor && factor.pays && factor.pays.length > 0 ? (

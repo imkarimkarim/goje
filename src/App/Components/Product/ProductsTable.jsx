@@ -8,25 +8,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import TableRow from "@material-ui/core/TableRow";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
-import Paper from "@material-ui/core/Paper";
 import "./ProductsTable.css";
 
-export default function ProductsTable({ products, formDispatch, pays }) {
-  const fullSum = useRef(0);
-  const fullSumPays = useRef(0);
-  if (products) {
-    fullSum.current = 0;
-    for (let i = 0; i < products.length; i++) {
-      fullSum.current += Math.round(100 * (products[i].weight * products[i].price)) / 100;
-    }
-    if(pays && pays.length > 0){
-      fullSumPays.current = 0;
-      for(let i2 = 0; i2 < pays.length; i2++) {
-        fullSumPays.current += Math.round(100 * pays[i2].amount) / 100;
-      }
-      console.log(fullSumPays.current, fullSum.current);
-    }
-  }
+export default function ProductsTable({ products, formDispatch }) {
   return (
     <div className="ProductsTable">
       <table>
@@ -67,8 +51,6 @@ export default function ProductsTable({ products, formDispatch, pays }) {
         </tbody>
       </table>
       <Divider />
-      <div className="fullSum">جمع کل:‌ {<Expense num={fullSum.current} />}</div>
-      <div className="fullSum">قابل پرداخت:‌ {<Expense num={fullSum.current - fullSumPays.current} />}</div>
     </div>
   );
 }

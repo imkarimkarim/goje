@@ -13,6 +13,7 @@ import CustomerInput from "../../Components/Customer/CustomerInput.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import ProductsTable from "../../Components/Product/ProductsTable.jsx";
 import Expense from "../../Components/Expense.jsx";
+import Conclusion from "../../Components/Conclusion.jsx";
 import ProductInput from "../../Components/Product/ProductInput.jsx";
 import Pays from "../../Components/Pays.jsx";
 import "./NewFactor.css";
@@ -91,6 +92,7 @@ export default function NewFactor() {
 
   const handleSubmit = () => {
     setSubmit(true);
+    
     newFactor(formData);
   };
 
@@ -190,9 +192,9 @@ export default function NewFactor() {
           <Grid item className="products-section" xs={12}>
             <ProductsTable
               products={formData.products}
-              pays={formData.pays}
               formDispatch={formDispatch}
             />
+          <Conclusion products={formData.products} pays={formData.pays} />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
             <ProductInput formDispatch={formDispatch} label="شرح*" />
