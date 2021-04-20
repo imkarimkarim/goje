@@ -9,6 +9,8 @@ import JDate from "jalali-date";
 import "./SearchBox.css";
 import {cleanTime, oneDay} from '../util.js';
 
+// TODO: search on enter
+
 const SearchBox = React.memo(({ defaultState, placeholder, onSubmit, label1, label2 }) => {
   const [searchState, setSearchState] = useState(defaultState);
 

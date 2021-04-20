@@ -32,7 +32,10 @@ const newFactorSchema = {
 function reducer(state, action) {
   switch (action.type) {
     case "reset": {
-      return newFactorSchema;
+      let NEWnewFactorSchema = newFactorSchema;
+      NEWnewFactorSchema.factorDate = Date.now();
+      NEWnewFactorSchema.changeDate = Date.now();
+      return NEWnewFactorSchema;
     }
     case "setOwner":
       return { ...state, owner: action.payload1, ownerName: action.payload2 };
@@ -92,7 +95,7 @@ export default function NewFactor() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    
+    console.log(formData, formData.factorDate);
     newFactor(formData);
   };
 

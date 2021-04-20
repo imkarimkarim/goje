@@ -12,6 +12,8 @@ import ExpenseInput from '../ExpenseInput.jsx';
 import './ProductInput.css';
 import ShowDate from '../ShowDate.jsx';
 
+// TODO: also up/down with arrow keys
+
 function CustomerPicker({
   products,
   productState,
