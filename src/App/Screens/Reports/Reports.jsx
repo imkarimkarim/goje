@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import Divider from "@material-ui/core/Divider";
 import SubjectIcon from '@material-ui/icons/Subject';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
@@ -36,6 +37,11 @@ export default function Reports() {
           />
         </div>
         <Link to={'/printFactors/' + date + '/' + (parseInt(date)+oneDay)}><Button variant="outlined">گزارش بگیر!<DescriptionIcon /></Button></Link>
+        <br />
+        <br />
+        از باقیمانده بار:
+        <br />
+        <Link to={'/printRemainingProducts/'}><Button variant="outlined">گزارش بگیر!<DescriptionIcon /></Button></Link>
       </div>
     </div>
   )

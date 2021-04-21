@@ -10,6 +10,7 @@ import Product from './Components/Product/Product.jsx';
 import Factor from './Components/Factor/Factor.jsx';
 import SearchProducts from './Screens/Reports/SearchProducts.jsx';
 import SearchFactors from './Screens/Reports/SearchFactors.jsx';
+import PrintRemainingProducts from './Screens/Reports/PrintRemainingProducts.jsx';
 import EditFactor from './Components/Factor/EditFactor.jsx';
 import EditProduct from './Components/Product/EditProduct.jsx';
 import PrintProducts from './Screens/Reports/PrintProducts.jsx';
@@ -51,6 +52,7 @@ export default function App() {
             <Route path='/printProducts/:ids' component={PrintProducts} />
             <Route path='/printFactors/:date/:date2' component={PrintFactors} />
             <Route path='/productDetails/:id' component={ProductDetails} />
+            <Route path='/printRemainingProducts' component={PrintRemainingProducts} />
           </Switch>
       </Container>
     </Router>

@@ -1,0 +1,12 @@
+.remainingProducts{
+  width: 100%;
+  display: flex;
+}
+
+.remainingProduct{
+  display: flex;
+  flex: 3;
+}
+
+.remainingProduct .huh{
+}
