@@ -102,7 +102,6 @@ export default function EditFactor() {
   };
 
   const editFactor = (factor) => {
-    console.log(factor);
     ipcRenderer.send("editFactor", factor);
   };
 

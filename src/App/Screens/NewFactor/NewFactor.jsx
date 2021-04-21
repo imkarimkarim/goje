@@ -95,7 +95,6 @@ export default function NewFactor() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    console.log(formData, formData.factorDate);
     newFactor(formData);
   };
 

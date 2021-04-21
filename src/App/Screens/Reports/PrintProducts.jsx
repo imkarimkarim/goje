@@ -166,7 +166,6 @@ function SaleSection({ products }) {
     });
 
     if (salesInfos && products && salesInfos.length === products.length) {
-      console.log(products[0]);
       const date = new JDate(new Date(products[0].arrivalDate));
       const fileName = `صورتحساب ${products[0].owner} ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
       const options = {
