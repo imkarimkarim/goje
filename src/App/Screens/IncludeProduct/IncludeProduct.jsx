@@ -81,7 +81,9 @@ export default function IncludeProduct() {
       setCreateStatus(createStatus);
       if (createStatus !== null) {
         if (createStatus === true) {
-          setFormData(newProduct);
+          let newNewProduct = newProduct;
+          newNewProduct.arrivalDate = Date.now();
+          setFormData(newNewProduct);
           setNotif(null);
           setNotif("success");
         }
