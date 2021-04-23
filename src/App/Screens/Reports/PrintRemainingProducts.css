@@ -1,12 +1,16 @@
 .remainingProducts{
-  width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+.remainingProductsOuterContainer{
+  text-align: center; 
 }
 
 .remainingProduct{
-  display: flex;
-  flex: 3;
 }
 
-.remainingProduct .huh{
+.remainingProduct .huh span{
+  margin: 0 5px;
+  font-size: .8em;
 }

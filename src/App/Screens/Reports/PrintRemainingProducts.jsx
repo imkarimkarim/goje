@@ -7,36 +7,42 @@ import Loading from "../../Components/Loading.jsx";
 import Header from "../../Components/Header.jsx";
 import Footer from "../../Components/Footer.jsx";
 import html2pdf from "html2pdf.js";
-import './PrintRemainingProducts.css';
+import "./PrintRemainingProducts.css";
 
-function RenderProduct({ index, product }) {
-    // if (product && produtsLength === index+1) {
-    //   const date = new JDate(new Date(products[0].arrivalDate));
-    //   const fileName = `باقیمانده بار ${products[0].owner} ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
-    //   const options = {
-    //     jsPDF: { format: "a5" },
-    //     filename: fileName,
-    //     html2canvas: { scale: 1 },
-    //   };
-    //   html2pdf()
-    //     .set(options)
-    //     .from(document.body)
-    //     .save()
-    //     .then(() => {
-    //       window.history.back();
-    //     });
-    // }
-
+function RenderProduct({ index, product, productsLength }) {
+  const report = useRef(false);
+  
+  useEffect(() => {
+    if (productsLength === index+1 && !report.current) {
+      report.current = true;
+      const date = new JDate();
+      const fileName = `باقیمانده بار ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
+      const options = {
+        jsPDF: { format: "a5" },
+        filename: fileName,
+        html2canvas: { scale: 1 },
+      };
+      html2pdf()
+        .set(options)
+        .from(document.body)
+        .save()
+        .then(() => {
+          window.history.back();
+        });
+    }    
+  })
 
   return (
     <div className="remainingProduct">
-      {product || product.name !== "کارگری" || product.name !== "اضافه شود" || product.name !== "کرایه" ? (
+      {product.name == "کارگری" ||
+      product.name == "اضافه شود" ||
+      product.name == "کرایه" ? (
+        <span></span>
+      ) : (
         <div className="huh">
           <span>{product.name}</span>
           <span>{product.remainAmount}</span>
         </div>
-      ) : (
-        <span></span>
       )}
     </div>
   );
@@ -46,7 +52,7 @@ export default function PrintRemainingProducts() {
   const [products, setProducts] = useState();
   const [remainigDetails, setRemainigDetails] = useState([]);
   const init = useRef(true);
-  let extractedData = [];  
+  let extractedData = [];
 
   const sendAllproducts = () => {
     ipcRenderer.send("send-allProducts");
@@ -55,14 +61,14 @@ export default function PrintRemainingProducts() {
   const sendOneProductCalcs = (productId) => {
     ipcRenderer.send("send-oneProductCalcs", productId);
   };
-  
+
   const extractRemainingDetails = (productData, calcProduct) => {
     return {
       name: productData.productName,
       remainAmount: productData.amount - calcProduct.SUM_AMOUNT,
       remainWeight: productData.basculeWeight - calcProduct.SUM_KG,
-    }
-  }
+    };
+  };
 
   useEffect(() => {
     if (init.current) {
@@ -77,7 +83,7 @@ export default function PrintRemainingProducts() {
           (function (ind) {
             setTimeout(function () {
               sendOneProductCalcs(dbproducts[ind].customeId);
-            }, 100 + 500 * ind);
+            }, 100 + 200 * ind);
           })(i);
         }
       }
@@ -97,28 +103,37 @@ export default function PrintRemainingProducts() {
       ipcRenderer.removeAllListeners("oneProductCalcs");
     };
   });
-  
-  if(products && products.length > 0
-    && remainigDetails && remainigDetails.length > 0
-    && products.length === remainigDetails.length
+
+  if (
+    products &&
+    products.length > 0 &&
+    remainigDetails &&
+    remainigDetails.length > 0 &&
+    products.length === remainigDetails.length
   ) {
     extractedData = [];
-    for(let i = 0; i < products.length; i++) {
-      extractedData.push(extractRemainingDetails(products[i], remainigDetails[i]));
+    for (let i = 0; i < products.length; i++) {
+      extractedData.push(
+        extractRemainingDetails(products[i], remainigDetails[i])
+      );
     }
   }
-  
 
-  return extractedData && extractedData.length > 0 ? (
-    <div className="remainingProducts">
-      {extractedData.map((p, index) => {
-        return (
-          <RenderProduct
-            key={index}
-            product={p}
-          />
-        );
-      })}
+  const jdate = new JDate();
+  const stringDate = jdate.format("dddd DD MMMM YYYY");
+
+  return extractedData &&
+    extractedData.length > 0 &&
+    extractedData.length === products.length ? (
+    <div className="remainingProductsOuterContainer">
+      <Header />
+      <h4>باقیمانده بار {stringDate}</h4>
+      <div className="remainingProducts">
+        {extractedData.map((p, index) => {
+          return <RenderProduct key={index} product={p} index={index} productsLength={products.length} />;
+        })}
+      </div>
+      <Footer />
     </div>
   ) : (
     <Loading />
