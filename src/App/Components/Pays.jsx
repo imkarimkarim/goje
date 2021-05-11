@@ -72,9 +72,9 @@ const ProductInput = React.memo(({ onSubmit, pays, formDispatch }) => {
               variant="outlined"
               color="primary"
             >
-              اضافه
+              +
             </Button>
-          </div>          
+          </div>
         ) : (
           <div></div>
         )

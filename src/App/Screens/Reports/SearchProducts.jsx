@@ -175,7 +175,7 @@ export default function SearchProducts() {
             <span></span>
           )}
 
-          <p className="hint">{`${resultsList.length} صافی پیدا شد.`}</p>
+          <p className="hint">{`${resultsList.length} بار پیدا شد.`}</p>
           <List>{resultsList}</List>
           <br />
           <br />

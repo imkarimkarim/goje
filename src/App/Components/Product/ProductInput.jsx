@@ -187,7 +187,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
         variant="outlined"
         color="primary"
       >
-        اضافه به فاکتور
+        +
       </Button>
     </div>
   );

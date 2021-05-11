@@ -199,7 +199,7 @@ export default function NewFactor() {
           <Conclusion products={formData.products} pays={formData.pays} />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
-            <ProductInput formDispatch={formDispatch} label="شرح بار**" />
+            <ProductInput formDispatch={formDispatch} label="شرح بار*" />
           </Grid>
           <Divider />
           {formData && formData.isPayed === false ? (
