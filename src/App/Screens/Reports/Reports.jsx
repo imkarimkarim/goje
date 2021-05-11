@@ -14,9 +14,9 @@ import './Reports.css';
 import {cleanTime, oneDay} from '../../util.js';
 
 export default function Reports() {
-  
+
   const [date, setDate] = useState(cleanTime(Date.now()));
-  
+
   return (
     <div className="reports-screen">
       <Nav title="/گزارشات" />

@@ -10,6 +10,7 @@ import Header from "../../Components/Header.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import ProductsTable from "../../Components/Product/ProductsTable.jsx";
 import Footer from "../../Components/Footer.jsx";
+import NotFound from '../../Components/NotFound.jsx';
 import "./PrintFactors.css";
 import html2pdf from "html2pdf.js";
 
@@ -44,21 +45,23 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
       const date = new JDate(new Date(factor.factorDate));
       const filename = `گزارش فاکتور های نسیه ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
       const options = {
-        jsPDF: { unit: 'cm', format: "a5" },
+        jsPDF: { unit: "cm", format: "a5" },
         filename: filename,
-        html2canvas:  { scale: 1 },
+        html2canvas: { scale: 1 },
       };
-      html2pdf().set(options).from(document.body).save().then(
-        () => {
-          window.history.back();          
-        }
-      )
+      html2pdf()
+        .set(options)
+        .from(document.body)
+        .save()
+        .then(() => {
+          window.history.back();
+        });
     }
   });
   let tmpStatus;
-  if(factor && factor.isPayed === true) tmpStatus = 'نقدی';
-  else if(factor && factor.isPayed === false) tmpStatus = 'نسیه';
-  else if(factor && factor.isPayed === 'receipt') tmpStatus = 'وصولی';
+  if (factor && factor.isPayed === true) tmpStatus = "نقدی";
+  else if (factor && factor.isPayed === false) tmpStatus = "نسیه";
+  else if (factor && factor.isPayed === "receipt") tmpStatus = "وصولی";
   return (
     <div className="factorsPrint-wrapper">
       <Header />
@@ -175,18 +178,24 @@ export default function PrintFactors() {
     };
   });
 
-  return factors ? (
-    <div className="dailyReportPrint">
-      {factors.map((f, index) => (
-        <RenderFactor
-          key={index}
-          index={index}
-          factorsLength={factors.length}
-          factor={f}
-        />
-      ))}
-    </div>
-  ) : (
-    <Loading />
-  );
+  if (factors) {
+    if (factors.length === 0) {
+      return <NotFound />;
+    } else {
+      return (
+        <div className="dailyReportPrint">
+          {factors.map((f, index) => (
+            <RenderFactor
+              key={index}
+              index={index}
+              factorsLength={factors.length}
+              factor={f}
+            />
+          ))}
+        </div>
+      );
+    }
+  } else {
+    return <Loading />;
+  }
 }
