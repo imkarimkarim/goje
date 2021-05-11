@@ -196,7 +196,7 @@ function SaleSection({ products }) {
             <table>
               <thead>
                 <tr>
-                  <th>شرح</th>
+                  <th>شرح بار</th>
                   <th>تعداد</th>
                   <th>وزن</th>
                   <th>فی فروش</th>
@@ -322,7 +322,7 @@ export default function PrintProducts() {
       ipcRenderer.removeAllListeners("oneProduct");
     };
   });
-  
+
   const sortProductsArray = (producs) => {
     if(!producs) return;
     producs.sort((a, b) => {
@@ -330,12 +330,12 @@ export default function PrintProducts() {
     }).reverse();
     return producs;
   }
-  
+
   let sortedProducts;
   if(products && products.length > 0) {
     sortedProducts = sortProductsArray(products);
   }
-  
+
   return ids && sortedProducts && ids.length === sortedProducts.length ? (
     <div>
       <div className="printProducts">

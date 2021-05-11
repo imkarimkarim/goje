@@ -64,8 +64,8 @@ export default function ProductDetails() {
           <SearchResultItem
             itemTitle={
               <span>
-                {p.factor[0] + ': ' + p.product.productName + ' ' +
-                p.product.amount + ' ' + p.product.weight + ' ' + " "}
+                {p.factor[0] + ': ' + p.product.productName + '    ' +
+                p.product.amount + '    ' + p.product.weight + '    ' + "    "}
                 <span>
                   <Expense num={p.product.price} />
                 </span>

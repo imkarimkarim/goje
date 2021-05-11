@@ -25,10 +25,10 @@ function CustomerPicker({
   const handleKeyBoardEvent = (e) => {
     if(e.key === 'Escape') setShowCustomerPicker(false);
   }
-  
+
   useEffect(() => {
     document.addEventListener('keydown', handleKeyBoardEvent);
-    
+
     return () => {
       document.removeEventListener('keydown', handleKeyBoardEvent);
     }
@@ -187,7 +187,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
         variant="outlined"
         color="primary"
       >
-        اضافه
+        اضافه به فاکتور
       </Button>
     </div>
   );

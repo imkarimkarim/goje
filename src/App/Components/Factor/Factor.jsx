@@ -11,7 +11,7 @@ import Loading from "../Loading.jsx";
 import Conclusion from "../../Components/Conclusion.jsx";
 import Expense from "../Expense.jsx";
 import ProductsTable from "../Product/ProductsTable.jsx";
-import ShowDate from '../ShowDate.jsx'; 
+import ShowDate from '../ShowDate.jsx';
 import Pays from "../Pays.jsx";
 import "./Factor.css";
 // TODO: edit
@@ -53,7 +53,7 @@ export default function Factor() {
         setFactor(oneFactor);
       });
     }
-    
+
     // clean up
     return () => {
       ipcRenderer.removeAllListeners("send-oneFactor");
@@ -78,7 +78,7 @@ export default function Factor() {
           <Divider />
           <Grid item className="products-section" xs={12}>
             <ProductsTable products={factor.products} />
-            <Conclusion products={factor.products} pays={factor.pays} />     
+            <Conclusion products={factor.products} pays={factor.pays} />
           </Grid>
           <Divider />
           {factor && factor.pays && factor.pays.length > 0 ? (
@@ -89,7 +89,7 @@ export default function Factor() {
             <div></div>
           )}
           <div className="actions">
-            <p>(در حال حاضر امکان گزارش گیری تکی وجود ندارد)</p>
+            <p>(درحال حاضر امکان گزارش گیری تکی برای فاکتور ها وجود ندارد)</p>          
             <Button
               disabled={true}
               className="newFactorAddProductInputButton"

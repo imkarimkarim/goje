@@ -11,14 +11,14 @@ import "./CustomerInput.css";
 
 const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker }) => {
   const [search, setSearch] = useState("");
-  
+
   const handleKeyBoardEvent = (e) => {
     if(e.key === 'Escape') setShowCustomerPicker(false);
   }
-  
+
   useEffect(() => {
     document.addEventListener('keydown', handleKeyBoardEvent);
-    
+
     return () => {
       document.removeEventListener('keydown', handleKeyBoardEvent);
     }
@@ -46,7 +46,7 @@ const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker })
   return (
     <div className="customePicker">
       <div className="closeIcon" onClick={() => {setShowCustomerPicker(false)}}><CloseIcon /></div>
-      <p className="title">لیست مشتری‌ها<SupervisorAccountIcon /></p>
+      <p className="title">لیست نام‌ها<SupervisorAccountIcon /></p>
       <input
         onChange={(e) => {
           setSearch(e.target.value);
@@ -86,7 +86,7 @@ const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
     ipcRenderer.on("allCustomers", (event, dbCustomers) => {
       setAllCustomers(dbCustomers);
     });
-    
+
     // clean up
     return () => {
       ipcRenderer.removeAllListeners("allCustomers");

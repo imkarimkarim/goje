@@ -21,7 +21,7 @@ export default function Reports() {
     <div className="reports-screen">
       <Nav title="/گزارشات" />
       <h3 className="alignTextIcon">جستجو<SearchIcon /></h3>
-      <Link to='/searchProducts'><Button variant="outlined">جستجوی صافی<ShoppingCartIcon /></Button></Link>
+      <Link to='/searchProducts'><Button variant="outlined">جستجوی بار<ShoppingCartIcon /></Button></Link>
       <br />
       <Link to='/searchFactors'><Button variant="outlined">جستجوی فاکتور<NoteIcon /></Button></Link>
       <div className="printSection">

@@ -139,7 +139,7 @@ export default function NewFactor() {
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
             <CustomerInput
-              label="صاحب فاکتور*"
+              label="نام مشتری*"
               className="customeInputAndPicker"
               onPick={(id, name) => {
                 formDispatch({
@@ -199,7 +199,7 @@ export default function NewFactor() {
           <Conclusion products={formData.products} pays={formData.pays} />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
-            <ProductInput formDispatch={formDispatch} label="شرح*" />
+            <ProductInput formDispatch={formDispatch} label="شرح بار**" />
           </Grid>
           <Divider />
           {formData && formData.isPayed === false ? (
@@ -218,7 +218,7 @@ export default function NewFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت
+              ثبت فاکتور جدید
             </Button>
           </Grid>
         </Grid>

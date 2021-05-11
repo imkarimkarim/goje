@@ -38,7 +38,7 @@ export default function Welcome() {
           <span className="customButton">
             <Button variant="outlined">
               <span className="button-icon"><PersonAddIcon /></span>
-              <span className="button-title">مشتری جدید</span>
+              <span className="button-title">نام جدید</span>
             </Button>
           </span>
         </Link>

@@ -154,7 +154,7 @@ export default function SearchProducts() {
         }}
         label1="صافی های باز"
         label2="صافی های بسته"
-        placeholder="مثال: مثال نارگیل میمون اکوادور"
+        placeholder="نوع بار یا نام صاحب بار [مثال نارگیل اورانگوتان ها]"
       />
       {products ? (
         <div>
@@ -166,7 +166,7 @@ export default function SearchProducts() {
                   variant="contained"
                   color="primary"
                 >
-                  گزارش پیشرفته
+                  گزارش چندتایی
                   <DescriptionIcon />
                 </Button>
               </Link>

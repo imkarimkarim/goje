@@ -143,15 +143,15 @@ export default function IncludeProduct() {
               variant="outlined"
               color="primary"
             >
-              {formData.isProductFinish ? 'بازکردن صافی' : 'بستن صافی'}
+              {formData.isProductFinish ? 'بار تمام نشده است' : 'بار تمام شده است'}
             </Button>
             <Grid item xs={12}>
               <Input
-                label="شرح*"
+                label="شرح بار*"
                 fun={setproductName}
                 value={formData.productName}
               />
-              <Input label="صاحب بار*" fun={setowner} value={formData.owner} />
+              <Input label="نام صاحب بار*" fun={setowner} value={formData.owner} />
               <Input
                 label="پلاک ماشین"
                 fun={setPlaque}
@@ -204,7 +204,7 @@ export default function IncludeProduct() {
                 variant="outlined"
                 color="primary"
               >
-                ثبت ویرایش
+                ثبت بار ویرایش شده
               </Button>
             </Grid>
           </Grid>

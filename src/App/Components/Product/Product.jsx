@@ -32,7 +32,7 @@ function InfoSection({ product }) {
             {product.isProductFinish ? (
               <ShowDate timestamp={product.finishDate} />
             ) : (
-              "صافی هنوز باز است "
+              "بار هنوز تمام نشده است "
             )}
           </div>
         </Grid>
@@ -78,7 +78,7 @@ function SaleSection({ productId, product }) {
             <table>
               <thead>
                 <tr>
-                  <th>شرح</th>
+                  <th>شرح بار</th>
                   <th>تعداد</th>
                   <th>وزن</th>
                   <th>فی فروش</th>
@@ -156,7 +156,7 @@ export default function ProductReports() {
 
   return product ? (
     <div>
-      <Nav title={"/صافی/" + product.customeId} />
+      <Nav title={"/بار/" + product.customeId} />
       <div className="product-reports">
         <InfoSection product={product} />
         <SaleSection productId={product.customeId} product={product} />
@@ -171,11 +171,11 @@ export default function ProductReports() {
                 variant="outlined"
                 color="primary"
               >
-                گزارش<DescriptionIcon />
+                گزارش تکی<DescriptionIcon />
               </Button>
             </Link>
           ) : (
-            <div>(به دلیل باز بودن صافی گزارش گیری مقدور نیست)</div>
+            <div>(به دلیل تمام نشدن بار گزارش گیری مقدور نیست)</div>            
           )}
 
           <Link to={`/editProduct/${product.customeId}`}>

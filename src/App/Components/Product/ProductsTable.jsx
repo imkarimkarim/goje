@@ -17,7 +17,7 @@ export default function ProductsTable({ products, formDispatch }) {
         <thead>
           <tr>
             <th></th>
-            <th>شرح</th>
+            <th>شرح بار</th>
             <th>تعداد</th>
             <th>وزن</th>
             <th>فی</th>

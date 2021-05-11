@@ -114,7 +114,7 @@ export default function EditFactor() {
       sendOneFactor(id);
       init.current = false;
     }
-    
+
     ipcRenderer.on("send-oneFactor", (event, oneFactor) => {
       formDispatch({ type: "setForm", payload: oneFactor });
     });
@@ -154,7 +154,7 @@ export default function EditFactor() {
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
             <CustomerInput
-              label="صاحب فاکتور*"
+              label="نام مشتری*"
               className="customeInputAndPicker"
               onPick={(id, name) => {
                 formDispatch({
@@ -228,10 +228,10 @@ export default function EditFactor() {
               products={formData.products}
               formDispatch={formDispatch}
             />
-          <Conclusion products={formData.products} pays={formData.pays} />          
+          <Conclusion products={formData.products} pays={formData.pays} />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
-            <ProductInput formDispatch={formDispatch} label="شرح*" />
+            <ProductInput formDispatch={formDispatch} label="شرح بار*" />
           </Grid>
           <Divider />
           {formData && formData.pays && formData.isPayed !== true ? (
@@ -258,7 +258,7 @@ export default function EditFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت ویرایش
+              ثبت فاکتور ویرایش شده
             </Button>
           </Grid>
         </Grid>

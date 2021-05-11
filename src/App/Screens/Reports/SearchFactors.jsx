@@ -25,7 +25,7 @@ export default function SearchFactors() {
   const [factors, setFactors] = useState(false);
   const [searchState, setSearchState] = useState(defalutSearchState);
   const init = useRef(true);
-  
+
   const handleNewSearch = (newSearchState) => {
     setSearchState(newSearchState);
     searchFactors(newSearchState);
@@ -34,13 +34,13 @@ export default function SearchFactors() {
   const searchFactors = (newSearchState) => {
     ipcRenderer.send("search-factors", newSearchState);
   };
-  
+
   useEffect(() => {
     if (init.current) {
       searchFactors(defalutSearchState);
       init.current = false;
     }
-    
+
     ipcRenderer.on("search-factors", (event, findedFactors) => {
       setFactors(findedFactors);
     });
@@ -92,7 +92,7 @@ export default function SearchFactors() {
         onSubmit={(newSearchState) => {handleNewSearch(newSearchState)}}
         label1="نقدی"
         label2="نسیه"
-        placeholder='مثال:‌ جادی'
+        placeholder='نام مشتری [مثال: جادی]'        
       />
     {factors ? <div><p className='hint'>{`${resultsList.length} فاکتور پیدا شد.`}</p><List>{resultsList}</List></div> : <Loading />}
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

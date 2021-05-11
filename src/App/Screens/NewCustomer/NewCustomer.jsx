@@ -13,7 +13,7 @@ export default function NewCustomer() {
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus]  = useState(null);
   const [notif, setNotif] = useState(null);
-  
+
   const setName = (e) => {
     setFormData(e.target.value);
   };
@@ -22,11 +22,11 @@ export default function NewCustomer() {
     setSubmit(true);
     addCustomer(formData);
   };
-  
+
   const addCustomer = (customer) => {
     ipcRenderer.send("addCustomer", customer);
   }
-  
+
   useEffect(() => {
       ipcRenderer.on("addCustomer", (event, createStatus) => {
         setSubmit(false);
@@ -49,7 +49,7 @@ export default function NewCustomer() {
       ipcRenderer.removeAllListeners("addCustomer");
     };
   });
-  
+
   let notifJsx;
   if(notif === 'success') notifJsx = <Notif type="success" message="حساب جدید با موفقیت ایجاد شد" />;
   if(notif === 'error') notifJsx = <Notif type="error" message="خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)" />
@@ -62,16 +62,16 @@ export default function NewCustomer() {
           notifJsx
         ) : ('')
       }
-      <Nav title="/مشتری جدید" />
+      <Nav title="/نام جدید" />
       <form className="NewCustomer-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Input label="نام" fun={setName} value={formData}/>
+            <Input label="نام*" fun={setName} value={formData}/>
           </Grid>
           <br />
           <Grid item xs={12}>
             <Button disabled={submit || formData.length === 0} onClick={handleSubmit} variant="outlined" color="primary">
-              ثبت
+              ثبت نام جدید
             </Button>
           </Grid>
         </Grid>
