@@ -258,7 +258,7 @@ export default function EditFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت فاکتور ویرایش شده
+              ثبت ویرایش
             </Button>
           </Grid>
         </Grid>
