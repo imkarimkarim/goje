@@ -160,7 +160,7 @@ export default function IncludeProduct() {
               variant="outlined"
               color="primary"
             >
-              ثبت بار جدید
+              ثبت
             </Button>
           </Grid>
         </Grid>

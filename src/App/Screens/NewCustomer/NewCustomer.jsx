@@ -71,7 +71,7 @@ export default function NewCustomer() {
           <br />
           <Grid item xs={12}>
             <Button disabled={submit || formData.length === 0} onClick={handleSubmit} variant="outlined" color="primary">
-              ثبت نام جدید
+              ثبت
             </Button>
           </Grid>
         </Grid>

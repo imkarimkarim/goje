@@ -218,7 +218,7 @@ export default function NewFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت فاکتور جدید
+              ثبت
             </Button>
           </Grid>
         </Grid>

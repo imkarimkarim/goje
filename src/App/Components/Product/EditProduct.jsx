@@ -5,10 +5,12 @@ import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Notif from "../../Components/Notif.jsx";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./EditProduct.css";
 
@@ -29,7 +31,7 @@ const productSchema = {
   portage: 0,
   cash: 0,
   plaque: "",
-  ps: '',
+  ps: "",
 };
 
 export default function IncludeProduct() {
@@ -76,6 +78,7 @@ export default function IncludeProduct() {
       isProductFinish: !formData.isProductFinish,
       finishDate: Date.now(),
     });
+    handleSubmit();
   };
   const setPs = (e) => {
     setFormData({ ...formData, ps: e.target.value });
@@ -138,20 +141,27 @@ export default function IncludeProduct() {
       <form className="EditProduct-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Button
-              onClick={toggleIsProductFinish}
-              variant="outlined"
-              color="primary"
-            >
-              {formData.isProductFinish ? 'بار تمام نشده است' : 'بار تمام شده است'}
-            </Button>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={formData.isProductFinish}
+                  onChange={toggleIsProductFinish}
+                />
+              }
+              label="اتمام بار:"
+              labelPlacement="start"
+            />
             <Grid item xs={12}>
               <Input
                 label="شرح بار*"
                 fun={setproductName}
                 value={formData.productName}
               />
-              <Input label="نام صاحب بار*" fun={setowner} value={formData.owner} />
+              <Input
+                label="نام صاحب بار*"
+                fun={setowner}
+                value={formData.owner}
+              />
               <Input
                 label="پلاک ماشین"
                 fun={setPlaque}
@@ -196,7 +206,12 @@ export default function IncludeProduct() {
             </Grid>
             <br />
             <Grid item xs={12}>
-              <TextareaAutosize onChange={setPs} value={formData.ps} rowsMin={3} placeholder="پی نوشت" />
+              <TextareaAutosize
+                onChange={setPs}
+                value={formData.ps}
+                rowsMin={3}
+                placeholder="پی نوشت"
+              />
               <br />
               <Button
                 disabled={submit}
@@ -204,7 +219,7 @@ export default function IncludeProduct() {
                 variant="outlined"
                 color="primary"
               >
-                ثبت بار ویرایش شده
+                ثبت ویرایش
               </Button>
             </Grid>
           </Grid>
