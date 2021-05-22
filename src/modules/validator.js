@@ -1,7 +1,7 @@
 const isProductValid = (product) => {
   let pass = true;
 
-  const strings = ["productName", "owner"];
+  const strings = ["productName", "owner", "ps"];
   for (let i = 0; i < strings.length; i++) {
     if (
       typeof product[strings[i]] !== "string" ||

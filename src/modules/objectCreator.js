@@ -33,6 +33,7 @@ const createProduct = (product, callback) => {
       portage: 0,
       cash: 0,
       plaque: "",
+      ps: "",
     };
     newProduct.customeId = id;
     newProduct.productName = product.productName;
@@ -45,6 +46,7 @@ const createProduct = (product, callback) => {
     newProduct.portage = product.portage;
     newProduct.cash = product.cash;
     newProduct.plaque = product.plaque;
+    newProduct.ps = product.ps;
     if (typeof callback === "function") {
       callback(newProduct);
     }
