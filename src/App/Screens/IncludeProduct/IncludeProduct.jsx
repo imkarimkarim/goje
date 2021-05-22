@@ -131,7 +131,7 @@ export default function IncludeProduct() {
               fun={setbasculeWeight}
               value={formData.basculeWeight}
             />
-            <Input label="تعداد" fun={setamount} value={formData.amount} />
+            <Input label="تعداد*" fun={setamount} value={formData.amount} />
             <Input
               label="کارمزد(٪)*"
               fun={setcommission}
@@ -147,7 +147,7 @@ export default function IncludeProduct() {
               fun={setportage}
               value={formData.portage}
             />
-            <ExpenseInput label="دستی" fun={setcash} value={formData.cash} />
+            <ExpenseInput label="دستی*" fun={setcash} value={formData.cash} />
           </Grid>
           <br />
 

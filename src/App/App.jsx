@@ -18,25 +18,25 @@ import PrintFactors from './Screens/Reports/PrintFactors.jsx';
 import ProductDetails from './Components/Product/ProductDetails.jsx';
 
 export default function App() {
-  
+
   const redirectToIndex = useRef(true);
-  
+
   useEffect(() => {
     if (redirectToIndex.current) {
       redirectToIndex.current = false;
     }
   });
-  
+
   return (
     <Router>
-      
+
       {/* redirect to / in first load */}
       {
         (redirectToIndex.current)
           ? <Redirect to='/welcome'/>
           : <div></div>
-      }   
-      <Container fixed>
+      }
+      <Container>
           <Switch>
             <Route path='/welcome' component={Welcome} />
             <Route path='/includeProduct' component={IncludeProduct} />

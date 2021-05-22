@@ -62,11 +62,11 @@ export default function NewCustomer() {
           notifJsx
         ) : ('')
       }
-      <Nav title="/نام جدید" />
+      <Nav title="/مشتری جدید " />
       <form className="NewCustomer-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Input label="نام*" fun={setName} value={formData}/>
+            <Input label="مشتری*" fun={setName} value={formData}/>
           </Grid>
           <br />
           <Grid item xs={12}>

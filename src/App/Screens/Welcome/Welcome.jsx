@@ -29,7 +29,7 @@ export default function Welcome() {
           <span className="customButton">
             <Button variant="outlined">
               <span className="button-icon"><ImportExportIcon /></span>
-              <span className="button-title">ورودی بــار</span>
+              <span className="button-title">ورود بار</span>
             </Button>
           </span>
         </Link>
@@ -38,7 +38,7 @@ export default function Welcome() {
           <span className="customButton">
             <Button variant="outlined">
               <span className="button-icon"><PersonAddIcon /></span>
-              <span className="button-title">نــام جـدیـد</span>
+              <span className="button-title">مشتری جدید</span>
             </Button>
           </span>
         </Link>
@@ -47,7 +47,7 @@ export default function Welcome() {
           <span className="customButton">
             <Button variant="outlined">
               <span className="button-icon"><EqualizerIcon /></span>
-              <span className="button-title">گــزارشــات</span>
+              <span className="button-title">گزارشات</span>
             </Button>
           </span>
         </Link>

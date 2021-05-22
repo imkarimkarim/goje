@@ -46,7 +46,7 @@ const CustomerPicker = React.memo(({ customers, onPick, setShowCustomerPicker })
   return (
     <div className="customePicker">
       <div className="closeIcon" onClick={() => {setShowCustomerPicker(false)}}><CloseIcon /></div>
-      <p className="title">لیست نام‌ها<SupervisorAccountIcon /></p>
+      <p className="title">لیست مشتری ها<SupervisorAccountIcon /></p>
       <input
         onChange={(e) => {
           setSearch(e.target.value);
