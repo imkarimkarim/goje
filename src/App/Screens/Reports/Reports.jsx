@@ -21,9 +21,9 @@ export default function Reports() {
     <div className="reports-screen">
       <Nav title="/گزارشات" />
       <h3 className="alignTextIcon">جستجو<SearchIcon /></h3>
-      <Link to='/searchProducts'><Button variant="outlined">جستجوی بار<ShoppingCartIcon /></Button></Link>
+      <Link to='/searchProducts'><Button variant="outlined">بارها<ShoppingCartIcon /></Button></Link>
       <br />
-      <Link to='/searchFactors'><Button variant="outlined">جستجوی فاکتور<NoteIcon /></Button></Link>
+      <Link to='/searchFactors'><Button variant="outlined">فاکتورها<NoteIcon /></Button></Link>
       <div className="printSection">
         <h3 className="alignTextIcon">گزارشات<EqualizerIcon /></h3>
         <div className="searchbox-datePicker">
@@ -36,12 +36,12 @@ export default function Reports() {
             }}
           />
         </div>
-        <Link to={'/printFactors/' + date + '/' + (parseInt(date)+oneDay)}><Button variant="outlined">گزارش بگیر!<DescriptionIcon /></Button></Link>
+        <Link to={'/printFactors/' + date + '/' + (parseInt(date)+oneDay)}><Button variant="outlined">گزارش!<DescriptionIcon /></Button></Link>
         <br />
         <br />
         از باقیمانده بار:
         <br />
-        <Link to={'/printRemainingProducts/'}><Button variant="outlined">گزارش بگیر!<DescriptionIcon /></Button></Link>
+        <Link to={'/printRemainingProducts/'}><Button variant="outlined">گزارش!<DescriptionIcon /></Button></Link>
       </div>
     </div>
   )
