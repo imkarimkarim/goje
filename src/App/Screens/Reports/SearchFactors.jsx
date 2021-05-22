@@ -92,7 +92,8 @@ export default function SearchFactors() {
         onSubmit={(newSearchState) => {handleNewSearch(newSearchState)}}
         label1="نقدی"
         label2="نسیه"
-        placeholder='نام مشتری [مثال: جادی]'        
+        placeholder='نام مشتری'
+        searchForCustomers={true}
       />
     {factors ? <div><p className='hint'>{`${resultsList.length} فاکتور پیدا شد.`}</p><List>{resultsList}</List></div> : <Loading />}
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

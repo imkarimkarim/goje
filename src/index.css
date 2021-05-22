@@ -25,6 +25,7 @@ span,
 div,
 button,
 input,
+label,
 .MuiInputLabel-outlined.MuiInputLabel-marginDense,
 .MuiInputLabel-outlined.MuiInputLabel-shrink {
   font-family: 'VazirMedium', 'Vazir' !important;
@@ -98,6 +99,8 @@ table {
   z-index: 100;
   right: 10%;
   top: 10%;
+  text-align: center;
+  justify-content: center;
 }
 
 .customePicker .closeIcon{
