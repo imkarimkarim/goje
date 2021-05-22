@@ -98,6 +98,10 @@ export default function IncludeProduct() {
   };
 
   useEffect(() => {
+   handleSubmit();
+}, [formData.isProductFinish]);
+
+  useEffect(() => {
     if (init.current) {
       sendOneProduct(id);
       init.current = false;
