@@ -63,7 +63,7 @@ export default function NewCustomer() {
         ) : ('')
       }
       <Nav title="/مشتری جدید " />
-      <form className="NewCustomer-form">
+      <div className="NewCustomer-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Input label="نام مشتری*" fun={setName} value={formData}/>
@@ -75,7 +75,7 @@ export default function NewCustomer() {
             </Button>
           </Grid>
         </Grid>
-      </form>
+      </div>
     </div>
   );
 }
