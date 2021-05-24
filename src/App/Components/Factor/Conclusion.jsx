@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import Expense from "./Expense.jsx";
+import Expense from "../Expense.jsx";
 
 export default function Conclusion({ products, pays }) {
   const fullSum = useRef(0);

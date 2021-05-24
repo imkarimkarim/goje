@@ -34,7 +34,7 @@ export default function Welcome() {
           </span>
         </Link>
 
-        <Link className="usefull-link" to="/newCustomer">
+        <Link className="usefull-link" to="/newName">
           <span className="customButton">
             <Button variant="outlined">
               <span className="button-icon"><PersonAddIcon /></span>

@@ -8,7 +8,7 @@ import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
 import Header from "../../Components/Header.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
-import ProductsTable from "../../Components/Product/ProductsTable.jsx";
+import ProductsTable from "../../Components/Factor/ProductsTable.jsx";
 import Footer from "../../Components/Footer.jsx";
 import NotFound from '../../Components/NotFound.jsx';
 import "./PrintFactors.css";

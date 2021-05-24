@@ -1,21 +1,21 @@
 import React, {useRef, useEffect} from 'react';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import Welcome from './Screens/Welcome/Welcome.jsx';
+import Welcome from './Pages/Welcome/Welcome.jsx';
 import Container from '@material-ui/core/Container';
-import IncludeProduct from './Screens/IncludeProduct/IncludeProduct.jsx';
-import NewFactor from './Screens/NewFactor/NewFactor.jsx';
-import NewCustomer from './Screens/NewCustomer/NewCustomer.jsx';
-import Reports from './Screens/Reports/Reports.jsx';
-import Product from './Components/Product/Product.jsx';
-import Factor from './Components/Factor/Factor.jsx';
-import SearchProducts from './Screens/Reports/SearchProducts.jsx';
-import SearchFactors from './Screens/Reports/SearchFactors.jsx';
-import PrintRemainingProducts from './Screens/Reports/PrintRemainingProducts.jsx';
-import EditFactor from './Components/Factor/EditFactor.jsx';
-import EditProduct from './Components/Product/EditProduct.jsx';
-import PrintProducts from './Screens/Reports/PrintProducts.jsx';
-import PrintFactors from './Screens/Reports/PrintFactors.jsx';
-import ProductDetails from './Components/Product/ProductDetails.jsx';
+import IncludeProduct from './Pages/Product/IncludeProduct.jsx';
+import NewFactor from './Pages/Factor/NewFactor.jsx';
+import NewName from './Pages/NewName/NewName.jsx';
+import Reports from './Pages/Reports/Reports.jsx';
+import Product from './Pages/Product/Product.jsx';
+import Factor from './Pages/Factor/Factor.jsx';
+import SearchProducts from './Pages/Reports/SearchProducts.jsx';
+import SearchFactors from './Pages/Reports/SearchFactors.jsx';
+import PrintRemainingProducts from './Pages/Reports/PrintRemainingProducts.jsx';
+import EditFactor from './Pages/Factor/EditFactor.jsx';
+import EditProduct from './Pages/Product/EditProduct.jsx';
+import PrintProducts from './Pages/Reports/PrintProducts.jsx';
+import PrintFactors from './Pages/Reports/PrintFactors.jsx';
+import ProductDetails from './Pages/Product/ProductDetails.jsx';
 
 export default function App() {
 
@@ -41,7 +41,7 @@ export default function App() {
             <Route path='/welcome' component={Welcome} />
             <Route path='/includeProduct' component={IncludeProduct} />
             <Route path='/newFactor' component={NewFactor} />
-            <Route path='/newCustomer' component={NewCustomer} />
+            <Route path='/newName' component={NewName} />
             <Route path='/reports' component={Reports} />
             <Route path='/searchProducts' component={SearchProducts} />
             <Route path='/searchFactors' component={SearchFactors} />

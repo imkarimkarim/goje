@@ -7,10 +7,10 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import DescriptionIcon from '@material-ui/icons/Description';
 import Button from "@material-ui/core/Button";
-import Nav from "../Nav.jsx";
-import Loading from "../Loading.jsx";
-import Expense from "../Expense.jsx";
-import ShowDate from "../ShowDate.jsx";
+import Nav from "../../Components/Nav.jsx";
+import Loading from "../../Components/Loading.jsx";
+import Expense from "../../Components/Expense.jsx";
+import ShowDate from "../../Components/ShowDate.jsx";
 import "./Product.css";
 import html2pdf from "html2pdf.js";
 // TODO: add delete button
@@ -175,7 +175,7 @@ export default function ProductReports() {
               </Button>
             </Link>
           ) : (
-            <div>(به دلیل تمام نشدن بار گزارش گیری مقدور نیست)</div>            
+            <div>(به دلیل تمام نشدن بار گزارش گیری مقدور نیست)</div>
           )}
 
           <Link to={`/editProduct/${product.customeId}`}>
