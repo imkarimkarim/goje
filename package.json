@@ -1,7 +1,7 @@
 {
   "name": "goje",
   "productName": "goje",
-  "version": "1.2.0",
+  "version": "1.2.3",
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
