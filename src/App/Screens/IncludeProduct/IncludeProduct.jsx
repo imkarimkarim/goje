@@ -113,7 +113,7 @@ export default function IncludeProduct() {
       <form className="IncludeProduct-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Input label="شرح بار*" fun={setproductName} value={formData.name} />
+            <Input label="شرح بار*" fun={setproductName} value={formData.productName} />
             <Input label="نام صاحب بار*" fun={setowner} value={formData.owner} />
             <Input label="پلاک ماشین" fun={setPlaque} value={formData.plaque} />
             <div className="arrivalDate">
