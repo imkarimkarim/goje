@@ -6,13 +6,13 @@ import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import Nav from "../Nav.jsx";
-import Loading from "../Loading.jsx";
-import Conclusion from "../../Components/Conclusion.jsx";
-import Expense from "../Expense.jsx";
-import ProductsTable from "../Product/ProductsTable.jsx";
-import ShowDate from '../ShowDate.jsx';
-import Pays from "../Pays.jsx";
+import Nav from "../../Components/Nav.jsx";
+import Loading from "../../Components/Loading.jsx";
+import Conclusion from "../../Components/Factor/Conclusion.jsx";
+import Expense from "../../Components/Expense.jsx";
+import ProductsTable from "../../Components/Factor/ProductsTable.jsx";
+import ShowDate from '../../Components/ShowDate.jsx';
+import Pays from "../../Components/Factor/Pays.jsx";
 import "./Factor.css";
 // TODO: edit
 // TODO: $cleanings
@@ -89,7 +89,7 @@ export default function Factor() {
             <div></div>
           )}
           <div className="actions">
-            <p>(درحال حاضر امکان گزارش گیری تکی برای فاکتور ها وجود ندارد)</p>          
+            <p>(درحال حاضر امکان گزارش گیری تکی برای فاکتور ها وجود ندارد)</p>
             <Button
               disabled={true}
               className="newFactorAddProductInputButton"

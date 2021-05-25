@@ -6,9 +6,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
-import CustomerInput from "./Customer/CustomerInput.jsx";
+import CustomerInput from "../Customer/CustomerInput.jsx";
 import "./SearchBox.css";
-import { cleanTime, oneDay } from "../util.js";
+import { cleanTime, oneDay } from "../../util.js";
 
 // TODO: search on enter
 

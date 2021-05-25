@@ -10,6 +10,7 @@ const init = () => {
     (err, docs) => {
       if (err) throw err;
       if (docs.length === 0) {
+        // ids start from 47000 because programmer loves number 47
         db.insert({ doc: "customId", lastId : 47000});
       }
     }

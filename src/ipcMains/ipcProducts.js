@@ -4,14 +4,9 @@ const calcOneProduct = require("../calculators/calcOneProduct");
 const { isProductValid } = require("../modules/validator");
 const { normalizeProduct } = require("../modules/nomalizer");
 
-let allProducts = {};
-let oneProduct = {};
-let resultsCalcOneProduct = {};
-
   ipcMain.on("send-allProducts", (event) => {
     productDocs.getUnFinishedProducts((docs) => {
-      allProducts = docs;
-      event.reply("allProducts", allProducts);
+      event.reply("allProducts", docs);
     });
   });
 
@@ -29,8 +24,7 @@ ipcMain.on("send-oneProduct", (event, id) => {
 
 ipcMain.on("send-oneProductCalcs", (event, id) => {
   calcOneProduct.calculate(id, (results) => {
-    resultsCalcOneProduct = results;
-    event.reply("oneProductCalcs", resultsCalcOneProduct);
+    event.reply("oneProductCalcs", results);
   });
 });
 

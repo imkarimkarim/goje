@@ -34,7 +34,7 @@ const productSchema = {
   ps: "",
 };
 
-export default function IncludeProduct() {
+export default function EditProduct() {
   const [formData, setFormData] = useState(productSchema);
   const [submit, setSubmit] = useState(false);
   const [editStatue, setEditStatue] = useState(null);

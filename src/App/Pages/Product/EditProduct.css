@@ -2,22 +2,21 @@ form .MuiFormControl-root {
   margin: 10px;
 }
 
-.MuiGrid-grid-xs-12{
+.MuiGrid-grid-xs-12 {
   text-align: center;
-   
 }
 
-.EditProduct-form .arrivalDate{
+.EditProduct-form .arrivalDate {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
 }
 
-.EditProduct-form .arrivalDate span{
+.EditProduct-form .arrivalDate span {
   margin-left: 10px;
 }
 
-form .MuiButton-outlinedPrimary{
+form .MuiButton-outlinedPrimary {
   width: 80%;
 }

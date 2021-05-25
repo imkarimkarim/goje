@@ -6,9 +6,9 @@ import Notif from '../../Components/Notif.jsx';
 import Nav from '../../Components/Nav.jsx';
 import Input from '../../Components/Input.jsx';
 import Grid from '@material-ui/core/Grid';
-import "./NewCustomer.css";
+import "./NewName.css";
 
-export default function NewCustomer() {
+export default function NewName() {
   const [formData, setFormData] = useState('');
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus]  = useState(null);
@@ -63,7 +63,7 @@ export default function NewCustomer() {
         ) : ('')
       }
       <Nav title="/مشتری جدید " />
-      <div className="NewCustomer-form">
+      <div className="NewName-form">
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Input label="نام مشتری*" fun={setName} value={formData}/>

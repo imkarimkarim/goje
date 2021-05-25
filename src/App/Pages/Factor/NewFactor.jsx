@@ -1,43 +1,42 @@
-import React, { useState, useReducer, useEffect, useRef } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 const { ipcRenderer } = require("electron");
-import { useParams } from "react-router-dom";
 import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
-import Notif from "../Notif.jsx";
-import Nav from "../Nav.jsx";
-import Input from "../Input.jsx";
-import CustomerInput from "../Customer/CustomerInput.jsx";
-import ExpenseInput from "../ExpenseInput.jsx";
-import ProductsTable from "../Product/ProductsTable.jsx";
-import Conclusion from "../../Components/Conclusion.jsx";
-import Expense from "../Expense.jsx";
-import ProductInput from "../Product/ProductInput.jsx";
-import Pays from "../Pays.jsx";
-import "./EditFactor.css";
-import ShowDate from '../ShowDate.jsx';
+import Notif from "../../Components/Notif.jsx";
+import Nav from "../../Components/Nav.jsx";
+import Input from "../../Components/Input.jsx";
+import CustomerInput from "../../Components/Customer/CustomerInput.jsx";
+import ExpenseInput from "../../Components/ExpenseInput.jsx";
+import ProductsTable from "../../Components/Factor/ProductsTable.jsx";
+import Expense from "../../Components/Expense.jsx";
+import Conclusion from "../../Components/Factor/Conclusion.jsx";
+import ProductInput from "../../Components/Product/ProductInput.jsx";
+import Pays from "../../Components/Factor/Pays.jsx";
+import "./NewFactor.css";
 
-const factorSchema = {
+const newFactorSchema = {
   docType: "factor",
   owner: "",
   ownerName: "",
-  customeId: "",
-  isPayed: "",
-  factorDate: 0,
-  changeDate: 0,
+  isPayed: 0,
+  factorDate: Date.now(),
+  changeDate: Date.now(),
   products: [],
-  calcs: [],
   pays: [],
-  id: "",
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "setForm":
-      return action.payload;
+    case "reset": {
+      let NEWnewFactorSchema = newFactorSchema;
+      NEWnewFactorSchema.factorDate = Date.now();
+      NEWnewFactorSchema.changeDate = Date.now();
+      return NEWnewFactorSchema;
+    }
     case "setOwner":
       return { ...state, owner: action.payload1, ownerName: action.payload2 };
     case "setIsPayed":
@@ -66,17 +65,17 @@ function reducer(state, action) {
         ...state,
         products: state.products,
       };
-    case "addPay":
-      return {
-        ...state,
-        pays: [
-          ...state.pays,
-          {
-            date: action.payload1,
-            amount: action.payload2,
-          },
-        ],
-      };
+    case 'addPay':
+    return {
+      ...state,
+      pays: [
+        ...state.pays,
+        {
+          date: action.payload1,
+          amount: action.payload2
+        },
+      ],
+    };
     case "removePay":
       state.pays.splice(action.payload, 1);
       return {
@@ -88,46 +87,32 @@ function reducer(state, action) {
   }
 }
 
-export default function EditFactor() {
-  const [formData, formDispatch] = useReducer(reducer, factorSchema);
+export default function NewFactor() {
+  const [formData, formDispatch] = useReducer(reducer, newFactorSchema);
   const [submit, setSubmit] = useState(false);
-  const [editStatue, setEditStatue] = useState(null);
+  const [createStatus, setCreateStatus] = useState(null);
   const [notif, setNotif] = useState(null);
-  const init = useRef(true);
-  let { id } = useParams();
 
   const handleSubmit = () => {
     setSubmit(true);
-    editFactor(formData);
+    newFactor(formData);
   };
 
-  const editFactor = (factor) => {
-    ipcRenderer.send("editFactor", factor);
-  };
-
-  const sendOneFactor = (id) => {
-    ipcRenderer.send("send-oneFactor", id);
+  const newFactor = (factor) => {
+    ipcRenderer.send("newFactor", factor);
   };
 
   useEffect(() => {
-    if (init.current) {
-      sendOneFactor(id);
-      init.current = false;
-    }
-
-    ipcRenderer.on("send-oneFactor", (event, oneFactor) => {
-      formDispatch({ type: "setForm", payload: oneFactor });
-    });
-
-    ipcRenderer.on("editFactor", (event, editStatue) => {
+    ipcRenderer.on("newFactor", (event, createStatus) => {
       setSubmit(false);
-      setEditStatue(editStatue);
-      if (editStatue !== null) {
-        if (editStatue === true) {
+      setCreateStatus(createStatus);
+      if (createStatus !== null) {
+        if (createStatus === true) {
+          formDispatch({ type: "reset" });
           setNotif(null);
           setNotif("success");
         }
-        if (editStatue === false) {
+        if (createStatus === false) {
           setNotif(null);
           setNotif("error");
         }
@@ -136,21 +121,21 @@ export default function EditFactor() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("editFactor");
+      ipcRenderer.removeAllListeners("newFactor");
     };
   });
 
   let notifJsx;
   if (notif === "success")
-    notifJsx = <Notif type="success" message="ویرایش با موفقیت انجام شد" />;
+    notifJsx = <Notif type="success" message="فاکتور با موفقیت ثبت شد" />;
   if (notif === "error")
-    notifJsx = <Notif type="error" message="حطا در ویرایش" />;
+    notifJsx = <Notif type="error" message="خطا در ثبت کردن فاکتور" />;
 
   return (
     <div>
       {notifJsx ? notifJsx : ""}
-      <Nav title={"/ویرایش فاکتور/" + id} />
-      <form className="EditFactor-form">
+      <Nav title="/فاکتور جدید" />
+      <form className="NewFactor-form">
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
             <CustomerInput
@@ -180,46 +165,29 @@ export default function EditFactor() {
             <div>
               نسیه
               <Radio
-                style={{ color: 'red' }}
                 checked={formData.isPayed === false}
+                style={{ color: 'red' }}
                 onChange={() => {
                   formDispatch({ type: "setIsPayed", payload: false });
                 }}
                 value={false}
               />
             </div>
-            <div>
-              وصولی
-              <Radio
-                style={{ color: 'green' }}
-                color="primary"
-                checked={formData.isPayed === 'receipt'}
-                onChange={() => {
-                  formDispatch({ type: "setIsPayed", payload: 'receipt' });
-                }}
-                value={'receipt'}
-              />
-            </div>
             <div className="factorDate">
-              {formData && formData.factorDate > 0 ? (
-                <DatePicker
-                  timePicker={false}
-                  value={formData.factorDate}
-                  onClickSubmitButton={({ value }) => {
-                    formDispatch({
-                      type: "setFactorDate",
-                      payload: value._d.getTime(),
-                    });
-                    formDispatch({
-                      type: "setChangeDate",
-                      payload: Date.now(),
-                    });
-                  }}
-                />
-              ) : (
-                <span></span>
-              )}
-              <div className="hint">آخرین تغییر در {formData && formData.changeDate ? <ShowDate timestamp={formData.changeDate} /> : <span></span>}</div>
+              <DatePicker
+                timePicker={false}
+                value={formData.factorDate}
+                onClickSubmitButton={({ value }) => {
+                  formDispatch({
+                    type: "setFactorDate",
+                    payload: value._d.getTime(),
+                  });
+                  formDispatch({
+                    type: "setChangeDate",
+                    payload: Date.now(),
+                  });
+                }}
+              />
             </div>
           </Grid>
           <Divider />
@@ -234,19 +202,11 @@ export default function EditFactor() {
             <ProductInput formDispatch={formDispatch} label="شرح بار*" />
           </Grid>
           <Divider />
-          {formData && formData.pays && formData.isPayed !== true ? (
+          {formData && formData.isPayed === false ? (
             <Grid item className="addpay-section" xs={12}>
-              <Pays
-                formDispatch={formDispatch}
-                pays={formData.pays}
-                onSubmit={(pay) => {
-                  formDispatch({
-                    type: "addPay",
-                    payload1: pay.date,
-                    payload2: pay.amount,
-                  });
-                }}
-              />
+              <Pays formDispatch={formDispatch} pays={formData.pays} onSubmit={(pay) => {
+                  formDispatch({type: 'addPay', payload1: pay.date, payload2: pay.amount})
+                }}/>
             </Grid>
           ) : (
             <div></div>
@@ -258,7 +218,7 @@ export default function EditFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت ویرایش
+              ثبت
             </Button>
           </Grid>
         </Grid>

@@ -1,3 +1,5 @@
+/* many shared css rules are here */
+
 @font-face {
   font-family: 'VazirMedium';
   font-style: normal;
@@ -51,23 +53,6 @@ a {
   color: #777 !important;
 }
 
-.customButton button{
-  padding: 30px 10px;
-  width: 120px;
-}
-
-.customButton button .MuiButton-label{
-  display: flex;
-  flex-direction: column;
-}
-
-.customButton button .MuiButton-label .button-icon{
-
-}
-
-.customButton button .MuiButton-label .button-title{
-
-}
 
 table, td, th {
   border: 1px solid #ccc;
@@ -87,6 +72,9 @@ table {
   width: 100%;
   font-size: 12px;
 }
+
+/* because two components are using customePicker rules of customePicker
+are here...(may be not a good practice) */
 
 .customePicker .List{
   direction: rtl !important;

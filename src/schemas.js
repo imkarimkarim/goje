@@ -1,4 +1,4 @@
-const newProduct = {
+const product = {
   docType: 'product',
   customeId: null,
   productName: 'سیب سفید',
@@ -16,13 +16,19 @@ const newProduct = {
   plaque: '۱۲ت۱۹ایران۱۸',
 }
 
-const newCustomer = {
+const customer = {
   docType: 'customer',
   customeId: null,
   name: 'افشین',
 }
 
-const newFactor = {
+const productOwner = {
+  docType: 'customer',
+  customeId: null,
+  name: 'افشین',
+}
+
+const factor = {
   docType: 'factor',
   owner: 'b79a',
   ownerName: '',

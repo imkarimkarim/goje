@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
-import ExpenseInput from "./ExpenseInput.jsx";
+import ExpenseInput from "../ExpenseInput.jsx";
 import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import "./Pays.css";
-import Expense from "./Expense.jsx";
+import Expense from "../Expense.jsx";
 import DeleteIcon from "@material-ui/icons/Delete";
-import ShowDate from './ShowDate.jsx';
+import ShowDate from '../ShowDate.jsx';
 
 const defaultState = {
   date: Date.now(),

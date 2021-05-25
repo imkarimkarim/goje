@@ -3,15 +3,15 @@ const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import JDate from "jalali-date";
-import SearchResultItem from "../../Components/SearchResultItem.jsx";
+import SearchResultItem from "../../Components/Report/SearchResultItem.jsx";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import Nav from "../Nav.jsx";
-import Expense from '../Expense.jsx';
-import Loading from "../Loading.jsx";
-import ShowDate from "../ShowDate.jsx";
+import Nav from "../../Components/Nav.jsx";
+import Expense from '../../Components/Expense.jsx';
+import Loading from "../../Components/Loading.jsx";
+import ShowDate from "../../Components/ShowDate.jsx";
 
 export default function ProductDetails() {
   const [factorsWithProduct, setFactorsWithProduct] = useState();
