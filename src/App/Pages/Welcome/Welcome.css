@@ -1,3 +1,13 @@
+.customButton button{
+  padding: 30px 10px;
+  width: 120px;
+}
+
+.customButton button .MuiButton-label{
+  display: flex;
+  flex-direction: column;
+}
+
 .welcome-screen{
   margin-top: 24vh;
 }

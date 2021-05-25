@@ -13,6 +13,7 @@ import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import "./Product.css";
 import html2pdf from "html2pdf.js";
+
 // TODO: add delete button
 
 function InfoSection({ product }) {

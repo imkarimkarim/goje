@@ -33,6 +33,7 @@ const isProductValid = (product) => {
   return pass;
 };
 
+// P stands for product (meaning product index in factor.products)
 function isPValid(p) {
   let pPass = true;
   if (typeof p.productId !== "string" || p.productId.length === 0) {

@@ -4,7 +4,7 @@
   font-size: 12px;
 }
 
-.printProductsTable{
+.printProductsTable {
   display: flex;
   height: 15.8cm;
   justify-content: center;
@@ -19,18 +19,18 @@
   justify-content: space-between;
 }
 
-.printfullSum .f1{
-  flex: 4;  
+.printfullSum .f1 {
+  flex: 4;
 }
 
-.imBigger{
+.imBigger {
   font-size: 15px;
 }
 
 .printpaysRecords {
   font-size: 12px;
   padding: 0;
-  margin: 0
+  margin: 0;
 }
 
 .factorsPrint-wrapper h5 {
@@ -42,17 +42,17 @@
   display: flex;
   justify-content: space-between;
 }
-.factorMetaData .name{
+
+.factorMetaData .name {
   display: flex;
   align-items: center;
 }
-.factorMetaData .name > span{
+
+.factorMetaData .name > span {
   margin-left: 3px;
 }
-.factorMetaData .name h4{
+
+.factorMetaData .name h4 {
   font-size: 18px;
   margin: 4px 0;
-}
-.factorMetaData .date{
-  
 }

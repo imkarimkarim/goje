@@ -12,11 +12,9 @@ ipcMain.on("addCustomer", (event, customer) => {
   customerDocs.isCustomerExists(customer, (docs) => {
     if (docs.length === 0) {
       customerDocs.insert(customer, () => {
-        // log customer added...
         event.reply('addCustomer', true);
       });
     } else {
-      // custer is already there
       event.reply('addCustomer', false);
     }
   });
