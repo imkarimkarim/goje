@@ -5,19 +5,19 @@ const { isProductValid } = require("../modules/validator");
 const { normalizeProduct } = require("../modules/nomalizer");
 
   ipcMain.on("getUnFinishedProducts", (event) => {
-    productDocs.getUnFinishedProducts((docs) => {
+    productDocs.getUnFinished((docs) => {
       event.reply("getUnFinishedProducts", docs);
     });
   });
 
 ipcMain.on("searchInProducts", (event, searchFilters) => {
-  productDocs.searchProducts(searchFilters, (docs) => {
+  productDocs.search(searchFilters, (docs) => {
     event.reply("searchInProducts", docs);
   });
 });
 
 ipcMain.on("getOneProduct", (event, id) => {
-  productDocs.getOneProduct(id, (docs) => {
+  productDocs.getOne(id, (docs) => {
     event.reply("getOneProduct", docs);
   });
 });

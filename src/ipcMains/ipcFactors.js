@@ -29,7 +29,7 @@ ipcMain.on('editFactor', (event, factor) => {
 })
 
 ipcMain.on("searchInFactors", (event, searchFilters) => {
-  factorDocs.SearchFactors(searchFilters, (docs) => {
+  factorDocs.search(searchFilters, (docs) => {
     event.reply("searchInFactors", docs);
   });
 });
@@ -49,7 +49,7 @@ ipcMain.on('printCreditFactorsByDate', (event, date) => {
 
 ipcMain.on('getOneProductDetails', (event, id) => {
   if(!id) return;
-  factorDocs.factorsWithProduct(id, (docs) => {
+  factorDocs.withProduct(id, (docs) => {
     if(docs){
       event.reply('getOneProductDetails', docs);
     }

@@ -44,7 +44,7 @@ const getOne = (id, callback) => {
   );
 };
 
-const factorsWithProduct = (id, callback) => {
+const withProduct = (id, callback) => {
   if (!id) return;
   db.find({ "products.productId": id }, (err, docs) => {
     if (err) throw err;
@@ -81,7 +81,7 @@ const factorsWithFactordate = (fromm, till, callback) => {
   );
 };
 
-const SearchFactors = (searchFilters, callback) => {
+const search = (searchFilters, callback) => {
   if (!searchFilters) return;
   const sf = searchFilters;
   if (sf.checked1 === true && sf.checked2 === true) {
@@ -183,7 +183,7 @@ module.exports = {
   getOne,
   insert,
   update,
-  factorsWithProduct,
-  SearchFactors,
+  withProduct,
+  search,
   factorsWithFactordate,
 };
