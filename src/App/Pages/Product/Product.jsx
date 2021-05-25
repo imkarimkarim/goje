@@ -51,16 +51,16 @@ function SaleSection({ productId, product }) {
   const [salesInfo, setsalesInfo] = useState();
   const init = useRef(true);
 
-  const sendOneProductCalcs = (productId) => {
-    ipcRenderer.send("send-oneProductCalcs", productId);
+  const getOneProductCalcs = (productId) => {
+    ipcRenderer.send("getOneProductCalcs", productId);
   };
 
   useEffect(() => {
     if (init.current) {
-      sendOneProductCalcs(productId);
-      ipcRenderer.on("oneProductCalcs", (event, oneProduct) => {
+      getOneProductCalcs(productId);
+      ipcRenderer.on("oneProductCalcs", (event, product) => {
         init.current = false;
-        setsalesInfo(oneProduct);
+        setsalesInfo(product);
       });
     }
 
@@ -136,22 +136,22 @@ export default function ProductReports() {
   let { id } = useParams();
   const init = useRef(true);
 
-  const sendOneProduct = (id) => {
-    ipcRenderer.send("send-oneProduct", id);
+  const getOneProduct = (id) => {
+    ipcRenderer.send("getOneProduct", id);
   };
 
   useEffect(() => {
     if (init.current) {
-      sendOneProduct(id);
-      ipcRenderer.on("oneProduct", (event, oneProduct) => {
+      getOneProduct(id);
+      ipcRenderer.on("getOneProduct", (event, product) => {
         init.current = false;
-        setProduct(oneProduct);
+        setProduct(product);
       });
     }
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("oneProduct");
+      ipcRenderer.removeAllListeners("getOneProduct");
     };
   });
 

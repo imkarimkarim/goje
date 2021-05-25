@@ -147,8 +147,8 @@ const SearchFactors = (searchFilters, callback) => {
 };
 
 const insert = (factor, callback) => {
-  objectCreator.createFactor(factor, (newFactor) => {
-    db.insert(newFactor, function () {
+  objectCreator.createFactor(factor, (addNewFactor) => {
+    db.insert(addNewFactor, function () {
       if (typeof callback === "function") {
         callback();
       }
@@ -159,12 +159,12 @@ const insert = (factor, callback) => {
 const update = (id, factor, callback) => {
   calcSumFactor.calculate(factor.products, factor.pays, (calcs) => {
     factor.calcs = calcs;
-    db.update({ _id: id }, { 
+    db.update({ _id: id }, {
       docType: factor.docType,
       owner: factor.owner,
       ownerName: factor.ownerName,
       customeId: factor.customeId,
-      isPayed: factor.isPayed, 
+      isPayed: factor.isPayed,
       factorDate: factor.factorDate,
       changeDate: factor.changeDate,
       products: factor.products,

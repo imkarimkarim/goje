@@ -18,23 +18,23 @@ export default function ProductDetails() {
   let { id } = useParams();
   const init = useRef(true);
 
-  const sendProductDetails = (id) => {
-    ipcRenderer.send("oneProductDetails", id);
+  const getOneProductDetails = (id) => {
+    ipcRenderer.send("getOneProductDetails", id);
   };
 
   useEffect(() => {
     if (init.current) {
-      sendProductDetails(id);
+      getOneProductDetails(id);
     }
 
-    ipcRenderer.on("oneProductDetails", (event, productDetails) => {
+    ipcRenderer.on("getOneProductDetails", (event, productDetails) => {
       init.current = false;
       setFactorsWithProduct(productDetails);
     });
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("oneProductDetails");
+      ipcRenderer.removeAllListeners("getOneProductDetails");
     };
   });
 

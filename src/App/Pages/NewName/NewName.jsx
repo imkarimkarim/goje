@@ -20,15 +20,15 @@ export default function NewName() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    addCustomer(formData);
+    addNewCustomer(formData);
   };
 
-  const addCustomer = (customer) => {
-    ipcRenderer.send("addCustomer", customer);
+  const addNewCustomer = (customer) => {
+    ipcRenderer.send("addNewCustomer", customer);
   }
 
   useEffect(() => {
-      ipcRenderer.on("addCustomer", (event, createStatus) => {
+      ipcRenderer.on("addNewCustomer", (event, createStatus) => {
         setSubmit(false);
         setCreateStatus(createStatus);
         if(createStatus !== null){
@@ -46,7 +46,7 @@ export default function NewName() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("addCustomer");
+      ipcRenderer.removeAllListeners("addNewCustomer");
     };
   });
 

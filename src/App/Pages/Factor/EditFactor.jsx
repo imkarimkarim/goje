@@ -105,17 +105,17 @@ export default function EditFactor() {
     ipcRenderer.send("editFactor", factor);
   };
 
-  const sendOneFactor = (id) => {
-    ipcRenderer.send("send-oneFactor", id);
+  const getOneFactor = (id) => {
+    ipcRenderer.send("getOneFactor", id);
   };
 
   useEffect(() => {
     if (init.current) {
-      sendOneFactor(id);
+      getOneFactor(id);
       init.current = false;
     }
 
-    ipcRenderer.on("send-oneFactor", (event, oneFactor) => {
+    ipcRenderer.on("getOneFactor", (event, oneFactor) => {
       formDispatch({ type: "setForm", payload: oneFactor });
     });
 

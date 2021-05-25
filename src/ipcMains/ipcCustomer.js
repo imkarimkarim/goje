@@ -1,21 +1,21 @@
 const { ipcMain } = require("electron");
 const customerDocs = require("../db/customerDocs");
 
-ipcMain.on('allCustomers', (event) => {
+ipcMain.on('getAllCustomers', (event) => {
   customerDocs.getAll((customers) => {
-    event.reply('allCustomers', customers);
+    event.reply('getAllCustomers', customers);
   })
 })
 
-ipcMain.on("addCustomer", (event, customer) => {
-  if(!customer) event.reply('addCustomer', false);
+ipcMain.on("addNewCustomer", (event, customer) => {
+  if(!customer) event.reply('addNewCustomer', false);
   customerDocs.isCustomerExists(customer, (docs) => {
     if (docs.length === 0) {
       customerDocs.insert(customer, () => {
-        event.reply('addCustomer', true);
+        event.reply('addNewCustomer', true);
       });
     } else {
-      event.reply('addCustomer', false);
+      event.reply('addNewCustomer', false);
     }
   });
 });

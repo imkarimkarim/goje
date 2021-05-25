@@ -42,13 +42,13 @@ export default function Factor() {
   let { id } = useParams();
   const init = useRef(true);
 
-  const sendOneFactor = (id) => {
-    ipcRenderer.send("send-oneFactor", id);
+  const getOneFactor = (id) => {
+    ipcRenderer.send("getOneFactor", id);
   };
   useEffect(() => {
     if (init.current) {
-      sendOneFactor(id);
-      ipcRenderer.on("send-oneFactor", (event, oneFactor) => {
+      getOneFactor(id);
+      ipcRenderer.on("getOneFactor", (event, oneFactor) => {
         init.current = false;
         setFactor(oneFactor);
       });
@@ -56,7 +56,7 @@ export default function Factor() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("send-oneFactor");
+      ipcRenderer.removeAllListeners("getOneFactor");
     };
   });
   let tmpStatus;

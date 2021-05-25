@@ -110,12 +110,12 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
     document.getElementById('focusOnMe1').focus();
   };
 
-  const sendAllproducts = () => {
-    ipcRenderer.send("send-allProducts");
+  const getUnFinishedProducts = () => {
+    ipcRenderer.send("getUnFinishedProducts");
   };
 
   const handleFocus = (e) => {
-    sendAllproducts();
+    getUnFinishedProducts();
     setProductState({ name: "", id: "" });
     setShowCustomerPicker(true);
   };
@@ -129,12 +129,12 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
     //     setAllproducts();
     //   }
     // }
-    ipcRenderer.on("allProducts", (event, dbproducts) => {
+    ipcRenderer.on("getUnFinishedProducts", (event, dbproducts) => {
       setAllproducts(dbproducts);
     });
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("allproducts");
+      ipcRenderer.removeAllListeners("getUnFinishedProducts");
     };
   });
 

@@ -93,8 +93,8 @@ export default function EditProduct() {
     ipcRenderer.send("editProduct", product);
   };
 
-  const sendOneProduct = (id) => {
-    ipcRenderer.send("send-oneProduct", id);
+  const getOneProduct = (id) => {
+    ipcRenderer.send("getOneProduct", id);
   };
 
   useEffect(() => {
@@ -103,12 +103,12 @@ export default function EditProduct() {
 
   useEffect(() => {
     if (init.current) {
-      sendOneProduct(id);
+      getOneProduct(id);
       init.current = false;
     }
 
-    ipcRenderer.on("oneProduct", (event, oneProduct) => {
-      setFormData(oneProduct);
+    ipcRenderer.on("getOneProduct", (event, product) => {
+      setFormData(product);
     });
 
     ipcRenderer.on("editProduct", (event, editStatue) => {

@@ -11,7 +11,7 @@ import "./PrintRemainingProducts.css";
 
 function RenderProduct({ index, product, productsLength }) {
   const report = useRef(false);
-  
+
   useEffect(() => {
     if (productsLength === index+1 && !report.current) {
       report.current = true;
@@ -29,7 +29,7 @@ function RenderProduct({ index, product, productsLength }) {
         .then(() => {
           window.history.back();
         });
-    }    
+    }
   })
 
   return (
@@ -54,12 +54,12 @@ export default function PrintRemainingProducts() {
   const init = useRef(true);
   let extractedData = [];
 
-  const sendAllproducts = () => {
-    ipcRenderer.send("send-allProducts");
+  const getUnFinishedProducts = () => {
+    ipcRenderer.send("getUnFinishedProducts");
   };
 
-  const sendOneProductCalcs = (productId) => {
-    ipcRenderer.send("send-oneProductCalcs", productId);
+  const getOneProductCalcs = (productId) => {
+    ipcRenderer.send("getOneProductCalcs", productId);
   };
 
   const extractRemainingDetails = (productData, calcProduct) => {
@@ -72,34 +72,34 @@ export default function PrintRemainingProducts() {
 
   useEffect(() => {
     if (init.current) {
-      sendAllproducts();
+      getUnFinishedProducts();
       init.current = false;
     }
 
-    ipcRenderer.on("allProducts", (event, dbproducts) => {
+    ipcRenderer.on("getUnFinishedProducts", (event, dbproducts) => {
       setProducts(dbproducts);
       if (dbproducts && dbproducts.length > 0) {
         for (let i = 0; i < dbproducts.length; i++) {
           (function (ind) {
             setTimeout(function () {
-              sendOneProductCalcs(dbproducts[ind].customeId);
+              getOneProductCalcs(dbproducts[ind].customeId);
             }, 100 + 200 * ind);
           })(i);
         }
       }
     });
 
-    ipcRenderer.on("oneProductCalcs", (event, oneProduct) => {
+    ipcRenderer.on("oneProductCalcs", (event, product) => {
       if (!remainigDetails || remainigDetails.length === 0) {
-        setRemainigDetails([oneProduct]);
+        setRemainigDetails([product]);
       } else {
-        setRemainigDetails([...remainigDetails, oneProduct]);
+        setRemainigDetails([...remainigDetails, product]);
       }
     });
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("allproducts");
+      ipcRenderer.removeAllListeners("getUnFinishedProducts");
       ipcRenderer.removeAllListeners("oneProductCalcs");
     };
   });
