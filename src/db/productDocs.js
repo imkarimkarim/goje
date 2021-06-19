@@ -21,7 +21,7 @@ const getAll = (callback) => {
   });
 };
 
-const getUnFinishedProducts = (callback) => {
+const getUnFinished = (callback) => {
   db.find(
     { $and: [{ docType: "product" }, { isProductFinish: false }] },
     function (err, docs) {
@@ -36,7 +36,7 @@ const getUnFinishedProducts = (callback) => {
   );
 };
 
-const searchProducts = (searchFilters, callback) => {
+const search = (searchFilters, callback) => {
   if (!searchFilters) return;
   const sf = searchFilters;
   if(sf.checked1 === true && sf.checked2 === true){
@@ -103,7 +103,7 @@ const searchProducts = (searchFilters, callback) => {
   }
 };
 
-const getFinishedProducts = (callback) => {
+const getFinished = (callback) => {
   db.find(
     { $and: [{ docType: "product" }, { isProductFinish: true }] },
     function (err, docs) {
@@ -118,7 +118,7 @@ const getFinishedProducts = (callback) => {
   );
 };
 
-const getOneProduct = (id, callback) => {
+const getOne = (id, callback) => {
   if (!id) return;
   db.findOne({ customeId: id }, function (err, doc) {
     if (err) throw err;
@@ -145,7 +145,7 @@ const update = (id, product, callback) => {
       customeId: product.customeId ,
       productName: product.productName ,
       owner: product.owner ,
-      basculeWeight: product.basculeWeight, 
+      basculeWeight: product.basculeWeight,
       amount: product.amount ,
       arrivalDate: product.arrivalDate ,
       finishDate: product.finishDate ,
@@ -167,8 +167,8 @@ module.exports = {
   getAll,
   insert,
   update,
-  getUnFinishedProducts,
-  getFinishedProducts,
-  getOneProduct,
-  searchProducts,
+  getUnFinished,
+  getFinished,
+  getOne,
+  search,
 };

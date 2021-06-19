@@ -24,9 +24,9 @@ let factorsDatas = ['amount', 'kg', 'price'];
 
 function getNeededData(productId, callback) {
   let data = {};
-  factorDocs.factorsWithProduct(productId, (docs) => {
+  factorDocs.withProduct(productId, (docs) => {
     data.factors = docs;
-    productDocs.getOneProduct(productId, (docs) => {
+    productDocs.getOne(productId, (docs) => {
       data.product = docs;
       if (typeof callback === "function") {
         callback(data);
@@ -89,12 +89,12 @@ function calculateAllTheStuffFinally(callback) {
   RESULTS.COMMISSION = Math.floor((RESULTS.SUM_KG * RESULTS.SALE_AVERAGE) * (productData.commission * .01));
   RESULTS.OWNER_ERNINGS = Math.floor(RESULTS.FULL_SALE - productData.portage - productData.unload - RESULTS.COMMISSION - productData.cash);
   RESULTS.productData = productData;
-  
+
   if(isNaN(RESULTS.SALE_AVERAGE)) RESULTS.SALE_AVERAGE = 0;
   if(isNaN(RESULTS.FULL_SALE)) RESULTS.FULL_SALE = 0;
   if(isNaN(RESULTS.COMMISSION)) RESULTS.COMMISSION = 0;
   if(isNaN(RESULTS.OWNER_ERNINGS)) RESULTS.OWNER_ERNINGS = 0;
-  
+
   if (typeof callback === "function") {
     callback(RESULTS);
   }

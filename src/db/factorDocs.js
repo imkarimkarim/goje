@@ -44,7 +44,7 @@ const getOne = (id, callback) => {
   );
 };
 
-const factorsWithProduct = (id, callback) => {
+const withProduct = (id, callback) => {
   if (!id) return;
   db.find({ "products.productId": id }, (err, docs) => {
     if (err) throw err;
@@ -81,7 +81,7 @@ const factorsWithFactordate = (fromm, till, callback) => {
   );
 };
 
-const SearchFactors = (searchFilters, callback) => {
+const search = (searchFilters, callback) => {
   if (!searchFilters) return;
   const sf = searchFilters;
   if (sf.checked1 === true && sf.checked2 === true) {
@@ -147,8 +147,8 @@ const SearchFactors = (searchFilters, callback) => {
 };
 
 const insert = (factor, callback) => {
-  objectCreator.createFactor(factor, (newFactor) => {
-    db.insert(newFactor, function () {
+  objectCreator.createFactor(factor, (addNewFactor) => {
+    db.insert(addNewFactor, function () {
       if (typeof callback === "function") {
         callback();
       }
@@ -159,12 +159,12 @@ const insert = (factor, callback) => {
 const update = (id, factor, callback) => {
   calcSumFactor.calculate(factor.products, factor.pays, (calcs) => {
     factor.calcs = calcs;
-    db.update({ _id: id }, { 
+    db.update({ _id: id }, {
       docType: factor.docType,
       owner: factor.owner,
       ownerName: factor.ownerName,
       customeId: factor.customeId,
-      isPayed: factor.isPayed, 
+      isPayed: factor.isPayed,
       factorDate: factor.factorDate,
       changeDate: factor.changeDate,
       products: factor.products,
@@ -183,7 +183,7 @@ module.exports = {
   getOne,
   insert,
   update,
-  factorsWithProduct,
-  SearchFactors,
+  withProduct,
+  search,
   factorsWithFactordate,
 };

@@ -141,8 +141,8 @@ function SaleSection({ products }) {
     sumCommission = sumCommission / salesInfos.length;
   }
 
-  const sendOneProductCalcs = (productId) => {
-    ipcRenderer.send("send-oneProductCalcs", productId);
+  const getOneProductCalcs = (productId) => {
+    ipcRenderer.send("getOneProductCalcs", productId);
   };
 
   useEffect(() => {
@@ -151,17 +151,17 @@ function SaleSection({ products }) {
       for (let i = 0; i < products.length; i++) {
         (function (ind) {
           setTimeout(function () {
-            sendOneProductCalcs(products[ind].customeId);
+            getOneProductCalcs(products[ind].customeId);
           }, 100 + 1000 * ind);
         })(i);
       }
     }
 
-    ipcRenderer.on("oneProductCalcs", (event, oneProduct) => {
+    ipcRenderer.on("oneProductCalcs", (event, product) => {
       if (!salesInfos || salesInfos.length === 0) {
-        setsalesInfos([oneProduct]);
+        setsalesInfos([product]);
       } else {
-        setsalesInfos([...salesInfos, oneProduct]);
+        setsalesInfos([...salesInfos, product]);
       }
     });
 
@@ -293,8 +293,8 @@ export default function PrintProducts() {
   ids = ids.split(",");
   const init = useRef(true);
 
-  const sendOneProduct = (id) => {
-    ipcRenderer.send("send-oneProduct", id);
+  const getOneProduct = (id) => {
+    ipcRenderer.send("getOneProduct", id);
   };
 
   useEffect(() => {
@@ -303,23 +303,23 @@ export default function PrintProducts() {
       for (let i = 0; i < ids.length; i++) {
         (function (ind) {
           setTimeout(function () {
-            sendOneProduct(ids[ind]);
+            getOneProduct(ids[ind]);
           }, 100 + 1000 * ind);
         })(i);
       }
     }
 
-    ipcRenderer.on("oneProduct", (event, oneProduct) => {
+    ipcRenderer.on("getOneProduct", (event, product) => {
       if (!products || products.length === 0) {
-        setProducts([oneProduct]);
+        setProducts([product]);
       } else {
-        setProducts([...products, oneProduct]);
+        setProducts([...products, product]);
       }
     });
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("oneProduct");
+      ipcRenderer.removeAllListeners("getOneProduct");
     };
   });
 

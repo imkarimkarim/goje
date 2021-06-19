@@ -4,25 +4,25 @@ const calcOneProduct = require("../calculators/calcOneProduct");
 const { isProductValid } = require("../modules/validator");
 const { normalizeProduct } = require("../modules/nomalizer");
 
-  ipcMain.on("send-allProducts", (event) => {
-    productDocs.getUnFinishedProducts((docs) => {
-      event.reply("allProducts", docs);
+  ipcMain.on("getUnFinishedProducts", (event) => {
+    productDocs.getUnFinished((docs) => {
+      event.reply("getUnFinishedProducts", docs);
     });
   });
 
-ipcMain.on("search-products", (event, searchFilters) => {
-  productDocs.searchProducts(searchFilters, (docs) => {
-    event.reply("search-products", docs);
+ipcMain.on("searchInProducts", (event, searchFilters) => {
+  productDocs.search(searchFilters, (docs) => {
+    event.reply("searchInProducts", docs);
   });
 });
 
-ipcMain.on("send-oneProduct", (event, id) => {
-  productDocs.getOneProduct(id, (docs) => {
-    event.reply("oneProduct", docs);
+ipcMain.on("getOneProduct", (event, id) => {
+  productDocs.getOne(id, (docs) => {
+    event.reply("getOneProduct", docs);
   });
 });
 
-ipcMain.on("send-oneProductCalcs", (event, id) => {
+ipcMain.on("getOneProductCalcs", (event, id) => {
   calcOneProduct.calculate(id, (results) => {
     event.reply("oneProductCalcs", results);
   });

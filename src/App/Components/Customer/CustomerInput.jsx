@@ -73,23 +73,23 @@ const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
   const [allCustomers, setAllCustomers] = useState();
   const [showCustomerPicker, setShowCustomerPicker] = useState(false);
 
-  const sendAllCustomers = () => {
-    ipcRenderer.send("allCustomers");
+  const getAllCustomers = () => {
+    ipcRenderer.send("getAllCustomers");
   };
 
   const handleFocus = (e) => {
-    sendAllCustomers();
+    getAllCustomers();
     setShowCustomerPicker(true);
   };
 
   useEffect(() => {
-    ipcRenderer.on("allCustomers", (event, dbCustomers) => {
+    ipcRenderer.on("getAllCustomers", (event, dbCustomers) => {
       setAllCustomers(dbCustomers);
     });
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("allCustomers");
+      ipcRenderer.removeAllListeners("getAllCustomers");
     };
   });
 

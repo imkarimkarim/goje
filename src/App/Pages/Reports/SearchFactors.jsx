@@ -28,26 +28,26 @@ export default function SearchFactors() {
 
   const handleNewSearch = (newSearchState) => {
     setSearchState(newSearchState);
-    searchFactors(newSearchState);
+    searchInFactors(newSearchState);
   }
 
-  const searchFactors = (newSearchState) => {
-    ipcRenderer.send("search-factors", newSearchState);
+  const searchInFactors = (newSearchState) => {
+    ipcRenderer.send("searchInFactors", newSearchState);
   };
 
   useEffect(() => {
     if (init.current) {
-      searchFactors(defalutSearchState);
+      searchInFactors(defalutSearchState);
       init.current = false;
     }
 
-    ipcRenderer.on("search-factors", (event, findedFactors) => {
+    ipcRenderer.on("searchInFactors", (event, findedFactors) => {
       setFactors(findedFactors);
     });
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("search-factors");
+      ipcRenderer.removeAllListeners("searchInFactors");
     };
   });
 

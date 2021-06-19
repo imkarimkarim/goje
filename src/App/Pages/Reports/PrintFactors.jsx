@@ -158,23 +158,23 @@ export default function PrintFactors() {
   date = parseInt(date);
   date2 = parseInt(date2);
   const init = useRef(true);
-  const printFactors = (fromm, till) => {
-    ipcRenderer.send("print-factors", { from: fromm, till: till });
+  const printCreditFactorsByDate = (fromm, till) => {
+    ipcRenderer.send("printCreditFactorsByDate", { from: fromm, till: till });
   };
 
   useEffect(() => {
     if (init.current) {
-      printFactors(date, date2);
+      printCreditFactorsByDate(date, date2);
       init.current = false;
     }
 
-    ipcRenderer.on("print-factors", (event, findedFactors) => {
+    ipcRenderer.on("printCreditFactorsByDate", (event, findedFactors) => {
       setFactors(findedFactors);
     });
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("print-factors");
+      ipcRenderer.removeAllListeners("printCreditFactorsByDate");
     };
   });
 

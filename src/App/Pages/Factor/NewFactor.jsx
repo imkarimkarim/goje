@@ -95,15 +95,15 @@ export default function NewFactor() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    newFactor(formData);
+    addNewFactor(formData);
   };
 
-  const newFactor = (factor) => {
-    ipcRenderer.send("newFactor", factor);
+  const addNewFactor = (factor) => {
+    ipcRenderer.send("addNewFactor", factor);
   };
 
   useEffect(() => {
-    ipcRenderer.on("newFactor", (event, createStatus) => {
+    ipcRenderer.on("addNewFactor", (event, createStatus) => {
       setSubmit(false);
       setCreateStatus(createStatus);
       if (createStatus !== null) {
@@ -121,7 +121,7 @@ export default function NewFactor() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("newFactor");
+      ipcRenderer.removeAllListeners("addNewFactor");
     };
   });
 

@@ -3,15 +3,15 @@ const factorDocs = require('../db/factorDocs');
 const {normalizeFactor} = require('../modules/nomalizer');
 const {isFactorValid} = require('../modules/validator');
 
-ipcMain.on('newFactor', (event, factor) => {
+ipcMain.on('addNewFactor', (event, factor) => {
   factor = normalizeFactor(factor);
   if(isFactorValid(factor)){
     factorDocs.insert(factor, () =>{
-      event.reply('newFactor', true);
+      event.reply('addNewFactor', true);
     })
   }
   else {
-    event.reply('newFactor', false);
+    event.reply('addNewFactor', false);
   }
 })
 
@@ -24,35 +24,34 @@ ipcMain.on('editFactor', (event, factor) => {
     })
   }
   else {
-    event.reply('newFactor', false);
+    event.reply('editFactor', false);
   }
 })
 
-ipcMain.on("search-factors", (event, searchFilters) => {
-  factorDocs.SearchFactors(searchFilters, (docs) => {
-    event.reply("search-factors", docs);
+ipcMain.on("searchInFactors", (event, searchFilters) => {
+  factorDocs.search(searchFilters, (docs) => {
+    event.reply("searchInFactors", docs);
   });
 });
 
-ipcMain.on("send-oneFactor", (event, factorId) => {
+ipcMain.on("getOneFactor", (event, factorId) => {
   factorDocs.getOne(factorId, (docs) => {
-    event.reply("send-oneFactor", docs);
+    event.reply("getOneFactor", docs);
   });
 });
 
-ipcMain.on('print-factors', (event, date) => {
+ipcMain.on('printCreditFactorsByDate', (event, date) => {
   if(!date) return;
   factorDocs.factorsWithFactordate(date.from, date.till, (docs) => {
-    event.reply('print-factors', docs);
+    event.reply('printCreditFactorsByDate', docs);
   })
 })
 
-ipcMain.on('oneProductDetails', (event, id) => {
+ipcMain.on('getOneProductDetails', (event, id) => {
   if(!id) return;
-  factorDocs.factorsWithProduct(id, (docs) => {
+  factorDocs.withProduct(id, (docs) => {
     if(docs){
-      event.reply('oneProductDetails', docs);
+      event.reply('getOneProductDetails', docs);
     }
   })
 })
-

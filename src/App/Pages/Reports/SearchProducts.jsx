@@ -45,26 +45,26 @@ export default function SearchProducts() {
 
   const handleNewSearch = (newSearchState) => {
     setSearchState(newSearchState);
-    searchProducts(newSearchState);
+    searchInProducts(newSearchState);
   };
 
-  const searchProducts = (newSearchState) => {
-    ipcRenderer.send("search-products", newSearchState);
+  const searchInProducts = (newSearchState) => {
+    ipcRenderer.send("searchInProducts", newSearchState);
   };
 
   useEffect(() => {
     if (init.current) {
-      searchProducts(defalutSearchState);
+      searchInProducts(defalutSearchState);
       init.current = false;
     }
 
-    ipcRenderer.on("search-products", (event, findedProducts) => {
+    ipcRenderer.on("searchInProducts", (event, findedProducts) => {
       setProducts(findedProducts);
     });
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("search-products");
+      ipcRenderer.removeAllListeners("searchInProducts");
     };
   });
 
