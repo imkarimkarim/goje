@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { DatePicker } from "jalali-react-datepicker";
@@ -9,10 +9,11 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Notif from "../../Components/Notif.jsx";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./EditProduct.css";
+import reducer from '../../Reducers/EditProductReducer.jsx';
 
 // TODO: add backend for edit product
 
@@ -35,54 +36,13 @@ const productSchema = {
 };
 
 export default function EditProduct() {
-  const [formData, setFormData] = useState(productSchema);
+  // const [formData, setFormData] = useState(productSchema);
+  const [formData, formDispatch] = useReducer(reducer, productSchema);
   const [submit, setSubmit] = useState(false);
   const [editStatue, setEditStatue] = useState(null);
   const [notif, setNotif] = useState(null);
   const init = useRef(true);
   let { id } = useParams();
-
-  const setproductName = (e) => {
-    setFormData({ ...formData, productName: e.target.value });
-  };
-  const setowner = (e) => {
-    setFormData({ ...formData, owner: e.target.value });
-  };
-  const setbasculeWeight = (e) => {
-    setFormData({ ...formData, basculeWeight: e.target.value });
-  };
-  const setamount = (e) => {
-    setFormData({ ...formData, amount: e.target.value });
-  };
-  const setarrivalDate = (value) => {
-    setFormData({ ...formData, arrivalDate: value._d.getTime() });
-  };
-  const setcommission = (e) => {
-    setFormData({ ...formData, commission: e.target.value });
-  };
-  const setunload = (e) => {
-    setFormData({ ...formData, unload: e.target.value });
-  };
-  const setportage = (e) => {
-    setFormData({ ...formData, portage: e.target.value });
-  };
-  const setcash = (e) => {
-    setFormData({ ...formData, cash: e.target.value });
-  };
-  const setPlaque = (e) => {
-    setFormData({ ...formData, plaque: e.target.value });
-  };
-  const toggleIsProductFinish = () => {
-    setFormData({
-      ...formData,
-      isProductFinish: !formData.isProductFinish,
-      finishDate: Date.now(),
-    });
-    handleSubmit();
-  };
-  const setPs = (e) => {
-    setFormData({ ...formData, ps: e.target.value });
-  };
 
   const handleSubmit = () => {
     setSubmit(true);
@@ -96,11 +56,7 @@ export default function EditProduct() {
   const getOneProduct = (id) => {
     ipcRenderer.send("getOneProduct", id);
   };
-
-  useEffect(() => {
-   handleSubmit();
-}, [formData.isProductFinish]);
-
+  
   useEffect(() => {
     if (init.current) {
       getOneProduct(id);
@@ -108,7 +64,7 @@ export default function EditProduct() {
     }
 
     ipcRenderer.on("getOneProduct", (event, product) => {
-      setFormData(product);
+      formDispatch({type: "setForm", payload: product});
     });
 
     ipcRenderer.on("editProduct", (event, editStatue) => {
@@ -149,7 +105,12 @@ export default function EditProduct() {
               control={
                 <Switch
                   checked={formData.isProductFinish}
-                  onChange={toggleIsProductFinish}
+                  onChange={() => {
+                    formDispatch({
+                      type: "toggleIsProductFinish",
+                      payload: "",
+                    });
+                  }}
                 />
               }
               label="اتمام بار:"
@@ -158,17 +119,26 @@ export default function EditProduct() {
             <Grid item xs={12}>
               <Input
                 label="شرح بار*"
-                fun={setproductName}
+                fun={(e) => {
+                  formDispatch({
+                    type: "setproductName",
+                    payload: e.target.value,
+                  });
+                }}
                 value={formData.productName}
               />
               <Input
                 label="نام صاحب بار*"
-                fun={setowner}
+                fun={(e) => {
+                  formDispatch({ type: "setowner", payload: e.target.value });
+                }}
                 value={formData.owner}
               />
               <Input
                 label="پلاک ماشین"
-                fun={setPlaque}
+                fun={(e) => {
+                  formDispatch({ type: "setPlaque", payload: e.target.value });
+                }}
                 value={formData.plaque}
               />
               <div className="arrivalDate">
@@ -178,7 +148,10 @@ export default function EditProduct() {
                     timePicker={false}
                     value={formData.arrivalDate}
                     onClickSubmitButton={({ value }) => {
-                      setarrivalDate(value);
+                      formDispatch({
+                        type: "setarrivalDate",
+                        payload: value._d.getTime(),
+                      });
                     }}
                   />
                 ) : (
@@ -187,31 +160,59 @@ export default function EditProduct() {
               </div>
               <Input
                 label="باسکول(kg)*"
-                fun={setbasculeWeight}
+                fun={(e) => {
+                  formDispatch({
+                    type: "setbasculeWeight",
+                    payload: e.target.value,
+                  });
+                }}
                 value={formData.basculeWeight}
               />
-              <Input label="تعداد" fun={setamount} value={formData.amount} />
+              <Input
+                label="تعداد"
+                fun={(e) => {
+                  formDispatch({ type: "setamount", payload: e.target.value });
+                }}
+                value={formData.amount}
+              />
               <Input
                 label="کارمزد(٪)*"
-                fun={setcommission}
+                fun={(e) => {
+                  formDispatch({
+                    type: "setcommission",
+                    payload: e.target.value,
+                  });
+                }}
                 value={formData.commission}
               />
               <ExpenseInput
                 label="تخلیه*"
-                fun={setunload}
+                fun={(e) => {
+                  formDispatch({ type: "setunload", payload: e.target.value });
+                }}
                 value={formData.unload}
               />
               <ExpenseInput
                 label="کرایه*"
-                fun={setportage}
+                fun={(e) => {
+                  formDispatch({ type: "setportage", payload: e.target.value });
+                }}
                 value={formData.portage}
               />
-              <ExpenseInput label="دستی" fun={setcash} value={formData.cash} />
+              <ExpenseInput
+                label="دستی"
+                fun={(e) => {
+                  formDispatch({ type: "setcash", payload: e.target.value });
+                }}
+                value={formData.cash}
+              />
             </Grid>
             <br />
             <Grid item xs={12}>
               <TextareaAutosize
-                onChange={setPs}
+                onChange={(e) => {
+                  formDispatch({ type: "setPs", payload: e.target.value });
+                }}
                 value={formData.ps}
                 rowsMin={3}
                 placeholder="پی نوشت"
