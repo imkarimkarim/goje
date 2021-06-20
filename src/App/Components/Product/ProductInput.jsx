@@ -1,88 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { FixedSizeList } from "react-window";
 const { ipcRenderer } = require("electron");
-import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
-import LocalGroceryStoreIcon from '@material-ui/icons/LocalGroceryStore';
-import CloseIcon from '@material-ui/icons/Close';
 import TextField from "@material-ui/core/TextField";
-import ListItem from "@material-ui/core/ListItem";
 import Input from "../Input.jsx";
 import ExpenseInput from '../ExpenseInput.jsx';
 import './ProductInput.css';
-import ShowDate from '../ShowDate.jsx';
+import CustomePicker from './CustomePicker.jsx';
 
 // TODO: also up/down with arrow keys
-
-function CustomerPicker({
-  products,
-  productState,
-  setProductState,
-  setShowCustomerPicker,
-}) {
-  const [search, setSearch] = useState("");
-
-  const handleKeyBoardEvent = (e) => {
-    if(e.key === 'Escape') setShowCustomerPicker(false);
-  }
-
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyBoardEvent);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyBoardEvent);
-    }
-  })
-
-  if (search) {
-    products = products.filter((p) => (p.productName + " " + p.owner).includes(search));
-  }
-
-  const renderedItems = ({ index, style }) => (
-    <ListItem
-      button
-      onClick={() => {
-        setShowCustomerPicker(false);
-        setProductState({
-          name: products[index].productName,
-          id: products[index].customeId,
-        });
-        document.getElementById('focusOnMe2').focus();
-      }}
-      key={index}
-      className={index % 2 ? "ListItemOdd" : "ListItemEven"}
-      style={style}
-    >
-      {`${products[index].productName} ${products[index].owner} `}
-      <span className="hint">{products[index].plaque} - <ShowDate timestamp={products[index].arrivalDate} /></span>
-    </ListItem>
-  );
-
-  return (
-    <div className="customePicker">
-      <div className="closeIcon" onClick={() => {setShowCustomerPicker(false)}}><CloseIcon /></div>
-      <p className="title">لیست بارها<LocalGroceryStoreIcon /></p>
-      <input
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-        value={search}
-        placeholder="جستجو..."
-        className="search"
-        autoFocus
-      ></input>
-      <FixedSizeList
-        className="List"
-        height={400}
-        itemCount={products.length}
-        itemSize={30}
-        width={600}
-      >
-        {renderedItems}
-      </FixedSizeList>
-    </div>
-  );
-}
 
 const defaultState = { name: "", id: "" };
 
@@ -122,13 +47,6 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
 
 
   useEffect(() => {
-    // if (allproducts || productState.id !== '') {
-    //   let theProduct = allproducts.filter((p) => p.customeId === productState.id);
-    //   if (theProduct.length > 0) {
-    //     setProductState({...productState, name: theProduct[0].productName});
-    //     setAllproducts();
-    //   }
-    // }
     ipcRenderer.on("getUnFinishedProducts", (event, dbproducts) => {
       setAllproducts(dbproducts);
     });
@@ -141,7 +59,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
   return (
     <div className="productInput-wrapper">
       {showCustomerPicker && allproducts ? (
-        <CustomerPicker
+        <CustomePicker
           products={allproducts}
           setProductState={setProductState}
           productState={productState}
