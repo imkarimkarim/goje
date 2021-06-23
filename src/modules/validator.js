@@ -78,7 +78,7 @@ const isFactorValid = (factor) => {
     pass = false;
   }
 
-  if (factor.products.length <= 0) {
+  if (factor.products.length <= 0 || factor.products.length > 22) {
     pass = false;
   }
 
