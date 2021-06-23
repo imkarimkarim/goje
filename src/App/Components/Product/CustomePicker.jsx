@@ -5,6 +5,7 @@ import LocalGroceryStoreIcon from '@material-ui/icons/LocalGroceryStore';
 import CloseIcon from '@material-ui/icons/Close';
 import Input from "../Input.jsx";
 import ShowDate from '../ShowDate.jsx';
+import './CustomePicker.css';
 
 export default function CustomerPicker({
   products,
@@ -51,7 +52,7 @@ export default function CustomerPicker({
   );
 
   return (
-    <div className="customePicker">
+    <div className="product-customePicker">
       <div className="closeIcon" onClick={() => {setShowCustomerPicker(false)}}><CloseIcon /></div>
       <p className="title">لیست بارها<LocalGroceryStoreIcon /></p>
       <input
@@ -65,10 +66,10 @@ export default function CustomerPicker({
       ></input>
       <FixedSizeList
         className="List"
-        height={400}
+        height={300}
         itemCount={products.length}
-        itemSize={30}
-        width={600}
+        itemSize={35}
+        width={800}
       >
         {renderedItems}
       </FixedSizeList>

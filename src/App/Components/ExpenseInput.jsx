@@ -18,5 +18,5 @@ import './ExpenseInput.css';
   </span>
   );
 });
- 
+
 export default ExpenseInput;

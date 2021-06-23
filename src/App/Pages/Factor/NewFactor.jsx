@@ -69,7 +69,7 @@ export default function NewFactor() {
       <Nav title="/فاکتور جدید" />
       <form className="NewFactor-form">
         <Grid container spacing={3}>
-          <Grid className="header" item xs={12}>
+          <Grid className="header" item xs={10}>
             <CustomerInput
               label="نام مشتری*"
               className="customeInputAndPicker"

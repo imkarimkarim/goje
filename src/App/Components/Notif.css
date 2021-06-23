@@ -3,30 +3,33 @@
   display: flex;
   top: 10px;
   left: 10px;
-  background: transparent;
-  color: #111;
   padding: 10px 24px;
   border-radius: 5px;
   border: 1px solid #bbb;
   font-family: Vazir;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .notif-success {
   border: 1px solid #07870b;
+  /* background: #07870b; */
+  color: #07870b;
 }
 
 .notif-success .MuiSvgIcon-root{
   color: #07870b;
+  /* color: #fff; */
 }
 
 .notif-error {
-  border: 1px solid #b80b0b;
+  /* border: 1px solid #b80b0b; */
+  background: #b80b0b;
+  color: #fff;
 }
 
 .notif-error .MuiSvgIcon-root{
-  color: #b80b0b;
-  
+  /* color: #b80b0b; */
+  color: #fff;
 }
 
 .notif .MuiSvgIcon-root{

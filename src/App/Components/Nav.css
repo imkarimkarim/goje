@@ -1,15 +1,33 @@
 nav {
   display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 0;
+  top: 0;
+  justify-content: center;
   align-items: center;
-  font-size: 25px;
-  margin: 5px -10px 0 0;
+  width: 5%;
+  height: 100vh;
+  background: #eee;
 }
 
 nav .screen-title {
   margin-right: 10px;
   font-size: 20px;
-  color: #666;
 }
+
+nav > svg:first-child{
+  position: absolute;
+  top: 0;
+}
+
+
+.MuiPaper-root > ul > li > a{
+  display: flex;
+  justify-content: flex-start;
+  width: 85%;
+}
+
 
 .goje-icon {
 }

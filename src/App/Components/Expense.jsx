@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Expense({num}) {
-  
+
   const letsWriterBetter = (num) => {
     if(!num) return num;
     num = num.toString();
@@ -16,7 +16,7 @@ export default function Expense({num}) {
     }
     return newNum;
   }
-  
+
   num = letsWriterBetter(num);
   
   return <>{num} ﷼</>

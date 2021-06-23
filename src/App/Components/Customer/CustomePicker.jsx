@@ -3,7 +3,7 @@ import { FixedSizeList } from "react-window";
 import CloseIcon from '@material-ui/icons/Close';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import ListItem from "@material-ui/core/ListItem";
-
+import './CustomePicker.css';
 
 const CustomePicker = React.memo(({ customers, onPick, setShowCustomerPicker }) => {
   const [search, setSearch] = useState("");
@@ -40,7 +40,7 @@ const CustomePicker = React.memo(({ customers, onPick, setShowCustomerPicker }) 
   );
 
   return (
-    <div className="customePicker">
+    <div className="customer-customePicker">
       <div className="closeIcon" onClick={() => {setShowCustomerPicker(false)}}><CloseIcon /></div>
       <p className="title">لیست مشتری ها<SupervisorAccountIcon /></p>
       <input
@@ -54,10 +54,10 @@ const CustomePicker = React.memo(({ customers, onPick, setShowCustomerPicker }) 
       ></input>
       <FixedSizeList
         className="List"
-        height={400}
+        height={300}
         itemCount={customers.length}
-        itemSize={30}
-        width={600}
+        itemSize={35}
+        width={500}
       >
         {renderedItems}
       </FixedSizeList>

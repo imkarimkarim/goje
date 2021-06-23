@@ -1,9 +1,10 @@
 .ProductsTable{
   height: 35vh;
+  width: 80%;
+  margin: auto;
   overflow-y: scroll;
 }
 
 .fullSum{
-  padding-top: 20px;
   color: #07870b;
 }
