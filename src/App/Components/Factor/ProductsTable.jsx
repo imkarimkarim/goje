@@ -8,9 +8,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import TableRow from "@material-ui/core/TableRow";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
+import { Link } from "react-router-dom";
 import "./ProductsTable.css";
 
-export default function ProductsTable({ products, formDispatch }) {
+export default function ProductsTable({ products, formDispatch, shouldLink }) {
+  console.log(products);
   return (
     <div className="ProductsTable">
       <table>
@@ -28,12 +30,26 @@ export default function ProductsTable({ products, formDispatch }) {
           {products && products.length > 0
             ? products.map((p, index) => (
                 <tr key={index}>
-                  <td>{index+1}</td>
-                  <td>{p.productName}</td>
+                  <td>{index + 1}</td>
+                  {shouldLink === true ? (
+                    <td>
+                      <Link to={"/product/" + p.productId}>
+                        {p.productName}
+                      </Link>
+                    </td>
+                  ) : (
+                    <td>{p.productName}</td>
+                  )}
                   <td>{p.amount}</td>
                   <td>{p.weight}</td>
                   <td>{<Expense num={p.price} />}</td>
-                  <td>{<Expense num={Math.round(100 * ( p.price * p.weight)) / 100} />}</td>
+                  <td>
+                    {
+                      <Expense
+                        num={Math.round(100 * (p.price * p.weight)) / 100}
+                      />
+                    }
+                  </td>
                   {formDispatch ? (
                     <td
                       onDoubleClick={() =>

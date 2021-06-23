@@ -77,7 +77,7 @@ export default function Factor() {
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>
-            <ProductsTable products={factor.products} />
+            <ProductsTable shouldLink={true} products={factor.products} />
             <Conclusion products={factor.products} pays={factor.pays} />
           </Grid>
           <Divider />

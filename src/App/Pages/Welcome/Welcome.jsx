@@ -8,10 +8,12 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
+import Nav from '../../Components/Nav.jsx';
 
 export default function Welcome() {
   return (
     <div className="welcome-screen">
+    <Nav />
       <div className="welcome-message">
         <h2>به <span className='goje'>گوجه</span> خوش اومدی...</h2>
       </div>
