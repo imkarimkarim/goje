@@ -13,6 +13,7 @@
 .notif-success {
   border: 1px solid #07870b;
   /* background: #07870b; */
+  background: #fff;
   color: #07870b;
 }
 
