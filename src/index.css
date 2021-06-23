@@ -73,46 +73,18 @@ table {
   font-size: 12px;
 }
 
-/* because two components are using customePicker rules of customePicker
-are here...(may be not a good practice) */
-
-.customePicker .List{
-  direction: rtl !important;
-}
-
-.customePicker {
-  position: fixed;
-  background: #eee;
-  box-shadow: 0 0 100px 20px #999;
-  z-index: 100;
-  right: 10%;
-  top: 10%;
-  text-align: center;
-  justify-content: center;
-}
-
-.customePicker .closeIcon{
-  display: flex;
-}
-
-.customePicker .title{
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.customePicker .ListItemOdd{
-  background: #fff;
-}
-
-.customePicker .ListItemOdd,
-.customePicker .ListItemEven{
-  display: flex;
-  justify-content: space-between;
-}
-
 .alignTextIcon{
   display: flex;
   align-items: center;
+}
+
+/* over writed */
+
+.MuiContainer-root {
+    margin-top: 15px !important;
+    width: 90% !important;
+  }
+
+h3{
+  margin-block-start: 0px !important;
 }

@@ -1,0 +1,35 @@
+.product-customePicker .List{
+  direction: rtl !important;
+}
+
+.product-customePicker {
+  position: absolute;
+  background: #eee;
+  box-shadow: 0 0 100px 20px #999;
+  z-index: 100;
+  top: 13%;
+  right: 15%;
+  text-align: center;
+  justify-content: center;
+}
+
+.product-customePicker .closeIcon{
+  display: flex;
+}
+
+.product-customePicker .title{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.product-customePicker .ListItemOdd{
+  background: #fff;
+}
+
+.product-customePicker .ListItemOdd,
+.product-customePicker .ListItemEven{
+  display: flex;
+  justify-content: space-between;
+}
