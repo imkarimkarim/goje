@@ -167,7 +167,7 @@ function SaleSection({ products }) {
 
     if (salesInfos && products && salesInfos.length === products.length) {
       const date = new JDate(new Date(products[0].arrivalDate));
-      const fileName = `صورتحساب ${products[0].owner} ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
+      const fileName = `(${products[0].customeId}) صورتحساب ${products[0].owner} ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
       const options = {
         jsPDF: { format: "a5" },
         filename: fileName,
