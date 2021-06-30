@@ -104,7 +104,26 @@ const isFactorValid = (factor) => {
   return pass;
 };
 
+const isProductOwnerValid = (productOwner) => {
+  let pass = true;
+  if (
+    typeof productOwner.name !== "string" ||
+    productOwner.name.length === 0
+  ) {
+
+    pass = false;
+  }
+  if (
+    typeof productOwner.defaultCommission !== "number" ||
+    isNaN(productOwner.defaultCommission)
+  ) {
+    pass = false;
+  }
+  return pass;
+};
+
 module.exports = {
   isProductValid,
   isFactorValid,
+  isProductOwnerValid
 };

@@ -1,81 +1,29 @@
-import React, { useState, useEffect } from "react";
-const { ipcRenderer } = require("electron");
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Notif from '../../Components/Notif.jsx';
-import Nav from '../../Components/Nav.jsx';
-import Input from '../../Components/Input.jsx';
-import Grid from '@material-ui/core/Grid';
+import React from 'react'
+import NewCustomer from '../../Components/Name/NewCustomer.jsx';
+import NewProductOwner from '../../Components/Name/NewProductOwner.jsx';
 import "./NewName.css";
 
-export default function NewName() {
-  const [formData, setFormData] = useState('');
-  const [submit, setSubmit] = useState(false);
-  const [createStatus, setCreateStatus]  = useState(null);
-  const [notif, setNotif] = useState(null);
+// TODO: newProductOwner
+// TODO: character limit on input and validator
+// TODO: fix ui issue in فاکتور های نسیه پرینت
+// TODO:   margin-top: auto;
+  // margin-bottom: auto;
+  // width: 100%;
+  // height: 100vh;
+  // justify-content: center;
+  // align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // forall
 
-  const setName = (e) => {
-    setFormData(e.target.value);
-  };
-
-  const handleSubmit = () => {
-    setSubmit(true);
-    addNewCustomer(formData);
-  };
-
-  const addNewCustomer = (customer) => {
-    ipcRenderer.send("addNewCustomer", customer);
-  }
-
-  useEffect(() => {
-      ipcRenderer.on("addNewCustomer", (event, createStatus) => {
-        setSubmit(false);
-        setCreateStatus(createStatus);
-        if(createStatus !== null){
-          if(createStatus === true){
-            setNotif(null);
-            setNotif('success');
-            setFormData('');
-          }
-          if(createStatus === false){
-            setNotif(null);
-            setNotif('error');
-          }
-        }
-      });
-
-    // clean up
-    return () => {
-      ipcRenderer.removeAllListeners("addNewCustomer");
-    };
-  });
-
-  let notifJsx;
-  if(notif === 'success') notifJsx = <Notif type="success" message="حساب جدید با موفقیت ایجاد شد" />;
-  if(notif === 'error') notifJsx = <Notif type="error" message="خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)" />
-
-
+const NewName = (props) => {
   return (
-    <div>
-      {
-        (notifJsx) ? (
-          notifJsx
-        ) : ('')
-      }
-      <Nav title="/مشتری جدید " />
-      <div className="NewName-form">
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Input label="نام مشتری*" fun={setName} value={formData}/>
-          </Grid>
-          <br />
-          <Grid item xs={12}>
-            <Button disabled={submit || formData.length === 0} onClick={handleSubmit} variant="outlined" color="primary">
-              ثبت
-            </Button>
-          </Grid>
-        </Grid>
-      </div>
+    <div className="NewName">
+      <NewCustomer />
+      <div className="gap"></div>
+      <NewProductOwner />
     </div>
-  );
+  )
 }
+
+export default NewName;

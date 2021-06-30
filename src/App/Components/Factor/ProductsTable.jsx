@@ -21,7 +21,6 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
   const isProductInUnfinishedProducts = (productId) => {
     const aufp = allUnFinishedProducts;
     for (let i = 0; i < aufp.length; i++) {
-      console.log(aufp[i].customeId, productId);
       if (aufp[i].customeId === productId) {
         return true;
       }
@@ -117,7 +116,7 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
                         onDoubleClick={() => {
                           setNotif(null);
                           setTimeout(function () {
-                            setNotif("error");                            
+                            setNotif("error");
                           }, 10);
                         }}
                       >

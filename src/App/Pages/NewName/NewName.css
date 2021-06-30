@@ -1,0 +1,30 @@
+.NewName {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.NewName .gap {
+  height: 110vh;
+  position: fixed;
+  width: 3px;
+  background: #999;
+}
+
+.NewName .newProductOwner-form,
+.NewName .NewCustomer-form {
+  flex: 1;
+}
+
+.NewName .newProductOwner-form .MuiGrid-container,
+.NewName .NewCustomer-form .MuiGrid-container {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
