@@ -4,6 +4,7 @@ require("./db");
 require('./ipcMains/ipcProducts');
 require('./ipcMains/ipcCustomer');
 require('./ipcMains/ipcFactors');
+require('./ipcMains/ipcProductOwner')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {

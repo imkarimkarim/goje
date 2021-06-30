@@ -3,6 +3,7 @@ const product = {
   customeId: null,
   productName: 'سیب سفید',
   owner: 'کاک رسول آذربایجان',
+  NEW: productOwnerId: '',
   basculeWeight: 2000,
   amount: 190,
   arrivalDate: Date.now(),
@@ -23,9 +24,18 @@ const customer = {
 }
 
 const productOwner = {
-  docType: 'customer',
+  docType: 'productOwner',
   customeId: null,
-  name: 'افشین',
+  name: 'ترباسی',
+  cardNumber: '',
+  defaultCommission: '',
+  pays: [
+    {
+      title:,
+      amount:,
+      ps:,
+    }
+  ]
 }
 
 const factor = {

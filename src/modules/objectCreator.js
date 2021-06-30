@@ -16,6 +16,26 @@ const createCustomer = (name, callback) => {
   });
 };
 
+const createProductOwner = (owner, callback) => {
+  generateNewCustomId((id) => {
+    let newOwner = {
+      docType: 'productOwner',
+      customeId: null,
+      name: '',
+      paysInfo: '',
+      defaultCommission: '',
+      pays: []
+    };
+    newOwner.name = owner.name;
+    newOwner.customeId = id;
+    newOwner.paysInfo = owner.paysInfo;
+    newOwner.defaultCommission = owner.defaultCommission;
+    if (typeof callback === "function") {
+      callback(newOwner);
+    }
+  });
+};
+
 const createProduct = (product, callback) => {
   generateNewCustomId((id) => {
     let newProduct = {
@@ -96,6 +116,7 @@ const createFactor = (factor, callback) => {
 
 module.exports = {
   createCustomer,
+  createProductOwner,
   createProduct,
   createFactor,
 };

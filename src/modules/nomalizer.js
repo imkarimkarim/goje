@@ -11,8 +11,18 @@ const normalizeProduct = (product) => {
   nProduct.unload = parseInt(product.unload);
   nProduct.portage = parseInt(product.portage);
   nProduct.cash = parseInt(product.cash);
-  
+
   return nProduct;
+}
+
+const normalizeProductOwner = (productOwner) => {
+  if(!productOwner) return;
+  let nProductOwner;
+  nProductOwner = {};
+  nProductOwner = productOwner;
+  nProductOwner.defaultCommission = parseInt(productOwner.defaultCommission);
+
+  return nProductOwner;
 }
 
 const normalizeFactor = (factor) => {
@@ -30,10 +40,10 @@ const normalizeFactor = (factor) => {
   for(let i2 = 0; i2 < nFactor.pays.length; i2++) {
     nFactor.pays[i2].amount = parseInt(factor.pays[i2].amount);
   }
-  
+
   return nFactor;
 }
 
 module.exports ={
-  normalizeProduct, normalizeFactor
+  normalizeProduct, normalizeFactor, normalizeProductOwner
 }
