@@ -78,6 +78,17 @@ table {
   align-items: center;
 }
 
+.goje-container{
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  height: 97vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
 /* over writed */
 
 .MuiContainer-root {

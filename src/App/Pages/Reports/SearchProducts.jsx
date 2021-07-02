@@ -146,7 +146,7 @@ export default function SearchProducts() {
 
   return (
     <div>
-      <Nav title="/گزارشات/جستجوی صافی" />
+      <Nav/>
       <SearchBox
         defaultState={searchState}
         onSubmit={(newSearchState) => {
