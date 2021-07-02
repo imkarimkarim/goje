@@ -1,19 +1,12 @@
 .NewName {
-  margin-top: auto;
-  margin-bottom: auto;
-  width: 100%;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  display: flex;
   flex-direction: row;
 }
 
 .NewName .gap {
   height: 110vh;
   position: fixed;
-  width: 3px;
-  background: #999;
+  width: 1px;
+  background: #bbb;
 }
 
 .NewName .newProductOwner-form,

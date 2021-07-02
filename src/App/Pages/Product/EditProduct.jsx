@@ -56,7 +56,7 @@ export default function EditProduct() {
   const getOneProduct = (id) => {
     ipcRenderer.send("getOneProduct", id);
   };
-  
+
   useEffect(() => {
     if (init.current) {
       getOneProduct(id);
@@ -97,8 +97,8 @@ export default function EditProduct() {
   return (
     <div>
       {notifJsx ? notifJsx : ""}
-      <Nav title={"/ویرایش بار/" + id} />
-      <form className="EditProduct-form">
+      <Nav/>
+      <form className="EditProduct-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <FormControlLabel

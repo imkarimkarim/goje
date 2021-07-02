@@ -112,8 +112,8 @@ export default function IncludeProduct() {
   return (
     <div>
       {notifJsx ? notifJsx : ""}
-      <Nav title="/ورودی بار" />
-      <form className="IncludeProduct-form">
+      <Nav/>
+      <form className="IncludeProduct-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Input label="شرح بار*" fun={(e) => {formDispatch({type:"setproductName", payload: e.target.value})}} value={formData.productName} />

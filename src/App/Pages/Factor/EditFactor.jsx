@@ -96,8 +96,8 @@ export default function EditFactor() {
   return (
     <div>
       {notifJsx ? notifJsx : ""}
-      <Nav title={"/ویرایش فاکتور/" + id} />
-      <form className="EditFactor-form">
+      <Nav/>
+      <form className="EditFactor-form goje-container">
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
             <CustomerInput

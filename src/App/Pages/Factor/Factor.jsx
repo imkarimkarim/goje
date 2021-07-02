@@ -65,8 +65,8 @@ export default function Factor() {
   else if(factor && factor.isPayed === 'receipt') tmpStatus = 'وصولی';
   return factor ? (
     <div>
-      <Nav title={"/فاکتور/" + factor.customeId} />
-      <div className="factor-reports">
+      <Nav/>
+      <div className="factor-reports goje-container">
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
             <div><h3>صورتحساب {factor.ownerName}</h3></div>

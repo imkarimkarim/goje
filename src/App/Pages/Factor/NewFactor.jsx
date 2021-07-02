@@ -66,8 +66,8 @@ export default function NewFactor() {
   return (
     <div>
       {notifJsx ? notifJsx : ""}
-      <Nav title="/فاکتور جدید" />
-      <form className="NewFactor-form">
+      <Nav />
+      <form className="NewFactor-form goje-container">
         <Grid container spacing={3}>
           <Grid className="header" item xs={10}>
             <CustomerInput

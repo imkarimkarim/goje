@@ -72,7 +72,7 @@ function SaleSection({ productId, product }) {
 
   return salesInfo ? (
     <div>
-      <div className="sale">
+      <div>
         <Grid container spacing={3}>
           <Grid className="saleInfo-table" item xs={7}>
             <h4>فروش</h4>
