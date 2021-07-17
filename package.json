@@ -9,6 +9,8 @@
     "dev": "DEBUG=true electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "make-mac": "electron-forge make --platform darwin",
+    "make-win": "electron-forge make --platform win32",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
@@ -20,11 +22,17 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./src/assets/goje.png",
+        "name": "goje",
+        "executableName": "goje"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
-          "config": {}
+          "config": {
+            "name": "goje"
+          }
         },
         {
           "name": "@electron-forge/maker-zip",
