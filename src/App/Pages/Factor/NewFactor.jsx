@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
-import Notif from "../../Components/Notif.jsx";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import CustomerInput from "../../Components/Customer/CustomerInput.jsx";
@@ -17,13 +16,14 @@ import Conclusion from "../../Components/Factor/Conclusion.jsx";
 import ProductInput from "../../Components/Product/ProductInput.jsx";
 import Pays from "../../Components/Factor/Pays.jsx";
 import "./NewFactor.css";
-import {reducer, newFactorSchema} from '../../Reducers/NewFactorReducer.jsx';
+import { reducer, newFactorSchema } from "../../Reducers/NewFactorReducer.jsx";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
 export default function NewFactor() {
   const [formData, formDispatch] = useReducer(reducer, newFactorSchema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
-  const [notif, setNotif] = useState(null);
+  const { pushNotif } = useContext(NotifContext);
 
   const handleSubmit = () => {
     setSubmit(true);
@@ -41,12 +41,10 @@ export default function NewFactor() {
       if (createStatus !== null) {
         if (createStatus === true) {
           formDispatch({ type: "reset" });
-          setNotif(null);
-          setNotif("success");
+          pushNotif("success", "فاکتور با موفقیت ثبت شد");
         }
         if (createStatus === false) {
-          setNotif(null);
-          setNotif("error");
+          pushNotif("error", "خطا در ثبت کردن فاکتور");
         }
       }
     });
@@ -57,15 +55,8 @@ export default function NewFactor() {
     };
   });
 
-  let notifJsx;
-  if (notif === "success")
-    notifJsx = <Notif type="success" message="فاکتور با موفقیت ثبت شد" />;
-  if (notif === "error")
-    notifJsx = <Notif type="error" message="خطا در ثبت کردن فاکتور" />;
-
   return (
     <div>
-      {notifJsx ? notifJsx : ""}
       <Nav />
       <form className="NewFactor-form goje-container">
         <Grid container spacing={3}>
@@ -87,7 +78,7 @@ export default function NewFactor() {
               نقدی
               <Radio
                 checked={formData.isPayed === true}
-                style={{ color: 'blue' }}
+                style={{ color: "blue" }}
                 onChange={() => {
                   formDispatch({ type: "setIsPayed", payload: true });
                 }}
@@ -98,7 +89,7 @@ export default function NewFactor() {
               نسیه
               <Radio
                 checked={formData.isPayed === false}
-                style={{ color: 'red' }}
+                style={{ color: "red" }}
                 onChange={() => {
                   formDispatch({ type: "setIsPayed", payload: false });
                 }}
@@ -128,7 +119,7 @@ export default function NewFactor() {
               products={formData.products}
               formDispatch={formDispatch}
             />
-          <Conclusion products={formData.products} pays={formData.pays} />
+            <Conclusion products={formData.products} pays={formData.pays} />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
             <ProductInput formDispatch={formDispatch} label="شرح بار*" />
@@ -136,9 +127,17 @@ export default function NewFactor() {
           <Divider />
           {formData && formData.isPayed === false ? (
             <Grid item className="addpay-section" xs={12}>
-              <Pays formDispatch={formDispatch} pays={formData.pays} onSubmit={(pay) => {
-                  formDispatch({type: 'addPay', payload1: pay.date, payload2: pay.amount})
-                }}/>
+              <Pays
+                formDispatch={formDispatch}
+                pays={formData.pays}
+                onSubmit={(pay) => {
+                  formDispatch({
+                    type: "addPay",
+                    payload1: pay.date,
+                    payload2: pay.amount,
+                  });
+                }}
+              />
             </Grid>
           ) : (
             <div></div>

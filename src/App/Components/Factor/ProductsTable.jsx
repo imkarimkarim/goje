@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,13 +9,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import TableRow from "@material-ui/core/TableRow";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
-import Notif from "../Notif.jsx";
 import { Link } from "react-router-dom";
 import "./ProductsTable.css";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
 export default function ProductsTable({ products, formDispatch, shouldLink }) {
   const [allUnFinishedProducts, setAllUnFinishedProducts] = useState();
-  const [notif, setNotif] = useState(null);
+  const { pushNotif } = useContext(NotifContext);
   const init = useRef(true);
 
   const isProductInUnfinishedProducts = (productId) => {
@@ -46,20 +46,8 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
     };
   });
 
-  let notifJsx;
-  if (notif === "success")
-    notifJsx = <Notif type="success" message="با موفقیت حذف شد" />;
-  if (notif === "error")
-    notifJsx = (
-      <Notif
-        type="error"
-        message="صافی این بار بسته شده است. امکان حذف وجود ندارد"
-      />
-    );
-
   return (
     <div className="ProductsTable">
-      {notifJsx ? notifJsx : ""}
       <table>
         <thead>
           <tr>
@@ -103,9 +91,8 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
                             type: "removeProduct",
                             payload: index,
                           });
-                          setNotif(null);
                           setTimeout(function () {
-                            setNotif("success");
+                            pushNotif("success", "با موفقیت حذف شد");
                           }, 10);
                         }}
                       >
@@ -114,9 +101,11 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
                     ) : (
                       <td
                         onDoubleClick={() => {
-                          setNotif(null);
                           setTimeout(function () {
-                            setNotif("error");
+                            pushNotif(
+                              "error",
+                              "صافی این بار بسته شده است. امکان حذف وجود ندارد"
+                            );
                           }, 10);
                         }}
                       >

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Notif from '../../Components/Notif.jsx';
-import Nav from '../../Components/Nav.jsx';
-import Input from '../../Components/Input.jsx';
-import Grid from '@material-ui/core/Grid';
+import Nav from "../../Components/Nav.jsx";
+import Input from "../../Components/Input.jsx";
+import Grid from "@material-ui/core/Grid";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
-export default function Customer() {
-  const [formData, setFormData] = useState('');
+export default function NewCustomer() {
+  const [formData, setFormData] = useState("");
   const [submit, setSubmit] = useState(false);
-  const [createStatus, setCreateStatus]  = useState(null);
-  const [notif, setNotif] = useState(null);
+  const [createStatus, setCreateStatus] = useState(null);
+  const { pushNotif } = useContext(NotifContext);
 
   const setName = (e) => {
     setFormData(e.target.value);
@@ -24,24 +24,25 @@ export default function Customer() {
 
   const addNewCustomer = (customer) => {
     ipcRenderer.send("addNewCustomer", customer);
-  }
+  };
 
   useEffect(() => {
-      ipcRenderer.on("addNewCustomer", (event, createStatus) => {
-        setSubmit(false);
-        setCreateStatus(createStatus);
-        if(createStatus !== null){
-          if(createStatus === true){
-            setNotif(null);
-            setNotif('success');
-            setFormData('');
-          }
-          if(createStatus === false){
-            setNotif(null);
-            setNotif('error');
-          }
+    ipcRenderer.on("addNewCustomer", (event, createStatus) => {
+      setSubmit(false);
+      setCreateStatus(createStatus);
+      if (createStatus !== null) {
+        if (createStatus === true) {
+          pushNotif("success", "حساب جدید با موفقیت ایجاد شد");
+          setFormData("");
         }
-      });
+        if (createStatus === false) {
+          pushNotif(
+            "error",
+            "خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)"
+          );
+        }
+      }
+    });
 
     // clean up
     return () => {
@@ -49,18 +50,8 @@ export default function Customer() {
     };
   });
 
-  let notifJsx;
-  if(notif === 'success') notifJsx = <Notif type="success" message="حساب جدید با موفقیت ایجاد شد" />;
-  if(notif === 'error') notifJsx = <Notif type="error" message="خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)" />
-
-
   return (
     <div className="NewCustomer-form">
-      {
-        (notifJsx) ? (
-          notifJsx
-        ) : ('')
-      }
       <Nav/>
       <div>
         <Grid container spacing={3}>
@@ -68,11 +59,16 @@ export default function Customer() {
             <h3>مشتری جدید</h3>
           </Grid>
           <Grid item xs={12}>
-            <Input label="نام مشتری*" fun={setName} value={formData}/>
+            <Input label="نام مشتری*" fun={setName} value={formData} />
           </Grid>
           <br />
           <Grid item xs={12}>
-            <Button disabled={submit || formData.length === 0} onClick={handleSubmit} variant="outlined" color="primary">
+            <Button
+              disabled={submit || formData.length === 0}
+              onClick={handleSubmit}
+              variant="outlined"
+              color="primary"
+            >
               ثبت مشتری
             </Button>
           </Grid>

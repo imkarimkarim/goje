@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Notif from "../../Components/Notif.jsx";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import Grid from "@material-ui/core/Grid";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
-export default function Customer() {
+export default function NewProductOwner() {
   const [ownerName, setOwnerName] = useState("");
   const [ownerPaysInfo, setOwnerPaysInfo] = useState("");
   const [ownerDefaultCommission, setOwnerDefaultCommission] = useState("");
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
-  const [notif, setNotif] = useState(null);
+  const { pushNotif } = useContext(NotifContext);
 
   const setName = (e) => {
     setOwnerName(e.target.value);
@@ -29,7 +29,11 @@ export default function Customer() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    addNewProductOwner({name: ownerName, paysInfo: ownerPaysInfo, defaultCommission: ownerDefaultCommission});
+    addNewProductOwner({
+      name: ownerName,
+      paysInfo: ownerPaysInfo,
+      defaultCommission: ownerDefaultCommission,
+    });
   };
 
   const addNewProductOwner = (owner) => {
@@ -42,15 +46,16 @@ export default function Customer() {
       setCreateStatus(createStatus);
       if (createStatus !== null) {
         if (createStatus === true) {
-          setNotif(null);
-          setNotif("success");
+          pushNotif("success", "حساب جدید با موفقیت ایجاد شد");
           setOwnerName("");
           setOwnerPaysInfo("");
           setOwnerDefaultCommission("");
         }
         if (createStatus === false) {
-          setNotif(null);
-          setNotif("error");
+          pushNotif(
+            "error",
+            "خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)"
+          );
         }
       }
     });
@@ -61,20 +66,8 @@ export default function Customer() {
     };
   });
 
-  let notifJsx;
-  if (notif === "success")
-    notifJsx = <Notif type="success" message="حساب جدید با موفقیت ایجاد شد" />;
-  if (notif === "error")
-    notifJsx = (
-      <Notif
-        type="error"
-        message="خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)"
-      />
-    );
-
   return (
     <div className="newProductOwner-form">
-      {notifJsx ? notifJsx : ""}
       <Nav />
       <div>
         <Grid container spacing={3}>

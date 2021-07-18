@@ -1,39 +1,43 @@
 .notif {
-  position: fixed;
-  display: flex;
+  position: absolute;
+  z-index: 10;
+  display: inline-block;
   top: 10px;
   left: 10px;
-  padding: 10px 24px;
-  border-radius: 5px;
-  border: 1px solid #bbb;
   font-family: Vazir;
   font-size: 18px;
+  width: 320px;
+}
+
+.notif-success,
+.notif-error {
+  padding: 10px 24px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  margin: 4px 0;
+}
+
+.notif-error .MuiSvgIcon-root,
+.notif-success .MuiSvgIcon-root {
+  color: #fff;
+}
+
+.notif .MuiSvgIcon-root {
+  font-size: 22px;
+  margin-left: 3px;
 }
 
 .notif-success {
-  border: 1px solid #07870b;
-  /* background: #07870b; */
-  background: #fff;
-  color: #07870b;
-}
-
-.notif-success .MuiSvgIcon-root{
-  color: #07870b;
-  /* color: #fff; */
+  background: #428F44;
+  color: #fff;
 }
 
 .notif-error {
-  /* border: 1px solid #b80b0b; */
-  background: #b80b0b;
+  background: #AF1A0F;
   color: #fff;
 }
 
-.notif-error .MuiSvgIcon-root{
-  /* color: #b80b0b; */
+.notif-warning {
+  background: #D28006;
   color: #fff;
-}
-
-.notif .MuiSvgIcon-root{
-  font-size: 22px;
-  margin-left: 3px;
 }
