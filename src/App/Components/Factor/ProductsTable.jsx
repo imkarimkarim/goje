@@ -12,7 +12,7 @@ import Expense from "../Expense.jsx";
 import { Link } from "react-router-dom";
 import "./ProductsTable.css";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
-
+// // TODO: calcs[] for factor(goje vision for not calculating over and over)
 export default function ProductsTable({ products, formDispatch, shouldLink }) {
   const [allUnFinishedProducts, setAllUnFinishedProducts] = useState();
   const { pushNotif } = useContext(NotifContext);

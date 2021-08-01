@@ -16,11 +16,11 @@ import Conclusion from "../../Components/Factor/Conclusion.jsx";
 import ProductInput from "../../Components/Product/ProductInput.jsx";
 import Pays from "../../Components/Factor/Pays.jsx";
 import "./NewFactor.css";
-import { reducer, newFactorSchema } from "../../Reducers/NewFactorReducer.jsx";
+import { reducer, schema } from "../../Reducers/NewFactorReducer.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
 export default function NewFactor() {
-  const [formData, formDispatch] = useReducer(reducer, newFactorSchema);
+  const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
   const { pushNotif } = useContext(NotifContext);

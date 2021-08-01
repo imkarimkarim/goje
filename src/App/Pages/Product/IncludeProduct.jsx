@@ -18,23 +18,12 @@ import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./IncludeProduct.css";
 import reducer from "../../Reducers/IncludeProductReducer.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
+import { generateInputByUserProductSchema } from "../../../schemas.js";
 
-const newProduct = {
-  productName: "",
-  owner: "",
-  basculeWeight: "",
-  amount: "",
-  arrivalDate: Date.now(),
-  commission: "",
-  unload: "",
-  portage: "",
-  cash: "",
-  plaque: "",
-  ps: "",
-};
+const schema = generateInputByUserProductSchema();
 
 export default function IncludeProduct() {
-  const [formData, formDispatch] = useReducer(reducer, newProduct);
+  const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
   const { pushNotif } = useContext(NotifContext);
@@ -54,13 +43,13 @@ export default function IncludeProduct() {
       setCreateStatus(createStatus);
       if (createStatus !== null) {
         if (createStatus === true) {
-          let newNewProduct = newProduct;
-          newNewProduct.arrivalDate = Date.now();
-          formDispatch({ type: "setForm", payload: newNewProduct });
-          pushNotif('success','بار با موفقیت وارد شد');
+          let schemaWithFreshDate = schema;
+          schemaWithFreshDate.arrivalDate = Date.now();
+          formDispatch({ type: "setForm", payload: schemaWithFreshDate });
+          pushNotif("success", "بار با موفقیت وارد شد");
         }
         if (createStatus === false) {
-          pushNotif('error','خطا در وارد کردن بار');
+          pushNotif("error", "خطا در وارد کردن بار");
         }
       }
     });

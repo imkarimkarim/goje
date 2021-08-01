@@ -11,3 +11,9 @@ export const oneDay = 86400000;
 export const oneWeek = oneDay * 7;
 export const oneMonth = oneDay * 30;
 export const oneYear = oneMonth * 12;
+
+export const convertToIntIfIsNumber = (number) => {
+  if(!isNaN(number)){
+    return parseInt(number);
+  }
+};

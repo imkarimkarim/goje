@@ -11,7 +11,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import Nav from "../../Components/Nav.jsx";
 import './Reports.css';
-import {cleanTime, oneDay} from '../../util.js';
+import {cleanTime, oneDay} from '../../utils.js';
 
 export default function Reports() {
 

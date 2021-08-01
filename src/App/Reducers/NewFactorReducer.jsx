@@ -1,19 +1,22 @@
+import { generateInputByUserFactorSchema } from "../../schemas.js";
+import { convertToIntIfIsNumber } from '../utils';
+
 export function reducer(state, action) {
   switch (action.type) {
     case "reset": {
-      let NEWnewFactorSchema = newFactorSchema;
-      NEWnewFactorSchema.factorDate = Date.now();
-      NEWnewFactorSchema.changeDate = Date.now();
-      return NEWnewFactorSchema;
+      let newSchema = schema;
+      newSchema.factorDate = Date.now();
+      newSchema.changeDate = Date.now();
+      return newSchema;
     }
     case "setOwner":
       return { ...state, owner: action.payload1, ownerName: action.payload2 };
     case "setIsPayed":
       return { ...state, isPayed: action.payload };
     case "setFactorDate":
-      return { ...state, factorDate: action.payload };
+      return { ...state, factorDate: convertToIntIfIsNumber(action.payload) };
     case "setChangeDate":
-      return { ...state, changeDate: action.payload };
+      return { ...state, changeDate: convertToIntIfIsNumber(action.payload) };
     case "addProduct":
       return {
         ...state,
@@ -22,9 +25,9 @@ export function reducer(state, action) {
           {
             productId: action.payload1,
             productName: action.payload5,
-            amount: action.payload2,
-            weight: action.payload3,
-            price: action.payload4,
+            amount: convertToIntIfIsNumber(action.payload2),
+            weight: convertToIntIfIsNumber(action.payload3),
+            price: convertToIntIfIsNumber(action.payload4),
           },
         ],
       };
@@ -40,8 +43,8 @@ export function reducer(state, action) {
       pays: [
         ...state.pays,
         {
-          date: action.payload1,
-          amount: action.payload2
+          date: convertToIntIfIsNumber(action.payload1),
+          amount: convertToIntIfIsNumber(action.payload2)
         },
       ],
     };
@@ -56,13 +59,4 @@ export function reducer(state, action) {
   }
 }
 
-export const newFactorSchema = {
-  docType: "factor",
-  owner: "",
-  ownerName: "",
-  isPayed: 0,
-  factorDate: Date.now(),
-  changeDate: Date.now(),
-  products: [],
-  pays: [],
-};
+export const schema = generateInputByUserFactorSchema();
