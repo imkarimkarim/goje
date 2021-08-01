@@ -1,10 +1,8 @@
 const { ipcMain } = require("electron");
 const factorDocs = require('../db/factorDocs');
-const {normalizeFactor} = require('../modules/nomalizer');
 const {isFactorValid} = require('../modules/validator');
 
 ipcMain.on('addNewFactor', (event, factor) => {
-  factor = normalizeFactor(factor);
   if(isFactorValid(factor)){
     factorDocs.insert(factor, () =>{
       event.reply('addNewFactor', true);
@@ -16,7 +14,6 @@ ipcMain.on('addNewFactor', (event, factor) => {
 })
 
 ipcMain.on('editFactor', (event, factor) => {
-  factor = normalizeFactor(factor);
   if(isFactorValid(factor)){
     factor.changeDate = Date.now();
     factorDocs.update(factor._id, factor, () => {

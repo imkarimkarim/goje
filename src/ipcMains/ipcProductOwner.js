@@ -1,7 +1,6 @@
 const { ipcMain } = require("electron");
 const productOwnerDocs = require("../db/productOwnerDocs");
 const { isProductOwnerValid } = require("../modules/validator");
-const { normalizeProductOwner } = require("../modules/nomalizer");
 
 ipcMain.on("getAllProductOwners", (event) => {
   productOwnerDocs.getAll((productOwners) => {
@@ -11,7 +10,6 @@ ipcMain.on("getAllProductOwners", (event) => {
 
 ipcMain.on("addNewProductOwner", (event, productOwner) => {
   if (!productOwner) event.reply("addNewProductOwner", false);
-  productOwner = normalizeProductOwner(productOwner);
   if (isProductOwnerValid(productOwner)) {
     productOwnerDocs.isProductOwnerExists(productOwner, (docs) => {
       if (docs.length === 0) {
