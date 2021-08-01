@@ -147,8 +147,8 @@ const search = (searchFilters, callback) => {
 };
 
 const insert = (factor, callback) => {
-  objectCreator.createFactor(factor, (addNewFactor) => {
-    db.insert(addNewFactor, function () {
+  objectCreator.createFactor(factor, (obj) => {
+    db.insert(obj, function () {
       if (typeof callback === "function") {
         callback();
       }

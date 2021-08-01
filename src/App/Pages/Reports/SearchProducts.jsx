@@ -13,7 +13,7 @@ import SearchBox from "../../Components/Report/SearchBox.jsx";
 import JDate from "jalali-date";
 import ShowDate from "../../Components/ShowDate.jsx";
 import "./SearchProducts.css";
-import { cleanTime, oneDay, oneYear } from "../../util.js";
+import { cleanTime, oneDay, oneYear } from "../../utils.js";
 
 const defalutSearchState = {
   text: "",

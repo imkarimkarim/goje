@@ -4,18 +4,18 @@ const { isProductOwnerValid } = require("../modules/validator");
 const { normalizeProductOwner } = require("../modules/nomalizer");
 
 ipcMain.on("getAllProductOwners", (event) => {
-  productOwnerDocs.getAll((owners) => {
-    event.reply("getAllProductOwners", owners);
+  productOwnerDocs.getAll((productOwners) => {
+    event.reply("getAllProductOwners", productOwners);
   });
 });
 
-ipcMain.on("addNewProductOwner", (event, owner) => {
-  if (!owner) event.reply("addNewProductOwner", false);
-  owner = normalizeProductOwner(owner);
-  if (isProductOwnerValid(owner)) {
-    productOwnerDocs.isProductOwnerExists(owner.name, (docs) => {
+ipcMain.on("addNewProductOwner", (event, productOwner) => {
+  if (!productOwner) event.reply("addNewProductOwner", false);
+  productOwner = normalizeProductOwner(productOwner);
+  if (isProductOwnerValid(productOwner)) {
+    productOwnerDocs.isProductOwnerExists(productOwner, (docs) => {
       if (docs.length === 0) {
-        productOwnerDocs.insert(owner, () => {
+        productOwnerDocs.insert(productOwner, () => {
           event.reply("addNewProductOwner", true);
         });
       } else {

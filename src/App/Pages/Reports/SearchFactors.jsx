@@ -11,7 +11,7 @@ import Nav from "../../Components/Nav.jsx";
 import SearchBox from "../../Components/Report/SearchBox.jsx";
 import JDate from 'jalali-date';
 import ShowDate from '../../Components/ShowDate.jsx';
-import {cleanTime, oneDay, oneWeek} from '../../util.js';
+import {cleanTime, oneDay, oneWeek} from '../../utils.js';
 
 const defalutSearchState = {
   text: "",

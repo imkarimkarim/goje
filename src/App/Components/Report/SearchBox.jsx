@@ -8,7 +8,7 @@ import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import CustomerInput from "../Customer/CustomerInput.jsx";
 import "./SearchBox.css";
-import { cleanTime, oneDay } from "../../util.js";
+import { cleanTime, oneDay } from "../../utils.js";
 
 // TODO: search on enter
 

@@ -1,3 +1,5 @@
+import { convertToIntIfIsNumber } from '../utils';
+
 export default function reducer(state, action) {
   switch (action.type) {
     case "setForm":
@@ -7,21 +9,21 @@ export default function reducer(state, action) {
     case "setowner":
       return { ...state, owner: action.payload };
     case "setbasculeWeight":
-      return { ...state, basculeWeight: action.payload };
+      return { ...state, basculeWeight: convertToIntIfIsNumber(action.payload) };
     case "setamount":
-      return { ...state, amount: action.payload };
+      return { ...state, amount: convertToIntIfIsNumber(action.payload) };
     case "setarrivalDate":
-      return { ...state, arrivalDate: action.payload };
+      return { ...state, arrivalDate: convertToIntIfIsNumber(action.payload) };
     case "setcommission":
-      return { ...state, commission: action.payload };
+      return { ...state, commission: convertToIntIfIsNumber(action.payload) };
     case "setunload":
-      return { ...state, unload: action.payload };
+      return { ...state, unload: convertToIntIfIsNumber(action.payload) };
     case "setportage":
-      return { ...state, portage: action.payload };
+      return { ...state, portage: convertToIntIfIsNumber(action.payload) };
     case "setcash":
-      return { ...state, cash: action.payload };
+      return { ...state, cash: convertToIntIfIsNumber(action.payload) };
     case "setPlaque":
-      return { ...state, plaque: action.payload };
+      return { ...state, plaque: convertToIntIfIsNumber(action.payload) };
     case "setPs":
       return { ...state, ps: action.payload };
     default:

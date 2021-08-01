@@ -21,6 +21,8 @@ import EditProduct from "./Pages/Product/EditProduct.jsx";
 import PrintProducts from "./Pages/Reports/PrintProducts.jsx";
 import PrintFactors from "./Pages/Reports/PrintFactors.jsx";
 import ProductDetails from "./Pages/Product/ProductDetails.jsx";
+import { NotifProvider } from "./Contexts/NotifContext.jsx";
+import Notif from './Components/Notif.jsx';
 
 export default function App() {
   const redirectToIndex = useRef(true);
@@ -37,24 +39,27 @@ export default function App() {
       {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
       <Container>
         <Switch>
-          <Route path="/welcome" component={Welcome} />
-          <Route path="/includeProduct" component={IncludeProduct} />
-          <Route path="/newFactor" component={NewFactor} />
-          <Route path="/newName" component={NewName} />
-          <Route path="/reports" component={Reports} />
-          <Route path="/searchProducts" component={SearchProducts} />
-          <Route path="/searchFactors" component={SearchFactors} />
-          <Route path="/product/:id" component={Product} />
-          <Route path="/factor/:id" component={Factor} />
-          <Route path="/editFactor/:id" component={EditFactor} />
-          <Route path="/editProduct/:id" component={EditProduct} />
-          <Route path="/printProducts/:ids" component={PrintProducts} />
-          <Route path="/printFactors/:date/:date2" component={PrintFactors} />
-          <Route path="/productDetails/:id" component={ProductDetails} />
-          <Route
-            path="/printRemainingProducts"
-            component={PrintRemainingProducts}
-          />
+          <NotifProvider>
+            <Notif />
+            <Route path="/welcome" component={Welcome} />
+            <Route path="/includeProduct" component={IncludeProduct} />
+            <Route path="/newFactor" component={NewFactor} />
+            <Route path="/newName" component={NewName} />
+            <Route path="/reports" component={Reports} />
+            <Route path="/searchProducts" component={SearchProducts} />
+            <Route path="/searchFactors" component={SearchFactors} />
+            <Route path="/product/:id" component={Product} />
+            <Route path="/factor/:id" component={Factor} />
+            <Route path="/editFactor/:id" component={EditFactor} />
+            <Route path="/editProduct/:id" component={EditProduct} />
+            <Route path="/printProducts/:ids" component={PrintProducts} />
+            <Route path="/printFactors/:date/:date2" component={PrintFactors} />
+            <Route path="/productDetails/:id" component={ProductDetails} />
+            <Route
+              path="/printRemainingProducts"
+              component={PrintRemainingProducts}
+            />
+          </NotifProvider>
         </Switch>
       </Container>
     </Router>

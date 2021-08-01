@@ -1,74 +1,35 @@
 const { generateNewCustomId } = require("./idGenerator");
 const calcSumFactor = require("../calculators/calcSumFactor");
+const { customerSchema } = require("../schemas.js");
+const { productOwnerSchema } = require("../schemas.js");
+const { productSchema } = require("../schemas.js");
 
-const createCustomer = (name, callback) => {
+const autoFillCustomerAutoInputs = (customer, callback) => {
   generateNewCustomId((id) => {
-    let newCustomer = {
-      docType: "customer",
-      customeId: null,
-      name: "",
-    };
-    newCustomer.name = name;
-    newCustomer.customeId = id;
+    customer.docType = customerSchema.autoInput.docType.defaultValue;
+    customer.customeId = id;
     if (typeof callback === "function") {
-      callback(newCustomer);
+      callback(customer);
     }
   });
 };
 
-const createProductOwner = (owner, callback) => {
+const autoFillProductOwnerAutoInputs = (productOwner, callback) => {
   generateNewCustomId((id) => {
-    let newOwner = {
-      docType: 'productOwner',
-      customeId: null,
-      name: '',
-      paysInfo: '',
-      defaultCommission: '',
-      pays: []
-    };
-    newOwner.name = owner.name;
-    newOwner.customeId = id;
-    newOwner.paysInfo = owner.paysInfo;
-    newOwner.defaultCommission = owner.defaultCommission;
+    productOwner.customeId = id;
+    productOwner.docType = productOwnerSchema.autoInput.docType.defaultValue;
     if (typeof callback === "function") {
-      callback(newOwner);
+      callback(productOwner);
     }
   });
 };
 
-const createProduct = (product, callback) => {
+const autoFillProductAutoInputs = (product, callback) => {
   generateNewCustomId((id) => {
-    let newProduct = {
-      docType: "product",
-      customeId: null,
-      productName: "",
-      owner: "",
-      basculeWeight: 0,
-      amount: 0,
-      arrivalDate: 0,
-      finishDate: false,
-      isProductFinish: false,
-      commission: 0,
-      unload: 0,
-      portage: 0,
-      cash: 0,
-      plaque: "",
-      ps: "",
-    };
-    newProduct.customeId = id;
-    newProduct.productName = product.productName;
-    newProduct.owner = product.owner;
-    newProduct.basculeWeight = product.basculeWeight;
-    newProduct.amount = product.amount;
-    newProduct.arrivalDate = product.arrivalDate;
-    newProduct.commission = product.commission;
-    newProduct.unload = product.unload;
-    newProduct.portage = product.portage;
-    newProduct.cash = product.cash;
-    newProduct.plaque = product.plaque;
-    newProduct.ps = product.ps;
+    product.customeId = id;
+    product.docType = productSchema.autoInput.docType.defaultValue;
     if (typeof callback === "function") {
-      callback(newProduct);
+      callback(product);
     }
   });
 };
@@ -115,8 +76,8 @@ const createFactor = (factor, callback) => {
 };
 
 module.exports = {
-  createCustomer,
-  createProductOwner,
-  createProduct,
+  autoFillCustomerAutoInputs,
+  autoFillProductOwnerAutoInputs,
+  autoFillProductAutoInputs,
   createFactor,
 };

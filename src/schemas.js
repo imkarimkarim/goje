@@ -1,65 +1,137 @@
-const product = {
-  docType: 'product',
-  customeId: null,
-  productName: 'سیب سفید',
-  owner: 'کاک رسول آذربایجان',
-  NEW: productOwnerId: '',
-  basculeWeight: 2000,
-  amount: 190,
-  arrivalDate: Date.now(),
-  finishDate: false,
-  isProductFinish: false,
-  isPayed: false || true,
-  commission: 5,
-  unload: 1500000,
-  portage: 10000000,
-  cash: 1000000,
-  plaque: '۱۲ت۱۹ایران۱۸',
-}
-
-const customer = {
-  docType: 'customer',
-  customeId: null,
-  name: 'افشین',
-}
-
-const productOwner = {
-  docType: 'productOwner',
-  customeId: null,
-  name: 'ترباسی',
-  cardNumber: '',
-  defaultCommission: '',
-  pays: [
-    {
-      title:,
-      amount:,
-      ps:,
-    }
-  ]
-}
-
-const factor = {
-  docType: 'factor',
-  owner: 'b79a',
-  ownerName: '',
-  customeId: null,
-  isPayed: false || true || 'receipt',
-  factorDate: new JDate,
-  changeDate : null,
-  products : [
-    {
-      productId: 'b798',
-      productName: '',
-      amount: 50,
-      weight: 545,
-      price: 80000,
-    },
-  ],
-  calcs: {
-    fullSum : 0,
-    sums: []
+export const productSchema = {
+  inputByUser: {
+    productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
+    owner: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    basculeWeight: { type: 'number', required: true, range: [0], defaultValue: '' },
+    amount: { type: 'number', required: true, range: [0], defaultValue: '', value: '' },
+    arrivalDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
+    finishDate: { type: 'number', required: true, range: [], defaultValue: false},
+    isProductFinish: { type: 'boolean', required: true, range: [], defaultValue: false },
+    commission: { type: 'number', required: true, range: [0, 100], defaultValue: '' },
+    unload: { type: 'number', required: true, range: [0], defaultValue: '' },
+    portage: { type: 'number', required: true, range: [0], defaultValue: '' },
+    cash: { type: 'number', required: true, range: [0], defaultValue: '' },
+    plaque: { type: 'string', required: false, range: [1, 16], defaultValue: '' },
+    ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
   },
-  pays: [
-    {date: 0, amount: 0}
-  ]
+  autoInput: {
+    docType: { type: 'string', required: true, range: [], defaultValue: 'product'},
+    customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+  }
+}
+
+export const generateInputByUserProductSchema = () => {
+  let schema = {};
+  const keys = Object.keys(productSchema.inputByUser);
+  for(let i = 0; i < keys.length; i++){
+    schema[keys[i]] = productSchema.inputByUser[keys[i]].defaultValue;
+  }
+  return schema;
+}
+
+// TODO: add this to productSchema
+// NEW: productOwnerId: '',
+// NEW: sign(علامت)
+// NEW: { field: 'isPayed', type: 'boolean', required: true, range: [0, 100], defaultValue: '' },
+// NEW: dataStructureVersion
+// New: calcs
+// NEW: last time printed
+
+export const customerSchema = {
+  inputByUser: {
+    name: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+  },
+  autoInput: {
+    docType: { type: 'string', required: true, range: [], defaultValue: 'customer'},
+    customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+  }
+}
+
+export const generateInputByUserCustomerSchema = () => {
+  let schema = {};
+  const keys = Object.keys(customerSchema.inputByUser);
+  for(let i = 0; i < keys.length; i++){
+    schema[keys[i]] = customerSchema.inputByUser[keys[i]].defaultValue;
+  }
+  return schema;
+}
+
+export const productOwnerSchema = {
+  inputByUser: {
+    name: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    payNumber: { type: 'number', required: false, range: [0, 28], defaultValue: '' },
+    defaultCommission: { type: 'number', required: true, range: [0, 100], defaultValue: '' }
+  },
+  autoInput: {
+    docType: { type: 'string', required: true, range: [], defaultValue: 'productOwner'},
+    customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+  }
+}
+
+// // TODO: to add...
+// NEW: pays: [
+//   {
+//     title:,
+//     amount:,
+//     ps:,
+//     forProducs: []
+//   }
+// ]
+
+export const generateInputByUserProductOwnerSchema = () => {
+  let schema = {};
+  const keys = Object.keys(productOwnerSchema.inputByUser);
+  for(let i = 0; i < keys.length; i++){
+    schema[keys[i]] = productOwnerSchema.inputByUser[keys[i]].defaultValue;
+  }
+  return schema;
+}
+
+
+export const factorSchema = {
+  inputByUser: {
+    owner: { type: 'string', required: true, range: [], defaultValue: ''},
+    ownerName: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    isPayed: { type: ['string', 'boolean'], required: true, range: [], defaultValue: '' },
+    factorDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
+    changeDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
+    products: { type: 'array', required: true, range: [1-22], defaultValue: [],
+      childs: {
+        productId: { type: 'string', required: true, range: [], defaultValue: ''},
+        productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
+        amount: { type: 'number', required: true, range: [0], defaultValue: '' },
+        weight: { type: 'number', required: true, range: [0], defaultValue: '' },
+        price: { type: 'number', required: true, range: [0], defaultValue: '' },
+    }},
+    calcs: {
+      type: 'array', required: true, range: [0], defaultValue: [],
+      fullSum: { type: 'number', required: true, range: [0], defaultValue: '' },
+      sums: { type: 'array', required: true, range: [1-22], defaultValue: [] ,
+      childs: {
+        amount: { type: 'number', required: true, range: [0], defaultValue: '' },
+      }},
+    },
+    pays: { type: 'array', required: true, range: [1-4], defaultValue: [] ,
+      childs: {
+        date: { type: 'number', required: true, range: [], defaultValue: Date.now() },
+        amount: { type: 'number', required: true, range: [0], defaultValue: '' }
+      }
+    },
+  },
+  autoInput: {
+    docType: { type: 'string', required: true, range: [], defaultValue: 'factor'},
+    customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+  }
+}
+
+// NEW: last time printed
+// NEW: مبلغ .... هزار ریال بابت .... به فاکتور اضافه شد
+
+export const generateInputByUserFactorSchema = () => {
+  let schema = {};
+  const keys = Object.keys(factorSchema.inputByUser);
+  for(let i = 0; i < keys.length; i++){
+    schema[keys[i]] = factorSchema.inputByUser[keys[i]].defaultValue;
+  }
+  return schema;
 }

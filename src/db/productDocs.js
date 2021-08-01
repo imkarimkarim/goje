@@ -129,7 +129,7 @@ const getOne = (id, callback) => {
 };
 
 const insert = (product, callback) => {
-  objectCreator.createProduct(product, (obj) => {
+  objectCreator.autoFillProductAutoInputs(product, (obj) => {
     db.insert(obj, function (err) {
       if (err) throw err;
       if (typeof callback === "function") {

@@ -10,19 +10,19 @@ const getAll = (callback) => {
   });
 };
 
-const getOne = (id, callback) => {
-  if(!id) return;
-  db.findOne({ docType: "productOwner", customeId: id }, (err, doc) => {
-    if (err) throw err;
-    if (typeof callback === "function") {
-      callback(doc);
-    }
-  });
-};
+// const getOne = (id, callback) => {
+//   if(!id) return;
+//   db.findOne({ docType: "productOwner", customeId: id }, (err, doc) => {
+//     if (err) throw err;
+//     if (typeof callback === "function") {
+//       callback(doc);
+//     }
+//   });
+// };
 
-const isProductOwnerExists = (name, callback) => {
+const isProductOwnerExists = (productOwner, callback) => {
   db.find(
-    { docType: "productOwner", name: name },
+    { docType: "productOwner", name: productOwner.name },
     (err, docs) => {
       if (err) throw err;
       if (typeof callback === "function") {
@@ -32,8 +32,8 @@ const isProductOwnerExists = (name, callback) => {
   );
 };
 
-const insert = (owner, callback) => {
-  objectCreator.createProductOwner(owner, (obj) => {
+const insert = (productOwner, callback) => {
+  objectCreator.autoFillProductOwnerAutoInputs(productOwner, (obj) => {
     db.insert(obj, function () {
       if (typeof callback === "function") {
         callback();
@@ -46,5 +46,5 @@ module.exports = {
   getAll,
   insert,
   isProductOwnerExists,
-  getOne
+  // getOne
 };

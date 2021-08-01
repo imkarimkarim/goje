@@ -1,3 +1,5 @@
+import { convertToIntIfIsNumber } from '../utils';
+
 export default function reducer(state, action) {
   switch (action.type) {
     case "setForm":
@@ -7,9 +9,9 @@ export default function reducer(state, action) {
     case "setIsPayed":
       return { ...state, isPayed: action.payload };
     case "setFactorDate":
-      return { ...state, factorDate: action.payload };
+      return { ...state, factorDate: convertToIntIfIsNumber(action.payload) };
     case "setChangeDate":
-      return { ...state, changeDate: action.payload };
+      return { ...state, changeDate: convertToIntIfIsNumber(action.payload) };
     case "addProduct":
       return {
         ...state,
@@ -18,9 +20,9 @@ export default function reducer(state, action) {
           {
             productId: action.payload1,
             productName: action.payload5,
-            amount: action.payload2,
-            weight: action.payload3,
-            price: action.payload4,
+            amount: convertToIntIfIsNumber(action.payload2),
+            weight: convertToIntIfIsNumber(action.payload3),
+            price: convertToIntIfIsNumber(action.payload4),
           },
         ],
       };
@@ -36,8 +38,8 @@ export default function reducer(state, action) {
         pays: [
           ...state.pays,
           {
-            date: action.payload1,
-            amount: action.payload2,
+            date: convertToIntIfIsNumber(action.payload1),
+            amount: convertToIntIfIsNumber(action.payload2),
           },
         ],
       };

@@ -1,39 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useReducer } from "react";
 const { ipcRenderer } = require("electron");
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Notif from "../../Components/Notif.jsx";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import Grid from "@material-ui/core/Grid";
+import reducer from "../../Reducers/NewProductOwnerReducer.jsx";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
+import { generateInputByUserProductOwnerSchema } from "../../../schemas.js";
 
-export default function Customer() {
-  const [ownerName, setOwnerName] = useState("");
-  const [ownerPaysInfo, setOwnerPaysInfo] = useState("");
-  const [ownerDefaultCommission, setOwnerDefaultCommission] = useState("");
+const schema = generateInputByUserProductOwnerSchema();
+
+export default function NewProductOwner() {
+  const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
-  const [notif, setNotif] = useState(null);
-
-  const setName = (e) => {
-    setOwnerName(e.target.value);
-  };
-
-  const setPaysInfo = (e) => {
-    setOwnerPaysInfo(e.target.value);
-  };
-
-  const setDefaultCommission = (e) => {
-    setOwnerDefaultCommission(e.target.value);
-  };
+  const { pushNotif } = useContext(NotifContext);
 
   const handleSubmit = () => {
     setSubmit(true);
-    addNewProductOwner({name: ownerName, paysInfo: ownerPaysInfo, defaultCommission: ownerDefaultCommission});
+    addNewProductOwner(formData);
   };
 
-  const addNewProductOwner = (owner) => {
-    ipcRenderer.send("addNewProductOwner", owner);
+  const addNewProductOwner = (productOwner) => {
+    ipcRenderer.send("addNewProductOwner", productOwner);
   };
 
   useEffect(() => {
@@ -42,15 +32,17 @@ export default function Customer() {
       setCreateStatus(createStatus);
       if (createStatus !== null) {
         if (createStatus === true) {
-          setNotif(null);
-          setNotif("success");
-          setOwnerName("");
-          setOwnerPaysInfo("");
-          setOwnerDefaultCommission("");
+          formDispatch({
+            type: "setForm",
+            payload: schema,
+          });
+          pushNotif("success", "حساب جدید با موفقیت ایجاد شد");
         }
         if (createStatus === false) {
-          setNotif(null);
-          setNotif("error");
+          pushNotif(
+            "error",
+            "خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)"
+          );
         }
       }
     });
@@ -61,20 +53,8 @@ export default function Customer() {
     };
   });
 
-  let notifJsx;
-  if (notif === "success")
-    notifJsx = <Notif type="success" message="حساب جدید با موفقیت ایجاد شد" />;
-  if (notif === "error")
-    notifJsx = (
-      <Notif
-        type="error"
-        message="خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)"
-      />
-    );
-
   return (
     <div className="newProductOwner-form">
-      {notifJsx ? notifJsx : ""}
       <Nav />
       <div>
         <Grid container spacing={3}>
@@ -82,26 +62,47 @@ export default function Customer() {
             <h3>صاحب بار جدید</h3>
           </Grid>
           <Grid item xs={12}>
-            <Input label="نام صاحب بار*" fun={setName} value={ownerName} />
+            <Input
+              label="نام صاحب بار*"
+              fun={(e) => {
+                formDispatch({
+                  type: "setName",
+                  payload: e.target.value,
+                });
+              }}
+              value={formData.name}
+            />
           </Grid>
           <Grid item xs={12}>
             <Input
               label="اطلاعات واریز"
-              fun={setPaysInfo}
-              value={ownerPaysInfo}
+              fun={(e) => {
+                formDispatch({
+                  type: "setPaysNumber",
+                  payload: e.target.value,
+                });
+              }}
+              value={formData.payNumber}
             />
           </Grid>
           <Grid item xs={12}>
             <Input
               label="کارمزد پیشفرض"
-              fun={setDefaultCommission}
-              value={ownerDefaultCommission}
+              fun={(e) => {
+                formDispatch({
+                  type: "setDefaultCommission",
+                  payload: e.target.value,
+                });
+              }}
+              value={formData.defaultCommission}
             />
           </Grid>
           <br />
           <Grid item xs={12}>
             <Button
-              disabled={submit || ownerName.length === 0}
+              disabled={
+                submit || formData.name === null || formData.name.length === 0
+              }
               onClick={handleSubmit}
               variant="outlined"
               color="primary"

@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useReducer } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useReducer,
+  useContext,
+} from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { DatePicker } from "jalali-react-datepicker";
@@ -6,14 +12,14 @@ import JDate from "jalali-date";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import Notif from "../../Components/Notif.jsx";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./EditProduct.css";
-import reducer from '../../Reducers/EditProductReducer.jsx';
+import reducer from "../../Reducers/EditProductReducer.jsx";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
 // TODO: add backend for edit product
 
@@ -40,7 +46,7 @@ export default function EditProduct() {
   const [formData, formDispatch] = useReducer(reducer, productSchema);
   const [submit, setSubmit] = useState(false);
   const [editStatue, setEditStatue] = useState(null);
-  const [notif, setNotif] = useState(null);
+  const { pushNotif } = useContext(NotifContext);
   const init = useRef(true);
   let { id } = useParams();
 
@@ -64,7 +70,7 @@ export default function EditProduct() {
     }
 
     ipcRenderer.on("getOneProduct", (event, product) => {
-      formDispatch({type: "setForm", payload: product});
+      formDispatch({ type: "setForm", payload: product });
     });
 
     ipcRenderer.on("editProduct", (event, editStatue) => {
@@ -72,12 +78,10 @@ export default function EditProduct() {
       setEditStatue(editStatue);
       if (editStatue !== null) {
         if (editStatue === true) {
-          setNotif(null);
-          setNotif("success");
+          pushNotif("success", "ویرایش با موفقیت انجام شد");
         }
         if (editStatue === false) {
-          setNotif(null);
-          setNotif("error");
+          pushNotif("error", "حطا در ویرایش");
         }
       }
     });
@@ -88,16 +92,9 @@ export default function EditProduct() {
     };
   });
 
-  let notifJsx;
-  if (notif === "success")
-    notifJsx = <Notif type="success" message="ویرایش با موفقیت انجام شد" />;
-  if (notif === "error")
-    notifJsx = <Notif type="error" message="حطا در ویرایش" />;
-
   return (
     <div>
-      {notifJsx ? notifJsx : ""}
-      <Nav/>
+      <Nav />
       <form className="EditProduct-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>
