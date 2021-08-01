@@ -1,5 +1,5 @@
 const { db } = require("../db");
-const objectCreator = require("../modules/objectCreator");
+const autoFiller = require("../modules/autoFiller");
 
 const getAll = (callback) => {
   db.find({ docType: "customer" }, (err, docs) => {
@@ -30,7 +30,7 @@ const isCustomerExists = (customer, callback) => {
 };
 
 const insert = (customer, callback) => {
-  objectCreator.autoFillCustomerAutoInputs(customer, (obj) => {
+  autoFiller.autoFillCustomerAutoInputs(customer, (obj) => {
     db.insert(obj, function () {
       if (typeof callback === "function") {
         callback();

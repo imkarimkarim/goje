@@ -1,5 +1,5 @@
 const { db } = require("../db");
-const objectCreator = require("../modules/objectCreator");
+const autoFiller = require("../modules/autoFiller");
 
 const getAll = (callback) => {
   db.find({ docType: "productOwner" }, (err, docs) => {
@@ -33,7 +33,7 @@ const isProductOwnerExists = (productOwner, callback) => {
 };
 
 const insert = (productOwner, callback) => {
-  objectCreator.autoFillProductOwnerAutoInputs(productOwner, (obj) => {
+  autoFiller.autoFillProductOwnerAutoInputs(productOwner, (obj) => {
     db.insert(obj, function () {
       if (typeof callback === "function") {
         callback();

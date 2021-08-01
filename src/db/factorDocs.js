@@ -1,5 +1,5 @@
 const { db } = require("../db");
-const objectCreator = require("../modules/objectCreator");
+const autoFiller = require("../modules/autoFiller");
 const calcSumFactor = require("../calculators/calcSumFactor");
 
 const sortFactorsArray = (factors, reverse = true) => {
@@ -147,7 +147,7 @@ const search = (searchFilters, callback) => {
 };
 
 const insert = (factor, callback) => {
-  objectCreator.createFactor(factor, (obj) => {
+  autoFiller.createFactor(factor, (obj) => {
     db.insert(obj, function () {
       if (typeof callback === "function") {
         callback();
