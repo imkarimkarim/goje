@@ -23,7 +23,7 @@ export default function reducer(state, action) {
     case "setcash":
       return { ...state, cash: convertToIntIfIsNumber(action.payload) };
     case "setPlaque":
-      return { ...state, plaque: convertToIntIfIsNumber(action.payload) };
+      return { ...state, plaque: action.payload };
     case "setPs":
       return { ...state, ps: action.payload };
     default:

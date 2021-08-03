@@ -29,20 +29,17 @@ export default function NewProductOwner() {
   useEffect(() => {
     ipcRenderer.on("addNewProductOwner", (event, createStatus) => {
       setSubmit(false);
-      setCreateStatus(createStatus);
-      if (createStatus !== null) {
-        if (createStatus === true) {
+      setCreateStatus(createStatus.status);
+      if (createStatus.status !== null) {
+        if (createStatus.status === true) {
           formDispatch({
             type: "setForm",
             payload: schema,
           });
-          pushNotif("success", "حساب جدید با موفقیت ایجاد شد");
+          pushNotif("success", createStatus.message);
         }
-        if (createStatus === false) {
-          pushNotif(
-            "error",
-            "خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)"
-          );
+        if (createStatus.status === false) {
+          pushNotif("error", createStatus.message);
         }
       }
     });

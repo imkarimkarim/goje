@@ -23,29 +23,12 @@ import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
 // TODO: add backend for edit product
 
-const productSchema = {
-  docType: "product",
-  customeId: null,
-  productName: "",
-  owner: "",
-  basculeWeight: 0,
-  amount: 0,
-  arrivalDate: 0,
-  finishDate: false,
-  isProductFinish: false,
-  commission: 0,
-  unload: 0,
-  portage: 0,
-  cash: 0,
-  plaque: "",
-  ps: "",
-};
+const schema = {};
 
 export default function EditProduct() {
-  // const [formData, setFormData] = useState(productSchema);
-  const [formData, formDispatch] = useReducer(reducer, productSchema);
+  const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
-  const [editStatue, setEditStatue] = useState(null);
+  const [editStatus, setEditStatus] = useState(null);
   const { pushNotif } = useContext(NotifContext);
   const init = useRef(true);
   let { id } = useParams();
@@ -73,15 +56,15 @@ export default function EditProduct() {
       formDispatch({ type: "setForm", payload: product });
     });
 
-    ipcRenderer.on("editProduct", (event, editStatue) => {
+    ipcRenderer.on("editProduct", (event, editStatus) => {
       setSubmit(false);
-      setEditStatue(editStatue);
-      if (editStatue !== null) {
-        if (editStatue === true) {
-          pushNotif("success", "ویرایش با موفقیت انجام شد");
+      setEditStatus(editStatus.status);
+      if (editStatus.status !== null) {
+        if (editStatus.status === true) {
+          pushNotif("success", editStatus.message);
         }
-        if (editStatue === false) {
-          pushNotif("error", "حطا در ویرایش");
+        if (editStatus.status === false) {
+          pushNotif("error", editStatus.message);
         }
       }
     });

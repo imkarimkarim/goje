@@ -1,5 +1,5 @@
 const { db } = require("../db");
-const objectCreator = require("../modules/objectCreator");
+const autoFiller = require("../modules/autoFiller");
 
 const sortProductsArray = (producs) => {
   if(!producs) return;
@@ -129,7 +129,7 @@ const getOne = (id, callback) => {
 };
 
 const insert = (product, callback) => {
-  objectCreator.autoFillProductAutoInputs(product, (obj) => {
+  autoFiller.autoFillProductAutoInputs(product, (obj) => {
     db.insert(obj, function (err) {
       if (err) throw err;
       if (typeof callback === "function") {

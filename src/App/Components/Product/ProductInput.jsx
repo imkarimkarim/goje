@@ -3,9 +3,9 @@ const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
-import ExpenseInput from '../ExpenseInput.jsx';
-import './ProductInput.css';
-import CustomePicker from './CustomePicker.jsx';
+import ExpenseInput from "../ExpenseInput.jsx";
+import "./ProductInput.css";
+import CustomePicker from "./CustomePicker.jsx";
 
 // TODO: also up/down with arrow keys
 
@@ -29,10 +29,10 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
       payload4: price,
     });
     setProductState(defaultState);
-    setAmount('');
-    setWeight('');
-    setPrice('');
-    document.getElementById('focusOnMe1').focus();
+    setAmount("");
+    setWeight("");
+    setPrice("");
+    document.getElementById("focusOnMe1").focus();
   };
 
   const getUnFinishedProducts = () => {
@@ -44,7 +44,6 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
     setProductState({ name: "", id: "" });
     setShowCustomerPicker(true);
   };
-
 
   useEffect(() => {
     ipcRenderer.on("getUnFinishedProducts", (event, dbproducts) => {
@@ -100,7 +99,9 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
       />
       <Button
         className="newFactorAddProductInputButton"
-        disabled={!(productState && amount && weight && price)}
+        disabled={
+          !(productState.id && productState.name && amount && weight && price)
+        }
         onClick={addProductToFactor}
         variant="outlined"
         color="primary"
@@ -109,6 +110,6 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
       </Button>
     </div>
   );
-})
+});
 
 export default ProductInput;

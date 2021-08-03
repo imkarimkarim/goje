@@ -11,7 +11,7 @@ export const productSchema = {
     unload: { type: 'number', required: true, range: [0], defaultValue: '' },
     portage: { type: 'number', required: true, range: [0], defaultValue: '' },
     cash: { type: 'number', required: true, range: [0], defaultValue: '' },
-    plaque: { type: 'string', required: false, range: [1, 16], defaultValue: '' },
+    plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
     ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
   },
   autoInput: {
@@ -59,8 +59,8 @@ export const generateInputByUserCustomerSchema = () => {
 export const productOwnerSchema = {
   inputByUser: {
     name: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
-    payNumber: { type: 'number', required: false, range: [0, 28], defaultValue: '' },
-    defaultCommission: { type: 'number', required: true, range: [0, 100], defaultValue: '' }
+    payNumber: { type: 'string', required: false, range: [0, 28], defaultValue: '' },
+    defaultCommission: { type: 'number', required: false, range: [0, 100], defaultValue: '' }
   },
   autoInput: {
     docType: { type: 'string', required: true, range: [], defaultValue: 'productOwner'},
@@ -111,7 +111,7 @@ export const factorSchema = {
         amount: { type: 'number', required: true, range: [0], defaultValue: '' },
       }},
     },
-    pays: { type: 'array', required: true, range: [1-4], defaultValue: [] ,
+    pays: { type: 'array', required: false, range: [0-4], defaultValue: [] ,
       childs: {
         date: { type: 'number', required: true, range: [], defaultValue: Date.now() },
         amount: { type: 'number', required: true, range: [0], defaultValue: '' }

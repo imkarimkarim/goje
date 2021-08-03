@@ -1,9 +1,9 @@
 import React, {
   useState,
   useEffect,
-  useRef,
   useReducer,
   useContext,
+  useRef,
 } from "react";
 const { ipcRenderer } = require("electron");
 import { DatePicker } from "jalali-react-datepicker";
@@ -28,6 +28,8 @@ export default function IncludeProduct() {
   const [createStatus, setCreateStatus] = useState(null);
   const { pushNotif } = useContext(NotifContext);
 
+  // const init = useRef(true);
+
   const handleSubmit = () => {
     setSubmit(true);
     includeProduct(formData);
@@ -37,19 +39,39 @@ export default function IncludeProduct() {
     ipcRenderer.send("includeProduct", product);
   };
 
+  // const defaultFormData = {
+  //   productName: "پرتقال",
+  //   owner: "کریم شاطر",
+  //   basculeWeight: 1500,
+  //   amount: 50,
+  //   arrivalDate: 1627830529325,
+  //   finishDate: false,
+  //   isProductFinish: false,
+  //   commission: 5,
+  //   unload: 500000,
+  //   portage: 1000000,
+  //   cash: 0,
+  //   plaque: "حسام بارده",
+  //   ps: "حساب تسویه کن",
+  // };
+
   useEffect(() => {
+    // if (init.current === true) {
+    //   includeProduct(defaultFormData);
+    //   init.current = false;
+    // }
     ipcRenderer.on("includeProduct", (event, createStatus) => {
       setSubmit(false);
-      setCreateStatus(createStatus);
-      if (createStatus !== null) {
-        if (createStatus === true) {
+      setCreateStatus(createStatus.status);
+      if (createStatus.status !== null) {
+        if (createStatus.status === true) {
           let schemaWithFreshDate = schema;
           schemaWithFreshDate.arrivalDate = Date.now();
           formDispatch({ type: "setForm", payload: schemaWithFreshDate });
-          pushNotif("success", "بار با موفقیت وارد شد");
+          pushNotif("success", createStatus.message);
         }
-        if (createStatus === false) {
-          pushNotif("error", "خطا در وارد کردن بار");
+        if (createStatus.status === false) {
+          pushNotif("error", createStatus.message);
         }
       }
     });

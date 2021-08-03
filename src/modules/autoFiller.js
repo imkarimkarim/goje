@@ -3,6 +3,7 @@ const calcSumFactor = require("../calculators/calcSumFactor");
 const { customerSchema } = require("../schemas.js");
 const { productOwnerSchema } = require("../schemas.js");
 const { productSchema } = require("../schemas.js");
+const { factorSchema } = require("../schemas.js");
 
 const autoFillCustomerAutoInputs = (customer, callback) => {
   generateNewCustomId((id) => {
@@ -36,41 +37,14 @@ const autoFillProductAutoInputs = (product, callback) => {
 
 const createFactor = (factor, callback) => {
   generateNewCustomId((id) => {
-    let newFactor = {
-      docType: "factor",
-      owner: "",
-      ownerName: "",
-      customeId: null,
-      isPayed: false,
-      factorDate: null,
-      changeDate: null,
-      products: [],
-      calcs: {
-        fullSum: 0,
-        sums: [],
-      },
-      pays: [
-        {
-          date: 0,
-          amount: 0,
-        },
-      ],
-    };
-
-    newFactor.owner = factor.owner;
-    newFactor.ownerName = factor.ownerName;
-    newFactor.customeId = id;
-    newFactor.isPayed = factor.isPayed;
-    newFactor.factorDate = factor.factorDate;
-    newFactor.changeDate = factor.changeDate;
-    newFactor.products = factor.products;
-    newFactor.pays = factor.pays;
-    calcSumFactor.calculate(newFactor.products, newFactor.pays, (calcs) => {
-      newFactor.calcs = calcs;
+    factor.customeId = id;
+    factor.docType = factorSchema.autoInput.docType.defaultValue;;
+    calcSumFactor.calculate(factor.products, factor.pays, (calcs) => {
+      factor.calcs = calcs;
     });
 
     if (typeof callback === "function") {
-      callback(newFactor);
+      callback(factor);
     }
   });
 };
