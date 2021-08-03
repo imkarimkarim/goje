@@ -91,9 +91,6 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
                             type: "removeProduct",
                             payload: index,
                           });
-                          setTimeout(function () {
-                            pushNotif("success", "با موفقیت حذف شد");
-                          }, 10);
                         }}
                       >
                         <DeleteIcon />

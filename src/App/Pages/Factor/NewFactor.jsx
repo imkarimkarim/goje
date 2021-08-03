@@ -37,14 +37,14 @@ export default function NewFactor() {
   useEffect(() => {
     ipcRenderer.on("addNewFactor", (event, createStatus) => {
       setSubmit(false);
-      setCreateStatus(createStatus);
-      if (createStatus !== null) {
-        if (createStatus === true) {
+      setCreateStatus(createStatus.status);
+      if (createStatus.status !== null) {
+        if (createStatus.status === true) {
           formDispatch({ type: "reset" });
-          pushNotif("success", "فاکتور با موفقیت ثبت شد");
+          pushNotif("success", createStatus.message);
         }
-        if (createStatus === false) {
-          pushNotif("error", "خطا در ثبت کردن فاکتور");
+        if (createStatus.status === false) {
+          pushNotif("error", createStatus.message);
         }
       }
     });

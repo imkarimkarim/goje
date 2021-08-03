@@ -1,6 +1,6 @@
 const { ipcMain } = require("electron");
 const productOwnerDocs = require("../db/productOwnerDocs");
-const { isProductOwnerValid } = require("../modules/validator");
+const { validateProductOwner } = require("../modules/validator");
 
 ipcMain.on("getAllProductOwners", (event) => {
   productOwnerDocs.getAll((productOwners) => {
@@ -9,18 +9,26 @@ ipcMain.on("getAllProductOwners", (event) => {
 });
 
 ipcMain.on("addNewProductOwner", (event, productOwner) => {
-  if (!productOwner) event.reply("addNewProductOwner", false);
-  if (isProductOwnerValid(productOwner)) {
-    productOwnerDocs.isProductOwnerExists(productOwner, (docs) => {
-      if (docs.length === 0) {
-        productOwnerDocs.insert(productOwner, () => {
-          event.reply("addNewProductOwner", true);
-        });
-      } else {
-        event.reply("addNewProductOwner", false);
-      }
-    });
-  } else {
-    event.reply("addNewProductOwner", false);
-  }
+  validateProductOwner(productOwner, (status, message) => {
+    if (status === true) {
+      productOwnerDocs.isProductOwnerExists(productOwner, (docs) => {
+        if (docs.length === 0) {
+          productOwnerDocs.insert(productOwner, () => {
+            event.reply("addNewProductOwner", {
+              status: status,
+              message: "حساب جدید با موفقیت ایجاد شد",
+            });
+          });
+        } else {
+          event.reply("addNewProductOwner", {
+            status: false,
+            message: "خطا در ایجاد حساب(شاید حسابی با همین نام موجود باشد)",
+          });
+        }
+      });
+    }
+    if (status === false) {
+      event.reply("addNewProductOwner", { status: status, message: message });
+    }
+  });
 });
