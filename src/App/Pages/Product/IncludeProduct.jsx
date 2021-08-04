@@ -17,6 +17,7 @@ import Input from "../../Components/Input.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./IncludeProduct.css";
 import reducer from "../../Reducers/IncludeProductReducer.jsx";
+import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import { generateInputByUserProductSchema } from "../../../schemas.js";
 
@@ -28,8 +29,6 @@ export default function IncludeProduct() {
   const [createStatus, setCreateStatus] = useState(null);
   const { pushNotif } = useContext(NotifContext);
 
-  // const init = useRef(true);
-
   const handleSubmit = () => {
     setSubmit(true);
     includeProduct(formData);
@@ -39,27 +38,7 @@ export default function IncludeProduct() {
     ipcRenderer.send("includeProduct", product);
   };
 
-  // const defaultFormData = {
-  //   productName: "پرتقال",
-  //   owner: "کریم شاطر",
-  //   basculeWeight: 1500,
-  //   amount: 50,
-  //   arrivalDate: 1627830529325,
-  //   finishDate: false,
-  //   isProductFinish: false,
-  //   commission: 5,
-  //   unload: 500000,
-  //   portage: 1000000,
-  //   cash: 0,
-  //   plaque: "حسام بارده",
-  //   ps: "حساب تسویه کن",
-  // };
-
   useEffect(() => {
-    // if (init.current === true) {
-    //   includeProduct(defaultFormData);
-    //   init.current = false;
-    // }
     ipcRenderer.on("includeProduct", (event, createStatus) => {
       setSubmit(false);
       setCreateStatus(createStatus.status);
@@ -98,12 +77,17 @@ export default function IncludeProduct() {
               }}
               value={formData.productName}
             />
-            <Input
+            <ProductOwnerInput
               label="نام صاحب بار*"
-              fun={(e) => {
-                formDispatch({ type: "setowner", payload: e.target.value });
+              className="customeInputAndPicker"
+              onPick={(name, id) => {
+                formDispatch({
+                  type: "setowner",
+                  payload1: name,
+                  payload2: id,
+                });
               }}
-              value={formData.owner}
+              owner={formData && formData.owner}
             />
             <Input
               label="پلاک ماشین"

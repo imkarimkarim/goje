@@ -1,7 +1,8 @@
 export const productSchema = {
   inputByUser: {
     productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
-    owner: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    owner: { type: 'string', required: true, range: [], defaultValue: ''},
+    ownerId: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
     basculeWeight: { type: 'number', required: true, range: [0], defaultValue: '' },
     amount: { type: 'number', required: true, range: [0], defaultValue: '', value: '' },
     arrivalDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },

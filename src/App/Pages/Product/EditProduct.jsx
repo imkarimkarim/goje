@@ -20,6 +20,7 @@ import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./EditProduct.css";
 import reducer from "../../Reducers/EditProductReducer.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
+import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 
 // TODO: add backend for edit product
 
@@ -107,12 +108,17 @@ export default function EditProduct() {
                 }}
                 value={formData.productName}
               />
-              <Input
+              <ProductOwnerInput
                 label="نام صاحب بار*"
-                fun={(e) => {
-                  formDispatch({ type: "setowner", payload: e.target.value });
+                className="customeInputAndPicker"
+                onPick={(name, id) => {
+                  formDispatch({
+                    type: "setowner",
+                    payload1: name,
+                    payload2: id,
+                  });
                 }}
-                value={formData.owner}
+                owner={formData && formData.owner}
               />
               <Input
                 label="پلاک ماشین"
