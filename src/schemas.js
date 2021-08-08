@@ -158,6 +158,7 @@ export const carSchema = {
     cash: { type: 'number', required: true, range: [0], defaultValue: '' },
     plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
     ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
+    isPrinted: { type: 'boolean', required: true, range: [], defaultValue: false },
   },
   autoInput: {
     docType: { type: 'string', required: true, range: [], defaultValue: 'car'},

@@ -1,9 +1,12 @@
 const { generateNewCustomId } = require("./idGenerator");
 const calcSumFactor = require("../calculators/calcSumFactor");
-const { customerSchema } = require("../schemas.js");
-const { productOwnerSchema } = require("../schemas.js");
-const { productSchema } = require("../schemas.js");
-const { factorSchema } = require("../schemas.js");
+const {
+  customerSchema,
+  productOwnerSchema,
+  productSchema,
+  factorSchema,
+  carSchema,
+} = require("../schemas.js");
 
 const autoFillCustomerAutoInputs = (customer, callback) => {
   generateNewCustomId((id) => {
@@ -35,10 +38,20 @@ const autoFillProductAutoInputs = (product, callback) => {
   });
 };
 
-const createFactor = (factor, callback) => {
+const autoFillCarAutoInputs = (car, callback) => {
+  generateNewCustomId((id) => {
+    car.customeId = id;
+    car.docType = carSchema.autoInput.docType.defaultValue;
+    if (typeof callback === "function") {
+      callback(car);
+    }
+  });
+};
+
+const autoFillFactorAutoInputs = (factor, callback) => {
   generateNewCustomId((id) => {
     factor.customeId = id;
-    factor.docType = factorSchema.autoInput.docType.defaultValue;;
+    factor.docType = factorSchema.autoInput.docType.defaultValue;
     calcSumFactor.calculate(factor.products, factor.pays, (calcs) => {
       factor.calcs = calcs;
     });
@@ -53,5 +66,6 @@ module.exports = {
   autoFillCustomerAutoInputs,
   autoFillProductOwnerAutoInputs,
   autoFillProductAutoInputs,
-  createFactor,
+  autoFillCarAutoInputs,
+  autoFillFactorAutoInputs,
 };

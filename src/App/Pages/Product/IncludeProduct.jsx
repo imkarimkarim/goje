@@ -36,12 +36,11 @@ export default function IncludeProduct() {
     includeCar(formData);
   };
 
-  const includeCar = (product) => {
-    ipcRenderer.send("includeCar", product);
+  const includeCar = (car) => {
+    ipcRenderer.send("includeCar", car);
   };
 
   useEffect(() => {
-    console.log(formData);
     ipcRenderer.on("includeCar", (event, createStatus) => {
       setSubmit(false);
       setCreateStatus(createStatus.status);

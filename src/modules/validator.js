@@ -145,9 +145,31 @@ const validateCar = (car, callback) => {
   } else {
     for (let i = 0; i < car.products.length; i++) {
       const ppc = ps.products.childs;
+      const productName = car.products[i].productName;
       const amount = car.products[i].amount;
       const weight = car.products[i].weight;
       const price = car.products[i].price;
+
+      // productName
+      if (productName === ppc.productName.defaultValue) {
+        status = false;
+        errorMessage = `${errorMessage}
+         / شرح بار وارد نشده است`;
+      } else if (!isString(productName)) {
+        status = false;
+        errorMessage = `${errorMessage}
+         / شرح بار باید متنی باشد`;
+      } else if (
+        !isRangeOk(
+          productName.length,
+          ppc.productName.range[0],
+          ppc.productName.range[1]
+        )
+      ) {
+        status = false;
+        errorMessage = `${errorMessage}
+         / تعداد کارکترهای مجاز برای شرح بار بین ۲ تا ۳۰ است`;
+      }
 
       if (!isInt(amount)) {
         status = false;

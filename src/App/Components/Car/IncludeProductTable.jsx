@@ -6,7 +6,6 @@ import Expense from "../Expense.jsx";
 import "./IncludeProductTable.css";
 
 export default function IncludeProductTable({ products, formDispatch }) {
-  console.log(products);
   return (
     <div className="IncludeProductsTable">
       <table>
