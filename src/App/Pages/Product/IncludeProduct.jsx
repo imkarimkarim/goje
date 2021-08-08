@@ -17,11 +17,13 @@ import Input from "../../Components/Input.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./IncludeProduct.css";
 import reducer from "../../Reducers/IncludeProductReducer.jsx";
+import IncludeProductTable from "../../Components/Car/IncludeProductTable.jsx";
+import IncludeProductInput from "../../Components/Product/IncludeProductInput.jsx";
 import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
-import { generateInputByUserProductSchema } from "../../../schemas.js";
+import { generateInputByUserCarSchema } from "../../../schemas.js";
 
-const schema = generateInputByUserProductSchema();
+const schema = generateInputByUserCarSchema();
 
 export default function IncludeProduct() {
   const [formData, formDispatch] = useReducer(reducer, schema);
@@ -31,15 +33,16 @@ export default function IncludeProduct() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    includeProduct(formData);
+    includeCar(formData);
   };
 
-  const includeProduct = (product) => {
-    ipcRenderer.send("includeProduct", product);
+  const includeCar = (product) => {
+    ipcRenderer.send("includeCar", product);
   };
 
   useEffect(() => {
-    ipcRenderer.on("includeProduct", (event, createStatus) => {
+    console.log(formData);
+    ipcRenderer.on("includeCar", (event, createStatus) => {
       setSubmit(false);
       setCreateStatus(createStatus.status);
       if (createStatus.status !== null) {
@@ -57,7 +60,7 @@ export default function IncludeProduct() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("includeProduct");
+      ipcRenderer.removeAllListeners("includeCar");
     };
   });
 
@@ -67,16 +70,19 @@ export default function IncludeProduct() {
       <form className="IncludeProduct-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Input
-              label="شرح بار*"
-              fun={(e) => {
-                formDispatch({
-                  type: "setproductName",
-                  payload: e.target.value,
-                });
-              }}
-              value={formData.productName}
-            />
+            <span className="arrivalDate">
+              <span>تاریخ ورود:</span>
+              <DatePicker
+                timePicker={false}
+                value={formData.arrivalDate}
+                onClickSubmitButton={({ value }) => {
+                  formDispatch({
+                    type: "setarrivalDate",
+                    payload: value._d.getTime(),
+                  });
+                }}
+              />
+            </span>
             <ProductOwnerInput
               label="نام صاحب بار*"
               className="customeInputAndPicker"
@@ -96,21 +102,8 @@ export default function IncludeProduct() {
               }}
               value={formData.plaque}
             />
-            <div className="arrivalDate">
-              <span>تاریخ ورود:</span>
-              <DatePicker
-                timePicker={false}
-                value={formData.arrivalDate}
-                onClickSubmitButton={({ value }) => {
-                  formDispatch({
-                    type: "setarrivalDate",
-                    payload: value._d.getTime(),
-                  });
-                }}
-              />
-            </div>
             <Input
-              label="باسکول(kg)*"
+              label="باسکول کل(kg)*"
               fun={(e) => {
                 formDispatch({
                   type: "setbasculeWeight",
@@ -119,12 +112,12 @@ export default function IncludeProduct() {
               }}
               value={formData.basculeWeight}
             />
-            <Input
-              label="تعداد*"
+            <ExpenseInput
+              label="کرایه*"
               fun={(e) => {
-                formDispatch({ type: "setamount", payload: e.target.value });
+                formDispatch({ type: "setportage", payload: e.target.value });
               }}
-              value={formData.amount}
+              value={formData.portage}
             />
             <Input
               label="کارمزد(٪)*"
@@ -143,13 +136,11 @@ export default function IncludeProduct() {
               }}
               value={formData.unload}
             />
-            <ExpenseInput
-              label="کرایه*"
-              fun={(e) => {
-                formDispatch({ type: "setportage", payload: e.target.value });
-              }}
-              value={formData.portage}
+            <IncludeProductTable
+              formDispatch={formDispatch}
+              products={formData.products}
             />
+            <IncludeProductInput formDispatch={formDispatch} />
             <ExpenseInput
               label="دستی*"
               fun={(e) => {
@@ -157,11 +148,8 @@ export default function IncludeProduct() {
               }}
               value={formData.cash}
             />
-          </Grid>
-          <br />
-
-          <Grid item xs={12}>
             <TextareaAutosize
+              className="ps-input"
               onChange={(e) => {
                 formDispatch({ type: "setPs", payload: e.target.value });
               }}
@@ -169,7 +157,10 @@ export default function IncludeProduct() {
               rowsMin={3}
               placeholder="پی نوشت"
             />
-            <br />
+          </Grid>
+          <br />
+
+          <Grid item xs={12}>
             <Button
               disabled={submit}
               onClick={handleSubmit}

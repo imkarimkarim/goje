@@ -1,7 +1,7 @@
 const { ipcMain } = require("electron");
 const productDocs = require("../db/productDocs");
 const calcOneProduct = require("../calculators/calcOneProduct");
-const { validateProduct } = require("../modules/validator");
+const { validateProduct, validateCar } = require("../modules/validator");
 
 ipcMain.on("getUnFinishedProducts", (event) => {
   productDocs.getUnFinished((docs) => {
@@ -39,6 +39,20 @@ ipcMain.on("includeProduct", (event, product) => {
     }
     if (status === false) {
       event.reply("includeProduct", { status: status, message: message });
+    }
+  });
+});
+
+ipcMain.on("includeCar", (event, car) => {
+  validateCar(car, (status, message) => {
+    if (status === true) {
+        event.reply("includeCar", {
+          status: status,
+          message: "بار با موفقیت وارد شد",
+        });
+    }
+    if (status === false) {
+      event.reply("includeCar", { status: status, message: message });
     }
   });
 });

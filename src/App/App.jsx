@@ -36,7 +36,7 @@ export default function App() {
   return (
     <Router>
       {/* redirect to /welcome in first load */}
-      {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
+      {redirectToIndex.current ? <Redirect to="/includeProduct" /> : <div></div>}
       <Container>
         <Switch>
           <NotifProvider>

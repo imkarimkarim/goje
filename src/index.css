@@ -82,7 +82,7 @@ table {
   margin-top: auto;
   margin-bottom: auto;
   width: 100%;
-  height: 97vh;
+  /* height: 97vh; */
   justify-content: center;
   align-items: center;
   display: flex;

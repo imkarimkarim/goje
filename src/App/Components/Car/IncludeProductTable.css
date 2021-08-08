@@ -1,0 +1,10 @@
+.IncludeProductsTable{
+  height: 20vh;
+  width: 80%;
+  margin: auto;
+  overflow-y: scroll;
+}
+
+.fullSum{
+  color: #07870b;
+}

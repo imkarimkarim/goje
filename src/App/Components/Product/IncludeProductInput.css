@@ -1,0 +1,12 @@
+.includeProductAddProductInputButton {
+  width: 10% !important;
+  margin-top: 12px;
+}
+
+.includeProductInput-wrapper > .expenseInput,
+.includeProductInput-wrapper > div:nth-child(5),
+.includeProductInput-wrapper > div:nth-child(4),
+.includeProductInput-wrapper > div:nth-child(3)
+{
+  width: 193px !important;
+}

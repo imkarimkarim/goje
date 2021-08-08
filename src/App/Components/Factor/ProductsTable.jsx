@@ -1,18 +1,14 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
 import DeleteIcon from "@material-ui/icons/Delete";
-import TableRow from "@material-ui/core/TableRow";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
 import { Link } from "react-router-dom";
 import "./ProductsTable.css";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
+
 // // TODO: calcs[] for factor(goje vision for not calculating over and over)
+
 export default function ProductsTable({ products, formDispatch, shouldLink }) {
   const [allUnFinishedProducts, setAllUnFinishedProducts] = useState();
   const { pushNotif } = useContext(NotifContext);

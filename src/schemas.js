@@ -18,6 +18,7 @@ export const productSchema = {
   autoInput: {
     docType: { type: 'string', required: true, range: [], defaultValue: 'product'},
     customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+    // New: cardId
   }
 }
 
@@ -133,6 +134,42 @@ export const generateInputByUserFactorSchema = () => {
   const keys = Object.keys(factorSchema.inputByUser);
   for(let i = 0; i < keys.length; i++){
     schema[keys[i]] = factorSchema.inputByUser[keys[i]].defaultValue;
+  }
+  return schema;
+}
+
+
+export const carSchema = {
+  inputByUser: {
+    owner: { type: 'string', required: true, range: [], defaultValue: ''},
+    ownerId: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    products: { type: 'array', required: true, range: [0, 22], defaultValue: [],
+    childs: {
+        productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
+        amount: { type: 'number', required: true, range: [0], defaultValue: '' },
+        weight: { type: 'number', required: true, range: [0], defaultValue: '' },
+        price: { type: 'number', required: true, range: [0], defaultValue: '' },
+    }},
+    basculeWeight: { type: 'number', required: true, range: [0], defaultValue: '' },
+    arrivalDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
+    commission: { type: 'number', required: true, range: [0, 100], defaultValue: '' },
+    unload: { type: 'number', required: true, range: [0], defaultValue: '' },
+    portage: { type: 'number', required: true, range: [0], defaultValue: '' },
+    cash: { type: 'number', required: true, range: [0], defaultValue: '' },
+    plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
+    ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
+  },
+  autoInput: {
+    docType: { type: 'string', required: true, range: [], defaultValue: 'car'},
+    customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+  }
+}
+
+export const generateInputByUserCarSchema = () => {
+  let schema = {};
+  const keys = Object.keys(carSchema.inputByUser);
+  for(let i = 0; i < keys.length; i++){
+    schema[keys[i]] = carSchema.inputByUser[keys[i]].defaultValue;
   }
   return schema;
 }
