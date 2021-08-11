@@ -171,40 +171,46 @@ const validateCar = (car, callback) => {
          / تعداد کارکترهای مجاز برای شرح بار بین ۲ تا ۳۰ است`;
       }
 
-      if (!isInt(amount)) {
-        status = false;
-        errorMessage = `${errorMessage}
+      if (amount !== ppc.amount.defaultValue) {
+        if (!isInt(amount)) {
+          status = false;
+          errorMessage = `${errorMessage}
          / در سطر شماره ${i + 1}
          تعداد باید عدد باشد`;
-      } else if (!isRangeOk(amount, ppc.amount.range[0])) {
-        status = false;
-        errorMessage = `${errorMessage}
+        } else if (!isRangeOk(amount, ppc.amount.range[0])) {
+          status = false;
+          errorMessage = `${errorMessage}
          / در سطر شماره ${i + 1}
          تعداد نمیتواند منفی باشد`;
+        }
       }
 
-      if (!isInt(weight)) {
-        status = false;
-        errorMessage = `${errorMessage}
-         / در سطر شماره ${i + 1}
-         وزن باید عدد باشد`;
-      } else if (!isRangeOk(weight, ppc.weight.range[0])) {
-        status = false;
-        errorMessage = `${errorMessage}
-         / در سطر شماره ${i + 1}
-         وزن نمیتواند منفی باشد`;
+      if (weight !== ppc.weight.defaultValue) {
+        if (!isInt(weight)) {
+          status = false;
+          errorMessage = `${errorMessage}
+     / در سطر شماره ${i + 1}
+     وزن باید عدد باشد`;
+        } else if (!isRangeOk(weight, ppc.weight.range[0])) {
+          status = false;
+          errorMessage = `${errorMessage}
+     / در سطر شماره ${i + 1}
+     وزن نمیتواند منفی باشد`;
+        }
       }
 
-      if (!isInt(price)) {
-        status = false;
-        errorMessage = `${errorMessage}
-         / در سطر شماره ${i + 1}
-         فی باید عدد باشد`;
-      } else if (!isRangeOk(price, ppc.price.range[0])) {
-        status = false;
-        errorMessage = `${errorMessage}
-         / در سطر شماره ${i + 1}
-         فی نمیتواند منفی باشد`;
+      if (price !== ppc.price.defaultValue) {
+        if (!isInt(price)) {
+          status = false;
+          errorMessage = `${errorMessage}
+     / در سطر شماره ${i + 1}
+     فی باید عدد باشد`;
+        } else if (!isRangeOk(price, ppc.price.range[0])) {
+          status = false;
+          errorMessage = `${errorMessage}
+     / در سطر شماره ${i + 1}
+     فی نمیتواند منفی باشد`;
+        }
       }
     }
   }

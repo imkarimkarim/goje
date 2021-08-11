@@ -26,72 +26,70 @@ const sortCarArray = (cars) => {
 //   );
 // };
 
-// const search = (searchFilters, callback) => {
-//   if (!searchFilters) return;
-//   const sf = searchFilters;
-//   if(sf.checked1 === true && sf.checked2 === true){
-//     db.find(
-//       {
-//         $and: [
-//           { docType: "product" },
-//           { arrivalDate: { $gte: sf.fromm } },
-//           { arrivalDate: { $lte: sf.till } },
-//         ],
-//       },
-//       function (err, docs) {
-//         if (err) throw err;
-//         if (typeof callback === "function") {
-//           if(docs) {
-//             docs = sortCarArray(docs);
-//             callback(docs);
-//           }
-//         }
-//       }
-//     );
-//   }
-//   else if(sf.checked1 === true){
-//     db.find(
-//       {
-//         $and: [
-//           { docType: "product" },
-//           { isProductFinish: false },
-//           { arrivalDate: { $gte: sf.fromm } },
-//           { arrivalDate: { $lte: sf.till } },
-//         ],
-//       },
-//       function (err, docs) {
-//         if (err) throw err;
-//         if (typeof callback === "function") {
-//           if(docs) {
-//             docs = sortCarArray(docs);
-//             callback(docs);
-//           }
-//         }
-//       }
-//     );
-//   }
-//   else if(sf.checked2 === true){
-//     db.find(
-//       {
-//         $and: [
-//           { docType: "product" },
-//           { isProductFinish: true },
-//           { arrivalDate: { $gte: sf.fromm } },
-//           { arrivalDate: { $lte: sf.till } },
-//         ],
-//       },
-//       function (err, docs) {
-//         if (err) throw err;
-//         if (typeof callback === "function") {
-//           if(docs) {
-//             docs = sortCarArray(docs);
-//             callback(docs);
-//           }
-//         }
-//       }
-//     );
-//   }
-// };
+const search = (searchFilters, callback) => {
+  if (!searchFilters) return;
+  const sf = searchFilters;
+  if (sf.checked1 === true && sf.checked2 === true) {
+    db.find(
+      {
+        $and: [
+          { docType: "car" },
+          { arrivalDate: { $gte: sf.fromm } },
+          { arrivalDate: { $lte: sf.till } },
+        ],
+      },
+      function (err, docs) {
+        if (err) throw err;
+        if (typeof callback === "function") {
+          if (docs) {
+            docs = sortCarArray(docs);
+            callback(docs);
+          }
+        }
+      }
+    );
+  } else if (sf.checked1 === true) {
+    db.find(
+      {
+        $and: [
+          { docType: "car" },
+          { isPrinted: false },
+          { arrivalDate: { $gte: sf.fromm } },
+          { arrivalDate: { $lte: sf.till } },
+        ],
+      },
+      function (err, docs) {
+        if (err) throw err;
+        if (typeof callback === "function") {
+          if (docs) {
+            docs = sortCarArray(docs);
+            callback(docs);
+          }
+        }
+      }
+    );
+  } else if (sf.checked2 === true) {
+    db.find(
+      {
+        $and: [
+          { docType: "car" },
+          { isPrinted: true },
+          { arrivalDate: { $gte: sf.fromm } },
+          { arrivalDate: { $lte: sf.till } },
+        ],
+      },
+      function (err, docs) {
+        if (err) throw err;
+        if (typeof callback === "function") {
+          if (docs) {
+            docs = sortCarArray(docs);
+            callback(docs);
+          }
+        }
+      }
+    );
+  }
+};
 
 // const getFinished = (callback) => {
 //   db.find(
@@ -108,22 +106,22 @@ const sortCarArray = (cars) => {
 //   );
 // };
 
-// const getOne = (id, callback) => {
-//   if (!id) return;
-//   db.findOne({ customeId: id }, function (err, doc) {
-//     if (err) throw err;
-//     if (typeof callback === "function") {
-//       callback(doc);
-//     }
-//   });
-// };
+const getOne = (id, callback) => {
+  if (!id) return;
+  db.findOne({ customeId: id }, function (err, doc) {
+    if (err) throw err;
+    if (typeof callback === "function") {
+      callback(doc);
+    }
+  });
+};
 
 const insert = (car, callback) => {
   autoFiller.autoFillCarAutoInputs(car, (obj) => {
-    db.insert(obj, function (err) {
+    db.insert(obj, function (err, newDoc) {
       if (err) throw err;
       if (typeof callback === "function") {
-        callback();
+        callback(newDoc.customeId);
       }
     });
   });
@@ -156,10 +154,10 @@ const insert = (car, callback) => {
 // update,
 // getUnFinished,
 // getFinished,
-// getOne,
-// search,
 // getAll,
 
 module.exports = {
+  getOne,
+  search,
   insert,
 };

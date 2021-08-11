@@ -14,6 +14,7 @@ export const productSchema = {
     cash: { type: 'number', required: true, range: [0], defaultValue: '' },
     plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
     ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
+    inCar: { type: 'string', required: true, range: [], defaultValue: ''},
   },
   autoInput: {
     docType: { type: 'string', required: true, range: [], defaultValue: 'product'},
@@ -152,6 +153,7 @@ export const carSchema = {
     }},
     basculeWeight: { type: 'number', required: true, range: [0], defaultValue: '' },
     arrivalDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
+    printDate: { type: 'number', required: true, range: [], defaultValue: false},
     commission: { type: 'number', required: true, range: [0, 100], defaultValue: '' },
     unload: { type: 'number', required: true, range: [0], defaultValue: '' },
     portage: { type: 'number', required: true, range: [0], defaultValue: '' },

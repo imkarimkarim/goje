@@ -2,18 +2,20 @@ const { db } = require("../db");
 const autoFiller = require("../modules/autoFiller");
 
 const sortProductsArray = (producs) => {
-  if(!producs) return;
-  producs.sort((a, b) => {
-    return a.arrivalDate - b.arrivalDate;
-  }).reverse();
+  if (!producs) return;
+  producs
+    .sort((a, b) => {
+      return a.arrivalDate - b.arrivalDate;
+    })
+    .reverse();
   return producs;
-}
+};
 
 const getAll = (callback) => {
   db.find({ docType: "product" }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
-      if(docs) {
+      if (docs) {
         docs = sortProductsArray(docs);
         callback(docs);
       }
@@ -27,7 +29,7 @@ const getUnFinished = (callback) => {
     function (err, docs) {
       if (err) throw err;
       if (typeof callback === "function") {
-        if(docs) {
+        if (docs) {
           docs = sortProductsArray(docs);
           callback(docs);
         }
@@ -36,10 +38,25 @@ const getUnFinished = (callback) => {
   );
 };
 
+const getInCar = (carId, callback) => {
+  db.find({ $and: [{ docType: "product" }, { inCar: carId }] }, function (
+    err,
+    docs
+  ) {
+    if (err) throw err;
+    if (typeof callback === "function") {
+      if (docs) {
+        docs = sortProductsArray(docs);
+        callback(docs);
+      }
+    }
+  });
+};
+
 const search = (searchFilters, callback) => {
   if (!searchFilters) return;
   const sf = searchFilters;
-  if(sf.checked1 === true && sf.checked2 === true){
+  if (sf.checked1 === true && sf.checked2 === true) {
     db.find(
       {
         $and: [
@@ -51,15 +68,14 @@ const search = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
-          if(docs) {
+          if (docs) {
             docs = sortProductsArray(docs);
             callback(docs);
           }
         }
       }
     );
-  }
-  else if(sf.checked1 === true){
+  } else if (sf.checked1 === true) {
     db.find(
       {
         $and: [
@@ -72,15 +88,14 @@ const search = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
-          if(docs) {
+          if (docs) {
             docs = sortProductsArray(docs);
             callback(docs);
           }
         }
       }
     );
-  }
-  else if(sf.checked2 === true){
+  } else if (sf.checked2 === true) {
     db.find(
       {
         $and: [
@@ -93,7 +108,7 @@ const search = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
-          if(docs) {
+          if (docs) {
             docs = sortProductsArray(docs);
             callback(docs);
           }
@@ -109,7 +124,7 @@ const getFinished = (callback) => {
     function (err, docs) {
       if (err) throw err;
       if (typeof callback === "function") {
-        if(docs) {
+        if (docs) {
           docs = sortProductsArray(docs);
           callback(docs);
         }
@@ -140,27 +155,32 @@ const insert = (product, callback) => {
 };
 
 const update = (id, product, callback) => {
-    db.update({ _id: id }, {
-      docType: product.docType ,
-      customeId: product.customeId ,
-      productName: product.productName ,
-      owner: product.owner ,
+  db.update(
+    { _id: id },
+    {
+      docType: product.docType,
+      customeId: product.customeId,
+      productName: product.productName,
+      owner: product.owner,
       basculeWeight: product.basculeWeight,
-      amount: product.amount ,
-      arrivalDate: product.arrivalDate ,
-      finishDate: product.finishDate ,
-      isProductFinish: product.isProductFinish ,
-      commission: product.commission ,
+      amount: product.amount,
+      arrivalDate: product.arrivalDate,
+      finishDate: product.finishDate,
+      isProductFinish: product.isProductFinish,
+      commission: product.commission,
       unload: product.unload,
       portage: product.portage,
       cash: product.cash,
       plaque: product.plaque,
-      ps: product.ps
-     }, {}, function () {
+      ps: product.ps,
+    },
+    {},
+    function () {
       if (typeof callback === "function") {
         callback();
       }
-    });
+    }
+  );
 };
 
 module.exports = {
@@ -168,6 +188,7 @@ module.exports = {
   insert,
   update,
   getUnFinished,
+  getInCar,
   getFinished,
   getOne,
   search,

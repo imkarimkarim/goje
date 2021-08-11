@@ -9,6 +9,12 @@ ipcMain.on("getUnFinishedProducts", (event) => {
   });
 });
 
+ipcMain.on("getInCarProducts", (event, carId) => {
+  productDocs.getInCar(carId, (docs) => {
+    event.reply("getInCarProducts", docs);
+  });
+});
+
 ipcMain.on("searchInProducts", (event, searchFilters) => {
   productDocs.search(searchFilters, (docs) => {
     event.reply("searchInProducts", docs);

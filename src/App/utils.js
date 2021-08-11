@@ -35,3 +35,16 @@ export const convertToIntIfIsNumber = (number) => {
   }
   return number;
 };
+
+export const productsToString = (products) => {
+  if (!products) return;
+  let string = "";
+  for (let i = 0; i < products.length; i++) {
+    if (i === products.length - 1) {
+      string = string + products[i].productName;
+    } else {
+      string = string + products[i].productName + "، ";
+    }
+  }
+  return string;
+};

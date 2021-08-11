@@ -1,23 +1,22 @@
 /* many shared css rules are here */
 
 @font-face {
-  font-family: 'VazirMedium';
+  font-family: "VazirMedium";
   font-style: normal;
   font-weight: normal;
-  src:
-    url('./assets/Vazir-Medium-FD.woff') format('woff'),
-    url('./assets/Vazir-Medium-FD.woff2') format('woff2')
+  src: url("./assets/Vazir-Medium-FD.woff") format("woff"),
+    url("./assets/Vazir-Medium-FD.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'Vazir';
+  font-family: "Vazir";
   font-style: normal;
   font-weight: normal;
-  src:
-    url('./assets/Vazir-Regular-FD.woff') format('woff'),
-    url('./assets/Vazir-Regular-FD.woff2') format('woff2')
+  src: url("./assets/Vazir-Regular-FD.woff") format("woff"),
+    url("./assets/Vazir-Regular-FD.woff2") format("woff2");
 }
 
-html, body{
+html,
+body {
   font-size: 15pt;
 }
 
@@ -30,7 +29,7 @@ input,
 label,
 .MuiInputLabel-outlined.MuiInputLabel-marginDense,
 .MuiInputLabel-outlined.MuiInputLabel-shrink {
-  font-family: 'VazirMedium', 'Vazir' !important;
+  font-family: "VazirMedium", "Vazir" !important;
 }
 
 .MuiInputLabel-outlined.MuiInputLabel-marginDense,
@@ -53,12 +52,14 @@ a {
   color: #777 !important;
 }
 
-
-table, td, th {
+table,
+td,
+th {
   border: 1px solid #ccc;
 }
 
-td, th{
+td,
+th {
   text-align: center;
   padding: 3px;
 }
@@ -68,17 +69,17 @@ table {
   width: 100%;
 }
 
-.ps{
+.ps {
   width: 100%;
   font-size: 12px;
 }
 
-.alignTextIcon{
+.alignTextIcon {
   display: flex;
   align-items: center;
 }
 
-.goje-container{
+.goje-container {
   margin-top: auto;
   margin-bottom: auto;
   width: 100%;
@@ -92,10 +93,22 @@ table {
 /* over writed */
 
 .MuiContainer-root {
-    margin-top: 15px !important;
-    width: 90% !important;
-  }
+  margin-top: 15px !important;
+  width: 90% !important;
+}
 
-h3{
+h3 {
   margin: 0px !important;
+}
+
+.red-color {
+  color: #af1a0f;
+}
+
+.green-color {
+  color: #428f44;
+}
+
+.yellow-color {
+  color: #d28006;
 }

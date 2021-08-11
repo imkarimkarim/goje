@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
@@ -22,6 +22,18 @@ const SearchBox = React.memo(
     label2,
   }) => {
     const [searchState, setSearchState] = useState(defaultState);
+
+    const handleKeyBoardEvent = (e) => {
+      if(e.key === 'Enter') onSubmit(searchState);;
+    }
+
+    useEffect(() => {
+      document.addEventListener('keydown', handleKeyBoardEvent);
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyBoardEvent);
+      }
+    })
 
     let searchInput;
     if (searchForCustomers) {
@@ -51,38 +63,43 @@ const SearchBox = React.memo(
     return (
       <div className="SearchBox">
         {searchInput}
-        <div className="labels">
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={searchState.checked1}
-                onChange={(e) => {
-                  setSearchState({
-                    ...searchState,
-                    checked1: !searchState.checked1,
-                  });
-                }}
-                color="primary"
-              />
-            }
-            label={label1}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={searchState.checked2}
-                onChange={(e) => {
-                  setSearchState({
-                    ...searchState,
-                    checked2: !searchState.checked2,
-                  });
-                }}
-                color="primary"
-              />
-            }
-            label={label2}
-          />
-        </div>
+        {label1 && label2 ? (
+          <div className="labels">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchState.checked1}
+                  onChange={(e) => {
+                    setSearchState({
+                      ...searchState,
+                      checked1: !searchState.checked1,
+                    });
+                  }}
+                  color="primary"
+                />
+              }
+              label={label1}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchState.checked2}
+                  onChange={(e) => {
+                    setSearchState({
+                      ...searchState,
+                      checked2: !searchState.checked2,
+                    });
+                  }}
+                  color="primary"
+                />
+              }
+              label={label2}
+            />
+          </div>
+        ) : (
+          <div></div>
+        )}
+
         <div className="searchbox-datePicker">
           از تاریخ:
           <DatePicker

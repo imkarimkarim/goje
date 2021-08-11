@@ -9,6 +9,15 @@ export default function IncludeProductTable({ products, formDispatch }) {
   return (
     <div className="IncludeProductsTable">
       <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>شرح بار</th>
+            <th>تعداد</th>
+            <th>وزن</th>
+            <th>فی حدودی</th>
+          </tr>
+        </thead>
         <tbody>
           {products && products.length > 0
             ? products.map((p, index) => (

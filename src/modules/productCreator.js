@@ -1,4 +1,4 @@
-const createProductsBasedOnCar = (car, callback) => {
+const createProductsBasedOnCar = (car, carId, callback) => {
   let products = [];
   for (let i = 0; i < car.products.length; i++) {
     const basculeWeight =
@@ -20,6 +20,7 @@ const createProductsBasedOnCar = (car, callback) => {
       cash: 0,
       plaque: car.plaque,
       ps: "",
+      inCar: carId,
     });
   }
   if (typeof callback === "function") {
