@@ -1,4 +1,4 @@
-.product-customePicker .List{
+.product-customePicker .List {
   direction: rtl !important;
 }
 
@@ -13,23 +13,23 @@
   justify-content: center;
 }
 
-.product-customePicker .closeIcon{
+.product-customePicker .closeIcon {
   display: flex;
 }
 
-.product-customePicker .title{
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
+.product-customePicker .title {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
 }
 
-.product-customePicker .ListItemOdd{
+.product-customePicker .ListItemOdd {
   background: #fff;
 }
 
 .product-customePicker .ListItemOdd,
-.product-customePicker .ListItemEven{
+.product-customePicker .ListItemEven {
   display: flex;
   justify-content: space-between;
 }

@@ -22,6 +22,7 @@ export default function Reports() {
       <Nav title="/گزارشات" />
       <h3 className="alignTextIcon">جستجو<SearchIcon /></h3>
       <Link to='/searchProducts'><Button variant="outlined">بارها<ShoppingCartIcon /></Button></Link>
+      <Link to='/searchCars'><Button variant="outlined">صافی ها</Button></Link>
       <br />
       <Link to='/searchFactors'><Button variant="outlined">فاکتورها<NoteIcon /></Button></Link>
       <div className="printSection">

@@ -12,9 +12,11 @@ import NewFactor from "./Pages/Factor/NewFactor.jsx";
 import NewName from "./Pages/NewName/NewName.jsx";
 import Reports from "./Pages/Reports/Reports.jsx";
 import Product from "./Pages/Product/Product.jsx";
+import Car from "./Pages/Car/Car.jsx";
 import Factor from "./Pages/Factor/Factor.jsx";
 import SearchProducts from "./Pages/Reports/SearchProducts.jsx";
 import SearchFactors from "./Pages/Reports/SearchFactors.jsx";
+import SearchCars from "./Pages/Reports/SearchCars.jsx";
 import PrintRemainingProducts from "./Pages/Reports/PrintRemainingProducts.jsx";
 import EditFactor from "./Pages/Factor/EditFactor.jsx";
 import EditProduct from "./Pages/Product/EditProduct.jsx";
@@ -22,7 +24,7 @@ import PrintProducts from "./Pages/Reports/PrintProducts.jsx";
 import PrintFactors from "./Pages/Reports/PrintFactors.jsx";
 import ProductDetails from "./Pages/Product/ProductDetails.jsx";
 import { NotifProvider } from "./Contexts/NotifContext.jsx";
-import Notif from './Components/Notif.jsx';
+import Notif from "./Components/Notif.jsx";
 
 export default function App() {
   const redirectToIndex = useRef(true);
@@ -36,7 +38,7 @@ export default function App() {
   return (
     <Router>
       {/* redirect to /welcome in first load */}
-      {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
+      {redirectToIndex.current ? <Redirect to="/searchCars" /> : <div></div>}
       <Container>
         <Switch>
           <NotifProvider>
@@ -47,8 +49,10 @@ export default function App() {
             <Route path="/newName" component={NewName} />
             <Route path="/reports" component={Reports} />
             <Route path="/searchProducts" component={SearchProducts} />
+            <Route path="/searchCars" component={SearchCars} />
             <Route path="/searchFactors" component={SearchFactors} />
             <Route path="/product/:id" component={Product} />
+            <Route path="/car/:id" component={Car} />
             <Route path="/factor/:id" component={Factor} />
             <Route path="/editFactor/:id" component={EditFactor} />
             <Route path="/editProduct/:id" component={EditProduct} />

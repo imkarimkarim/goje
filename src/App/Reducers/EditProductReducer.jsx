@@ -1,4 +1,4 @@
-import { convertToIntIfIsNumber } from '../utils';
+import { convertToIntIfIsNumber } from "../utils";
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -7,9 +7,12 @@ export default function reducer(state, action) {
     case "setproductName":
       return { ...state, productName: action.payload };
     case "setowner":
-      return { ...state, owner: action.payload };
+      return { ...state, owner: action.payload1, ownerId: action.payload2 };
     case "setbasculeWeight":
-      return { ...state, basculeWeight: convertToIntIfIsNumber(action.payload) };
+      return {
+        ...state,
+        basculeWeight: convertToIntIfIsNumber(action.payload),
+      };
     case "setamount":
       return { ...state, amount: convertToIntIfIsNumber(action.payload) };
     case "setarrivalDate":

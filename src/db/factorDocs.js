@@ -147,7 +147,7 @@ const search = (searchFilters, callback) => {
 };
 
 const insert = (factor, callback) => {
-  autoFiller.createFactor(factor, (obj) => {
+  autoFiller.autoFillFactorAutoInputs(factor, (obj) => {
     db.insert(obj, function () {
       if (typeof callback === "function") {
         callback();

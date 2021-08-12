@@ -27,14 +27,27 @@ ipcMain.on("addNewFactor", (event, factor) => {
 });
 
 ipcMain.on("editFactor", (event, factor) => {
-  if (validateFactor(factor)) {
-    factor.changeDate = Date.now();
-    factorDocs.update(factor._id, factor, () => {
-      event.reply("editFactor", true);
-    });
-  } else {
-    event.reply("editFactor", false);
-  }
+  validateFactor(factor, (status, message) => {
+    if (status === true) {
+      factor.changeDate = Date.now();
+      factorDocs.update(factor._id, factor, () => {
+        event.reply("editFactor", {
+          status: status,
+          message: "ویرایش با موفقیت انجام شد",
+        });
+      });
+    } else {
+      event.reply("editFactor", { status: status, message: message });
+    }
+  });
+  // if (validateFactor(factor)) {
+  //   factor.changeDate = Date.now();
+  //   factorDocs.update(factor._id, factor, () => {
+  //     event.reply("editFactor", true);
+  //   });
+  // } else {
+  //   event.reply("editFactor", false);
+  // }
 });
 
 ipcMain.on("searchInFactors", (event, searchFilters) => {

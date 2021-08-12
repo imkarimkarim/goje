@@ -1,0 +1,32 @@
+.sale .saleInfo-table,
+.saleInfo-costs {
+  margin: 18px 0;
+}
+
+.saleInfo-costs {
+  text-align: right;
+}
+
+.sale .saleInfo-table {
+  text-align: left;
+}
+
+.car-safiTitle {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.car-safiTitle h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.car-safiTitle > span {
+  margin-left: 4px;
+}
+
+.sale h4 {
+  margin: 3px 0;
+}

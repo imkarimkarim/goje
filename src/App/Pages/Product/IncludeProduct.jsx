@@ -17,10 +17,13 @@ import Input from "../../Components/Input.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./IncludeProduct.css";
 import reducer from "../../Reducers/IncludeProductReducer.jsx";
+import IncludeProductTable from "../../Components/Car/IncludeProductTable.jsx";
+import IncludeProductInput from "../../Components/Product/IncludeProductInput.jsx";
+import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
-import { generateInputByUserProductSchema } from "../../../schemas.js";
+import { generateInputByUserCarSchema } from "../../../schemas.js";
 
-const schema = generateInputByUserProductSchema();
+const schema = generateInputByUserCarSchema();
 
 export default function IncludeProduct() {
   const [formData, formDispatch] = useReducer(reducer, schema);
@@ -28,39 +31,17 @@ export default function IncludeProduct() {
   const [createStatus, setCreateStatus] = useState(null);
   const { pushNotif } = useContext(NotifContext);
 
-  // const init = useRef(true);
-
   const handleSubmit = () => {
     setSubmit(true);
-    includeProduct(formData);
+    includeCar(formData);
   };
 
-  const includeProduct = (product) => {
-    ipcRenderer.send("includeProduct", product);
+  const includeCar = (car) => {
+    ipcRenderer.send("includeCar", car);
   };
-
-  // const defaultFormData = {
-  //   productName: "پرتقال",
-  //   owner: "کریم شاطر",
-  //   basculeWeight: 1500,
-  //   amount: 50,
-  //   arrivalDate: 1627830529325,
-  //   finishDate: false,
-  //   isProductFinish: false,
-  //   commission: 5,
-  //   unload: 500000,
-  //   portage: 1000000,
-  //   cash: 0,
-  //   plaque: "حسام بارده",
-  //   ps: "حساب تسویه کن",
-  // };
 
   useEffect(() => {
-    // if (init.current === true) {
-    //   includeProduct(defaultFormData);
-    //   init.current = false;
-    // }
-    ipcRenderer.on("includeProduct", (event, createStatus) => {
+    ipcRenderer.on("includeCar", (event, createStatus) => {
       setSubmit(false);
       setCreateStatus(createStatus.status);
       if (createStatus.status !== null) {
@@ -78,7 +59,7 @@ export default function IncludeProduct() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("includeProduct");
+      ipcRenderer.removeAllListeners("includeCar");
     };
   });
 
@@ -88,31 +69,7 @@ export default function IncludeProduct() {
       <form className="IncludeProduct-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Input
-              label="شرح بار*"
-              fun={(e) => {
-                formDispatch({
-                  type: "setproductName",
-                  payload: e.target.value,
-                });
-              }}
-              value={formData.productName}
-            />
-            <Input
-              label="نام صاحب بار*"
-              fun={(e) => {
-                formDispatch({ type: "setowner", payload: e.target.value });
-              }}
-              value={formData.owner}
-            />
-            <Input
-              label="پلاک ماشین"
-              fun={(e) => {
-                formDispatch({ type: "setPlaque", payload: e.target.value });
-              }}
-              value={formData.plaque}
-            />
-            <div className="arrivalDate">
+            <span className="arrivalDate">
               <span>تاریخ ورود:</span>
               <DatePicker
                 timePicker={false}
@@ -124,9 +81,29 @@ export default function IncludeProduct() {
                   });
                 }}
               />
-            </div>
+            </span>
+            <ProductOwnerInput
+              label="نام صاحب بار*"
+              className="customeInputAndPicker"
+              onPick={(name, id) => {
+                formDispatch({
+                  type: "setowner",
+                  payload1: name,
+                  payload2: id,
+                });
+              }}
+              owner={formData && formData.owner}
+            />
             <Input
-              label="باسکول(kg)*"
+              id="plaque"
+              label="پلاک ماشین"
+              fun={(e) => {
+                formDispatch({ type: "setPlaque", payload: e.target.value });
+              }}
+              value={formData.plaque}
+            />
+            <Input
+              label="باسکول کل(kg)*"
               fun={(e) => {
                 formDispatch({
                   type: "setbasculeWeight",
@@ -135,12 +112,12 @@ export default function IncludeProduct() {
               }}
               value={formData.basculeWeight}
             />
-            <Input
-              label="تعداد*"
+            <ExpenseInput
+              label="کرایه*"
               fun={(e) => {
-                formDispatch({ type: "setamount", payload: e.target.value });
+                formDispatch({ type: "setportage", payload: e.target.value });
               }}
-              value={formData.amount}
+              value={formData.portage}
             />
             <Input
               label="کارمزد(٪)*"
@@ -159,13 +136,11 @@ export default function IncludeProduct() {
               }}
               value={formData.unload}
             />
-            <ExpenseInput
-              label="کرایه*"
-              fun={(e) => {
-                formDispatch({ type: "setportage", payload: e.target.value });
-              }}
-              value={formData.portage}
+            <IncludeProductTable
+              formDispatch={formDispatch}
+              products={formData.products}
             />
+            <IncludeProductInput formDispatch={formDispatch} />
             <ExpenseInput
               label="دستی*"
               fun={(e) => {
@@ -173,11 +148,8 @@ export default function IncludeProduct() {
               }}
               value={formData.cash}
             />
-          </Grid>
-          <br />
-
-          <Grid item xs={12}>
             <TextareaAutosize
+              className="ps-input"
               onChange={(e) => {
                 formDispatch({ type: "setPs", payload: e.target.value });
               }}
@@ -185,7 +157,10 @@ export default function IncludeProduct() {
               rowsMin={3}
               placeholder="پی نوشت"
             />
-            <br />
+          </Grid>
+          <br />
+
+          <Grid item xs={12}>
             <Button
               disabled={submit}
               onClick={handleSubmit}

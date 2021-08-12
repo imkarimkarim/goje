@@ -1,18 +1,15 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
 import DeleteIcon from "@material-ui/icons/Delete";
-import TableRow from "@material-ui/core/TableRow";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
 import { Link } from "react-router-dom";
 import "./ProductsTable.css";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
+import { isRangeOk } from "../../utils";
+
 // // TODO: calcs[] for factor(goje vision for not calculating over and over)
+
 export default function ProductsTable({ products, formDispatch, shouldLink }) {
   const [allUnFinishedProducts, setAllUnFinishedProducts] = useState();
   const { pushNotif } = useContext(NotifContext);
@@ -61,59 +58,85 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
         </thead>
         <tbody>
           {products && products.length > 0
-            ? products.map((p, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  {shouldLink === true ? (
-                    <td>
-                      <Link to={"/product/" + p.productId}>
-                        {p.productName}
-                      </Link>
-                    </td>
-                  ) : (
-                    <td>{p.productName}</td>
-                  )}
-                  <td>{p.amount}</td>
-                  <td>{p.weight}</td>
-                  <td>{<Expense num={p.price} />}</td>
-                  <td>
-                    {
-                      <Expense
-                        num={Math.round(100 * (p.price * p.weight)) / 100}
-                      />
-                    }
-                  </td>
-                  {formDispatch ? (
-                    isProductInUnfinishedProducts(p.productId) ? (
-                      <td
-                        onDoubleClick={() => {
-                          formDispatch({
-                            type: "removeProduct",
-                            payload: index,
-                          });
-                        }}
-                      >
-                        <DeleteIcon />
+            ? products.map((p, index) => {
+                const currentProduct = allUnFinishedProducts.filter(
+                  (product) => product.customeId == p.productId
+                )[0];
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    {shouldLink === true ? (
+                      <td>
+                        <Link to={"/product/" + p.productId}>
+                          {p.productName}
+                        </Link>
                       </td>
                     ) : (
-                      <td
-                        onDoubleClick={() => {
-                          setTimeout(function () {
-                            pushNotif(
-                              "error",
-                              "صافی این بار بسته شده است. امکان حذف وجود ندارد"
-                            );
-                          }, 10);
-                        }}
-                      >
-                        <DeleteIcon />
-                      </td>
-                    )
-                  ) : (
-                    <td></td>
-                  )}
-                </tr>
-              ))
+                      <td>{p.productName}</td>
+                    )}
+                    <td>{p.amount}</td>
+                    <td>{p.weight}</td>
+                    {currentProduct &&
+                    currentProduct.warningCalcs &&
+                    currentProduct.warningCalcs.productPriceLength != 0 ? (
+                      currentProduct.warningCalcs.productPriceLength !=
+                        p.price.toString().length &&
+                      !isRangeOk(
+                        p.price,
+                        currentProduct.warningCalcs.productPrice -
+                          (currentProduct.warningCalcs.productPrice * 1.5 -
+                            currentProduct.warningCalcs.productPrice),
+                        currentProduct.warningCalcs.productPrice * 1.5
+                      ) ? (
+                        <td className="notif-error">
+                          {<Expense num={p.price} />}
+                        </td>
+                      ) : (
+                        <td>{<Expense num={p.price} />}</td>
+                      )
+                    ) : (
+                      <td>{<Expense num={p.price} />}</td>
+                    )}
+
+                    <td>
+                      {
+                        <Expense
+                          num={Math.round(100 * (p.price * p.weight)) / 100}
+                        />
+                      }
+                    </td>
+                    {formDispatch ? (
+                      isProductInUnfinishedProducts(p.productId) ? (
+                        <td
+                          onDoubleClick={() => {
+                            formDispatch({
+                              type: "removeProduct",
+                              payload: index,
+                            });
+                          }}
+                        >
+                          <DeleteIcon />
+                        </td>
+                      ) : (
+                        <td
+                          onDoubleClick={() => {
+                            setTimeout(function () {
+                              pushNotif(
+                                "error",
+                                "صافی این بار بسته شده است. امکان حذف وجود ندارد"
+                              );
+                            }, 10);
+                          }}
+                        >
+                          <DeleteIcon />
+                        </td>
+                      )
+                    ) : (
+                      <td></td>
+                    )}
+                  </tr>
+                );
+              })
             : null}
         </tbody>
       </table>

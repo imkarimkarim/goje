@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import TextField from "@material-ui/core/TextField";
 import "./CustomerInput.css";
-import CustomePicker from './CustomePicker.jsx';
+import CustomerPicker from './CustomerPicker.jsx';
 
 const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
   const [allCustomers, setAllCustomers] = useState();
@@ -31,7 +31,7 @@ const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
   return (
     <span className="customeInputAndPicker">
       {showCustomerPicker && allCustomers ? (
-        <CustomePicker
+        <CustomerPicker
           customers={allCustomers}
           onPick={onPick}
           setShowCustomerPicker={setShowCustomerPicker}

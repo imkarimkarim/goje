@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require("electron");
 const path = require('path');
 require("./db");
 require('./ipcMains/ipcProducts');
+require('./ipcMains/ipcCars');
 require('./ipcMains/ipcCustomer');
 require('./ipcMains/ipcFactors');
 require('./ipcMains/ipcProductOwner')

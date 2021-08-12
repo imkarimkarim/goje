@@ -8,8 +8,6 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
-import Header from "../../Components/Header.jsx";
-import Footer from "../../Components/Footer.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import "./PrintProducts.css";
 import html2pdf from "html2pdf.js";
@@ -304,7 +302,7 @@ export default function PrintProducts() {
         (function (ind) {
           setTimeout(function () {
             getOneProduct(ids[ind]);
-          }, 100 + 1000 * ind);
+          }, 100 + 100 * ind);
         })(i);
       }
     }
@@ -326,7 +324,7 @@ export default function PrintProducts() {
   const sortProductsArray = (producs) => {
     if(!producs) return;
     producs.sort((a, b) => {
-      return a.finishDate - b.finishDate;
+      return a.arrivalDate - b.arrivalDate;
     }).reverse();
     return producs;
   }

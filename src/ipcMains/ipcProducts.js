@@ -9,6 +9,12 @@ ipcMain.on("getUnFinishedProducts", (event) => {
   });
 });
 
+ipcMain.on("getInCarProducts", (event, carId) => {
+  productDocs.getInCar(carId, (docs) => {
+    event.reply("getInCarProducts", docs);
+  });
+});
+
 ipcMain.on("searchInProducts", (event, searchFilters) => {
   productDocs.search(searchFilters, (docs) => {
     event.reply("searchInProducts", docs);
@@ -44,13 +50,6 @@ ipcMain.on("includeProduct", (event, product) => {
 });
 
 ipcMain.on("editProduct", (event, product) => {
-  // if (validateProduct(product)) {
-  //   productDocs.update(product._id, product, () => {
-  //     event.reply("editProduct", true);
-  //   });
-  // } else {
-  //   event.reply("editProduct", false);
-  // }
   validateProduct(product, (status, message) => {
     if (status === true) {
       productDocs.update(product._id, product, () => {

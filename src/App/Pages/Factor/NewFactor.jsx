@@ -77,6 +77,7 @@ export default function NewFactor() {
             <div>
               نقدی
               <Radio
+                id="isPayed"
                 checked={formData.isPayed === true}
                 style={{ color: "blue" }}
                 onChange={() => {

@@ -1,27 +1,207 @@
 const {
   productSchema,
+  carSchema,
   productOwnerSchema,
   customerSchema,
   factorSchema,
 } = require("../schemas");
 
-const isString = (str) => {
-  if (typeof str !== "string") return false;
-  return true;
-};
+const { isInt, isString, isRangeOk } = require('../App/utils');
 
-const isInt = (num) => {
-  if (typeof num == "number") return true;
-  return false;
-};
 
-const isRangeOk = (num, min, max) => {
-  if (isInt(num) && isInt(min) && isInt(max)) {
-    if (min <= num && max >= num) return true;
-    return false;
-  } else if (isInt(num) && isInt(min)) {
-    if (min <= num) return true;
-    return false;
+
+const validateCar = (car, callback) => {
+  if (!car) return false;
+  let errorMessage = ``;
+  let status = true;
+
+  const ps = carSchema.inputByUser;
+
+  // owner
+  if (car.owner === ps.owner.defaultValue) {
+    status = false;
+    errorMessage = `${errorMessage}
+     / صاحب بار انتخاب نشده است`;
+  }
+
+  // basculeWeight
+  if (car.basculeWeight === ps.basculeWeight.defaultValue) {
+    status = false;
+    errorMessage = `${errorMessage}
+     / باسکول وارد نشده است (درصورت نداشتن باسکول صفر وارد کنید)`;
+  } else if (!isInt(car.basculeWeight)) {
+    status = false;
+    errorMessage = `${errorMessage}
+     / باسکول باید عدد باشد`;
+  } else if (!isRangeOk(car.basculeWeight, ps.basculeWeight.range[0])) {
+    status = false;
+    errorMessage = `${errorMessage}
+     / باسکول نمیتواند منفی باشد`;
+  }
+
+  // commission
+  if (car.commission === ps.commission.defaultValue) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / کارمزد وارد نشده است`;
+  } else if (!isInt(car.commission)) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / کارمز باید عدد باشد`;
+  } else if (
+    !isRangeOk(car.commission, ps.commission.range[0], ps.commission.range[1])
+  ) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / کارمزد باید بین ۰ تا ۱۰۰ باشد`;
+  }
+
+  // unload
+  if (car.unload === ps.unload.defaultValue) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / تخلیه وارد نشده است (در صورت نداشتن تخلیه صفر وارد کنید)`;
+  } else if (!isInt(car.unload)) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / تخلیه باید عدد باشد`;
+  } else if (!isRangeOk(car.unload, ps.unload.range[0])) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / تخلیه نمیتواند منفی باشد`;
+  }
+
+  // portage
+  if (car.portage === ps.portage.defaultValue) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / کرایه وارد نشده است (در صورت نداشتن کرایه صفر وارد کنید)`;
+  } else if (!isInt(car.portage)) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / کرایه باید عدد باشد`;
+  } else if (!isRangeOk(car.portage, ps.portage.range[0])) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / کرایه نمیتواند منفی باشد`;
+  }
+
+  // cash
+  if (car.cash === ps.cash.defaultValue) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / دستی وارد نشده است (در صورت نداشتن دستی صفر وارد کنید)`;
+  } else if (!isInt(car.cash)) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / دستی باید عدد باشد`;
+  } else if (!isRangeOk(car.cash, ps.cash.range[0])) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / دستی نمیتواند منفی باشد`;
+  }
+
+  // plaque
+  if (!isRangeOk(car.plaque.length, ps.plaque.range[0], ps.plaque.range[1])) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / حداکثر تعداد کارکترهای مجاز برای پلاک ۱۶ کارکتر است`;
+  }
+
+  // ps
+  if (!isRangeOk(car.ps.length, ps.ps.range[0], ps.ps.range[1])) {
+    status = false;
+    errorMessage = `${errorMessage}
+   / حداکثر تعداد کارکترهای مجاز برای پی‌نوشت ۵۵۰ کارکتر است`;
+  }
+
+  // products
+  if (car.products.length === ps.products.defaultValue.length) {
+    status = false;
+    errorMessage = `${errorMessage}
+        / شرح باری وارد نشده است`;
+  } else if (
+    !isRangeOk(car.products.length, ps.products.range[0], ps.products.range[1])
+  ) {
+    status = false;
+    errorMessage = `${errorMessage}
+     / تعداد بارهای ورودی نمیتواند کمتر از ۱ و بیشتر از ۲۲ باشد`;
+  } else {
+    for (let i = 0; i < car.products.length; i++) {
+      const ppc = ps.products.childs;
+      const productName = car.products[i].productName;
+      const amount = car.products[i].amount;
+      const weight = car.products[i].weight;
+      const price = car.products[i].price;
+
+      // productName
+      if (productName === ppc.productName.defaultValue) {
+        status = false;
+        errorMessage = `${errorMessage}
+         / شرح بار وارد نشده است`;
+      } else if (!isString(productName)) {
+        status = false;
+        errorMessage = `${errorMessage}
+         / شرح بار باید متنی باشد`;
+      } else if (
+        !isRangeOk(
+          productName.length,
+          ppc.productName.range[0],
+          ppc.productName.range[1]
+        )
+      ) {
+        status = false;
+        errorMessage = `${errorMessage}
+         / تعداد کارکترهای مجاز برای شرح بار بین ۲ تا ۳۰ است`;
+      }
+
+      if (amount !== ppc.amount.defaultValue) {
+        if (!isInt(amount)) {
+          status = false;
+          errorMessage = `${errorMessage}
+         / در سطر شماره ${i + 1}
+         تعداد باید عدد باشد`;
+        } else if (!isRangeOk(amount, ppc.amount.range[0])) {
+          status = false;
+          errorMessage = `${errorMessage}
+         / در سطر شماره ${i + 1}
+         تعداد نمیتواند منفی باشد`;
+        }
+      }
+
+      if (weight !== ppc.weight.defaultValue) {
+        if (!isInt(weight)) {
+          status = false;
+          errorMessage = `${errorMessage}
+     / در سطر شماره ${i + 1}
+     وزن باید عدد باشد`;
+        } else if (!isRangeOk(weight, ppc.weight.range[0])) {
+          status = false;
+          errorMessage = `${errorMessage}
+     / در سطر شماره ${i + 1}
+     وزن نمیتواند منفی باشد`;
+        }
+      }
+
+console.log(price, ppc.price.defaultValue);
+      if (price !== ppc.price.defaultValue) {
+        if (!isInt(price)) {
+          status = false;
+          errorMessage = `${errorMessage}
+     / در سطر شماره ${i + 1}
+     فی باید عدد باشد`;
+        } else if (!isRangeOk(price, ppc.price.range[0])) {
+          status = false;
+          errorMessage = `${errorMessage}
+     / در سطر شماره ${i + 1}
+     فی نمیتواند منفی باشد`;
+        }
+      }
+    }
+  }
+
+  if (typeof callback === "function") {
+    callback(status, errorMessage);
   }
 };
 
@@ -378,4 +558,5 @@ module.exports = {
   validateCustomer,
   validateFactor,
   validateProductOwner,
+  validateCar,
 };

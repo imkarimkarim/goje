@@ -13,7 +13,7 @@ export const oneMonth = oneDay * 30;
 export const oneYear = oneMonth * 12;
 
 const persianNumberToEnglish = (num) => {
-  if (!num) return;
+  if (!num) return num;
   num = num
     .replace(/۰/g, "0")
     .replace(/۱/g, "1")
@@ -30,8 +30,47 @@ const persianNumberToEnglish = (num) => {
 
 export const convertToIntIfIsNumber = (number) => {
   number = persianNumberToEnglish(number);
-  if (!isNaN(number) && number !== "" && typeof number == "string") {
+  if (
+    !isNaN(number) &&
+    number !== "" &&
+    typeof number == "string" &&
+    number.toString().length != 0
+  ) {
     return parseInt(number);
+  } else {
+    return number;
   }
-  return number;
+};
+
+export const productsToString = (products) => {
+  if (!products) return;
+  let string = "";
+  for (let i = 0; i < products.length; i++) {
+    if (i === products.length - 1) {
+      string = string + products[i].productName;
+    } else {
+      string = string + products[i].productName + "، ";
+    }
+  }
+  return string;
+};
+
+export const isRangeOk = (num, min, max) => {
+  if (isInt(num) && isInt(min) && isInt(max)) {
+    if (min <= num && max >= num) return true;
+    return false;
+  } else if (isInt(num) && isInt(min)) {
+    if (min <= num) return true;
+    return false;
+  }
+};
+
+export const isString = (str) => {
+  if (typeof str !== "string") return false;
+  return true;
+};
+
+export const isInt = (num) => {
+  if (typeof num == "number") return true;
+  return false;
 };

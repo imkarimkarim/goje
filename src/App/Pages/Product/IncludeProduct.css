@@ -1,26 +1,32 @@
-.IncludeProduct-form{
-
+.IncludeProduct-form {
 }
 
 form .MuiFormControl-root {
   margin: 10px;
 }
 
-.MuiGrid-grid-xs-12{
+.MuiGrid-grid-xs-12 {
   text-align: center;
 }
 
-.IncludeProduct-form .arrivalDate{
+.IncludeProduct-form .arrivalDate {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
 }
 
-.IncludeProduct-form .arrivalDate span{
+.IncludeProduct-form .ps-input {
+  margin: 0px 0px -25px 0px;
+  font-family: "VazirMedium";
+  height: 55px;
+  width: 560px;
+}
+
+.IncludeProduct-form .arrivalDate span {
   margin-left: 10px;
 }
 
-form .MuiButton-outlinedPrimary{
+form .MuiButton-outlinedPrimary {
   width: 80%;
 }

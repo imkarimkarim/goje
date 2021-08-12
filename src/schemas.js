@@ -1,7 +1,8 @@
 export const productSchema = {
   inputByUser: {
     productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
-    owner: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    owner: { type: 'string', required: true, range: [], defaultValue: ''},
+    ownerId: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
     basculeWeight: { type: 'number', required: true, range: [0], defaultValue: '' },
     amount: { type: 'number', required: true, range: [0], defaultValue: '', value: '' },
     arrivalDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
@@ -13,10 +14,18 @@ export const productSchema = {
     cash: { type: 'number', required: true, range: [0], defaultValue: '' },
     plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
     ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
+    inCar: { type: 'string', required: true, range: [], defaultValue: ''},
   },
   autoInput: {
     docType: { type: 'string', required: true, range: [], defaultValue: 'product'},
     customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+    warningCalcs: {
+      productPriceLength: "productPriceLength",
+      productPrice: "price",
+      averageAmount: "averageAmount",
+      averageWeigth: "averageWeigth",
+    },
+    // New: cardId
   }
 }
 
@@ -132,6 +141,50 @@ export const generateInputByUserFactorSchema = () => {
   const keys = Object.keys(factorSchema.inputByUser);
   for(let i = 0; i < keys.length; i++){
     schema[keys[i]] = factorSchema.inputByUser[keys[i]].defaultValue;
+  }
+  return schema;
+}
+
+
+export const carSchema = {
+  inputByUser: {
+    owner: { type: 'string', required: true, range: [], defaultValue: ''},
+    ownerId: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    products: { type: 'array', required: true, range: [0, 22], defaultValue: [],
+    childs: {
+        productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
+        amount: { type: 'number', required: true, range: [0], defaultValue: '' },
+        weight: { type: 'number', required: true, range: [0], defaultValue: '' },
+        price: { type: 'number', required: true, range: [0], defaultValue: '' },
+    }},
+    basculeWeight: { type: 'number', required: true, range: [0], defaultValue: '' },
+    arrivalDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
+    printDate: { type: 'number', required: true, range: [], defaultValue: false},
+    commission: { type: 'number', required: true, range: [0, 100], defaultValue: '' },
+    unload: { type: 'number', required: true, range: [0], defaultValue: '' },
+    portage: { type: 'number', required: true, range: [0], defaultValue: '' },
+    cash: { type: 'number', required: true, range: [0], defaultValue: '' },
+    plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
+    ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
+    isPrinted: { type: 'boolean', required: true, range: [], defaultValue: false },
+    warningCalcs: { type: 'object', require: true, range: [], defaultValue: {},
+    childs: {
+      productPriceLength: "productPriceLength",
+      averageAmount: 1,
+      averageWeigth: "averageWeigth",
+    }}
+  },
+  autoInput: {
+    docType: { type: 'string', required: true, range: [], defaultValue: 'car'},
+    customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+  }
+}
+
+export const generateInputByUserCarSchema = () => {
+  let schema = {};
+  const keys = Object.keys(carSchema.inputByUser);
+  for(let i = 0; i < keys.length; i++){
+    schema[keys[i]] = carSchema.inputByUser[keys[i]].defaultValue;
   }
   return schema;
 }

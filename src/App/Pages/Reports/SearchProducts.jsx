@@ -88,7 +88,7 @@ export default function SearchProducts() {
                 product.owner +
                 " (" +
                 product.basculeWeight +
-                ")"
+                "kg)"
               }
               titleHint={
                 <span>
@@ -122,7 +122,7 @@ export default function SearchProducts() {
                 product.owner +
                 " (" +
                 product.basculeWeight +
-                ")"
+                "kg)"
               }
               titleHint={
                 <span>
@@ -152,8 +152,8 @@ export default function SearchProducts() {
         onSubmit={(newSearchState) => {
           handleNewSearch(newSearchState);
         }}
-        label1="صافی های باز"
-        label2="صافی های بسته"
+        label1="بارهای تمام نشده"
+        label2="بارهای تمام شده"
         placeholder="شرح یا صاحب بار"
       />
       {products ? (

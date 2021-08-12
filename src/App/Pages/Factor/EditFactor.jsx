@@ -27,24 +27,10 @@ import ShowDate from "../../Components/ShowDate.jsx";
 import reducer from "../../Reducers/EditFactorReducer.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
-const factorSchema = {
-  docType: "factor",
-  owner: "",
-  ownerName: "",
-  customeId: "",
-  isPayed: "",
-  factorDate: 0,
-  changeDate: 0,
-  products: [],
-  calcs: [],
-  pays: [],
-  id: "",
-};
-
 export default function EditFactor() {
-  const [formData, formDispatch] = useReducer(reducer, factorSchema);
+  const [formData, formDispatch] = useReducer(reducer, {});
   const [submit, setSubmit] = useState(false);
-  const [editStatue, setEditStatue] = useState(null);
+  const [editStatus, setEditStatus] = useState(null);
   const init = useRef(true);
   let { id } = useParams();
   const { pushNotif } = useContext(NotifContext);
@@ -72,15 +58,15 @@ export default function EditFactor() {
       formDispatch({ type: "setForm", payload: oneFactor });
     });
 
-    ipcRenderer.on("editFactor", (event, editStatue) => {
+    ipcRenderer.on("editFactor", (event, editStatus) => {
       setSubmit(false);
-      setEditStatue(editStatue);
-      if (editStatue !== null) {
-        if (editStatue === true) {
-          pushNotif("success", "ویرایش با موفقیت انجام شد");
+      setEditStatus(editStatus.status);
+      if (editStatus.status !== null) {
+        if (editStatus.status === true) {
+          pushNotif("success", editStatus.message);
         }
-        if (editStatue === false) {
-          pushNotif("error", "حطا در ویرایش");
+        if (editStatus.status === false) {
+          pushNotif("error", editStatus.message);
         }
       }
     });
