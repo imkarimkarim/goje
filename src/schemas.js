@@ -161,6 +161,12 @@ export const carSchema = {
     plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
     ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
     isPrinted: { type: 'boolean', required: true, range: [], defaultValue: false },
+    warningCalcs: { type: 'object', require: true, range: [], defaultValue: {},
+    childs: {
+      productPriceLength: "productPriceLength",
+      averageAmount: 1,
+      averageWeigth: "averageWeigth",
+    }}
   },
   autoInput: {
     docType: { type: 'string', required: true, range: [], defaultValue: 'car'},

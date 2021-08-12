@@ -5,6 +5,11 @@ const createProductsBasedOnCar = (car, carId, callback) => {
       car.products[i].weight === "" ? 0 : car.products[i].weight;
     const amount = car.products[i].amount === "" ? 0 : car.products[i].amount;
     const price = car.products[i].price === "" ? 0 : car.products[i].price;
+    const productPriceLength = price === 0 ? 0 : price.toString().length;
+    const averageAmount = amount > 0 ? 1 : amount;
+    const averageWeigth =
+      basculeWeight > 0 ? basculeWeight / amount : basculeWeight;
+
     products.push({
       productName: car.products[i].productName,
       owner: car.owner,
@@ -21,8 +26,14 @@ const createProductsBasedOnCar = (car, carId, callback) => {
       plaque: car.plaque,
       ps: "",
       inCar: carId,
+      warningCalcs: {
+        productPriceLength: productPriceLength,
+        averageAmount: averageAmount,
+        averageWeigth: averageWeigth,
+      },
     });
   }
+
   if (typeof callback === "function") {
     callback(products);
   }

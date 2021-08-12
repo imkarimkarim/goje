@@ -10,7 +10,7 @@ import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import Nav from "../../Components/Nav.jsx";
-import { productsToString } from "../../utils.js";
+import { productsToString, isRangeOk } from "../../utils.js";
 import "./Car.css";
 
 function InfoSection({ car }) {
@@ -35,13 +35,16 @@ function InfoSection({ car }) {
           </div>
 
           <div>
-            <span>گزارش</span>
+            <span>وضعیت</span>
             <span>: </span>
             <span>
               {car.isPrinted ? (
-                <ShowDate timestamp={car.printDate} />
+                <span>
+                  گزارش گرفته شد(
+                  <ShowDate timestamp={car.printDate} />)
+                </span>
               ) : (
-                <span className="red-color"> گزارش گرفته نشده است</span>
+                <span className="yellow-color"> گزارش گرفته نشده است</span>
               )}
             </span>
           </div>
@@ -51,6 +54,11 @@ function InfoSection({ car }) {
             <span>پلاک</span>
             <span>: </span>
             <span>{car.plaque}</span>
+          </div>
+          <div>
+            <span>کد ماشین</span>
+            <span>: </span>
+            <span>{car.customeId}</span>
           </div>
           <div>
             <span>باسکول کل</span>
@@ -82,7 +90,6 @@ function SaleSection({ products, car }) {
   }
 
   useEffect(() => {
-    // console.log(products, car, salesInfos);
     if (init.current) {
       init.current = false;
       for (let i = 0; i < products.length; i++) {
@@ -126,12 +133,30 @@ function SaleSection({ products, car }) {
               <tbody>
                 {salesInfos.map((s, index) => {
                   let color;
-                  if (
-                    products[index].weight < car.products[index].weight - 100 ||
-                    products[index].amount < car.products[index].amount - 1
-                  ) {
-                    color = "red";
+                  // turn the record color to red if amount or weight for sale are out of range
+                  if (products[index].basculeWeight !== 0) {
+                    if (
+                      !isRangeOk(
+                        salesInfos[index].SUM_KG,
+                        products[index].basculeWeight - 99,
+                        products[index].basculeWeight
+                      )
+                    ) {
+                      color = "red";
+                    }
                   }
+                  if (products[index].amount !== 0) {
+                    if (
+                      !isRangeOk(
+                        salesInfos[index].SUM_AMOUNT,
+                        products[index].amount,
+                        products[index].amount
+                      )
+                    ) {
+                      color = "red";
+                    }
+                  }
+
                   return (
                     <tr key={index}>
                       <td>
@@ -142,10 +167,20 @@ function SaleSection({ products, car }) {
                         </Link>
                       </td>
                       <td>
-                        <span className={color + "-color"}>{s.SUM_AMOUNT}</span>
+                        <span className={color + "-color"}>
+                          <span className="hint">
+                            ({products[index].amount})
+                          </span>
+                          {"  " + s.SUM_AMOUNT}
+                        </span>
                       </td>
                       <td>
-                        <span className={color + "-color"}>{s.SUM_KG}</span>
+                        <span className={color + "-color"}>
+                          <span className="hint">
+                            ({products[index].basculeWeight})
+                          </span>
+                          {"  " + s.SUM_KG}
+                        </span>
                       </td>
                       <td>
                         <span className={color + "-color"}>
@@ -226,7 +261,7 @@ function SaleSection({ products, car }) {
               {fullSum -
                 (sumSaleCommission + car.portage + car.unload + car.cash) >
               0 ? (
-                <span className="green-color">
+                <span>
                   <Expense
                     num={
                       fullSum -

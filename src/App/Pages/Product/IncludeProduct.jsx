@@ -40,6 +40,18 @@ export default function IncludeProduct() {
     ipcRenderer.send("includeCar", car);
   };
 
+  const handleKeyBoardEvent = (e) => {
+    if (e.key === "Enter") handleSubmit();
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyBoardEvent);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyBoardEvent);
+    };
+  });
+
   useEffect(() => {
     ipcRenderer.on("includeCar", (event, createStatus) => {
       setSubmit(false);

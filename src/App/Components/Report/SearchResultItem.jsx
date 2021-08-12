@@ -10,8 +10,7 @@ import "./SearchResultItem.css";
 const SearchResultItem = React.memo(
   ({ itemTitle, titleHint, customeId, onChecked, to }) => {
     const [checked, setChecked] = useState(false);
-
-    return (
+    return onChecked ? (
       <div className="SearchResultItem">
         <Divider />
         <ListItem button>
@@ -38,6 +37,17 @@ const SearchResultItem = React.memo(
             <span></span>
           )}
         </ListItem>
+      </div>
+    ) : (
+      <div className="SearchResultItem">
+        <Divider />
+        <Link to={to}>
+          <ListItem button>
+            <div>
+              {itemTitle} <span className="hint"> {titleHint}</span>
+            </div>
+          </ListItem>
+        </Link>
       </div>
     );
   }

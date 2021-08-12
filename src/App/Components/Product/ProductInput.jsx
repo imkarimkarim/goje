@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
 import "./ProductInput.css";
-import CustomePicker from "./CustomePicker.jsx";
+import ProductPicker from "./ProductPicker.jsx";
 
 // TODO: also up/down with arrow keys
 
@@ -14,7 +14,7 @@ const defaultState = { name: "", id: "" };
 const ProductInput = React.memo(({ formDispatch, label }) => {
   const [productState, setProductState] = useState(defaultState);
   const [allproducts, setAllproducts] = useState();
-  const [showCustomerPicker, setShowCustomerPicker] = useState(false);
+  const [showProductPicker, setShowProductPicker] = useState(false);
   const [amount, setAmount] = useState("");
   const [weight, setWeight] = useState("");
   const [price, setPrice] = useState("");
@@ -42,7 +42,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
   const handleFocus = (e) => {
     getUnFinishedProducts();
     setProductState({ name: "", id: "" });
-    setShowCustomerPicker(true);
+    setShowProductPicker(true);
   };
 
   useEffect(() => {
@@ -57,12 +57,12 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
 
   return (
     <div className="productInput-wrapper">
-      {showCustomerPicker && allproducts ? (
-        <CustomePicker
+      {showProductPicker && allproducts ? (
+        <ProductPicker
           products={allproducts}
           setProductState={setProductState}
           productState={productState}
-          setShowCustomerPicker={setShowCustomerPicker}
+          setShowProductPicker={setShowProductPicker}
         />
       ) : (
         ""

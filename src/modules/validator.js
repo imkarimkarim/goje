@@ -6,25 +6,9 @@ const {
   factorSchema,
 } = require("../schemas");
 
-const isString = (str) => {
-  if (typeof str !== "string") return false;
-  return true;
-};
+const { isInt, isString, isRangeOk } = require('../App/utils');
 
-const isInt = (num) => {
-  if (typeof num == "number") return true;
-  return false;
-};
 
-const isRangeOk = (num, min, max) => {
-  if (isInt(num) && isInt(min) && isInt(max)) {
-    if (min <= num && max >= num) return true;
-    return false;
-  } else if (isInt(num) && isInt(min)) {
-    if (min <= num) return true;
-    return false;
-  }
-};
 
 const validateCar = (car, callback) => {
   if (!car) return false;
@@ -199,6 +183,7 @@ const validateCar = (car, callback) => {
         }
       }
 
+console.log(price, ppc.price.defaultValue);
       if (price !== ppc.price.defaultValue) {
         if (!isInt(price)) {
           status = false;

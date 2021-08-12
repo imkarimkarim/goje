@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import TextField from "@material-ui/core/TextField";
 import "./ProductOwnerInput.css";
-import CustomePicker from './CustomePicker.jsx';
+import ProductOwnerPicker from './ProductOwnerPicker.jsx';
 
 const ProductOwnerInput = React.memo(({ owner, onPick, label }) => {
   const [allProductOwners, setAllProductOwners] = useState();
@@ -31,7 +31,7 @@ const ProductOwnerInput = React.memo(({ owner, onPick, label }) => {
   return (
     <span className="customeInputAndPicker">
       {showProductOwnerPicker && allProductOwners ? (
-        <CustomePicker
+        <ProductOwnerPicker
           productOwners={allProductOwners}
           onPick={onPick}
           setShowProductOwnerPicker={setShowProductOwnerPicker}

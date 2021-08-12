@@ -34,6 +34,18 @@ export default function NewFactor() {
     ipcRenderer.send("addNewFactor", factor);
   };
 
+  const handleKeyBoardEvent = (e) => {
+    if (e.key === "Enter") handleSubmit();
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyBoardEvent);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyBoardEvent);
+    };
+  });
+
   useEffect(() => {
     ipcRenderer.on("addNewFactor", (event, createStatus) => {
       setSubmit(false);
