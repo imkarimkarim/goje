@@ -47,18 +47,6 @@ export default function EditProduct() {
     ipcRenderer.send("getOneProduct", id);
   };
 
-  const handleKeyBoardEvent = (e) => {
-    if (e.key === "Enter") handleSubmit();
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyBoardEvent);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyBoardEvent);
-    };
-  });
-
   useEffect(() => {
     if (init.current) {
       getOneProduct(id);

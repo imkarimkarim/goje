@@ -28,6 +28,7 @@ const createProductsBasedOnCar = (car, carId, callback) => {
       inCar: carId,
       warningCalcs: {
         productPriceLength: productPriceLength,
+        productPrice: price,
         averageAmount: averageAmount,
         averageWeigth: averageWeigth,
       },

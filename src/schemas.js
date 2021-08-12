@@ -19,6 +19,12 @@ export const productSchema = {
   autoInput: {
     docType: { type: 'string', required: true, range: [], defaultValue: 'product'},
     customeId: { type: 'string', required: true, range: [], defaultValue: ''},
+    warningCalcs: {
+      productPriceLength: "productPriceLength",
+      productPrice: "price",
+      averageAmount: "averageAmount",
+      averageWeigth: "averageWeigth",
+    },
     // New: cardId
   }
 }

@@ -32,7 +32,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
     setAmount("");
     setWeight("");
     setPrice("");
-    document.getElementById("focusOnMe1").focus();
+    document.getElementById("productName").focus();
   };
 
   const getUnFinishedProducts = () => {
@@ -68,7 +68,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
         ""
       )}
       <TextField
-        id="focusOnMe1"
+        id="productName"
         size="small"
         variant="outlined"
         value={productState.name}
@@ -76,7 +76,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
         onFocus={handleFocus}
       />
       <Input
-        id="focusOnMe2"
+        id="productAmount"
         value={amount}
         label="تعداد*"
         fun={(e) => {

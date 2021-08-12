@@ -31,6 +31,7 @@ const CustomerPicker = React.memo(
         onClick={() => {
           onPick(customers[index].customeId, customers[index].name);
           setShowCustomerPicker(false);
+          document.getElementById("isPayed").focus();
         }}
         key={index}
         className={index % 2 ? "ListItemOdd" : "ListItemEven"}

@@ -40,18 +40,6 @@ export default function IncludeProduct() {
     ipcRenderer.send("includeCar", car);
   };
 
-  const handleKeyBoardEvent = (e) => {
-    if (e.key === "Enter") handleSubmit();
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyBoardEvent);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyBoardEvent);
-    };
-  });
-
   useEffect(() => {
     ipcRenderer.on("includeCar", (event, createStatus) => {
       setSubmit(false);
@@ -107,6 +95,7 @@ export default function IncludeProduct() {
               owner={formData && formData.owner}
             />
             <Input
+              id="plaque"
               label="پلاک ماشین"
               fun={(e) => {
                 formDispatch({ type: "setPlaque", payload: e.target.value });

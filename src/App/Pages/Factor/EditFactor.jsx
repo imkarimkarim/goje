@@ -48,18 +48,6 @@ export default function EditFactor() {
     ipcRenderer.send("getOneFactor", id);
   };
 
-  const handleKeyBoardEvent = (e) => {
-    if (e.key === "Enter") handleSubmit();
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyBoardEvent);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyBoardEvent);
-    };
-  });
-
   useEffect(() => {
     if (init.current) {
       getOneFactor(id);

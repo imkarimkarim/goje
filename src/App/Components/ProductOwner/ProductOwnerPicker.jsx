@@ -31,6 +31,7 @@ const ProductOwnerPicker = React.memo(
         onClick={() => {
           onPick(productOwners[index].name, productOwners[index].customeId);
           setShowProductOwnerPicker(false);
+          document.getElementById("plaque").focus();
         }}
         key={index}
         className={index % 2 ? "ListItemOdd" : "ListItemEven"}

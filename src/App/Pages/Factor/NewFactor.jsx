@@ -34,18 +34,6 @@ export default function NewFactor() {
     ipcRenderer.send("addNewFactor", factor);
   };
 
-  const handleKeyBoardEvent = (e) => {
-    if (e.key === "Enter") handleSubmit();
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyBoardEvent);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyBoardEvent);
-    };
-  });
-
   useEffect(() => {
     ipcRenderer.on("addNewFactor", (event, createStatus) => {
       setSubmit(false);
@@ -89,6 +77,7 @@ export default function NewFactor() {
             <div>
               نقدی
               <Radio
+                id="isPayed"
                 checked={formData.isPayed === true}
                 style={{ color: "blue" }}
                 onChange={() => {

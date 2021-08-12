@@ -20,7 +20,7 @@ const IncludeProductInput = React.memo(({ formDispatch }) => {
       payload: state,
     });
     setState(defaultState);
-    document.getElementById("focusOnMe1").focus();
+    document.getElementById("productName").focus();
   };
 
   return (
@@ -28,7 +28,7 @@ const IncludeProductInput = React.memo(({ formDispatch }) => {
       <span>اضافه کردن بار:</span>
       <hr />
       <Input
-        id="focusOnMe1"
+        id="productName"
         value={state.productName}
         label="شرح*"
         fun={(e) => {

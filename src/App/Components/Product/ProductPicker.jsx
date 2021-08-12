@@ -6,6 +6,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import Input from "../Input.jsx";
 import ShowDate from "../ShowDate.jsx";
 import "./ProductPicker.css";
+import InfoIcon from "@material-ui/icons/Info";
 
 export default function ProductPicker({
   products,
@@ -42,7 +43,7 @@ export default function ProductPicker({
           name: products[index].productName,
           id: products[index].customeId,
         });
-        document.getElementById("focusOnMe2").focus();
+        document.getElementById("productAmount").focus();
       }}
       key={index}
       className={index % 2 ? "ListItemOdd" : "ListItemEven"}
@@ -52,6 +53,18 @@ export default function ProductPicker({
       <span className="hint">
         {products[index].plaque} -{" "}
         <ShowDate timestamp={products[index].arrivalDate} />
+        {products[index].warningCalcs &&
+        products[index].warningCalcs.averageWeigth !== 0 &&
+        products[index].warningCalcs.productPrice !== 0 ? (
+          <span
+            title={`میانگین وزن:  ${products[index].warningCalcs.averageWeigth}
+            فی حدودی: ${products[index].warningCalcs.productPrice}`}
+          >
+            <InfoIcon fontSize="small" />
+          </span>
+        ) : (
+          <span></span>
+        )}
       </span>
     </ListItem>
   );
