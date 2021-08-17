@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Welcome from "./Pages/Welcome/Welcome.jsx";
 import Container from "@material-ui/core/Container";
-import IncludeProduct from "./Pages/Product/IncludeProduct.jsx";
+import IncludeCar from "./Pages/Car/IncludeCar.jsx";
 import NewFactor from "./Pages/Factor/NewFactor.jsx";
 import NewName from "./Pages/NewName/NewName.jsx";
 import Reports from "./Pages/Reports/Reports.jsx";
@@ -46,7 +46,7 @@ export default function App() {
           <NotifProvider>
             <Notif />
             <Route path="/welcome" component={Welcome} />
-            <Route path="/includeProduct" component={IncludeProduct} />
+            <Route path="/includeCar" component={IncludeCar} />
             <Route path="/newFactor" component={NewFactor} />
             <Route path="/newName" component={NewName} />
             <Route path="/reports" component={Reports} />

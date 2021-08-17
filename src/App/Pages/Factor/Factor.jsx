@@ -11,7 +11,7 @@ import Nav from "../../Components/Nav.jsx";
 import Loading from "../../Components/Loading.jsx";
 import Conclusion from "../../Components/Factor/Conclusion.jsx";
 import Expense from "../../Components/Expense.jsx";
-import ProductsTable from "../../Components/Factor/ProductsTable.jsx";
+import FactorProductsTable from "../../Components/Factor/FactorProductsTable.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import Pays from "../../Components/Factor/Pays.jsx";
 import "./Factor.css";
@@ -70,7 +70,7 @@ export default function Factor() {
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>
-            <ProductsTable shouldLink={true} products={factor.products} />
+            <FactorProductsTable shouldLink={true} products={factor.products} />
             <Conclusion products={factor.products} pays={factor.pays} />
           </Grid>
           <Divider />

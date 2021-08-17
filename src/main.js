@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const path = require('path');
+
 require("./db");
 require('./ipcMains/ipcProducts');
 require('./ipcMains/ipcCars');

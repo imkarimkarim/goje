@@ -11,21 +11,6 @@ const sortCarArray = (cars) => {
   return cars;
 };
 
-// const getUnPrinted = (callback) => {
-//   db.find(
-//     { $and: [{ docType: "car" }, { isPrinted: false }] },
-//     function (err, docs) {
-//       if (err) throw err;
-//       if (typeof callback === "function") {
-//         if(docs) {
-//           docs = sortCarArray(docs);
-//           callback(docs);
-//         }
-//       }
-//     }
-//   );
-// };
-
 const search = (searchFilters, callback) => {
   if (!searchFilters) return;
   const sf = searchFilters;
@@ -91,21 +76,6 @@ const search = (searchFilters, callback) => {
   }
 };
 
-// const getFinished = (callback) => {
-//   db.find(
-//     { $and: [{ docType: "product" }, { isProductFinish: true }] },
-//     function (err, docs) {
-//       if (err) throw err;
-//       if (typeof callback === "function") {
-//         if(docs) {
-//           docs = sortCarArray(docs);
-//           callback(docs);
-//         }
-//       }
-//     }
-//   );
-// };
-
 const getOne = (id, callback) => {
   if (!id) return;
   db.findOne({ customeId: id }, function (err, doc) {
@@ -162,10 +132,6 @@ const update = (id, car, callback) => {
     }
   );
 };
-
-// getUnFinished,
-// getFinished,
-// getAll,
 
 module.exports = {
   getOne,

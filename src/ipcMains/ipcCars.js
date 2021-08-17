@@ -22,10 +22,13 @@ ipcMain.on("includeCar", (event, car) => {
     if (status === true) {
       carDocs.insert(car, (newCar) => {
         createProductsBasedOnCar(car, newCar.customeId, (products) => {
+          // inserting each product based on
+          // objects created by createProductsBasedOnCar
           for (let i = 0; i < products.length; i++) {
             (function (ind) {
               setTimeout(function () {
                 productDocs.insert(products[i], (newProduct) => {
+                  // saving product customeId for later use cases on car object
                   newCar.products[i].customeId = newProduct.customeId;
                   if (i === products.length - 1) {
                     carDocs.update(newCar._id, newCar, () => {

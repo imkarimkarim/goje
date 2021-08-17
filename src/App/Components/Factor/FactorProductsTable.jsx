@@ -4,15 +4,15 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
-import ProductInputEditor from "../Product/ProductInputEditor.jsx";
+import FactorProductInputEditor from "../Factor/FactorProductInputEditor.jsx";
 import { Link } from "react-router-dom";
-import "./ProductsTable.css";
+import "./FactorProductsTable.css";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import { isRangeOk } from "../../utils";
 
 // // TODO: calcs[] for factor(goje vision for not calculating over and over)
 
-export default function ProductsTable({ products, formDispatch, shouldLink }) {
+export default function FactorProductsTable({ products, formDispatch, shouldLink }) {
   const [allUnFinishedProducts, setAllUnFinishedProducts] = useState();
   const { pushNotif } = useContext(NotifContext);
   const init = useRef(true);
@@ -47,9 +47,9 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
   });
 
   return (
-    <div className="ProductsTable">
+    <div className="FactorProductsTable">
       {productToEdit ? (
-        <ProductInputEditor
+        <FactorProductInputEditor
           formDispatch={formDispatch}
           label="شرح بار*"
           state={productToEdit}

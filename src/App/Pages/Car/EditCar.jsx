@@ -19,8 +19,8 @@ import Input from "../../Components/Input.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./EditCar.css";
 import reducer from "../../Reducers/EditCarReducer.jsx";
-import EditCarTable from "../../Components/Car/EditCarTable.jsx";
-import IncludeProductInput from "../../Components/Car/IncludeProductInput.jsx";
+import CarEditableTable from "../../Components/Car/CarEditableTable.jsx";
+import CarProductInput from "../../Components/Car/CarProductInput.jsx";
 import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import { generateInputByUserCarSchema } from "../../../schemas.js";
@@ -150,12 +150,12 @@ export default function EditCar() {
               }}
               value={formData.unload}
             />
-            <EditCarTable
+            <CarEditableTable
               formDispatch={formDispatch}
               products={formData.products}
               handleSubmit={handleSubmit}
             />
-            <IncludeProductInput formDispatch={formDispatch} />
+            <CarProductInput formDispatch={formDispatch} />
             <ExpenseInput
               label="دستی*"
               fun={(e) => {

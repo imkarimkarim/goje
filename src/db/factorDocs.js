@@ -3,11 +3,13 @@ const autoFiller = require("../modules/autoFiller");
 const calcSumFactor = require("../calculators/calcSumFactor");
 
 const sortFactorsArray = (factors, reverse = true) => {
-  if(!factors) return;
-  if(reverse){
-    factors.sort((a, b) => {
-      return a.factorDate - b.factorDate;
-    }).reverse();
+  if (!factors) return;
+  if (reverse) {
+    factors
+      .sort((a, b) => {
+        return a.factorDate - b.factorDate;
+      })
+      .reverse();
   } else {
     factors.sort((a, b) => {
       return a.factorDate - b.factorDate;
@@ -15,13 +17,13 @@ const sortFactorsArray = (factors, reverse = true) => {
   }
 
   return factors;
-}
+};
 
 const getAll = (callback) => {
   db.find({ docType: "factor" }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
-      if(docs){
+      if (docs) {
         docs = sortFactorsArray(docs);
         callback(docs);
       }
@@ -49,7 +51,7 @@ const withProduct = (id, callback) => {
   db.find({ "products.productId": id }, (err, docs) => {
     if (err) throw err;
     if (typeof callback === "function") {
-      if(docs){
+      if (docs) {
         docs = sortFactorsArray(docs);
         callback(docs);
       }
@@ -64,15 +66,15 @@ const factorsWithFactordate = (fromm, till, callback) => {
     {
       $and: [
         { docType: "factor" },
-        { 'factorDate': { $gte: fromm } },
-        { 'factorDate': { $lte: till } },
-        { 'isPayed': false }
+        { factorDate: { $gte: fromm } },
+        { factorDate: { $lte: till } },
+        { isPayed: false },
       ],
     },
     function (err, docs) {
       if (err) throw err;
       if (typeof callback === "function") {
-        if(docs){
+        if (docs) {
           docs = sortFactorsArray(docs, false);
           callback(docs);
         }
@@ -96,7 +98,7 @@ const search = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
-          if(docs){
+          if (docs) {
             docs = sortFactorsArray(docs);
             callback(docs);
           }
@@ -116,7 +118,7 @@ const search = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
-          if(docs){
+          if (docs) {
             docs = sortFactorsArray(docs);
             callback(docs);
           }
@@ -136,7 +138,7 @@ const search = (searchFilters, callback) => {
       function (err, docs) {
         if (err) throw err;
         if (typeof callback === "function") {
-          if(docs){
+          if (docs) {
             docs = sortFactorsArray(docs);
             callback(docs);
           }
@@ -159,22 +161,18 @@ const insert = (factor, callback) => {
 const update = (id, factor, callback) => {
   calcSumFactor.calculate(factor.products, factor.pays, (calcs) => {
     factor.calcs = calcs;
-    db.update({ _id: id }, {
-      docType: factor.docType,
-      owner: factor.owner,
-      ownerName: factor.ownerName,
-      customeId: factor.customeId,
-      isPayed: factor.isPayed,
-      factorDate: factor.factorDate,
-      changeDate: factor.changeDate,
-      products: factor.products,
-      calcs: factor.calcs,
-      pays: factor.pays,
-     }, {}, function () {
-      if (typeof callback === "function") {
-        callback();
+    db.update(
+      { _id: id },
+      {
+        ...factor,
+      },
+      {},
+      function () {
+        if (typeof callback === "function") {
+          callback();
+        }
       }
-    });
+    );
   });
 };
 

@@ -4,12 +4,15 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
-import IncludeProductInputEditor from "./IncludeProductInputEditor.jsx";
-import "./IncludeProductTable.css";
+import CarProductInputEditor from "./CarProductInputEditor.jsx";
+import "./CarProductTable.css";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
-import { isRangeOk } from "../../utils";
 
-export default function EditCarTable({ products, formDispatch, handleSubmit }) {
+export default function CarEditableTable({
+  products,
+  formDispatch,
+  handleSubmit,
+}) {
   const [allUnFinishedProducts, setAllUnFinishedProducts] = useState();
   const { pushNotif } = useContext(NotifContext);
   const init = useRef(true);
@@ -35,6 +38,24 @@ export default function EditCarTable({ products, formDispatch, handleSubmit }) {
 
   const removeProduct = (productId) => {
     ipcRenderer.send("removeProduct", productId);
+  };
+
+  const editIconComponent = (p, index) => {
+    <span
+      onDoubleClick={() =>
+        setProductToEdit({
+          index: index,
+          name: p.productName,
+          id: p.customeId,
+          signHint: p.signHint,
+          amount: p.amount,
+          weight: p.weight,
+          price: p.price,
+        })
+      }
+    >
+      <EditIcon />
+    </span>;
   };
 
   useEffect(() => {
@@ -69,7 +90,7 @@ export default function EditCarTable({ products, formDispatch, handleSubmit }) {
   return (
     <div className="IncludeProductsTable">
       {productToEdit ? (
-        <IncludeProductInputEditor
+        <CarProductInputEditor
           formDispatch={formDispatch}
           label="شرح بار*"
           state={productToEdit}
@@ -106,21 +127,7 @@ export default function EditCarTable({ products, formDispatch, handleSubmit }) {
                         <span onDoubleClick={() => handleRemove(p.customeId)}>
                           <DeleteIcon />
                         </span>
-                        <span
-                          onDoubleClick={() =>
-                            setProductToEdit({
-                              index: index,
-                              name: p.productName,
-                              id: p.customeId,
-                              signHint: p.signHint,
-                              amount: p.amount,
-                              weight: p.weight,
-                              price: p.price,
-                            })
-                          }
-                        >
-                          <EditIcon />
-                        </span>
+                        <editIconComponent p={p} index={index} />
                       </td>
                     ) : p.customeId && p.customeId.length > 0 ? (
                       <td
@@ -134,21 +141,7 @@ export default function EditCarTable({ products, formDispatch, handleSubmit }) {
                         }}
                       >
                         <DeleteIcon />
-                        <span
-                          onDoubleClick={() =>
-                            setProductToEdit({
-                              index: index,
-                              name: p.productName,
-                              id: p.customeId,
-                              signHint: p.signHint,
-                              amount: p.amount,
-                              weight: p.weight,
-                              price: p.price,
-                            })
-                          }
-                        >
-                          <EditIcon />
-                        </span>
+                        <editIconComponent p={p} index={index} />
                       </td>
                     ) : (
                       <td>
@@ -162,21 +155,7 @@ export default function EditCarTable({ products, formDispatch, handleSubmit }) {
                         >
                           <DeleteIcon />
                         </span>
-                        <span
-                          onDoubleClick={() =>
-                            setProductToEdit({
-                              index: index,
-                              name: p.productName,
-                              id: p.customeId,
-                              signHint: p.signHint,
-                              amount: p.amount,
-                              weight: p.weight,
-                              price: p.price,
-                            })
-                          }
-                        >
-                          <EditIcon />
-                        </span>
+                        <editIconComponent p={p} index={index} />
                       </td>
                     )
                   ) : (
@@ -193,21 +172,7 @@ export default function EditCarTable({ products, formDispatch, handleSubmit }) {
                       >
                         <DeleteIcon />
                       </span>
-                      <span
-                        onDoubleClick={() =>
-                          setProductToEdit({
-                            index: index,
-                            name: p.productName,
-                            id: p.customeId,
-                            signHint: p.signHint,
-                            amount: p.amount,
-                            weight: p.weight,
-                            price: p.price,
-                          })
-                        }
-                      >
-                        <EditIcon />
-                      </span>
+                      <editIconComponent p={p} index={index} />
                     </td>
                   )}
                 </tr>

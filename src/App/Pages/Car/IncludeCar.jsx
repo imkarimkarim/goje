@@ -16,17 +16,17 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
-import "./IncludeProduct.css";
-import reducer from "../../Reducers/IncludeProductReducer.jsx";
-import IncludeProductTable from "../../Components/Car/IncludeProductTable.jsx";
-import IncludeProductInput from "../../Components/Car/IncludeProductInput.jsx";
+import "./IncludeCar.css";
+import reducer from "../../Reducers/IncludeCarReducer.jsx";
+import CarProductTable from "../../Components/Car/CarProductTable.jsx";
+import CarProductInput from "../../Components/Car/CarProductInput.jsx";
 import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import { generateInputByUserCarSchema } from "../../../schemas.js";
 
 const schema = generateInputByUserCarSchema();
 
-export default function IncludeProduct() {
+export default function IncludeCar() {
   const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
@@ -67,7 +67,7 @@ export default function IncludeProduct() {
   return (
     <div>
       <Nav />
-      <form className="IncludeProduct-form goje-container">
+      <form className="IncludeCar-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <span className="arrivalDate">
@@ -137,11 +137,11 @@ export default function IncludeProduct() {
               }}
               value={formData.unload}
             />
-            <IncludeProductTable
+            <CarProductTable
               formDispatch={formDispatch}
               products={formData.products}
             />
-            <IncludeProductInput formDispatch={formDispatch} />
+            <CarProductInput formDispatch={formDispatch} />
             <ExpenseInput
               label="دستی*"
               fun={(e) => {

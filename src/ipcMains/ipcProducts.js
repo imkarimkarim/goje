@@ -51,22 +51,6 @@ ipcMain.on("isProductHasDependency", (event, productId) => {
   });
 });
 
-ipcMain.on("includeProduct", (event, product) => {
-  validateProduct(product, (status, message) => {
-    if (status === true) {
-      productDocs.insert(product, () => {
-        event.reply("includeProduct", {
-          status: status,
-          message: "بار با موفقیت وارد شد",
-        });
-      });
-    }
-    if (status === false) {
-      event.reply("includeProduct", { status: status, message: message });
-    }
-  });
-});
-
 ipcMain.on("toggleProductFinish", (event, id) => {
   productDocs.toggleProductFinish(id);
 });

@@ -1,4 +1,4 @@
-.IncludeProduct-form {
+.IncludeCar-form {
 }
 
 form .MuiFormControl-root {
@@ -9,21 +9,21 @@ form .MuiFormControl-root {
   text-align: center;
 }
 
-.IncludeProduct-form .arrivalDate {
+.IncludeCar-form .arrivalDate {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
 }
 
-.IncludeProduct-form .ps-input {
+.IncludeCar-form .ps-input {
   margin: 0px 0px -25px 0px;
   font-family: "VazirMedium";
   height: 55px;
   width: 560px;
 }
 
-.IncludeProduct-form .arrivalDate span {
+.IncludeCar-form .arrivalDate span {
   margin-left: 10px;
 }
 

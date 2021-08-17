@@ -3,14 +3,6 @@ const factorDocs = require("../db/factorDocs");
 const { validateFactor } = require("../modules/validator");
 
 ipcMain.on("addNewFactor", (event, factor) => {
-  // if(validateFactor(factor)){
-  //   factorDocs.insert(factor, () =>{
-  //     event.reply('addNewFactor', true);
-  //   })
-  // }
-  // else {
-  //   event.reply('addNewFactor', false);
-  // }
   validateFactor(factor, (status, message) => {
     if (status === true) {
       factorDocs.insert(factor, () => {
@@ -40,14 +32,6 @@ ipcMain.on("editFactor", (event, factor) => {
       event.reply("editFactor", { status: status, message: message });
     }
   });
-  // if (validateFactor(factor)) {
-  //   factor.changeDate = Date.now();
-  //   factorDocs.update(factor._id, factor, () => {
-  //     event.reply("editFactor", true);
-  //   });
-  // } else {
-  //   event.reply("editFactor", false);
-  // }
 });
 
 ipcMain.on("searchInFactors", (event, searchFilters) => {

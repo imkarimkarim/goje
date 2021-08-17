@@ -10,16 +10,6 @@ const getAll = (callback) => {
   });
 };
 
-// const getOne = (id, callback) => {
-//   if(!id) return;
-//   db.findOne({ docType: "productOwner", customeId: id }, (err, doc) => {
-//     if (err) throw err;
-//     if (typeof callback === "function") {
-//       callback(doc);
-//     }
-//   });
-// };
-
 const isProductOwnerExists = (productOwner, callback) => {
   db.find(
     { docType: "productOwner", name: productOwner.name },
@@ -46,5 +36,4 @@ module.exports = {
   getAll,
   insert,
   isProductOwnerExists,
-  // getOne
 };

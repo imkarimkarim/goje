@@ -72,7 +72,7 @@ export default function Nav({ title }) {
             </Link>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <Link to="/includeProduct">
+            <Link to="/includeCar">
               <ImportExportIcon />
               ورود بار
             </Link>

@@ -5,11 +5,11 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
-import "./IncludeProductInput.css";
+import "./CarProductInput.css";
 
 // TODO: also up/down with arrow keys
 
-const IncludeProductInputEditor = React.memo(
+const CarProductInputEditor = React.memo(
   ({ formDispatch, label, state }) => {
     const [productState, setProductState] = useState("");
     const [signHint, setSignHint] = useState("");
@@ -120,4 +120,4 @@ const IncludeProductInputEditor = React.memo(
   }
 );
 
-export default IncludeProductInputEditor;
+export default CarProductInputEditor;

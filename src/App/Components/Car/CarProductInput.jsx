@@ -5,7 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
-import "./IncludeProductInput.css";
+import "./CarProductInput.css";
 import { convertToIntIfIsNumber } from "../../utils";
 
 // TODO: also up/down with arrow keys
@@ -18,7 +18,7 @@ const defaultState = {
   price: "",
 };
 
-const IncludeProductInput = React.memo(({ formDispatch }) => {
+const CarProductInput = React.memo(({ formDispatch }) => {
   const [state, setState] = useState(defaultState);
 
   const addProductToCar = () => {
@@ -91,4 +91,4 @@ const IncludeProductInput = React.memo(({ formDispatch }) => {
   );
 });
 
-export default IncludeProductInput;
+export default CarProductInput;

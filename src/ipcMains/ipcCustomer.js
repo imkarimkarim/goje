@@ -9,15 +9,6 @@ ipcMain.on("getAllCustomers", (event) => {
 });
 
 ipcMain.on("addNewCustomer", (event, customer) => {
-  // customerDocs.isCustomerExists(customer, (docs) => {
-  //   if (docs.length === 0) {
-  //     customerDocs.insert(customer, () => {
-  //       event.reply('addNewCustomer', true);
-  //     });
-  //   } else {
-  //     event.reply('addNewCustomer', false);
-  //   }
-  // });
   validateCustomer(customer, (status, message) => {
     if (status === true) {
       customerDocs.isCustomerExists(customer, (docs) => {

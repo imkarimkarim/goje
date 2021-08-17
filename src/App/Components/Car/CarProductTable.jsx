@@ -3,9 +3,9 @@ const { ipcRenderer } = require("electron");
 import DeleteIcon from "@material-ui/icons/Delete";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
-import "./IncludeProductTable.css";
+import "./CarProductTable.css";
 
-export default function IncludeProductTable({ products, formDispatch }) {
+export default function CarProductTable({ products, formDispatch }) {
   return (
     <div className="IncludeProductsTable">
       <table>

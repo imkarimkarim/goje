@@ -5,12 +5,12 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
-import "./ProductInput.css";
-import ProductPicker from "./ProductPicker.jsx";
+import "./FactorProductPicker.css";
+import FactorProductPicker from "./FactorProductPicker.jsx";
 
 // TODO: also up/down with arrow keys
 
-const ProductInputEditor = React.memo(({ formDispatch, label, state }) => {
+const FactorProductInputEditor = React.memo(({ formDispatch, label, state }) => {
   const [productState, setProductState] = useState("");
   const [allproducts, setAllproducts] = useState();
   const [showProductPicker, setShowProductPicker] = useState(false);
@@ -67,7 +67,7 @@ const ProductInputEditor = React.memo(({ formDispatch, label, state }) => {
       <span className="hint">ویرایش ردیف {state.index + 1}</span>
       <div className="productInputEditor">
         {showProductPicker && allproducts ? (
-          <ProductPicker
+          <FactorProductPicker
             products={allproducts}
             setProductState={setProductState}
             productState={productState}
@@ -122,4 +122,4 @@ const ProductInputEditor = React.memo(({ formDispatch, label, state }) => {
   );
 });
 
-export default ProductInputEditor;
+export default FactorProductInputEditor;

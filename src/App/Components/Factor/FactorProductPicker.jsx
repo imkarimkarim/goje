@@ -5,10 +5,10 @@ import LocalGroceryStoreIcon from "@material-ui/icons/LocalGroceryStore";
 import CloseIcon from "@material-ui/icons/Close";
 import Input from "../Input.jsx";
 import ShowDate from "../ShowDate.jsx";
-import "./ProductPicker.css";
+import "./FactorProductPicker.css";
 import InfoIcon from "@material-ui/icons/Info";
 
-export default function ProductPicker({
+export default function FactorProductPicker({
   products,
   productState,
   setProductState,
