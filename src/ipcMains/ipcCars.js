@@ -16,19 +16,23 @@ ipcMain.on("searchInCars", (event, searchFilters) => {
   });
 });
 
+// TODO: refactor
 ipcMain.on("includeCar", (event, car) => {
   validateCar(car, (status, message) => {
     if (status === true) {
-      carDocs.insert(car, (carId) => {
-        createProductsBasedOnCar(car, carId, (products) => {
+      carDocs.insert(car, (newCar) => {
+        createProductsBasedOnCar(car, newCar.customeId, (products) => {
           for (let i = 0; i < products.length; i++) {
             (function (ind) {
               setTimeout(function () {
-                productDocs.insert(products[i], () => {
+                productDocs.insert(products[i], (newProduct) => {
+                  newCar.products[i].customeId = newProduct.customeId;
                   if (i === products.length - 1) {
-                    event.reply("includeCar", {
-                      status: status,
-                      message: "بار با موفقیت وارد شد",
+                    carDocs.update(newCar._id, newCar, () => {
+                      event.reply("includeCar", {
+                        status: status,
+                        message: "بار با موفقیت وارد شد",
+                      });
                     });
                   }
                 });
@@ -42,4 +46,25 @@ ipcMain.on("includeCar", (event, car) => {
       event.reply("includeCar", { status: status, message: message });
     }
   });
+});
+
+ipcMain.on("editCar", (event, car) => {
+  // isCarProductsHaveDependency
+  validateCar(car, (status, message) => {
+    if (status === true) {
+      carDocs.update(car._id, car, () => {
+        event.reply("editCar", {
+          status: status,
+          message: "ویرایش با موفقیت انجام شد",
+        });
+      });
+    }
+    if (status === false) {
+      event.reply("editCar", { status: status, message: message });
+    }
+  });
+});
+
+ipcMain.on("toggleCarFinish", (event, id) => {
+  carDocs.toggleCarFinish(id);
 });

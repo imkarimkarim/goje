@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";
+import ProductInputEditor from "../Product/ProductInputEditor.jsx";
 import { Link } from "react-router-dom";
 import "./ProductsTable.css";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
@@ -14,6 +16,7 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
   const [allUnFinishedProducts, setAllUnFinishedProducts] = useState();
   const { pushNotif } = useContext(NotifContext);
   const init = useRef(true);
+  const [productToEdit, setProductToEdit] = useState();
 
   const isProductInUnfinishedProducts = (productId) => {
     const aufp = allUnFinishedProducts;
@@ -45,6 +48,15 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
 
   return (
     <div className="ProductsTable">
+      {productToEdit ? (
+        <ProductInputEditor
+          formDispatch={formDispatch}
+          label="شرح بار*"
+          state={productToEdit}
+        />
+      ) : (
+        <span></span>
+      )}
       <table>
         <thead>
           <tr>
@@ -107,15 +119,31 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
                     </td>
                     {formDispatch ? (
                       isProductInUnfinishedProducts(p.productId) ? (
-                        <td
-                          onDoubleClick={() => {
-                            formDispatch({
-                              type: "removeProduct",
-                              payload: index,
-                            });
-                          }}
-                        >
-                          <DeleteIcon />
+                        <td>
+                          <span
+                            onDoubleClick={() => {
+                              formDispatch({
+                                type: "removeProduct",
+                                payload: index,
+                              });
+                            }}
+                          >
+                            <DeleteIcon />
+                          </span>
+                          <span
+                            onDoubleClick={() => {
+                              setProductToEdit({
+                                name: p.productName,
+                                id: p.productId,
+                                amount: p.amount,
+                                weight: p.weight,
+                                price: p.price,
+                                index: index,
+                              });
+                            }}
+                          >
+                            <EditIcon />
+                          </span>
                         </td>
                       ) : (
                         <td
@@ -123,12 +151,13 @@ export default function ProductsTable({ products, formDispatch, shouldLink }) {
                             setTimeout(function () {
                               pushNotif(
                                 "error",
-                                "صافی این بار بسته شده است. امکان حذف وجود ندارد"
+                                "صافی این بار بسته شده است. امکان حذف یا ویرایش وجود ندارد"
                               );
                             }, 10);
                           }}
                         >
                           <DeleteIcon />
+                          <EditIcon />
                         </td>
                       )
                     ) : (

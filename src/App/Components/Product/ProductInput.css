@@ -6,7 +6,25 @@
 .productInput-wrapper > .MuiFormControl-root:nth-child(1),
 .productInput-wrapper > .MuiFormControl-root:nth-child(2),
 .productInput-wrapper > .MuiFormControl-root:nth-child(3),
-.productInput-wrapper > .expenseInput
-{
+.productInput-wrapper > .expenseInput,
+.productInputEditor > .MuiFormControl-root:nth-child(1),
+.productInputEditor > .MuiFormControl-root:nth-child(2),
+.productInputEditor > .MuiFormControl-root:nth-child(3),
+.productInputEditor > .expenseInput {
   width: 193px;
+}
+
+.productInputEditor-wrapper {
+  position: absolute;
+  right: 0;
+  margin: 100px;
+  z-index: 8;
+  background: #fff;
+  border-radius: 5px;
+  padding: 3%;
+  box-shadow: 0 0 100px 500px #0000003f;
+}
+
+.productInputEditor {
+  display: flex;
 }

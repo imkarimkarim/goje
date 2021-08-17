@@ -13,6 +13,7 @@ export default function IncludeProductTable({ products, formDispatch }) {
           <tr>
             <th></th>
             <th>شرح بار</th>
+            <th>علامت</th>
             <th>تعداد</th>
             <th>وزن</th>
             <th>فی حدودی</th>
@@ -20,26 +21,29 @@ export default function IncludeProductTable({ products, formDispatch }) {
         </thead>
         <tbody>
           {products && products.length > 0
-            ? products.map((p, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{p.productName}</td>
-                  <td>{p.amount}</td>
-                  <td>{p.weight}</td>
-                  <td>{<Expense num={p.price} />}</td>
-                  <td
-                    onDoubleClick={() => {
-                      formDispatch({
-                        type: "removeProduct",
-                        payload: index,
-                      });
-                    }}
-                  >
-                    <DeleteIcon />
-                  </td>
-                </tr>
-              ))
-            : null}
+            ? products.map((p, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{p.productName}</td>
+                    <td>{p.signHint}</td>
+                    <td>{p.amount}</td>
+                    <td>{p.weight}</td>
+                    <td>{<Expense num={p.price} />}</td>
+                    <td
+                      onDoubleClick={() => {
+                        formDispatch({
+                          type: "removeProduct",
+                          payload: index,
+                        });
+                      }}
+                    >
+                      <DeleteIcon />
+                    </td>
+                  </tr>
+                );
+              })
+            : ""}
         </tbody>
       </table>
       <Divider />

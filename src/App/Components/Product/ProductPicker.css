@@ -2,6 +2,15 @@
   direction: rtl !important;
 }
 
+.productPicker-item {
+  display: contents;
+}
+
+.productPicker-item .hint .MuiSvgIcon-root {
+  margin-bottom: -8px;
+  margin-right: 4px;
+}
+
 .product-customePicker {
   position: absolute;
   background: #eee;

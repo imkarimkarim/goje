@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
@@ -9,7 +10,13 @@ import { convertToIntIfIsNumber } from "../../utils";
 
 // TODO: also up/down with arrow keys
 
-const defaultState = { productName: "", amount: "", weight: "", price: "" };
+const defaultState = {
+  productName: "",
+  signHint: "",
+  amount: "",
+  weight: "",
+  price: "",
+};
 
 const IncludeProductInput = React.memo(({ formDispatch }) => {
   const [state, setState] = useState(defaultState);
@@ -33,6 +40,14 @@ const IncludeProductInput = React.memo(({ formDispatch }) => {
         label="شرح*"
         fun={(e) => {
           setState({ ...state, productName: e.target.value });
+        }}
+      />
+      <Input
+        id="signHint"
+        value={state.signHint}
+        label="علامت"
+        fun={(e) => {
+          setState({ ...state, signHint: e.target.value });
         }}
       />
       <Input
@@ -69,7 +84,7 @@ const IncludeProductInput = React.memo(({ formDispatch }) => {
         variant="outlined"
         color="primary"
       >
-        +
+        <AddIcon />
       </Button>
       <hr />
     </div>

@@ -7,6 +7,7 @@ import React, {
 } from "react";
 const { ipcRenderer } = require("electron");
 import { DatePicker } from "jalali-react-datepicker";
+import { useParams } from "react-router-dom";
 import JDate from "jalali-date";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -16,40 +17,52 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
-import "./IncludeProduct.css";
-import reducer from "../../Reducers/IncludeProductReducer.jsx";
-import IncludeProductTable from "../../Components/Car/IncludeProductTable.jsx";
+import "./EditCar.css";
+import reducer from "../../Reducers/EditCarReducer.jsx";
+import EditCarTable from "../../Components/Car/EditCarTable.jsx";
 import IncludeProductInput from "../../Components/Car/IncludeProductInput.jsx";
 import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import { generateInputByUserCarSchema } from "../../../schemas.js";
 
-const schema = generateInputByUserCarSchema();
+const schema = {};
 
-export default function IncludeProduct() {
+export default function EditCar() {
   const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
   const { pushNotif } = useContext(NotifContext);
+  const init = useRef(true);
+  let { id } = useParams();
 
   const handleSubmit = () => {
     setSubmit(true);
-    includeCar(formData);
+    editCar(formData);
   };
 
-  const includeCar = (car) => {
-    ipcRenderer.send("includeCar", car);
+  const editCar = (car) => {
+    ipcRenderer.send("editCar", car);
+  };
+
+  const getOneCar = (id) => {
+    ipcRenderer.send("getOneCar", id);
   };
 
   useEffect(() => {
-    ipcRenderer.on("includeCar", (event, createStatus) => {
+    if (init.current) {
+      getOneCar(id);
+      init.current = false;
+    }
+
+    ipcRenderer.on("getOneCar", (event, car) => {
+      formDispatch({ type: "setForm", payload: car });
+    });
+
+    ipcRenderer.on("editCar", (event, createStatus) => {
       setSubmit(false);
       setCreateStatus(createStatus.status);
       if (createStatus.status !== null) {
         if (createStatus.status === true) {
-          let schemaWithFreshDate = schema;
-          schemaWithFreshDate.arrivalDate = Date.now();
-          formDispatch({ type: "setForm", payload: schemaWithFreshDate });
           pushNotif("success", createStatus.message);
         }
         if (createStatus.status === false) {
@@ -60,14 +73,14 @@ export default function IncludeProduct() {
 
     // clean up
     return () => {
-      ipcRenderer.removeAllListeners("includeCar");
+      ipcRenderer.removeAllListeners("editCar");
     };
   });
 
   return (
     <div>
       <Nav />
-      <form className="IncludeProduct-form goje-container">
+      <form className="EditCar-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <span className="arrivalDate">
@@ -137,9 +150,10 @@ export default function IncludeProduct() {
               }}
               value={formData.unload}
             />
-            <IncludeProductTable
+            <EditCarTable
               formDispatch={formDispatch}
               products={formData.products}
+              handleSubmit={handleSubmit}
             />
             <IncludeProductInput formDispatch={formDispatch} />
             <ExpenseInput
@@ -168,7 +182,7 @@ export default function IncludeProduct() {
               variant="outlined"
               color="primary"
             >
-              ثبت <DoneIcon />
+              ثبت ویرایش <DoneIcon />
             </Button>
           </Grid>
         </Grid>

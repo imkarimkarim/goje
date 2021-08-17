@@ -4,6 +4,7 @@ import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
+import DoneIcon from "@material-ui/icons/Done";
 import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
 import Nav from "../../Components/Nav.jsx";
@@ -150,7 +151,7 @@ export default function NewFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت
+              ثبت <DoneIcon />
             </Button>
           </Grid>
         </Grid>

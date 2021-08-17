@@ -38,6 +38,20 @@ const getUnFinished = (callback) => {
   );
 };
 
+const isProductHasDependency = (id, callback) => {
+  if (!id) return;
+  db.find({ "products.productId": id }, (err, docs) => {
+    if (err) throw err;
+    if (typeof callback === "function") {
+      if (docs.length > 0) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+    }
+  });
+};
+
 const getInCar = (carId, callback) => {
   db.find({ $and: [{ docType: "product" }, { inCar: carId }] }, function (
     err,
@@ -145,12 +159,35 @@ const getOne = (id, callback) => {
 
 const insert = (product, callback) => {
   autoFiller.autoFillProductAutoInputs(product, (obj) => {
-    db.insert(obj, function (err) {
+    db.insert(obj, function (err, newDoc) {
       if (err) throw err;
       if (typeof callback === "function") {
-        callback();
+        callback(newDoc);
       }
     });
+  });
+};
+
+const toggleProductFinish = (id, callback) => {
+  if (!id) return;
+  db.findOne({ _id: id }, function (err, doc) {
+    if (err) throw err;
+    const finishDate = doc.isProductFinish ? false : Date.now();
+    const isProductFinish = doc.isProductFinish ? false : true;
+    db.update(
+      { _id: id },
+      {
+        ...doc,
+        finishDate: finishDate,
+        isProductFinish: isProductFinish,
+      },
+      {},
+      function () {
+        if (typeof callback === "function") {
+          callback();
+        }
+      }
+    );
   });
 };
 
@@ -158,21 +195,7 @@ const update = (id, product, callback) => {
   db.update(
     { _id: id },
     {
-      docType: product.docType,
-      customeId: product.customeId,
-      productName: product.productName,
-      owner: product.owner,
-      basculeWeight: product.basculeWeight,
-      amount: product.amount,
-      arrivalDate: product.arrivalDate,
-      finishDate: product.finishDate,
-      isProductFinish: product.isProductFinish,
-      commission: product.commission,
-      unload: product.unload,
-      portage: product.portage,
-      cash: product.cash,
-      plaque: product.plaque,
-      ps: product.ps,
+      ...product,
     },
     {},
     function () {
@@ -183,13 +206,28 @@ const update = (id, product, callback) => {
   );
 };
 
+const remove = (id, callback) => {
+  db.remove(
+    { $and: [{ docType: "product" }, { customeId: id }] },
+    {},
+    function (err, numRemoved) {
+      if (typeof callback === "function") {
+        callback(numRemoved);
+      }
+    }
+  );
+};
+
 module.exports = {
   getAll,
   insert,
   update,
+  remove,
   getUnFinished,
   getInCar,
   getFinished,
   getOne,
   search,
+  toggleProductFinish,
+  isProductHasDependency,
 };

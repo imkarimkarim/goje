@@ -30,7 +30,7 @@ export default function ProductPicker({
 
   if (search) {
     products = products.filter((p) =>
-      (p.productName + " " + p.owner).includes(search)
+      (p.productName + " " + p.signHint + " " + p.owner).includes(search)
     );
   }
 
@@ -49,22 +49,32 @@ export default function ProductPicker({
       className={index % 2 ? "ListItemOdd" : "ListItemEven"}
       style={style}
     >
-      {`${products[index].productName} ${products[index].owner} `}
-      <span className="hint">
-        {products[index].plaque} -{" "}
-        <ShowDate timestamp={products[index].arrivalDate} />
-        {products[index].warningCalcs &&
-        products[index].warningCalcs.averageWeigth !== 0 &&
-        products[index].warningCalcs.productPrice !== 0 ? (
-          <span
-            title={`میانگین وزن:  ${products[index].warningCalcs.averageWeigth}
+      <span className="productPicker-item">
+        <div>
+          {products[index].signHint === "" ||
+          products[index].signHint === undefined
+            ? products[index].productName + " " + products[index].owner
+            : products[index].productName +
+              " " +
+              products[index].signHint +
+              " " +
+              products[index].owner}
+        </div>
+        <div className="hint">
+          <ShowDate timestamp={products[index].arrivalDate} />
+          {products[index].warningCalcs &&
+          products[index].warningCalcs.averageWeigth !== 0 &&
+          products[index].warningCalcs.productPrice !== 0 ? (
+            <span
+              title={`میانگین وزن:  ${products[index].warningCalcs.averageWeigth}
             فی حدودی: ${products[index].warningCalcs.productPrice}`}
-          >
-            <InfoIcon fontSize="small" />
-          </span>
-        ) : (
-          <span></span>
-        )}
+            >
+              <InfoIcon fontSize="small" />
+            </span>
+          ) : (
+            <span></span>
+          )}
+        </div>
       </span>
     </ListItem>
   );
@@ -103,7 +113,7 @@ export default function ProductPicker({
           height={300}
           itemCount={products.length}
           itemSize={35}
-          width={800}
+          width={1000}
         >
           {renderedItems}
         </FixedSizeList>

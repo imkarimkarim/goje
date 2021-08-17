@@ -12,6 +12,7 @@ import JDate from "jalali-date";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import Radio from "@material-ui/core/Radio";
+import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
@@ -195,7 +196,7 @@ export default function EditFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت ویرایش
+              ثبت ویرایش <DoneIcon />
             </Button>
           </Grid>
         </Grid>

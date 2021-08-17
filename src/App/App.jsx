@@ -20,7 +20,9 @@ import SearchCars from "./Pages/Reports/SearchCars.jsx";
 import PrintRemainingProducts from "./Pages/Reports/PrintRemainingProducts.jsx";
 import EditFactor from "./Pages/Factor/EditFactor.jsx";
 import EditProduct from "./Pages/Product/EditProduct.jsx";
+import EditCar from "./Pages/Car/EditCar.jsx";
 import PrintProducts from "./Pages/Reports/PrintProducts.jsx";
+import PrintCar from "./Pages/Reports/PrintCar.jsx";
 import PrintFactors from "./Pages/Reports/PrintFactors.jsx";
 import ProductDetails from "./Pages/Product/ProductDetails.jsx";
 import { NotifProvider } from "./Contexts/NotifContext.jsx";
@@ -38,7 +40,7 @@ export default function App() {
   return (
     <Router>
       {/* redirect to /welcome in first load */}
-      {redirectToIndex.current ? <Redirect to="/searchCars" /> : <div></div>}
+      {redirectToIndex.current ? <Redirect to="/reports" /> : <div></div>}
       <Container>
         <Switch>
           <NotifProvider>
@@ -56,7 +58,9 @@ export default function App() {
             <Route path="/factor/:id" component={Factor} />
             <Route path="/editFactor/:id" component={EditFactor} />
             <Route path="/editProduct/:id" component={EditProduct} />
+            <Route path="/editCar/:id" component={EditCar} />
             <Route path="/printProducts/:ids" component={PrintProducts} />
+            <Route path="/printCar/:id" component={PrintCar} />
             <Route path="/printFactors/:date/:date2" component={PrintFactors} />
             <Route path="/productDetails/:id" component={ProductDetails} />
             <Route

@@ -1,4 +1,4 @@
-import { convertToIntIfIsNumber } from '../utils';
+import { convertToIntIfIsNumber } from "../utils";
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -28,6 +28,18 @@ export default function reducer(state, action) {
       };
     case "removeProduct":
       state.products.splice(action.payload, 1);
+      return {
+        ...state,
+        products: state.products,
+      };
+    case "editProduct":
+      state.products.splice(action.payload0, 1, {
+        productId: action.payload1,
+        productName: action.payload5,
+        amount: convertToIntIfIsNumber(action.payload2),
+        weight: convertToIntIfIsNumber(action.payload3),
+        price: convertToIntIfIsNumber(action.payload4),
+      });
       return {
         ...state,
         products: state.products,

@@ -5,3 +5,7 @@
 .actions{
   margin-bottom: 50px;
 }
+
+.toggleProductFinish {
+  margin-right: 20px !important;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
+import AddIcon from '@material-ui/icons/Add';
 import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
@@ -41,7 +42,6 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
 
   const handleFocus = (e) => {
     getUnFinishedProducts();
-    setProductState({ name: "", id: "" });
     setShowProductPicker(true);
   };
 
@@ -106,7 +106,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
         variant="outlined"
         color="primary"
       >
-        +
+        <AddIcon />
       </Button>
     </div>
   );

@@ -56,6 +56,8 @@ export default function ProductDetails() {
     }
   }
 
+console.log(filteredProducts);
+
   let resultsList;
   if (filteredProducts) {
     resultsList = filteredProducts.map((p) => {
