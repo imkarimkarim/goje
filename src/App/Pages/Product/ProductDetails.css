@@ -1,0 +1,25 @@
+.recordWrapper .MuiButtonBase-root > div {
+  width: 100%;
+}
+.record {
+  display: flex;
+  justify-content: start;
+}
+
+.record div {
+  text-align: right;
+}
+
+.record div:nth-child(1) {
+  width: 30%;
+}
+
+.record div:nth-child(2) {
+  width: 25%;
+}
+
+.record div:nth-child(3),
+.record div:nth-child(4),
+.record div:nth-child(5) {
+  width: 15%;
+}
