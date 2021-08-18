@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
-import Header from '../../Components/Header.jsx';
-import Footer from '../../Components/Footer.jsx';
+import Header from "../../Components/Header.jsx";
+import Footer from "../../Components/Footer.jsx";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Loading from "../../Components/Loading.jsx";
@@ -109,7 +109,7 @@ function InfoSection({ products }) {
   );
 }
 
-function SaleSection({ products }) {
+function SaleSection({ products, history }) {
   const [salesInfos, setsalesInfos] = useState();
   const init = useRef(true);
 
@@ -178,7 +178,7 @@ function SaleSection({ products }) {
         .from(document.body)
         .save()
         .then(() => {
-          window.history.back();
+          history.goBack();
         });
     }
 
@@ -287,7 +287,7 @@ function SaleSection({ products }) {
   );
 }
 
-export default function PrintProducts() {
+export default function PrintProducts({ history }) {
   const [products, setProducts] = useState();
   let { ids } = useParams();
   ids = ids.split(",");
@@ -324,15 +324,17 @@ export default function PrintProducts() {
   });
 
   const sortProductsArray = (producs) => {
-    if(!producs) return;
-    producs.sort((a, b) => {
-      return a.arrivalDate - b.arrivalDate;
-    }).reverse();
+    if (!producs) return;
+    producs
+      .sort((a, b) => {
+        return a.arrivalDate - b.arrivalDate;
+      })
+      .reverse();
     return producs;
-  }
+  };
 
   let sortedProducts;
-  if(products && products.length > 0) {
+  if (products && products.length > 0) {
     sortedProducts = sortProductsArray(products);
   }
 
@@ -341,7 +343,7 @@ export default function PrintProducts() {
       <div className="printProducts">
         <Header />
         <InfoSection products={sortedProducts} />
-        <SaleSection products={sortedProducts} />
+        <SaleSection history={history} products={sortedProducts} />
         <div className="ps">
           <span>پی‌نوشت</span>
           <span> :</span>

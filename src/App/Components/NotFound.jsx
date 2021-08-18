@@ -4,10 +4,10 @@ import Button from "@material-ui/core/Button";
 import Nav from "./Nav.jsx";
 import "./NotFound.css";
 
-export default function NotFound() {
+export default function NotFound({ history }) {
   return (
     <div>
-      <Nav title="خطا" />
+      <Nav history={history} />
       <div className="notFound">
         <ErrorIcon />
         <p className="hint">مشکلی پیش آمده است! با پشتیبانی تماس بگیرید.</p>
@@ -15,7 +15,7 @@ export default function NotFound() {
           <span
             className="button-title"
             onClick={() => {
-              window.history.back();
+              history.goBack();
             }}
           >
             انصراف

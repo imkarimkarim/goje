@@ -27,7 +27,7 @@ import { generateInputByUserCarSchema } from "../../../schemas.js";
 
 const schema = {};
 
-export default function EditCar() {
+export default function EditCar({ history }) {
   const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
@@ -80,7 +80,7 @@ export default function EditCar() {
 
   return (
     <div>
-      <Nav />
+      <Nav history={history} />
       <form className="EditCar-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>

@@ -24,7 +24,7 @@ import "./Factor.css";
 // TODO: installer
 // TODO: test + test on windows
 
-export default function Factor() {
+export default function Factor({ history }) {
   const [factor, setFactor] = useState({});
   let { id } = useParams();
   const init = useRef(true);
@@ -52,7 +52,7 @@ export default function Factor() {
   else if (factor && factor.isPayed === "receipt") tmpStatus = "وصولی";
   return factor ? (
     <div>
-      <Nav />
+      <Nav history={history} />
       <div className="factor-reports goje-container">
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>

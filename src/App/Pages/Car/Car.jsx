@@ -298,7 +298,7 @@ function SaleSection({ products, car }) {
   );
 }
 
-const Car = () => {
+const Car = ({ history }) => {
   const [products, setProducts] = useState();
   const [car, setCar] = useState();
   let { id } = useParams();
@@ -369,7 +369,7 @@ const Car = () => {
 
   return car && products && products.length === car.products.length ? (
     <div>
-      <Nav />
+      <Nav history={history} />
       <div className="car">
         <InfoSection car={car} />
         <SaleSection products={products} car={car} />

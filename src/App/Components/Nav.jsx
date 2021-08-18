@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-export default function Nav({ title }) {
+export default function Nav({ title, history }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -32,7 +32,7 @@ export default function Nav({ title }) {
         className="goBack"
         fontSize="large"
         onClick={() => {
-          window.history.back();
+          history.goBack();
         }}
       />
       <div>
@@ -69,6 +69,12 @@ export default function Nav({ title }) {
             <Link to="/searchProducts">
               <ShoppingCartIcon />
               بارها
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link to="/searchCars">
+              <ShoppingCartIcon />
+              صافی ها
             </Link>
           </MenuItem>
           <MenuItem onClick={handleClose}>

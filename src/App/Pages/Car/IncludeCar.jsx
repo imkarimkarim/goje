@@ -26,7 +26,7 @@ import { generateInputByUserCarSchema } from "../../../schemas.js";
 
 const schema = generateInputByUserCarSchema();
 
-export default function IncludeCar() {
+export default function IncludeCar({ history }) {
   const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
@@ -66,7 +66,7 @@ export default function IncludeCar() {
 
   return (
     <div>
-      <Nav />
+      <Nav history={history} />
       <form className="IncludeCar-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>

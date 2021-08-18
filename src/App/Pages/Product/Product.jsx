@@ -205,7 +205,7 @@ function SaleSection({ productId, product }) {
   );
 }
 
-export default function Product() {
+export default function Product({ history }) {
   const [product, setProduct] = useState();
 
   let { id } = useParams();
@@ -239,7 +239,7 @@ export default function Product() {
   return product ? (
     product.inCar ? (
       <div>
-        <Nav />
+        <Nav history={history} />
         <div className="product-reports">
           <br />
           <InfoSection product={product} />
@@ -271,7 +271,7 @@ export default function Product() {
       </div>
     ) : (
       <div>
-        <Nav />
+        <Nav history={history} />
         <div className="product-reports">
           <InfoSection product={product} />
           <SaleSection productId={product.customeId} product={product} />
@@ -291,7 +291,9 @@ export default function Product() {
                 </Button>
               </Link>
             ) : (
-              <div className="red-color">(به دلیل تمام نشدن بار گزارش گیری مقدور نیست)</div>
+              <div className="red-color">
+                (به دلیل تمام نشدن بار گزارش گیری مقدور نیست)
+              </div>
             )}
 
             <Link to={`/editProduct/${product.customeId}`}>

@@ -25,7 +25,7 @@ const defalutSearchState = {
   till: cleanTime(Date.now()) + oneDay,
 };
 
-export default function SearchProducts() {
+export default function SearchCars({ history }) {
   const [cars, setCars] = useState(false);
   const [searchState, setSearchState] = useState(defalutSearchState);
   const init = useRef(true);
@@ -106,7 +106,7 @@ export default function SearchProducts() {
 
   return (
     <div>
-      <Nav />
+      <Nav history={history} />
       <SearchBox
         defaultState={searchState}
         onSubmit={(newSearchState) => {

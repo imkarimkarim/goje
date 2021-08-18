@@ -53,7 +53,6 @@ export default function NewProductOwner() {
 
   return (
     <div className="newProductOwner-form">
-      <Nav />
       <div>
         <Grid container spacing={3}>
           <Grid item xs={12}>

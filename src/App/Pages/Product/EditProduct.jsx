@@ -27,7 +27,7 @@ import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.j
 
 const schema = {};
 
-export default function EditProduct() {
+export default function EditProduct({ history }) {
   const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [editStatus, setEditStatus] = useState(null);
@@ -79,7 +79,7 @@ export default function EditProduct() {
 
   return (
     <div>
-      <Nav />
+      <Nav history={history} />
       <form className="EditProduct-form goje-container">
         <Grid container spacing={3}>
           <Grid item xs={12}>

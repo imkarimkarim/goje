@@ -9,11 +9,11 @@ import Footer from "../../Components/Footer.jsx";
 import html2pdf from "html2pdf.js";
 import "./PrintRemainingProducts.css";
 
-function RenderProduct({ index, product, productsLength }) {
+function RenderProduct({ index, product, productsLength, history }) {
   const report = useRef(false);
 
   useEffect(() => {
-    if (productsLength === index+1 && !report.current) {
+    if (productsLength === index + 1 && !report.current) {
       report.current = true;
       const date = new JDate();
       const fileName = `باقیمانده بار ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
@@ -27,10 +27,10 @@ function RenderProduct({ index, product, productsLength }) {
         .from(document.body)
         .save()
         .then(() => {
-          window.history.back();
+          history.goBack();
         });
     }
-  })
+  });
 
   return (
     <div className="remainingProduct">
@@ -48,7 +48,7 @@ function RenderProduct({ index, product, productsLength }) {
   );
 }
 
-export default function PrintRemainingProducts() {
+export default function PrintRemainingProducts({history}) {
   const [products, setProducts] = useState();
   const [remainigDetails, setRemainigDetails] = useState([]);
   const init = useRef(true);
@@ -130,7 +130,15 @@ export default function PrintRemainingProducts() {
       <h4>باقیمانده بار {stringDate}</h4>
       <div className="remainingProducts">
         {extractedData.map((p, index) => {
-          return <RenderProduct key={index} product={p} index={index} productsLength={products.length} />;
+          return (
+            <RenderProduct
+              history={history}
+              key={index}
+              product={p}
+              index={index}
+              productsLength={products.length}
+            />
+          );
         })}
       </div>
       <Footer />
