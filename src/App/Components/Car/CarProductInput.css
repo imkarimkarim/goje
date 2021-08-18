@@ -4,9 +4,25 @@
 }
 
 .includeProductInput-wrapper > .expenseInput,
+.includeProductInput-wrapper > div:nth-child(6),
 .includeProductInput-wrapper > div:nth-child(5),
 .includeProductInput-wrapper > div:nth-child(4),
 .includeProductInput-wrapper > div:nth-child(3)
 {
   width: 193px !important;
+}
+
+.IncludeproductInputEditor-wrapper {
+  position: absolute;
+  right: 0;
+  margin: 100px;
+  z-index: 8;
+  background: #fff;
+  border-radius: 5px;
+  padding: 3%;
+  box-shadow: 0 0 100px 500px #0000003f;
+}
+
+.IncludeproductInputEditor {
+  display: flex;
 }

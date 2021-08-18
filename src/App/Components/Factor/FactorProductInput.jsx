@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
-import "./ProductInput.css";
-import ProductPicker from "./ProductPicker.jsx";
+import "./FactorProductInput.css";
+import FactorProductPicker from "./FactorProductPicker.jsx";
 
 // TODO: also up/down with arrow keys
 
 const defaultState = { name: "", id: "" };
 
-const ProductInput = React.memo(({ formDispatch, label }) => {
+const FactorProductInput = React.memo(({ formDispatch, label }) => {
   const [productState, setProductState] = useState(defaultState);
   const [allproducts, setAllproducts] = useState();
   const [showProductPicker, setShowProductPicker] = useState(false);
@@ -41,7 +42,6 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
 
   const handleFocus = (e) => {
     getUnFinishedProducts();
-    setProductState({ name: "", id: "" });
     setShowProductPicker(true);
   };
 
@@ -58,7 +58,7 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
   return (
     <div className="productInput-wrapper">
       {showProductPicker && allproducts ? (
-        <ProductPicker
+        <FactorProductPicker
           products={allproducts}
           setProductState={setProductState}
           productState={productState}
@@ -106,10 +106,10 @@ const ProductInput = React.memo(({ formDispatch, label }) => {
         variant="outlined"
         color="primary"
       >
-        +
+        <AddIcon />
       </Button>
     </div>
   );
 });
 
-export default ProductInput;
+export default FactorProductInput;

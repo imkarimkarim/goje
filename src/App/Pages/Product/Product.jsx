@@ -7,10 +7,13 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import DescriptionIcon from "@material-ui/icons/Description";
 import Button from "@material-ui/core/Button";
+import EditIcon from "@material-ui/icons/Edit";
 import Nav from "../../Components/Nav.jsx";
 import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 import "./Product.css";
 import html2pdf from "html2pdf.js";
 
@@ -94,11 +97,12 @@ function SaleSection({ productId, product }) {
   useEffect(() => {
     if (init.current) {
       getOneProductCalcs(productId);
-      ipcRenderer.on("oneProductCalcs", (event, product) => {
-        init.current = false;
-        setsalesInfo(product);
-      });
     }
+
+    ipcRenderer.on("oneProductCalcs", (event, product) => {
+      init.current = false;
+      setsalesInfo(product);
+    });
 
     // clean up
     return () => {
@@ -201,8 +205,9 @@ function SaleSection({ productId, product }) {
   );
 }
 
-export default function ProductReports() {
+export default function Product() {
   const [product, setProduct] = useState();
+
   let { id } = useParams();
   const init = useRef(true);
 
@@ -210,18 +215,24 @@ export default function ProductReports() {
     ipcRenderer.send("getOneProduct", id);
   };
 
+  const toggleProductFinish = (id) => {
+    ipcRenderer.send("toggleProductFinish", id);
+  };
+
   useEffect(() => {
     if (init.current) {
       getOneProduct(id);
-      ipcRenderer.on("getOneProduct", (event, product) => {
-        init.current = false;
-        setProduct(product);
-      });
+      init.current = false;
     }
+
+    ipcRenderer.on("getOneProduct", (event, product) => {
+      setProduct(product);
+    });
 
     // clean up
     return () => {
       ipcRenderer.removeAllListeners("getOneProduct");
+      ipcRenderer.removeAllListeners("toggleProductFinish");
     };
   });
 
@@ -240,6 +251,21 @@ export default function ProductReports() {
                 مشاهده ریز فروش
               </Button>
             </Link>
+            <FormControlLabel
+              className="toggleProductFinish"
+              control={
+                <Switch
+                  checked={product.isProductFinish}
+                  onChange={() => {
+                    toggleProductFinish(product._id);
+                    setProduct({});
+                    init.current = true;
+                  }}
+                />
+              }
+              label="اتمام بار:"
+              labelPlacement="start"
+            />
           </div>
         </div>
       </div>
@@ -265,7 +291,7 @@ export default function ProductReports() {
                 </Button>
               </Link>
             ) : (
-              <div>(به دلیل تمام نشدن بار گزارش گیری مقدور نیست)</div>
+              <div className="red-color">(به دلیل تمام نشدن بار گزارش گیری مقدور نیست)</div>
             )}
 
             <Link to={`/editProduct/${product.customeId}`}>
@@ -274,7 +300,7 @@ export default function ProductReports() {
                 variant="outlined"
                 color="primary"
               >
-                ویرایش
+                ویرایش <EditIcon />
               </Button>
             </Link>
             <Link to={`/productDetails/${product.customeId}`}>

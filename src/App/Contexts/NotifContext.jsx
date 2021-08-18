@@ -18,7 +18,7 @@ export const NotifProvider = (props) => {
     }
     setTimeout(function () {
       removeNotif(notifs.length+1);
-    }, 7500);
+    }, 5000);
   };
 
   const removeNotif = (index) => {

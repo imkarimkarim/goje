@@ -11,21 +11,6 @@ const sortCarArray = (cars) => {
   return cars;
 };
 
-// const getUnPrinted = (callback) => {
-//   db.find(
-//     { $and: [{ docType: "car" }, { isPrinted: false }] },
-//     function (err, docs) {
-//       if (err) throw err;
-//       if (typeof callback === "function") {
-//         if(docs) {
-//           docs = sortCarArray(docs);
-//           callback(docs);
-//         }
-//       }
-//     }
-//   );
-// };
-
 const search = (searchFilters, callback) => {
   if (!searchFilters) return;
   const sf = searchFilters;
@@ -91,21 +76,6 @@ const search = (searchFilters, callback) => {
   }
 };
 
-// const getFinished = (callback) => {
-//   db.find(
-//     { $and: [{ docType: "product" }, { isProductFinish: true }] },
-//     function (err, docs) {
-//       if (err) throw err;
-//       if (typeof callback === "function") {
-//         if(docs) {
-//           docs = sortCarArray(docs);
-//           callback(docs);
-//         }
-//       }
-//     }
-//   );
-// };
-
 const getOne = (id, callback) => {
   if (!id) return;
   db.findOne({ customeId: id }, function (err, doc) {
@@ -121,43 +91,52 @@ const insert = (car, callback) => {
     db.insert(obj, function (err, newDoc) {
       if (err) throw err;
       if (typeof callback === "function") {
-        callback(newDoc.customeId);
+        callback(newDoc);
       }
     });
   });
 };
 
-// const update = (id, product, callback) => {
-//     db.update({ _id: id }, {
-//       docType: product.docType ,
-//       customeId: product.customeId ,
-//       productName: product.productName ,
-//       owner: product.owner ,
-//       basculeWeight: product.basculeWeight,
-//       amount: product.amount ,
-//       arrivalDate: product.arrivalDate ,
-//       finishDate: product.finishDate ,
-//       isProductFinish: product.isProductFinish ,
-//       commission: product.commission ,
-//       unload: product.unload,
-//       portage: product.portage,
-//       cash: product.cash,
-//       plaque: product.plaque,
-//       ps: product.ps
-//      }, {}, function () {
-//       if (typeof callback === "function") {
-//         callback();
-//       }
-//     });
-// };
+const toggleCarFinish = (id, callback) => {
+  if (!id) return;
+  db.findOne({ _id: id }, function (err, doc) {
+    if (err) throw err;
+    db.update(
+      { _id: id },
+      {
+        ...doc,
+        printDate: Date.now(),
+        isPrinted: true,
+      },
+      {},
+      function (err, numReplaced) {
+        if (typeof callback === "function") {
+          callback(err, numReplaced);
+        }
+      }
+    );
+  });
+};
 
-// update,
-// getUnFinished,
-// getFinished,
-// getAll,
+const update = (id, car, callback) => {
+  db.update(
+    { _id: id },
+    {
+      ...car,
+    },
+    {},
+    function () {
+      if (typeof callback === "function") {
+        callback();
+      }
+    }
+  );
+};
 
 module.exports = {
   getOne,
   search,
   insert,
+  toggleCarFinish,
+  update,
 };

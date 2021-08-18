@@ -12,15 +12,16 @@ import JDate from "jalali-date";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import Radio from "@material-ui/core/Radio";
+import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import CustomerInput from "../../Components/Customer/CustomerInput.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
-import ProductsTable from "../../Components/Factor/ProductsTable.jsx";
+import FactorProductsTable from "../../Components/Factor/FactorProductsTable.jsx";
 import Conclusion from "../../Components/Factor/Conclusion.jsx";
 import Expense from "../../Components/Expense.jsx";
-import ProductInput from "../../Components/Product/ProductInput.jsx";
+import FactorProductInput from "../../Components/Factor/FactorProductInput.jsx";
 import Pays from "../../Components/Factor/Pays.jsx";
 import "./EditFactor.css";
 import ShowDate from "../../Components/ShowDate.jsx";
@@ -161,14 +162,14 @@ export default function EditFactor() {
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>
-            <ProductsTable
+            <FactorProductsTable
               products={formData.products}
               formDispatch={formDispatch}
             />
             <Conclusion products={formData.products} pays={formData.pays} />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
-            <ProductInput formDispatch={formDispatch} label="شرح بار*" />
+            <FactorProductInput formDispatch={formDispatch} label="شرح بار*" />
           </Grid>
           <Divider />
           {formData && formData.pays && formData.isPayed !== true ? (
@@ -195,7 +196,7 @@ export default function EditFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت ویرایش
+              ثبت ویرایش <DoneIcon />
             </Button>
           </Grid>
         </Grid>

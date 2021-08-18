@@ -14,7 +14,7 @@ const defaultState = {
   amount: "",
 };
 
-const ProductInput = React.memo(({ onSubmit, pays, formDispatch }) => {
+const PayInput = React.memo(({ onSubmit, pays, formDispatch }) => {
   const [state, setState] = useState(defaultState);
 
   const handleSubmit = () => {
@@ -83,4 +83,4 @@ const ProductInput = React.memo(({ onSubmit, pays, formDispatch }) => {
   );
 });
 
-export default ProductInput;
+export default PayInput;

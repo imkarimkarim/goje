@@ -6,9 +6,7 @@ const {
   factorSchema,
 } = require("../schemas");
 
-const { isInt, isString, isRangeOk } = require('../App/utils');
-
-
+const { isInt, isString, isRangeOk } = require("../App/utils");
 
 const validateCar = (car, callback) => {
   if (!car) return false;
@@ -105,7 +103,7 @@ const validateCar = (car, callback) => {
   if (!isRangeOk(car.plaque.length, ps.plaque.range[0], ps.plaque.range[1])) {
     status = false;
     errorMessage = `${errorMessage}
-   / حداکثر تعداد کارکترهای مجاز برای پلاک ۱۶ کارکتر است`;
+   / حداکثر تعداد کارکترهای مجاز برای پلاک ۱۷ کارکتر است`;
   }
 
   // ps
@@ -130,6 +128,7 @@ const validateCar = (car, callback) => {
     for (let i = 0; i < car.products.length; i++) {
       const ppc = ps.products.childs;
       const productName = car.products[i].productName;
+      const signHint = car.products[i].signHint;
       const amount = car.products[i].amount;
       const weight = car.products[i].weight;
       const price = car.products[i].price;
@@ -152,7 +151,27 @@ const validateCar = (car, callback) => {
       ) {
         status = false;
         errorMessage = `${errorMessage}
-         / تعداد کارکترهای مجاز برای شرح بار بین ۲ تا ۳۰ است`;
+         / تعداد کارکترهای مجاز برای شرح بار بین ۲ تا ۲۵ است`;
+      }
+
+      if (signHint !== ppc.signHint.defaultValue) {
+        if (!isString(signHint)) {
+          status = false;
+          errorMessage = `${errorMessage}
+         / در سطر شماره ${i + 1}
+        علامت باید متنی باشد`;
+        } else if (
+          !isRangeOk(
+            signHint.length,
+            ppc.signHint.range[0],
+            ppc.signHint.range[1]
+          )
+        ) {
+          status = false;
+          errorMessage = `${errorMessage}
+         / در سطر شماره ${i + 1}
+         تعداد کارکترهای مجاز برای علامت بین ۱ تا ۱۵ است`;
+        }
       }
 
       if (amount !== ppc.amount.defaultValue) {
@@ -183,7 +202,6 @@ const validateCar = (car, callback) => {
         }
       }
 
-console.log(price, ppc.price.defaultValue);
       if (price !== ppc.price.defaultValue) {
         if (!isInt(price)) {
           status = false;
@@ -230,7 +248,7 @@ const validateProduct = (product, callback) => {
   ) {
     status = false;
     errorMessage = `${errorMessage}
-     / تعداد کارکترهای مجاز برای شرح بار بین ۲ تا ۳۰ است`;
+     / تعداد کارکترهای مجاز برای شرح بار بین ۲ تا ۲۵ است`;
   }
 
   // owner
@@ -342,7 +360,7 @@ const validateProduct = (product, callback) => {
   ) {
     status = false;
     errorMessage = `${errorMessage}
-   / حداکثر تعداد کارکترهای مجاز برای پلاک ۱۶ کارکتر است`;
+   / حداکثر تعداد کارکترهای مجاز برای پلاک ۱۷ کارکتر است`;
   }
 
   // ps

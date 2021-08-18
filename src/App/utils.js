@@ -13,6 +13,7 @@ export const oneMonth = oneDay * 30;
 export const oneYear = oneMonth * 12;
 
 const persianNumberToEnglish = (num) => {
+  num = num.toString();
   if (!num) return num;
   num = num
     .replace(/۰/g, "0")

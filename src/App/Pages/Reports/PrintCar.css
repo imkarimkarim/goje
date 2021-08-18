@@ -1,0 +1,46 @@
+.printCar {
+  font-size: 15px;
+}
+
+.printCar .saleInfo-costs,
+.printCar .info .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-3{
+  text-align: left;
+}
+
+.owner-earning-car {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.sale .saleInfo-table,
+.saleInfo-costs {
+  margin: 18px 0;
+}
+
+.saleInfo-costs {
+  text-align: right;
+}
+
+.sale .saleInfo-table {
+  text-align: left;
+}
+
+.safiTitle {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.safiTitle h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.safiTitle > span {
+  margin-left: 4px;
+}
+
+.sale h4 {
+  margin: 3px 0;
+}

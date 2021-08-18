@@ -6,7 +6,9 @@ import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import EditIcon from "@material-ui/icons/Edit";
 import Loading from "../../Components/Loading.jsx";
+import DescriptionIcon from "@material-ui/icons/Description";
 import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import Nav from "../../Components/Nav.jsx";
@@ -28,6 +30,11 @@ function InfoSection({ car }) {
       </p>
       <Grid container spacing={3}>
         <Grid item xs={4}>
+          <div className="owner">
+            <span>کد صاحب بار</span>
+            <span>: </span>
+            <span>{car.ownerId}</span>
+          </div>
           <div className="arrivalDate">
             <span>ورود</span>
             <span>: </span>
@@ -39,7 +46,7 @@ function InfoSection({ car }) {
             <span>: </span>
             <span>
               {car.isPrinted ? (
-                <span>
+                <span className="green-color">
                   گزارش گرفته شد(
                   <ShowDate timestamp={car.printDate} />)
                 </span>
@@ -119,7 +126,7 @@ function SaleSection({ products, car }) {
     <div>
       <div className="sale">
         <Grid container spacing={1}>
-          <Grid className="saleInfo-table" item xs={12}>
+          <Grid className="saleInfo-table" item xs={6}>
             <table>
               <thead>
                 <tr>
@@ -204,12 +211,9 @@ function SaleSection({ products, car }) {
               <span>{<Expense num={fullSum} />}</span>
             </span>
           </Grid>
-        </Grid>
-        <hr />
-        <Grid container spacing={1}>
-          <Grid className="saleInfo-costs" item xs={12}>
+          <Grid item xs={5}>
             <Grid container spacing={3}>
-              <Grid item xs={5}>
+              <div className="saleInfo-costs-car">
                 <div>
                   <span>کرایه</span>
                   <span>: </span>
@@ -220,8 +224,6 @@ function SaleSection({ products, car }) {
                   <span>: </span>
                   <span>{<Expense num={car.unload} />}</span>
                 </div>
-              </Grid>
-              <Grid item xs={5}>
                 <div>
                   <span>کارمزد</span>
                   <span>(</span>
@@ -238,22 +240,28 @@ function SaleSection({ products, car }) {
                   <span>: </span>
                   <span>{<Expense num={car.cash} />}</span>
                 </div>
-              </Grid>
+                <h4>
+                  <span>جمع هزینه‌ها</span>
+                  <span>: </span>
+                  <span>
+                    {
+                      <Expense
+                        num={
+                          sumSaleCommission +
+                          car.portage +
+                          car.unload +
+                          car.cash
+                        }
+                      />
+                    }
+                  </span>
+                </h4>
+              </div>
             </Grid>
           </Grid>
         </Grid>
-        <div className="owner-earning">
-          <h4>
-            <span>جمع هزینه‌ها</span>
-            <span>: </span>
-            <span>
-              {
-                <Expense
-                  num={sumSaleCommission + car.portage + car.unload + car.cash}
-                />
-              }
-            </span>
-          </h4>
+
+        <div className="owner-earning-car">
           <h3>
             <span>صافی</span>
             <span>: </span>
@@ -282,6 +290,7 @@ function SaleSection({ products, car }) {
             </span>
           </h3>
         </div>
+        <hr />
       </div>
     </div>
   ) : (
@@ -307,9 +316,11 @@ const Car = () => {
     ipcRenderer.send("getInCarProducts", carId);
   };
 
+  const toggleCarFinish = (id) => {
+    ipcRenderer.send("toggleCarFinish", id);
+  };
+
   useEffect(() => {
-    // console.log(car);
-    // console.log(products);
     if (init.current) {
       init.current = false;
       getOneCar(id);
@@ -343,8 +354,18 @@ const Car = () => {
       ipcRenderer.removeAllListeners("getOneCar");
       ipcRenderer.removeAllListeners("getOneProduct");
       ipcRenderer.removeAllListeners("getInCarProducts");
+      ipcRenderer.removeAllListeners("toggleCarFinish");
     };
   });
+
+  let isPrintable = true;
+  if (products && products.length > 0) {
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].isProductFinish === false) {
+        isPrintable = false;
+      }
+    }
+  }
 
   return car && products && products.length === car.products.length ? (
     <div>
@@ -365,6 +386,36 @@ const Car = () => {
           </div>
         ) : (
           <div></div>
+        )}
+        <Link to={`/editCar/${car.customeId}`}>
+          <Button
+            className="newProductAddProductInputButton"
+            variant="outlined"
+            color="primary"
+          >
+            ویرایش <EditIcon />
+          </Button>
+        </Link>
+        {isPrintable ? (
+          <Link
+            onClick={() => {
+              toggleCarFinish(car._id);
+            }}
+            to={`/printCar/${car.customeId}`}
+          >
+            <Button
+              className="newProductAddProductInputButton"
+              variant="outlined"
+              color="primary"
+            >
+              گزارش
+              <DescriptionIcon />
+            </Button>
+          </Link>
+        ) : (
+          <div className="red-color">
+            (به دلیل تمام نشدن تمام بارها گزارش گیری مقدور نیست)
+          </div>
         )}
       </div>
     </div>

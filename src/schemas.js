@@ -1,8 +1,9 @@
 export const productSchema = {
   inputByUser: {
-    productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
-    owner: { type: 'string', required: true, range: [], defaultValue: ''},
-    ownerId: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    productName: { type: 'string', required: true, range: [2, 25], defaultValue: '' },
+    signHint: { type: 'string', required: false, range: [1, 15], defaultValue: '' },
+    owner: { type: 'string', required: true, range: [3, 50], defaultValue: ''},
+    ownerId: { type: 'string', required: true, range: [], defaultValue: '' },
     basculeWeight: { type: 'number', required: true, range: [0], defaultValue: '' },
     amount: { type: 'number', required: true, range: [0], defaultValue: '', value: '' },
     arrivalDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
@@ -12,7 +13,7 @@ export const productSchema = {
     unload: { type: 'number', required: true, range: [0], defaultValue: '' },
     portage: { type: 'number', required: true, range: [0], defaultValue: '' },
     cash: { type: 'number', required: true, range: [0], defaultValue: '' },
-    plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
+    plaque: { type: 'string', required: false, range: [0, 17], defaultValue: '' },
     ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
     inCar: { type: 'string', required: true, range: [], defaultValue: ''},
   },
@@ -107,7 +108,7 @@ export const factorSchema = {
     products: { type: 'array', required: true, range: [1-22], defaultValue: [],
       childs: {
         productId: { type: 'string', required: true, range: [], defaultValue: ''},
-        productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
+        productName: { type: 'string', required: true, range: [2, 25], defaultValue: '' },
         amount: { type: 'number', required: true, range: [0], defaultValue: '' },
         weight: { type: 'number', required: true, range: [0], defaultValue: '' },
         price: { type: 'number', required: true, range: [0], defaultValue: '' },
@@ -148,14 +149,16 @@ export const generateInputByUserFactorSchema = () => {
 
 export const carSchema = {
   inputByUser: {
-    owner: { type: 'string', required: true, range: [], defaultValue: ''},
-    ownerId: { type: 'string', required: true, range: [3, 50], defaultValue: '' },
+    owner: { type: 'string', required: true, range: [3, 25], defaultValue: ''},
+    ownerId: { type: 'string', required: true, range: [], defaultValue: '' },
     products: { type: 'array', required: true, range: [0, 22], defaultValue: [],
     childs: {
-        productName: { type: 'string', required: true, range: [2, 30], defaultValue: '' },
+        productName: { type: 'string', required: true, range: [2, 25], defaultValue: '' },
+        signHint: { type: 'string', required: false, range: [1, 15], defaultValue: '' },
         amount: { type: 'number', required: true, range: [0], defaultValue: '' },
         weight: { type: 'number', required: true, range: [0], defaultValue: '' },
         price: { type: 'number', required: true, range: [0], defaultValue: '' },
+        customeId: { type: 'string', required: true, range: [], defaultValue: ''},
     }},
     basculeWeight: { type: 'number', required: true, range: [0], defaultValue: '' },
     arrivalDate: { type: 'number', required: true, range: [], defaultValue: Date.now() },
@@ -164,7 +167,7 @@ export const carSchema = {
     unload: { type: 'number', required: true, range: [0], defaultValue: '' },
     portage: { type: 'number', required: true, range: [0], defaultValue: '' },
     cash: { type: 'number', required: true, range: [0], defaultValue: '' },
-    plaque: { type: 'string', required: false, range: [0, 16], defaultValue: '' },
+    plaque: { type: 'string', required: false, range: [0, 17], defaultValue: '' },
     ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
     isPrinted: { type: 'boolean', required: true, range: [], defaultValue: false },
     warningCalcs: { type: 'object', require: true, range: [], defaultValue: {},

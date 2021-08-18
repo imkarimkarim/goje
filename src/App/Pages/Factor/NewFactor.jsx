@@ -4,16 +4,17 @@ import { DatePicker } from "jalali-react-datepicker";
 import JDate from "jalali-date";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
+import DoneIcon from "@material-ui/icons/Done";
 import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
 import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import CustomerInput from "../../Components/Customer/CustomerInput.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
-import ProductsTable from "../../Components/Factor/ProductsTable.jsx";
+import FactorProductsTable from "../../Components/Factor/FactorProductsTable.jsx";
 import Expense from "../../Components/Expense.jsx";
 import Conclusion from "../../Components/Factor/Conclusion.jsx";
-import ProductInput from "../../Components/Product/ProductInput.jsx";
+import FactorProductInput from "../../Components/Factor/FactorProductInput.jsx";
 import Pays from "../../Components/Factor/Pays.jsx";
 import "./NewFactor.css";
 import { reducer, schema } from "../../Reducers/NewFactorReducer.jsx";
@@ -116,14 +117,14 @@ export default function NewFactor() {
           </Grid>
           <Divider />
           <Grid item className="products-section" xs={12}>
-            <ProductsTable
+            <FactorProductsTable
               products={formData.products}
               formDispatch={formDispatch}
             />
             <Conclusion products={formData.products} pays={formData.pays} />
           </Grid>
           <Grid item className="addproduct-section" xs={12}>
-            <ProductInput formDispatch={formDispatch} label="شرح بار*" />
+            <FactorProductInput formDispatch={formDispatch} label="شرح بار*" />
           </Grid>
           <Divider />
           {formData && formData.isPayed === false ? (
@@ -150,7 +151,7 @@ export default function NewFactor() {
               variant="outlined"
               color="primary"
             >
-              ثبت
+              ثبت <DoneIcon />
             </Button>
           </Grid>
         </Grid>

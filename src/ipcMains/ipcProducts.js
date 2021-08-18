@@ -33,20 +33,26 @@ ipcMain.on("getOneProductCalcs", (event, id) => {
   });
 });
 
-ipcMain.on("includeProduct", (event, product) => {
-  validateProduct(product, (status, message) => {
+ipcMain.on("isProductHasDependency", (event, productId) => {
+  productDocs.isProductHasDependency(productId, (status) => {
     if (status === true) {
-      productDocs.insert(product, () => {
-        event.reply("includeProduct", {
-          status: status,
-          message: "بار با موفقیت وارد شد",
-        });
+      event.reply("isProductHasDependency", {
+        status: status,
+        message:
+          "امکان حذف وجود ندارد. این بار دارای وابستگی میباشد(به ریز فروش بار مربوطه مراجعه کنید)",
       });
     }
     if (status === false) {
-      event.reply("includeProduct", { status: status, message: message });
+      event.reply("isProductHasDependency", {
+        status: status,
+        productId: productId,
+      });
     }
   });
+});
+
+ipcMain.on("toggleProductFinish", (event, id) => {
+  productDocs.toggleProductFinish(id);
 });
 
 ipcMain.on("editProduct", (event, product) => {
@@ -61,6 +67,19 @@ ipcMain.on("editProduct", (event, product) => {
     }
     if (status === false) {
       event.reply("editProduct", { status: status, message: message });
+    }
+  });
+});
+
+ipcMain.on("removeProduct", (event, productId) => {
+  productDocs.remove(productId, (numRemoved) => {
+    if (numRemoved === 0) {
+      event.reply("removeProduct", {
+        status: true,
+        message: "بار با موفقیت حذف شد",
+      });
+    } else if (numRemoved === 0) {
+      event.reply("removeProduct", { status: false, message: "بار حذف نشد" });
     }
   });
 });

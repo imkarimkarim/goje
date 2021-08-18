@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
+import Header from '../../Components/Header.jsx';
+import Footer from '../../Components/Footer.jsx';
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Loading from "../../Components/Loading.jsx";

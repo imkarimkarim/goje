@@ -27,7 +27,7 @@ export default function Welcome() {
           </span>
         </Link>
 
-        <Link className="usefull-link" to="/includeProduct">
+        <Link className="usefull-link" to="/includeCar">
           <span className="customButton">
             <Button variant="outlined">
               <span className="button-icon"><ImportExportIcon /></span>
@@ -40,7 +40,7 @@ export default function Welcome() {
           <span className="customButton">
             <Button variant="outlined">
               <span className="button-icon"><PersonAddIcon /></span>
-              <span className="button-title">حساب جدید</span>
+              <span className="button-title">نام جدید</span>
             </Button>
           </span>
         </Link>

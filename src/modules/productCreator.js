@@ -12,6 +12,7 @@ const createProductsBasedOnCar = (car, carId, callback) => {
 
     products.push({
       productName: car.products[i].productName,
+      signHint: car.products[i].signHint,
       owner: car.owner,
       ownerId: car.ownerId,
       basculeWeight: basculeWeight,

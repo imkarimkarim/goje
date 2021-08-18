@@ -8,9 +8,8 @@ import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
 import Header from "../../Components/Header.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
-import ProductsTable from "../../Components/Factor/ProductsTable.jsx";
 import Footer from "../../Components/Footer.jsx";
-import NotFound from '../../Components/NotFound.jsx';
+import NotFound from "../../Components/NotFound.jsx";
 import "./PrintFactors.css";
 import html2pdf from "html2pdf.js";
 
@@ -43,7 +42,10 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
   useEffect(() => {
     if (factorsLength === index + 1) {
       const date = new JDate(new Date(factor.factorDate));
-      const filename = `گزارش فاکتور های نسیه ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
+      const filename =
+        factorsLength !== 1
+          ? `گزارش فاکتور های نسیه ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`
+          : `گزارش ${factor.customeId}`;
       const options = {
         jsPDF: { unit: "cm", format: "a5" },
         filename: filename,
@@ -158,6 +160,7 @@ export default function PrintFactors() {
   date = parseInt(date);
   date2 = parseInt(date2);
   const init = useRef(true);
+
   const printCreditFactorsByDate = (fromm, till) => {
     ipcRenderer.send("printCreditFactorsByDate", { from: fromm, till: till });
   };

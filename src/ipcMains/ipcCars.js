@@ -16,19 +16,26 @@ ipcMain.on("searchInCars", (event, searchFilters) => {
   });
 });
 
+// TODO: refactor
 ipcMain.on("includeCar", (event, car) => {
   validateCar(car, (status, message) => {
     if (status === true) {
-      carDocs.insert(car, (carId) => {
-        createProductsBasedOnCar(car, carId, (products) => {
+      carDocs.insert(car, (newCar) => {
+        createProductsBasedOnCar(car, newCar.customeId, (products) => {
+          // inserting each product based on
+          // objects created by createProductsBasedOnCar
           for (let i = 0; i < products.length; i++) {
             (function (ind) {
               setTimeout(function () {
-                productDocs.insert(products[i], () => {
+                productDocs.insert(products[ind], (newProduct) => {
+                  // saving product customeId for later use cases on car object
+                  newCar.products[ind].customeId = newProduct.customeId;
                   if (i === products.length - 1) {
-                    event.reply("includeCar", {
-                      status: status,
-                      message: "بار با موفقیت وارد شد",
+                    carDocs.update(newCar._id, newCar, () => {
+                      event.reply("includeCar", {
+                        status: status,
+                        message: "بار با موفقیت وارد شد",
+                      });
                     });
                   }
                 });
@@ -42,4 +49,59 @@ ipcMain.on("includeCar", (event, car) => {
       event.reply("includeCar", { status: status, message: message });
     }
   });
+});
+
+ipcMain.on("editCar", (event, car) => {
+  // isCarProductsHaveDependency
+  validateCar(car, (status, message) => {
+    if (status === true) {
+      createProductsBasedOnCar(car, car.customeId, (products) => {
+        // inserting/editing each product based on
+        // objects created by createProductsBasedOnCar
+        for (let i = 0; i < products.length; i++) {
+          (function (ind) {
+            setTimeout(function () {
+              if (
+                car.products[ind].customeId &&
+                car.products[ind].customeId.length > 3
+              ) {
+                productDocs.updateCarProduct(
+                  car.products[ind].customeId,
+                  products[ind]
+                );
+                if (i === products.length - 1) {
+                  carDocs.update(car._id, car, () => {
+                    event.reply("editCar", {
+                      status: status,
+                      message: "بار با موفقیت ویرایش شد",
+                    });
+                  });
+                }
+              } else {
+                productDocs.insert(products[ind], (newProduct) => {
+                  // saving product customeId for later use cases on car object
+                  car.products[ind].customeId = newProduct.customeId;
+                  if (i === products.length - 1) {
+                    carDocs.update(car._id, car, () => {
+                      event.reply("editCar", {
+                        status: status,
+                        message: "بار با موفقیت ویرایش شد",
+                      });
+                    });
+                  }
+                });
+              }
+            }, 100 + 100 * ind);
+          })(i);
+        }
+      });
+    }
+    if (status === false) {
+      event.reply("includeCar", { status: status, message: message });
+    }
+  });
+});
+
+ipcMain.on("toggleCarFinish", (event, id) => {
+  carDocs.toggleCarFinish(id);
 });

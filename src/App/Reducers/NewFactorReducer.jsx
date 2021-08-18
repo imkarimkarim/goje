@@ -1,5 +1,5 @@
 import { generateInputByUserFactorSchema } from "../../schemas.js";
-import { convertToIntIfIsNumber } from '../utils';
+import { convertToIntIfIsNumber } from "../utils";
 
 export function reducer(state, action) {
   switch (action.type) {
@@ -37,17 +37,25 @@ export function reducer(state, action) {
         ...state,
         products: state.products,
       };
-    case 'addPay':
-    return {
-      ...state,
-      pays: [
-        ...state.pays,
-        {
-          date: convertToIntIfIsNumber(action.payload1),
-          amount: convertToIntIfIsNumber(action.payload2)
-        },
-      ],
-    };
+    case "editProduct":
+      state.products.splice(action.payload0, 1, {
+        productId: action.payload1,
+        productName: action.payload5,
+        amount: convertToIntIfIsNumber(action.payload2),
+        weight: convertToIntIfIsNumber(action.payload3),
+        price: convertToIntIfIsNumber(action.payload4),
+      });
+    case "addPay":
+      return {
+        ...state,
+        pays: [
+          ...state.pays,
+          {
+            date: convertToIntIfIsNumber(action.payload1),
+            amount: convertToIntIfIsNumber(action.payload2),
+          },
+        ],
+      };
     case "removePay":
       state.pays.splice(action.payload, 1);
       return {
