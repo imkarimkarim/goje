@@ -20,7 +20,7 @@ import "./NewFactor.css";
 import { reducer, schema } from "../../Reducers/NewFactorReducer.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
-export default function NewFactor() {
+export default function NewFactor({ history }) {
   const [formData, formDispatch] = useReducer(reducer, schema);
   const [submit, setSubmit] = useState(false);
   const [createStatus, setCreateStatus] = useState(null);
@@ -58,7 +58,7 @@ export default function NewFactor() {
 
   return (
     <div>
-      <Nav />
+      <Nav history={history} />
       <form className="NewFactor-form goje-container">
         <Grid container spacing={3}>
           <Grid className="header" item xs={10}>

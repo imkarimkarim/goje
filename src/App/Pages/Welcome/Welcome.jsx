@@ -4,24 +4,28 @@ import { Link } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import "./Welcome.css";
 import Button from "@material-ui/core/Button";
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import EqualizerIcon from '@material-ui/icons/Equalizer';
-import Nav from '../../Components/Nav.jsx';
+import NoteAddIcon from "@material-ui/icons/NoteAdd";
+import ImportExportIcon from "@material-ui/icons/ImportExport";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
+import Nav from "../../Components/Nav.jsx";
 
-export default function Welcome() {
+export default function Welcome({ history }) {
   return (
     <div className="welcome-screen">
-    <Nav />
+      <Nav history={history} />
       <div className="welcome-message">
-        <h2>به <span className='goje'>گوجه</span> خوش اومدی...</h2>
+        <h2>
+          به <span className="goje">گوجه</span> خوش اومدی...
+        </h2>
       </div>
       <div className="usefull-links_wrapper">
         <Link className="usefull-link" to="/newFactor">
           <span className="customButton">
             <Button variant="outlined">
-              <span className="button-icon"><NoteAddIcon /></span>
+              <span className="button-icon">
+                <NoteAddIcon />
+              </span>
               <span className="button-title">فاکتور جدید</span>
             </Button>
           </span>
@@ -30,7 +34,9 @@ export default function Welcome() {
         <Link className="usefull-link" to="/includeCar">
           <span className="customButton">
             <Button variant="outlined">
-              <span className="button-icon"><ImportExportIcon /></span>
+              <span className="button-icon">
+                <ImportExportIcon />
+              </span>
               <span className="button-title">ورود بار</span>
             </Button>
           </span>
@@ -39,7 +45,9 @@ export default function Welcome() {
         <Link className="usefull-link" to="/newName">
           <span className="customButton">
             <Button variant="outlined">
-              <span className="button-icon"><PersonAddIcon /></span>
+              <span className="button-icon">
+                <PersonAddIcon />
+              </span>
               <span className="button-title">نام جدید</span>
             </Button>
           </span>
@@ -48,7 +56,9 @@ export default function Welcome() {
         <Link className="usefull-link" to="/reports">
           <span className="customButton">
             <Button variant="outlined">
-              <span className="button-icon"><EqualizerIcon /></span>
+              <span className="button-icon">
+                <EqualizerIcon />
+              </span>
               <span className="button-title">گزارشات</span>
             </Button>
           </span>

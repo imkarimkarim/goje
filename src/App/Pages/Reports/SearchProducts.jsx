@@ -36,7 +36,7 @@ const toggleItems = (items, newItem, callback) => {
   }
 };
 
-export default function SearchProducts() {
+export default function SearchProducts({ history }) {
   const [products, setProducts] = useState(false);
   const [searchState, setSearchState] = useState(defalutSearchState);
   const [checkeds, setCheckeds] = useState([]);
@@ -146,7 +146,7 @@ export default function SearchProducts() {
 
   return (
     <div>
-      <Nav/>
+      <Nav history={history} />
       <SearchBox
         defaultState={searchState}
         onSubmit={(newSearchState) => {

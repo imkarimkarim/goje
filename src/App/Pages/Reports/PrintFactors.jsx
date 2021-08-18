@@ -38,7 +38,7 @@ const RenderPays = ({ pays }) => {
   );
 };
 
-const RenderFactor = ({ factor, index, factorsLength }) => {
+const RenderFactor = ({ factor, index, factorsLength, history }) => {
   useEffect(() => {
     if (factorsLength === index + 1) {
       const date = new JDate(new Date(factor.factorDate));
@@ -56,7 +56,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
         .from(document.body)
         .save()
         .then(() => {
-          window.history.back();
+          history.goBack();
         });
     }
   });
@@ -154,7 +154,7 @@ const RenderFactor = ({ factor, index, factorsLength }) => {
   );
 };
 
-export default function PrintFactors() {
+export default function PrintFactors({ history }) {
   const [factors, setFactors] = useState();
   let { date, date2 } = useParams();
   date = parseInt(date);
@@ -189,6 +189,7 @@ export default function PrintFactors() {
         <div className="dailyReportPrint">
           {factors.map((f, index) => (
             <RenderFactor
+              history={history}
               key={index}
               index={index}
               factorsLength={factors.length}

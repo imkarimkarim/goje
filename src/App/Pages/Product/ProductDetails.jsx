@@ -15,7 +15,7 @@ import ShowDate from "../../Components/ShowDate.jsx";
 import { conflictFinder } from "../../../modules/conflictFinder.js";
 import "./ProductDetails.css";
 
-export default function ProductDetails() {
+export default function ProductDetails({ history }) {
   const [factorsWithProduct, setFactorsWithProduct] = useState();
   let { id } = useParams();
   const init = useRef(true);
@@ -101,19 +101,20 @@ export default function ProductDetails() {
 
   return (
     <div>
-      <Nav title={"/ریزفروش/" + id} />
+      <Nav history={history} />
       <div className="product-details">
         {resultsList.length > 5 ? (
           <h3>
             ریز فروش {id} | (سیستم خطایابی{" "}
             <span className="green-color">فعال است!</span> ردیف های با رنگ زرد
-            یا قرمز احتمال وجود خطا در ورود فاکتور را نمایان میکنید اما فراموش
-            نکنید که سیستم خطایابی فقط یک دستیار کاربر است و نه بیشتر)
+            یا قرمز احتمال وجود اشتباه را نمایان میکنند اما فراموش نکنید که
+            سیستم خطایابی فقط یک دستیار است و نه بیشتر)
           </h3>
         ) : (
           <h3>
-            ریز فروش {id} | (سیستم خطایابی به دلیل کافی نبودن ردیف ها{" "}
-            <span className="red-color">غیرفعال است!</span> لطفا به صورت دستی بررسی کنید)
+            ریز فروش {id} | (سیستم خطایابی به دلیل کافی نبودن تعداد ردیف ها{" "}
+            <span className="red-color">غیرفعال است!</span> لطفا به صورت دستی
+            خطایابی کنید)
           </h3>
         )}
 

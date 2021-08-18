@@ -16,27 +16,6 @@ import "./PrintCar.css";
 import html2pdf from "html2pdf.js";
 
 function InfoSection({ car }) {
-  // let tmpJdate;
-  // let tmpJdate2;
-  // let arrivalDate;
-  // let finishDate;
-  // let sumBascule;
-  // let sumAmount;
-  // let isProductValid = true;
-  //
-  // if (products) {
-  //   sumBascule = 0;
-  //   sumAmount = 0;
-  //   for (let i = 0; i < products.length; i++) {
-  //     sumAmount += products[i].amount;
-  //     sumBascule += products[i].basculeWeight;
-  //     for (let i2 = 0; i2 < products.length; i2++) {
-  //       if (products[i].owner !== products[i2].owner) {
-  //         isProductValid = false;
-  //       }
-  //     }
-  //   }
-  // }
 
   return (
     <div className="info">
@@ -92,37 +71,9 @@ function InfoSection({ car }) {
   );
 }
 
-function SaleSection({ products, car }) {
+function SaleSection({ products, car, history }) {
   const [salesInfos, setsalesInfos] = useState();
   const init = useRef(true);
-
-  // let sumPortage,
-  //   sumUnload,
-  //   sumCash,
-  //   sumCommission,
-  //   sumSaleCommission,
-  //   fullSum,
-  //   sumOwnerEarnings;
-  //
-  // if (salesInfos && products && salesInfos.length === products.length) {
-  //   sumPortage = 0;
-  //   sumUnload = 0;
-  //   sumCash = 0;
-  //   sumCommission = 0;
-  //   sumSaleCommission = 0;
-  //   fullSum = 0;
-  //   sumOwnerEarnings = 0;
-  //   for (let i = 0; i < products.length; i++) {
-  //     sumPortage += products[i].portage;
-  //     sumUnload += products[i].unload;
-  //     sumCash += products[i].cash;
-  //     sumCommission += products[i].commission;
-  //     sumSaleCommission += salesInfos[i].COMMISSION;
-  //     fullSum += salesInfos[i].FULL_SALE;
-  //     sumOwnerEarnings += salesInfos[i].OWNER_ERNINGS;
-  //   }
-  //   sumCommission = sumCommission / salesInfos.length;
-  // }
 
   let fullSum, sumSaleCommission;
 
@@ -171,7 +122,7 @@ function SaleSection({ products, car }) {
         .from(document.body)
         .save()
         .then(() => {
-          window.history.back();
+          history.goBack();
         });
     }
 
@@ -280,7 +231,7 @@ function SaleSection({ products, car }) {
   );
 }
 
-export default function PrintCar() {
+export default function PrintCar({history}) {
   const [products, setProducts] = useState();
   const [car, setCar] = useState();
   let { id } = useParams();
@@ -340,7 +291,7 @@ export default function PrintCar() {
       <div className="printCar">
         <Header />
         <InfoSection car={car} />
-        <SaleSection car={car} products={products} />
+        <SaleSection history={history} car={car} products={products} />
         {car.ps.length > 0 ? (
           <div className="ps">
             <span>پی‌نوشت</span>

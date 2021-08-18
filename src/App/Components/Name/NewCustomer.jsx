@@ -53,7 +53,6 @@ export default function NewCustomer() {
 
   return (
     <div className="NewCustomer-form">
-      <Nav />
       <div>
         <Grid container spacing={3}>
           <Grid item xs={12}>

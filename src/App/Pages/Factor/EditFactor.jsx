@@ -28,7 +28,7 @@ import ShowDate from "../../Components/ShowDate.jsx";
 import reducer from "../../Reducers/EditFactorReducer.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
-export default function EditFactor() {
+export default function EditFactor({ history }) {
   const [formData, formDispatch] = useReducer(reducer, {});
   const [submit, setSubmit] = useState(false);
   const [editStatus, setEditStatus] = useState(null);
@@ -80,7 +80,7 @@ export default function EditFactor() {
 
   return (
     <div>
-      <Nav />
+      <Nav history={history} />
       <form className="EditFactor-form goje-container">
         <Grid container spacing={3}>
           <Grid className="header" item xs={12}>
