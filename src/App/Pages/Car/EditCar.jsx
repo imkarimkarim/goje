@@ -19,7 +19,7 @@ import Input from "../../Components/Input.jsx";
 import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import "./EditCar.css";
 import reducer from "../../Reducers/EditCarReducer.jsx";
-import CarEditableTable from "../../Components/Car/CarEditableTable.jsx";
+import CarEditableProductTable from "../../Components/Car/CarEditableProductTable.jsx";
 import CarProductInput from "../../Components/Car/CarProductInput.jsx";
 import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
@@ -73,6 +73,7 @@ export default function EditCar() {
 
     // clean up
     return () => {
+      ipcRenderer.removeAllListeners("getOneCar");
       ipcRenderer.removeAllListeners("editCar");
     };
   });
@@ -150,7 +151,7 @@ export default function EditCar() {
               }}
               value={formData.unload}
             />
-            <CarEditableTable
+            <CarEditableProductTable
               formDispatch={formDispatch}
               products={formData.products}
               handleSubmit={handleSubmit}

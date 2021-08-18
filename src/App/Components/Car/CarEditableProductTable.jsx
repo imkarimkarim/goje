@@ -8,7 +8,7 @@ import CarProductInputEditor from "./CarProductInputEditor.jsx";
 import "./CarProductTable.css";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 
-export default function CarEditableTable({
+export default function CarEditableProductTable({
   products,
   formDispatch,
   handleSubmit,
@@ -38,24 +38,6 @@ export default function CarEditableTable({
 
   const removeProduct = (productId) => {
     ipcRenderer.send("removeProduct", productId);
-  };
-
-  const editIconComponent = (p, index) => {
-    <span
-      onDoubleClick={() =>
-        setProductToEdit({
-          index: index,
-          name: p.productName,
-          id: p.customeId,
-          signHint: p.signHint,
-          amount: p.amount,
-          weight: p.weight,
-          price: p.price,
-        })
-      }
-    >
-      <EditIcon />
-    </span>;
   };
 
   useEffect(() => {
@@ -127,7 +109,21 @@ export default function CarEditableTable({
                         <span onDoubleClick={() => handleRemove(p.customeId)}>
                           <DeleteIcon />
                         </span>
-                        <editIconComponent p={p} index={index} />
+                        <span
+                          onDoubleClick={() =>
+                            setProductToEdit({
+                              index: index,
+                              name: p.productName,
+                              id: p.customeId,
+                              signHint: p.signHint,
+                              amount: p.amount,
+                              weight: p.weight,
+                              price: p.price,
+                            })
+                          }
+                        >
+                          <EditIcon />
+                        </span>
                       </td>
                     ) : p.customeId && p.customeId.length > 0 ? (
                       <td
@@ -141,7 +137,7 @@ export default function CarEditableTable({
                         }}
                       >
                         <DeleteIcon />
-                        <editIconComponent p={p} index={index} />
+                        <EditIcon />
                       </td>
                     ) : (
                       <td>
@@ -155,7 +151,21 @@ export default function CarEditableTable({
                         >
                           <DeleteIcon />
                         </span>
-                        <editIconComponent p={p} index={index} />
+                        <span
+                          onDoubleClick={() =>
+                            setProductToEdit({
+                              index: index,
+                              name: p.productName,
+                              id: p.customeId,
+                              signHint: p.signHint,
+                              amount: p.amount,
+                              weight: p.weight,
+                              price: p.price,
+                            })
+                          }
+                        >
+                          <EditIcon />
+                        </span>
                       </td>
                     )
                   ) : (
@@ -172,7 +182,21 @@ export default function CarEditableTable({
                       >
                         <DeleteIcon />
                       </span>
-                      <editIconComponent p={p} index={index} />
+                      <span
+                        onDoubleClick={() =>
+                          setProductToEdit({
+                            index: index,
+                            name: p.productName,
+                            id: p.customeId,
+                            signHint: p.signHint,
+                            amount: p.amount,
+                            weight: p.weight,
+                            price: p.price,
+                          })
+                        }
+                      >
+                        <EditIcon />
+                      </span>
                     </td>
                   )}
                 </tr>

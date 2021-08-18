@@ -24,9 +24,9 @@ export default function reducer(state, action) {
     case "addProduct":
       return { ...state, products: [...state.products, action.payload] };
     case "editProduct":
-      if (action.payload1) {
+      if (action.payload1 && action.payload1.length > 3) {
         state.products.splice(action.payload0, 1, {
-          productId: action.payload1,
+          customeId: action.payload1,
           productName: action.payload5,
           signHint: action.payload6,
           amount: convertToIntIfIsNumber(action.payload2),

@@ -206,6 +206,26 @@ const update = (id, product, callback) => {
   );
 };
 
+const updateCarProduct = (productId, product, callback) => {
+  db.findOne({ customeId: productId }, function (err, doc) {
+    if (err) throw err;
+    db.update(
+      { _id: doc._id },
+      {
+        ...product,
+        customeId: productId,
+        docType: "product",
+      },
+      {},
+      function () {
+        if (typeof callback === "function") {
+          callback();
+        }
+      }
+    );
+  });
+};
+
 const remove = (id, callback) => {
   db.remove(
     { $and: [{ docType: "product" }, { customeId: id }] },
@@ -222,6 +242,7 @@ module.exports = {
   getAll,
   insert,
   update,
+  updateCarProduct,
   remove,
   getUnFinished,
   getInCar,
