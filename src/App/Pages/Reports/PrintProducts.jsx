@@ -13,6 +13,7 @@ import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import "./PrintProducts.css";
 import html2pdf from "html2pdf.js";
+import { Redirect } from "react-router-dom";
 
 function InfoSection({ products }) {
   let tmpJdate;
@@ -111,6 +112,7 @@ function InfoSection({ products }) {
 
 function SaleSection({ products, history }) {
   const [salesInfos, setsalesInfos] = useState();
+  const [goBack, setGoBack] = useState(false);
   const init = useRef(true);
 
   let sumPortage,
@@ -165,7 +167,7 @@ function SaleSection({ products, history }) {
       }
     });
 
-    if (salesInfos && products && salesInfos.length === products.length) {
+    if (salesInfos && products && salesInfos.length === products.length && !goBack) {
       const date = new JDate(new Date(products[0].arrivalDate));
       const fileName = `(${products[0].customeId}) صورتحساب ${products[0].owner} ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
       const options = {
@@ -178,7 +180,7 @@ function SaleSection({ products, history }) {
         .from(document.body)
         .save()
         .then(() => {
-          history.goBack();
+          setGoBack(true);
         });
     }
 
@@ -190,97 +192,101 @@ function SaleSection({ products, history }) {
 
   return salesInfos && products && salesInfos.length === products.length ? (
     <div>
-      <div className="sale">
-        <Grid container spacing={1}>
-          <Grid className="saleInfo-table" item xs={12}>
-            <table>
-              <thead>
-                <tr>
-                  <th>شرح بار</th>
-                  <th>تعداد</th>
-                  <th>وزن</th>
-                  <th>فی فروش</th>
-                  <th>مبلغ کل</th>
-                </tr>
-              </thead>
-              <tbody>
-                {salesInfos.map((s, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{products[index].productName}</td>
-                      <td>{s.SUM_AMOUNT}</td>
-                      <td>{s.SUM_KG}</td>
-                      <td>{<Expense num={s.SALE_AVERAGE} />}</td>
-                      <td>{<Expense num={s.FULL_SALE} />}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <span className="fullSomProduct">
-              <span>جمع کل</span>
-              <span> :</span>
-              <span> </span>
-              <span>{<Expense num={fullSum} />}</span>
-            </span>
+      {goBack ? (
+        <Redirect to="/welcome" />
+      ) : (
+        <div className="sale">
+          <Grid container spacing={1}>
+            <Grid className="saleInfo-table" item xs={12}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>شرح بار</th>
+                    <th>تعداد</th>
+                    <th>وزن</th>
+                    <th>فی فروش</th>
+                    <th>مبلغ کل</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {salesInfos.map((s, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{products[index].productName}</td>
+                        <td>{s.SUM_AMOUNT}</td>
+                        <td>{s.SUM_KG}</td>
+                        <td>{<Expense num={s.SALE_AVERAGE} />}</td>
+                        <td>{<Expense num={s.FULL_SALE} />}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <span className="fullSomProduct">
+                <span>جمع کل</span>
+                <span> :</span>
+                <span> </span>
+                <span>{<Expense num={fullSum} />}</span>
+              </span>
+            </Grid>
           </Grid>
-        </Grid>
-        <hr />
-        <Grid container spacing={1}>
-          <Grid className="saleInfo-costs" item xs={12}>
-            <Grid container spacing={3}>
-              <Grid item xs={5}>
-                <div>
-                  <span>کرایه</span>
-                  <span> :</span>
-                  <span>{<Expense num={sumPortage} />}</span>
-                </div>
-                <div>
-                  <span>تخلیه</span>
-                  <span> :</span>
-                  <span>{<Expense num={sumUnload} />}</span>
-                </div>
-              </Grid>
-              <Grid item xs={5}>
-                <div>
-                  <span>کارمزد</span>
-                  <span>)</span>
-                  <span>
-                    <span>{sumCommission}</span>٪
-                  </span>
-                  <span>
-                    (<span> :</span>
-                  </span>
-                  <span>{<Expense num={sumSaleCommission} />}</span>
-                </div>
-                <div>
-                  <span>دستی</span>
-                  <span> :</span>
-                  <span>{<Expense num={sumCash} />}</span>
-                </div>
+          <hr />
+          <Grid container spacing={1}>
+            <Grid className="saleInfo-costs" item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item xs={5}>
+                  <div>
+                    <span>کرایه</span>
+                    <span> :</span>
+                    <span>{<Expense num={sumPortage} />}</span>
+                  </div>
+                  <div>
+                    <span>تخلیه</span>
+                    <span> :</span>
+                    <span>{<Expense num={sumUnload} />}</span>
+                  </div>
+                </Grid>
+                <Grid item xs={5}>
+                  <div>
+                    <span>کارمزد</span>
+                    <span>)</span>
+                    <span>
+                      <span>{sumCommission}</span>٪
+                    </span>
+                    <span>
+                      (<span> :</span>
+                    </span>
+                    <span>{<Expense num={sumSaleCommission} />}</span>
+                  </div>
+                  <div>
+                    <span>دستی</span>
+                    <span> :</span>
+                    <span>{<Expense num={sumCash} />}</span>
+                  </div>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <div className="owner-earning">
-          <h4>
-            <span>جمع هزینه‌ها</span>
-            <span> :</span>
-            <span>
-              {
-                <Expense
-                  num={sumSaleCommission + sumPortage + sumUnload + sumCash}
-                />
-              }
-            </span>
-          </h4>
-          <h3>
-            <span>صافی</span>
-            <span> :</span>
-            <span>{<Expense num={sumOwnerEarnings} />}</span>
-          </h3>
+          <div className="owner-earning">
+            <h4>
+              <span>جمع هزینه‌ها</span>
+              <span> :</span>
+              <span>
+                {
+                  <Expense
+                    num={sumSaleCommission + sumPortage + sumUnload + sumCash}
+                  />
+                }
+              </span>
+            </h4>
+            <h3>
+              <span>صافی</span>
+              <span> :</span>
+              <span>{<Expense num={sumOwnerEarnings} />}</span>
+            </h3>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   ) : (
     <Loading />

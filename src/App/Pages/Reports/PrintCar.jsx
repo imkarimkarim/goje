@@ -14,9 +14,9 @@ import ShowDate from "../../Components/ShowDate.jsx";
 import { productsToString } from "../../utils.js";
 import "./PrintCar.css";
 import html2pdf from "html2pdf.js";
+import { Redirect } from "react-router-dom";
 
 function InfoSection({ car }) {
-
   return (
     <div className="info">
       <p className="safiTitle">
@@ -73,6 +73,7 @@ function InfoSection({ car }) {
 
 function SaleSection({ products, car, history }) {
   const [salesInfos, setsalesInfos] = useState();
+  const [goBack, setGoBack] = useState(false);
   const init = useRef(true);
 
   let fullSum, sumSaleCommission;
@@ -109,7 +110,7 @@ function SaleSection({ products, car, history }) {
       }
     });
 
-    if (salesInfos && products && salesInfos.length === products.length) {
+    if (salesInfos && products && salesInfos.length === products.length && !goBack) {
       const date = new JDate(new Date(car.arrivalDate));
       const fileName = `(${car.customeId}) صورتحساب ${car.owner} ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
       const options = {
@@ -122,7 +123,7 @@ function SaleSection({ products, car, history }) {
         .from(document.body)
         .save()
         .then(() => {
-          history.goBack();
+          setGoBack(true);
         });
     }
 
@@ -134,104 +135,108 @@ function SaleSection({ products, car, history }) {
 
   return salesInfos && products && salesInfos.length === products.length ? (
     <div>
-      <div className="sale">
-        <Grid container spacing={1}>
-          <Grid className="saleInfo-table" item xs={7}>
-            <table>
-              <thead>
-                <tr>
-                  <th>شرح بار</th>
-                  <th>تعداد</th>
-                  <th>وزن</th>
-                  <th>فی فروش</th>
-                  <th>مبلغ کل</th>
-                </tr>
-              </thead>
-              <tbody>
-                {salesInfos.map((s, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{products[index].productName}</td>
-                      <td>{s.SUM_AMOUNT}</td>
-                      <td>{s.SUM_KG}</td>
-                      <td>{<Expense num={s.SALE_AVERAGE} />}</td>
-                      <td>{<Expense num={s.FULL_SALE} />}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <span className="fullSomProduct">
-              <span>جمع کل</span>
-              <span> :</span>
-              <span> </span>
-              <span>{<Expense num={fullSum} />}</span>
-            </span>
+      {goBack ? (
+        <Redirect to="/searchCars" />
+      ) : (
+        <div className="sale">
+          <Grid container spacing={1}>
+            <Grid className="saleInfo-table" item xs={7}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>شرح بار</th>
+                    <th>تعداد</th>
+                    <th>وزن</th>
+                    <th>فی فروش</th>
+                    <th>مبلغ کل</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {salesInfos.map((s, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{products[index].productName}</td>
+                        <td>{s.SUM_AMOUNT}</td>
+                        <td>{s.SUM_KG}</td>
+                        <td>{<Expense num={s.SALE_AVERAGE} />}</td>
+                        <td>{<Expense num={s.FULL_SALE} />}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <span className="fullSomProduct">
+                <span>جمع کل</span>
+                <span> :</span>
+                <span> </span>
+                <span>{<Expense num={fullSum} />}</span>
+              </span>
+            </Grid>
+            <Grid className="saleInfo-costs" item xs={5}>
+              <div>
+                <span>کرایه</span>
+                <span> :</span>
+                <span>{<Expense num={car.portage} />}</span>
+              </div>
+              <div>
+                <span>تخلیه</span>
+                <span> :</span>
+                <span>{<Expense num={car.unload} />}</span>
+              </div>
+              <div>
+                <span>کارمزد</span>
+                <span>)</span>
+                <span>
+                  <span>{car.commission}</span>٪
+                </span>
+                <span>
+                  (<span> :</span>
+                </span>
+                <span>{<Expense num={sumSaleCommission} />}</span>
+              </div>
+              <div>
+                <span>دستی</span>
+                <span> :</span>
+                <span>{<Expense num={car.cash} />}</span>
+              </div>
+              <h4>
+                <span>جمع هزینه‌ها</span>
+                <span> :</span>
+                <span>
+                  {
+                    <Expense
+                      num={
+                        sumSaleCommission + car.portage + car.unload + car.cash
+                      }
+                    />
+                  }
+                </span>
+              </h4>
+            </Grid>
           </Grid>
-          <Grid className="saleInfo-costs" item xs={5}>
-            <div>
-              <span>کرایه</span>
-              <span> :</span>
-              <span>{<Expense num={car.portage} />}</span>
-            </div>
-            <div>
-              <span>تخلیه</span>
-              <span> :</span>
-              <span>{<Expense num={car.unload} />}</span>
-            </div>
-            <div>
-              <span>کارمزد</span>
-              <span>)</span>
-              <span>
-                <span>{car.commission}</span>٪
-              </span>
-              <span>
-                (<span> :</span>
-              </span>
-              <span>{<Expense num={sumSaleCommission} />}</span>
-            </div>
-            <div>
-              <span>دستی</span>
-              <span> :</span>
-              <span>{<Expense num={car.cash} />}</span>
-            </div>
-            <h4>
-              <span>جمع هزینه‌ها</span>
+          <div className="owner-earning-car">
+            <h3>
+              <span>صافی</span>
               <span> :</span>
               <span>
-                {
-                  <Expense
-                    num={
-                      sumSaleCommission + car.portage + car.unload + car.cash
-                    }
-                  />
-                }
+                <Expense
+                  num={
+                    fullSum -
+                    (sumSaleCommission + car.portage + car.unload + car.cash)
+                  }
+                />
               </span>
-            </h4>
-          </Grid>
-        </Grid>
-        <div className="owner-earning-car">
-          <h3>
-            <span>صافی</span>
-            <span> :</span>
-            <span>
-              <Expense
-                num={
-                  fullSum -
-                  (sumSaleCommission + car.portage + car.unload + car.cash)
-                }
-              />
-            </span>
-          </h3>
+            </h3>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   ) : (
     <Loading />
   );
 }
 
-export default function PrintCar({history}) {
+export default function PrintCar({ history }) {
   const [products, setProducts] = useState();
   const [car, setCar] = useState();
   let { id } = useParams();

@@ -12,6 +12,7 @@ import Footer from "../../Components/Footer.jsx";
 import NotFound from "../../Components/NotFound.jsx";
 import "./PrintFactors.css";
 import html2pdf from "html2pdf.js";
+import { Redirect } from "react-router-dom";
 
 // TODO: backuping db, opening db
 // TODO: print this + signle print factor
@@ -39,8 +40,10 @@ const RenderPays = ({ pays }) => {
 };
 
 const RenderFactor = ({ factor, index, factorsLength, history }) => {
+  const [goBack, setGoBack] = useState(false);
+
   useEffect(() => {
-    if (factorsLength === index + 1) {
+    if (factorsLength === index + 1 && !goBack) {
       const date = new JDate(new Date(factor.factorDate));
       const filename =
         factorsLength !== 1
@@ -56,7 +59,7 @@ const RenderFactor = ({ factor, index, factorsLength, history }) => {
         .from(document.body)
         .save()
         .then(() => {
-          history.goBack();
+          setGoBack(true);
         });
     }
   });
@@ -65,91 +68,97 @@ const RenderFactor = ({ factor, index, factorsLength, history }) => {
   else if (factor && factor.isPayed === false) tmpStatus = "نسیه";
   else if (factor && factor.isPayed === "receipt") tmpStatus = "وصولی";
   return (
-    <div className="factorsPrint-wrapper">
-      <Header />
-      <div className="factorMetaData">
-        <div className="name">
-          <span>صورتحساب</span>
-          <span>: </span>
-          <span>
-            <h4>{factor.ownerName}</h4>
-          </span>
-          <span></span>)<span>{tmpStatus}</span>
-          <span>(</span>
-          <span> </span>
-        </div>
-        <div className="date">
-          <span>تاریخ</span>
-          <span> :</span>
-          <span>
-            {factor && factor.factorDate ? (
-              <ShowDate timestamp={factor.factorDate} />
+    <div>
+      {goBack ? (
+        <Redirect to="/welcome" />
+      ) : (
+        <div className="factorsPrint-wrapper">
+          <Header />
+          <div className="factorMetaData">
+            <div className="name">
+              <span>صورتحساب</span>
+              <span>: </span>
+              <span>
+                <h4>{factor.ownerName}</h4>
+              </span>
+              <span></span>)<span>{tmpStatus}</span>
+              <span>(</span>
+              <span> </span>
+            </div>
+            <div className="date">
+              <span>تاریخ</span>
+              <span> :</span>
+              <span>
+                {factor && factor.factorDate ? (
+                  <ShowDate timestamp={factor.factorDate} />
+                ) : (
+                  <span></span>
+                )}
+              </span>
+            </div>
+          </div>
+          <div className="printProductsTable">
+            <table>
+              <thead>
+                <tr>
+                  <th>ردیف</th>
+                  <th>شرح بار</th>
+                  <th>تعداد</th>
+                  <th>وزن</th>
+                  <th>فی</th>
+                  <th>مبلغ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {factor.products && factor.products.length > 0
+                  ? factor.products.map((p, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{p.productName}</td>
+                        <td>{p.amount}</td>
+                        <td>{p.weight}</td>
+                        <td>{<Expense num={p.price} />}</td>
+                        <td>
+                          {
+                            <Expense
+                              num={Math.round(100 * (p.price * p.weight)) / 100}
+                            />
+                          }
+                        </td>
+                      </tr>
+                    ))
+                  : null}
+              </tbody>
+            </table>
+          </div>
+          <div className="printfullSum">
+            {factor.pays && factor.pays.length > 0 ? (
+              <RenderPays pays={factor.pays} />
             ) : (
               <span></span>
             )}
-          </span>
+            <div className="fl">
+              <h5>
+                <span>جمع کل</span> :<span></span>
+                <span> </span>
+                <span>{<Expense num={factor.calcs.fullSum} />}</span>
+              </h5>
+              <h5 className="imBigger">
+                <span>قابل پرداخت</span> :<span></span>
+                <span> </span>
+                <span>
+                  {
+                    <Expense
+                      num={factor.calcs.fullSum - factor.calcs.fullSumPays}
+                    />
+                  }
+                </span>
+              </h5>
+            </div>
+          </div>
+          <Footer />
         </div>
-      </div>
-      <div className="printProductsTable">
-        <table>
-          <thead>
-            <tr>
-              <th>ردیف</th>
-              <th>شرح بار</th>
-              <th>تعداد</th>
-              <th>وزن</th>
-              <th>فی</th>
-              <th>مبلغ</th>
-            </tr>
-          </thead>
-          <tbody>
-            {factor.products && factor.products.length > 0
-              ? factor.products.map((p, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{p.productName}</td>
-                    <td>{p.amount}</td>
-                    <td>{p.weight}</td>
-                    <td>{<Expense num={p.price} />}</td>
-                    <td>
-                      {
-                        <Expense
-                          num={Math.round(100 * (p.price * p.weight)) / 100}
-                        />
-                      }
-                    </td>
-                  </tr>
-                ))
-              : null}
-          </tbody>
-        </table>
-      </div>
-      <div className="printfullSum">
-        {factor.pays && factor.pays.length > 0 ? (
-          <RenderPays pays={factor.pays} />
-        ) : (
-          <span></span>
-        )}
-        <div className="fl">
-          <h5>
-            <span>جمع کل</span> :<span></span>
-            <span> </span>
-            <span>{<Expense num={factor.calcs.fullSum} />}</span>
-          </h5>
-          <h5 className="imBigger">
-            <span>قابل پرداخت</span> :<span></span>
-            <span> </span>
-            <span>
-              {
-                <Expense
-                  num={factor.calcs.fullSum - factor.calcs.fullSumPays}
-                />
-              }
-            </span>
-          </h5>
-        </div>
-      </div>
-      <Footer />
+      )}
     </div>
   );
 };

@@ -1,12 +1,13 @@
-const { app, BrowserWindow } = require("electron");
-const path = require('path');
+const { app, BrowserWindow, Menu, dialog } = require("electron");
+const fs = require("fs");
+const path = require("path");
 
 require("./db");
-require('./ipcMains/ipcProducts');
-require('./ipcMains/ipcCars');
-require('./ipcMains/ipcCustomer');
-require('./ipcMains/ipcFactors');
-require('./ipcMains/ipcProductOwner')
+require("./ipcMains/ipcProducts");
+require("./ipcMains/ipcCars");
+require("./ipcMains/ipcCustomer");
+require("./ipcMains/ipcFactors");
+require("./ipcMains/ipcProductOwner");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -20,7 +21,7 @@ const createWindow = () => {
     width: 1200,
     height: 620,
     minWidth: 700,
-    icon: __dirname + '/assets/goje.png',
+    icon: __dirname + "/assets/goje.png",
     webPreferences: {
       nodeIntegration: true,
     },
@@ -33,13 +34,56 @@ const createWindow = () => {
   if (process.env.DEBUG) {
     mainWindow.webContents.openDevTools();
   }
-
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", createWindow);
+
+const template = [
+  {
+    label: "منو",
+    submenu: [
+      {
+        label: "پشتیبان گیری",
+        click() {
+          const options = {
+            defaultPath: "goje.db",
+          };
+          dialog.showSaveDialog(options).then((file) => {
+            if (!file.canceled) {
+              fs.copyFile(
+                (app.getPath("appData") + "/goje/db/goje.db").toString(),
+                file.filePath,
+                (err) => {
+                  if (err) throw err;
+                }
+              );
+            }
+          });
+        },
+      },
+      {
+        label: "GitHub Page",
+        click() {
+          require("electron").shell.openExternal(
+            "https://github.com/imkarimkarim/goje"
+          );
+        },
+      },
+      {
+        label: "خروج",
+        click() {
+          app.quit();
+        },
+      },
+    ],
+  },
+];
+
+const menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

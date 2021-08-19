@@ -1,13 +1,17 @@
-.remainingProducts{
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
+.remainingProducts {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
 }
 
-.remainingProductsOuterContainer{
-  text-align: center;
+.remainingProductsOuterContainer {
 }
 
-.remainingProduct .huh span{
-  margin: 0 5px;
-  font-size: .8em;
+.remainingProduct .huh {
+  margin: 4px;
+  font-size: 0.8em;
+}
+
+.remainingProduct .huh span:nth-last-child(2) {
+  margin: 0 10px;
 }

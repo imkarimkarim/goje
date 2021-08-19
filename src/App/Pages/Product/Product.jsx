@@ -15,7 +15,6 @@ import ShowDate from "../../Components/ShowDate.jsx";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import "./Product.css";
-import html2pdf from "html2pdf.js";
 
 // TODO: add delete button
 

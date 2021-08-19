@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import SubjectIcon from "@material-ui/icons/Subject";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 import SearchIcon from "@material-ui/icons/Search";
 import NoteIcon from "@material-ui/icons/Note";
 import { DatePicker } from "jalali-react-datepicker";
@@ -19,26 +20,33 @@ export default function Reports({ history }) {
   return (
     <div className="reports-screen">
       <Nav history={history} />
-      <h3 className="alignTextIcon">
-        جستجو
-        <SearchIcon />
-      </h3>
-      <Link to="/searchProducts">
-        <Button variant="outlined">
-          بارها
-          <ShoppingCartIcon />
-        </Button>
-      </Link>
-      <Link to="/searchCars">
-        <Button variant="outlined">صافی ها</Button>
-      </Link>
-      <br />
-      <Link to="/searchFactors">
-        <Button variant="outlined">
-          فاکتورها
-          <NoteIcon />
-        </Button>
-      </Link>
+      <div className="searchItemsWrapper">
+        <h3 className="alignTextIcon">
+          جستجو
+          <SearchIcon />
+        </h3>
+        <div className="searchItems">
+          <Link to="/searchFactors">
+            <Button variant="outlined">
+              فاکتورها
+              <NoteIcon />
+            </Button>
+          </Link>
+          <Link to="/searchProducts">
+            <Button variant="outlined">
+              بارها
+              <ShoppingCartIcon />
+            </Button>
+          </Link>
+          <Link to="/searchCars">
+            <Button variant="outlined">
+              صافی ها
+              <AssignmentIcon />
+            </Button>
+          </Link>
+          <br />
+        </div>
+      </div>
       <div className="printSection">
         <h3 className="alignTextIcon">
           گزارشات

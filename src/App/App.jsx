@@ -59,10 +59,10 @@ export default function App() {
             <Route path="/editFactor/:id" component={EditFactor} />
             <Route path="/editProduct/:id" component={EditProduct} />
             <Route path="/editCar/:id" component={EditCar} />
+            <Route path="/productDetails/:id" component={ProductDetails} />
             <Route path="/printProducts/:ids" component={PrintProducts} />
             <Route path="/printCar/:id" component={PrintCar} />
             <Route path="/printFactors/:date/:date2" component={PrintFactors} />
-            <Route path="/productDetails/:id" component={ProductDetails} />
             <Route
               path="/printRemainingProducts"
               component={PrintRemainingProducts}

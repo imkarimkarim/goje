@@ -7,13 +7,18 @@ import Loading from "../../Components/Loading.jsx";
 import Header from "../../Components/Header.jsx";
 import Footer from "../../Components/Footer.jsx";
 import html2pdf from "html2pdf.js";
+import { Redirect } from "react-router-dom";
 import "./PrintRemainingProducts.css";
 
 function RenderProduct({ index, product, productsLength, history }) {
+  const [goBack, setGoBack] = useState(false);
   const report = useRef(false);
 
+  console.log(history);
+  console.log("goBack: ", goBack);
+
   useEffect(() => {
-    if (productsLength === index + 1 && !report.current) {
+    if (productsLength === index + 1 && !report.current && !goBack) {
       report.current = true;
       const date = new JDate();
       const fileName = `باقیمانده بار ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
@@ -27,28 +32,39 @@ function RenderProduct({ index, product, productsLength, history }) {
         .from(document.body)
         .save()
         .then(() => {
-          history.goBack();
+          setGoBack(true);
         });
     }
   });
 
   return (
-    <div className="remainingProduct">
-      {product.name == "کارگری" ||
-      product.name == "اضافه شود" ||
-      product.name == "کرایه" ? (
-        <span></span>
+    <div>
+      {goBack ? (
+        <Redirect to="/welcome" />
       ) : (
-        <div className="huh">
-          <span>{product.name}</span>
-          <span>{product.remainAmount}</span>
+        <div className="remainingProduct">
+          {product.name == "کارگری" ||
+          product.name == "اضافه شود" ||
+          product.name == "پول" ||
+          product.name == "کرایه" ? (
+            <span></span>
+          ) : (
+            <div className="huh">
+              <span>{product.name}</span>
+              <span> </span>
+              <span>{product.owner}</span>
+              <span>:</span>
+              <span>{product.remainAmount}</span>
+              <span>عدد</span>
+            </div>
+          )}
         </div>
       )}
     </div>
   );
 }
 
-export default function PrintRemainingProducts({history}) {
+export default function PrintRemainingProducts({ history }) {
   const [products, setProducts] = useState();
   const [remainigDetails, setRemainigDetails] = useState([]);
   const init = useRef(true);
@@ -65,6 +81,7 @@ export default function PrintRemainingProducts({history}) {
   const extractRemainingDetails = (productData, calcProduct) => {
     return {
       name: productData.productName,
+      owner: productData.owner,
       remainAmount: productData.amount - calcProduct.SUM_AMOUNT,
       remainWeight: productData.basculeWeight - calcProduct.SUM_KG,
     };
@@ -83,7 +100,7 @@ export default function PrintRemainingProducts({history}) {
           (function (ind) {
             setTimeout(function () {
               getOneProductCalcs(dbproducts[ind].customeId);
-            }, 100 + 200 * ind);
+            }, 100 + 1000 * ind);
           })(i);
         }
       }
@@ -103,7 +120,6 @@ export default function PrintRemainingProducts({history}) {
       ipcRenderer.removeAllListeners("oneProductCalcs");
     };
   });
-
   if (
     products &&
     products.length > 0 &&

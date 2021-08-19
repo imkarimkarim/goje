@@ -1,4 +1,35 @@
-.reports-screen button{
+.reports-screen button {
   margin: 5px 0 0 10px;
   width: 200px;
+}
+
+.reports-screen .searchItems {
+  width: 100%;
+}
+
+.reports-screen .searchItems button .MuiButton-label {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.reports-screen {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+.reports-screen .searchItems button {
+  height: 100px;
+  width: 150px;
+}
+.reports-screen .printSection {
+  margin-top: 20px;
+}
+.reports-screen .searchItems {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
