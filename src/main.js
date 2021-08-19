@@ -20,7 +20,7 @@ const createWindow = () => {
     width: 1200,
     height: 620,
     minWidth: 700,
-    icon: __dirname + '/goje.png',
+    icon: __dirname + '/assets/goje.png',
     webPreferences: {
       nodeIntegration: true,
     },
