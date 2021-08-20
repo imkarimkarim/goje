@@ -1,7 +1,7 @@
 const { ipcMain } = require("electron");
 const productDocs = require("../db/productDocs");
 const calcOneProduct = require("../calculators/calcOneProduct");
-const { validateProduct } = require("../modules/validator");
+const { validateProduct, validateCheat } = require("../modules/validator");
 
 ipcMain.on("getUnFinishedProducts", (event) => {
   productDocs.getUnFinished((docs) => {
@@ -68,6 +68,31 @@ ipcMain.on("editProduct", (event, product) => {
     if (status === false) {
       event.reply("editProduct", { status: status, message: message });
     }
+  });
+});
+
+ipcMain.on("cheatProduct", (event, cheat) => {
+  validateCheat(cheat.cheat, (status, message) => {
+    if (status === true) {
+      productDocs.addCheat(cheat.productId, cheat.cheat, () => {
+        event.reply("cheatProduct", {
+          status: status,
+          message: "با موفقیت انجام شد",
+        });
+      });
+    }
+    if (status === false) {
+      event.reply("cheatProduct", { status: status, message: message });
+    }
+  });
+});
+
+ipcMain.on("removeCheatProduct", (event, productId) => {
+  productDocs.removeCheat(productId, () => {
+    event.reply("removeCheatProduct", {
+      status: true,
+      message: "با موفقیت انجام شد",
+    });
   });
 });
 

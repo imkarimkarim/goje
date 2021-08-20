@@ -14,6 +14,7 @@ import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
+import Cheat from "../../Components/Product/Cheat.jsx";
 import "./Product.css";
 
 // TODO: add delete button
@@ -206,6 +207,7 @@ function SaleSection({ productId, product }) {
 
 export default function Product({ history }) {
   const [product, setProduct] = useState();
+  const [countI, setCountI] = useState(0);
 
   let { id } = useParams();
   const init = useRef(true);
@@ -218,11 +220,27 @@ export default function Product({ history }) {
     ipcRenderer.send("toggleProductFinish", id);
   };
 
+  const handleKeyBoardEvent = (e) => {
+    if (e.key === "I" || e.key === "i" || e.key === "ه" || e.key === "ّ")
+      setCountI(countI + 1);
+    if (e.key === "Escape") setCountI(0);
+  };
+
   useEffect(() => {
+    if (countI === -1) {
+      setProduct();
+      getOneProduct(id);
+    }
+  }, [countI]);
+
+  useEffect(() => {
+    console.log(product);
     if (init.current) {
       getOneProduct(id);
       init.current = false;
     }
+
+    document.addEventListener("keydown", handleKeyBoardEvent);
 
     ipcRenderer.on("getOneProduct", (event, product) => {
       setProduct(product);
@@ -230,14 +248,19 @@ export default function Product({ history }) {
 
     // clean up
     return () => {
+      document.removeEventListener("keydown", handleKeyBoardEvent);
       ipcRenderer.removeAllListeners("getOneProduct");
-      ipcRenderer.removeAllListeners("toggleProductFinish");
     };
   });
 
   return product ? (
     product.inCar ? (
       <div>
+        {countI > 4 ? (
+          <Cheat setCountI={setCountI} productId={product.customeId} />
+        ) : (
+          <div></div>
+        )}
         <Nav history={history} />
         <div className="product-reports">
           <br />
@@ -270,6 +293,11 @@ export default function Product({ history }) {
       </div>
     ) : (
       <div>
+        {countI > 4 ? (
+          <Cheat setCountI={setCountI} productId={product.customeId} />
+        ) : (
+          <div></div>
+        )}
         <Nav history={history} />
         <div className="product-reports">
           <InfoSection product={product} />

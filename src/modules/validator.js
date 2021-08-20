@@ -8,6 +8,51 @@ const {
 
 const { isInt, isString, isRangeOk } = require("../App/utils");
 
+const validateCheat = (cheat, callback) => {
+  if (!cheat) return false;
+  let errorMessage = ``;
+  let status = true;
+
+  if (cheat.amount !== "") {
+    if (!isInt(cheat.amount)) {
+      status = false;
+      errorMessage = `${errorMessage}
+      / تعداد باید عدد باشد`;
+    } else if (!isRangeOk(cheat.amount, 0)) {
+      status = false;
+      errorMessage = `${errorMessage}
+      / تعداد نمیتواند منفی باشد`;
+    }
+  }
+
+  if (cheat.weight !== "") {
+    if (!isInt(cheat.weight)) {
+      status = false;
+      errorMessage = `${errorMessage}
+  / وزن باید عدد باشد`;
+    } else if (!isRangeOk(cheat.weight, 0)) {
+      status = false;
+      errorMessage = `${errorMessage}
+  / وزن نمیتواند منفی باشد`;
+    }
+  }
+
+  if (cheat.price !== "") {
+    if (!isInt(cheat.price)) {
+      status = false;
+      errorMessage = `${errorMessage}
+  / فی باید عدد باشد`;
+    } else if (!isRangeOk(cheat.price, 0)) {
+      status = false;
+      errorMessage = `${errorMessage}
+  / فی نمیتواند منفی باشد`;
+    }
+  }
+  if (typeof callback === "function") {
+    callback(status, errorMessage);
+  }
+};
+
 const validateCar = (car, callback) => {
   if (!car) return false;
   let errorMessage = ``;
@@ -577,4 +622,5 @@ module.exports = {
   validateFactor,
   validateProductOwner,
   validateCar,
+  validateCheat,
 };

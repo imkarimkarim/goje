@@ -16,11 +16,9 @@ const isRelatedToTheGroup = (product, group) => {
         tmp.price * 1.3
       )
     ) {
-      console.log(false);
       return false;
     }
   }
-  console.log(true);
   return true;
 };
 
@@ -49,7 +47,6 @@ export const conflictFinder = (records) => {
   }
 
   let newRecords = [];
-  console.log(groups);
   for (let i = 0; i < groups.length; i++) {
     if (groups[i].length <= 1) {
       for (let i2 = 0; i2 < groups[i].length; i2++) {
