@@ -26,9 +26,14 @@ export const productSchema = {
       averageAmount: "averageAmount",
       averageWeigth: "averageWeigth",
     },
-    // New: cardId
   }
 }
+
+// cheat: { type: 'object', required: false, range: [], defaultValue: {}, childs: {
+// amount,
+// weight,
+// price,
+// }},
 
 export const generateInputByUserProductSchema = () => {
   let schema = {};
@@ -40,10 +45,7 @@ export const generateInputByUserProductSchema = () => {
 }
 
 // TODO: add this to productSchema
-// NEW: productOwnerId: '',
-// NEW: sign(علامت)
 // NEW: { field: 'isPayed', type: 'boolean', required: true, range: [0, 100], defaultValue: '' },
-// NEW: dataStructureVersion
 // New: calcs
 // NEW: last time printed
 

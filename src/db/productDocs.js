@@ -149,7 +149,10 @@ const getFinished = (callback) => {
 
 const getOne = (id, callback) => {
   if (!id) return;
-  db.findOne({ customeId: id }, function (err, doc) {
+  db.findOne({ $and: [{ docType: "product" }, { customeId: id }] }, function (
+    err,
+    doc
+  ) {
     if (err) throw err;
     if (typeof callback === "function") {
       callback(doc);
@@ -172,14 +175,12 @@ const toggleProductFinish = (id, callback) => {
   if (!id) return;
   db.findOne({ _id: id }, function (err, doc) {
     if (err) throw err;
-    const finishDate = doc.isProductFinish ? false : Date.now();
-    const isProductFinish = doc.isProductFinish ? false : true;
+    doc.finishDate = doc.isProductFinish ? false : Date.now();
+    doc.isProductFinish = doc.isProductFinish ? false : true;
     db.update(
       { _id: id },
       {
         ...doc,
-        finishDate: finishDate,
-        isProductFinish: isProductFinish,
       },
       {},
       function () {
@@ -189,6 +190,60 @@ const toggleProductFinish = (id, callback) => {
       }
     );
   });
+};
+
+const addCheat = (productId, cheat, callback) => {
+  if (!productId) return;
+  db.findOne(
+    { $and: [{ docType: "product" }, { customeId: productId }] },
+    function (err, doc) {
+      if (err) throw err;
+      doc.cheat = {
+        amount: cheat.amount,
+        weight: cheat.weight,
+        price: cheat.price,
+      };
+      db.update(
+        { _id: doc._id },
+        {
+          ...doc,
+        },
+        {},
+        function () {
+          if (typeof callback === "function") {
+            callback();
+          }
+        }
+      );
+    }
+  );
+};
+
+const removeCheat = (productId, callback) => {
+  if (!productId) return;
+  db.findOne(
+    { $and: [{ docType: "product" }, { customeId: productId }] },
+    function (err, doc) {
+      if (err) throw err;
+      doc.cheat = {
+        amount: false,
+        weight: false,
+        price: false,
+      };
+      db.update(
+        { _id: doc._id },
+        {
+          ...doc,
+        },
+        {},
+        function () {
+          if (typeof callback === "function") {
+            callback();
+          }
+        }
+      );
+    }
+  );
 };
 
 const update = (id, product, callback) => {
@@ -207,23 +262,26 @@ const update = (id, product, callback) => {
 };
 
 const updateCarProduct = (productId, product, callback) => {
-  db.findOne({ customeId: productId }, function (err, doc) {
-    if (err) throw err;
-    db.update(
-      { _id: doc._id },
-      {
-        ...product,
-        customeId: productId,
-        docType: "product",
-      },
-      {},
-      function () {
-        if (typeof callback === "function") {
-          callback();
+  db.findOne(
+    { $and: [{ docType: "product" }, { customeId: productId }] },
+    function (err, doc) {
+      if (err) throw err;
+      db.update(
+        { _id: doc._id },
+        {
+          ...product,
+          customeId: productId,
+          docType: "product",
+        },
+        {},
+        function () {
+          if (typeof callback === "function") {
+            callback();
+          }
         }
-      }
-    );
-  });
+      );
+    }
+  );
 };
 
 const remove = (id, callback) => {
@@ -251,4 +309,6 @@ module.exports = {
   search,
   toggleProductFinish,
   isProductHasDependency,
+  addCheat,
+  removeCheat,
 };

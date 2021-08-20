@@ -378,7 +378,7 @@ const Car = ({ history }) => {
             <span>پی‌نوشت</span>
             <span> :</span>
             <br />
-            <span key={index}>
+            <span>
               <span>
                 {car.ps} <br />
               </span>

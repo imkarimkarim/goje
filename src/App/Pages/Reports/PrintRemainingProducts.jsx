@@ -14,9 +14,6 @@ function RenderProduct({ index, product, productsLength, history }) {
   const [goBack, setGoBack] = useState(false);
   const report = useRef(false);
 
-  console.log(history);
-  console.log("goBack: ", goBack);
-
   useEffect(() => {
     if (productsLength === index + 1 && !report.current && !goBack) {
       report.current = true;

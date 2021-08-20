@@ -78,7 +78,10 @@ const search = (searchFilters, callback) => {
 
 const getOne = (id, callback) => {
   if (!id) return;
-  db.findOne({ customeId: id }, function (err, doc) {
+  db.findOne({ $and: [{ docType: "car" }, { customeId: id }] }, function (
+    err,
+    doc
+  ) {
     if (err) throw err;
     if (typeof callback === "function") {
       callback(doc);
