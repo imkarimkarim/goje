@@ -1,11 +1,11 @@
-import { convertToIntIfIsNumber } from "../utils";
+import { convertToFloatIfIsNumber } from "../utils";
 
 export default function reducer(state, action) {
   switch (action.type) {
     case "setForm":
       return action.payload;
     case "setarrivalDate":
-      return { ...state, arrivalDate: convertToIntIfIsNumber(action.payload) };
+      return { ...state, arrivalDate: convertToFloatIfIsNumber(action.payload) };
     case "setowner":
       return { ...state, owner: action.payload1, ownerId: action.payload2 };
     case "setPlaque":
@@ -13,14 +13,14 @@ export default function reducer(state, action) {
     case "setbasculeWeight":
       return {
         ...state,
-        basculeWeight: convertToIntIfIsNumber(action.payload),
+        basculeWeight: convertToFloatIfIsNumber(action.payload),
       };
     case "setunload":
-      return { ...state, unload: convertToIntIfIsNumber(action.payload) };
+      return { ...state, unload: convertToFloatIfIsNumber(action.payload) };
     case "setcommission":
-      return { ...state, commission: convertToIntIfIsNumber(action.payload) };
+      return { ...state, commission: convertToFloatIfIsNumber(action.payload) };
     case "setportage":
-      return { ...state, portage: convertToIntIfIsNumber(action.payload) };
+      return { ...state, portage: convertToFloatIfIsNumber(action.payload) };
     case "addProduct":
       return { ...state, products: [...state.products, action.payload] };
     case "removeProduct":
@@ -30,7 +30,7 @@ export default function reducer(state, action) {
         products: state.products,
       };
     case "setcash":
-      return { ...state, cash: convertToIntIfIsNumber(action.payload) };
+      return { ...state, cash: convertToFloatIfIsNumber(action.payload) };
     case "setPs":
       return { ...state, ps: action.payload };
     default:

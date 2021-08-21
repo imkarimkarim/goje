@@ -1,4 +1,4 @@
-import { convertToIntIfIsNumber } from "../utils";
+import { convertToFloatIfIsNumber } from "../utils";
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -9,9 +9,9 @@ export default function reducer(state, action) {
     case "setIsPayed":
       return { ...state, isPayed: action.payload };
     case "setFactorDate":
-      return { ...state, factorDate: convertToIntIfIsNumber(action.payload) };
+      return { ...state, factorDate: convertToFloatIfIsNumber(action.payload) };
     case "setChangeDate":
-      return { ...state, changeDate: convertToIntIfIsNumber(action.payload) };
+      return { ...state, changeDate: convertToFloatIfIsNumber(action.payload) };
     case "addProduct":
       return {
         ...state,
@@ -20,9 +20,9 @@ export default function reducer(state, action) {
           {
             productId: action.payload1,
             productName: action.payload5,
-            amount: convertToIntIfIsNumber(action.payload2),
-            weight: convertToIntIfIsNumber(action.payload3),
-            price: convertToIntIfIsNumber(action.payload4),
+            amount: convertToFloatIfIsNumber(action.payload2),
+            weight: convertToFloatIfIsNumber(action.payload3),
+            price: convertToFloatIfIsNumber(action.payload4),
           },
         ],
       };
@@ -36,9 +36,9 @@ export default function reducer(state, action) {
       state.products.splice(action.payload0, 1, {
         productId: action.payload1,
         productName: action.payload5,
-        amount: convertToIntIfIsNumber(action.payload2),
-        weight: convertToIntIfIsNumber(action.payload3),
-        price: convertToIntIfIsNumber(action.payload4),
+        amount: convertToFloatIfIsNumber(action.payload2),
+        weight: convertToFloatIfIsNumber(action.payload3),
+        price: convertToFloatIfIsNumber(action.payload4),
       });
       return {
         ...state,
@@ -50,8 +50,8 @@ export default function reducer(state, action) {
         pays: [
           ...state.pays,
           {
-            date: convertToIntIfIsNumber(action.payload1),
-            amount: convertToIntIfIsNumber(action.payload2),
+            date: convertToFloatIfIsNumber(action.payload1),
+            amount: convertToFloatIfIsNumber(action.payload2),
           },
         ],
       };

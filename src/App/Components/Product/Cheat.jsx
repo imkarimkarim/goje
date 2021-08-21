@@ -7,7 +7,7 @@ import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import "./Cheat.css";
-import { convertToIntIfIsNumber } from "../../utils.js";
+import { convertToFloatIfIsNumber } from "../../utils.js";
 
 // TODO: also up/down with arrow keys
 
@@ -68,21 +68,21 @@ const Cheat = React.memo(({ productId, setCountI }) => {
           value={amount}
           label="تعداد*"
           fun={(e) => {
-            setAmount(convertToIntIfIsNumber(e.target.value));
+            setAmount(convertToFloatIfIsNumber(e.target.value));
           }}
         />
         <Input
           value={weight}
           label="وزن*"
           fun={(e) => {
-            setWeight(convertToIntIfIsNumber(e.target.value));
+            setWeight(convertToFloatIfIsNumber(e.target.value));
           }}
         />
         <ExpenseInput
           value={price}
           label="فی فروش*"
           fun={(e) => {
-            setPrice(convertToIntIfIsNumber(e.target.value));
+            setPrice(convertToFloatIfIsNumber(e.target.value));
           }}
         />
         <Button

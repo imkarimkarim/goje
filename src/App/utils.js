@@ -29,7 +29,7 @@ const persianNumberToEnglish = (num) => {
   return num;
 };
 
-export const convertToIntIfIsNumber = (number) => {
+export const convertToFloatIfIsNumber = (number) => {
   number = persianNumberToEnglish(number);
   if (
     !isNaN(number) &&
@@ -37,7 +37,7 @@ export const convertToIntIfIsNumber = (number) => {
     typeof number == "string" &&
     number.toString().length != 0
   ) {
-    return parseInt(number);
+    return parseFloat(number);
   } else {
     return number;
   }

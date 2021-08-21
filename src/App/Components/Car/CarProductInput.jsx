@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
 import "./CarProductInput.css";
-import { convertToIntIfIsNumber } from "../../utils";
+import { convertToFloatIfIsNumber } from "../../utils";
 
 // TODO: also up/down with arrow keys
 
@@ -56,7 +56,7 @@ const CarProductInput = React.memo(({ formDispatch }) => {
         fun={(e) => {
           setState({
             ...state,
-            amount: convertToIntIfIsNumber(e.target.value),
+            amount: convertToFloatIfIsNumber(e.target.value),
           });
         }}
       />
@@ -66,7 +66,7 @@ const CarProductInput = React.memo(({ formDispatch }) => {
         fun={(e) => {
           setState({
             ...state,
-            weight: convertToIntIfIsNumber(e.target.value),
+            weight: convertToFloatIfIsNumber(e.target.value),
           });
         }}
       />
@@ -74,7 +74,7 @@ const CarProductInput = React.memo(({ formDispatch }) => {
         value={state.price}
         label="فی حدودی"
         fun={(e) => {
-          setState({ ...state, price: convertToIntIfIsNumber(e.target.value) });
+          setState({ ...state, price: convertToFloatIfIsNumber(e.target.value) });
         }}
       />
       <Button

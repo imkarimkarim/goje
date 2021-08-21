@@ -1,8 +1,8 @@
 {
   "name": "goje",
   "productName": "goje",
-  "version": "1.2.4",
-  "description": "My Electron application description",
+  "version": "1.4.1",
+  "description": "a Electron cross-platform desktop app for fruit stores",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": {
-    "name": "alirezainjast",
+    "name": "imkarimkarim",
     "email": "allalirezamail@gmail.com"
   },
   "license": "MIT",

@@ -1,4 +1,4 @@
-import { convertToIntIfIsNumber } from '../utils';
+import { convertToFloatIfIsNumber } from '../utils';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -9,7 +9,7 @@ export default function reducer(state, action) {
     case "setPaysNumber":
       return { ...state, payNumber: action.payload };
     case "setDefaultCommission":
-      return { ...state, defaultCommission: convertToIntIfIsNumber(action.payload) };
+      return { ...state, defaultCommission: convertToFloatIfIsNumber(action.payload) };
     default:
       return state;
   }
