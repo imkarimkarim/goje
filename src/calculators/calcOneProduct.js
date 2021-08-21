@@ -26,8 +26,8 @@ function getNeededData(productId, callback) {
   let data = {};
   factorDocs.withProduct(productId, (docs) => {
     data.factors = docs;
-    productDocs.getOne(productId, (docs) => {
-      data.product = docs;
+    productDocs.getOne(productId, (doc) => {
+      data.product = doc;
       if (typeof callback === "function") {
         callback(data);
       }
@@ -47,6 +47,15 @@ function extractDataFromFactor(factor) {
 
 function extractDataFromProduct(product) {
   if (!product) return;
+  productData = {
+    KG: 0,
+    Amount: 0,
+    ID: 0,
+    unload: 0,
+    portage: 0,
+    cash: 0,
+    commission: 0,
+  };
   productData.Amount = product.amount;
   productData.KG = product.basculeWeight;
   productData.commission = product.commission;

@@ -234,7 +234,6 @@ export default function Product({ history }) {
   }, [countI]);
 
   useEffect(() => {
-    console.log(product);
     if (init.current) {
       getOneProduct(id);
       init.current = false;
