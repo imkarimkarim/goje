@@ -16,13 +16,20 @@
 }
 
 .owner-earning-car {
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
+}
+
+.rectangle-border{
+  text-align: center;
+  border: 1px solid #ccc;
+  margin: 4px 0;
+  padding: 1px;
 }
 
 .sale .saleInfo-table,
 .saleInfo-costs {
-  margin: 18px 0;
+  margin: 5px 0;
 }
 
 .saleInfo-costs {
@@ -36,7 +43,7 @@
 .safiTitle {
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 0;
 }
 
@@ -47,6 +54,11 @@
 
 .safiTitle > span {
   margin-left: 4px;
+}
+
+.sale{
+margin-right: -25px;
+margin-left: -25px;
 }
 
 .sale h4 {

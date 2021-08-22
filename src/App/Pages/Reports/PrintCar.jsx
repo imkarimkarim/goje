@@ -25,9 +25,6 @@ function InfoSection({ car }) {
         <span>
           <h3>{car.owner}</h3>
         </span>
-        <span>بابت</span>
-        <span> </span>
-        <span>{productsToString(car.products)}</span>
       </p>
       <Grid container spacing={3}>
         <Grid item xs={6}>
@@ -110,7 +107,12 @@ function SaleSection({ products, car, history }) {
       }
     });
 
-    if (salesInfos && products && salesInfos.length === products.length && !goBack) {
+    if (
+      salesInfos &&
+      products &&
+      salesInfos.length === products.length &&
+      !goBack
+    ) {
       const date = new JDate(new Date(car.arrivalDate));
       const fileName = `(${car.customeId}) صورتحساب ${car.owner} ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
       const options = {
@@ -140,7 +142,7 @@ function SaleSection({ products, car, history }) {
       ) : (
         <div className="sale">
           <Grid container spacing={1}>
-            <Grid className="saleInfo-table" item xs={7}>
+            <Grid className="saleInfo-table" item xs={9}>
               <table>
                 <thead>
                   <tr>
@@ -166,24 +168,26 @@ function SaleSection({ products, car, history }) {
                 </tbody>
               </table>
               <span className="fullSomProduct">
-                <span>جمع کل</span>
+                <span>جمع کل فروش</span>
                 <span> :</span>
                 <span> </span>
                 <span>{<Expense num={fullSum} />}</span>
               </span>
             </Grid>
-            <Grid className="saleInfo-costs" item xs={5}>
-              <div>
+            <Grid className="saleInfo-costs" item xs={3}>
+              <div className="rectangle-border">
                 <span>کرایه</span>
                 <span> :</span>
+                <br />
                 <span>{<Expense num={car.portage} />}</span>
               </div>
-              <div>
+              <div className="rectangle-border">
                 <span>تخلیه</span>
                 <span> :</span>
+                <br />
                 <span>{<Expense num={car.unload} />}</span>
               </div>
-              <div>
+              <div className="rectangle-border">
                 <span>کارمزد</span>
                 <span>)</span>
                 <span>
@@ -192,16 +196,19 @@ function SaleSection({ products, car, history }) {
                 <span>
                   (<span> :</span>
                 </span>
+                <br />
                 <span>{<Expense num={sumSaleCommission} />}</span>
               </div>
-              <div>
+              <div className="rectangle-border">
                 <span>دستی</span>
                 <span> :</span>
+                <br />
                 <span>{<Expense num={car.cash} />}</span>
               </div>
-              <h4>
+              <h4 className="rectangle-border">
                 <span>جمع هزینه‌ها</span>
                 <span> :</span>
+                <br />
                 <span>
                   {
                     <Expense

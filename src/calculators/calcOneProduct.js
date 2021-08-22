@@ -1,25 +1,7 @@
 const factorDocs = require("../db/factorDocs");
 const productDocs = require("../db/productDocs");
-let RESULTS = {
-  SALE_AVERAGE: 0,
-  SUM_KG: 0,
-  SUM_AMOUNT: 0,
-  COMMISSION: 0,
-  FULL_SALE: 0,
-  OWNER_ERNINGS: 0,
-  productData: {},
-};
-
-let productData = {
-  KG: 0,
-  Amount: 0,
-  ID: 0,
-  unload: 0,
-  portage: 0,
-  cash: 0,
-  commission: 0,
-};
-
+let RESULTS = {};
+let productData = {};
 let factorsDatas = ["amount", "kg", "price"];
 
 function getNeededData(productId, callback) {

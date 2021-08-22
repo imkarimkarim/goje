@@ -24,9 +24,6 @@ function InfoSection({ car }) {
         <span>
           <h3>{car.owner}</h3>
         </span>
-        <span>بابت</span>
-        <span> </span>
-        <span>{productsToString(car.products)}</span>
       </p>
       <Grid container spacing={3}>
         <Grid item xs={4}>
@@ -103,7 +100,7 @@ function SaleSection({ products, car }) {
         (function (ind) {
           setTimeout(function () {
             getOneProductCalcs(products[ind].customeId);
-          }, 100 + 100 * ind);
+          }, 100 + 500 * ind);
         })(i);
       }
     }
@@ -126,7 +123,7 @@ function SaleSection({ products, car }) {
     <div>
       <div className="sale">
         <Grid container spacing={1}>
-          <Grid className="saleInfo-table" item xs={6}>
+          <Grid className="saleInfo-table" item xs={8}>
             <table>
               <thead>
                 <tr>
@@ -211,7 +208,7 @@ function SaleSection({ products, car }) {
               <span>{<Expense num={fullSum} />}</span>
             </span>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             <Grid container spacing={3}>
               <div className="saleInfo-costs-car">
                 <div>
@@ -321,6 +318,7 @@ const Car = ({ history }) => {
   };
 
   useEffect(() => {
+    console.log('useEffect');
     if (init.current) {
       init.current = false;
       getOneCar(id);
