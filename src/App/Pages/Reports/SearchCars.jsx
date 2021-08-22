@@ -20,7 +20,7 @@ import { cleanTime, oneDay, oneYear, productsToString } from "../../utils.js";
 const defalutSearchState = {
   text: "",
   checked1: true,
-  checked2: true,
+  checked2: false,
   fromm: cleanTime(Date.now() - oneYear),
   till: cleanTime(Date.now()) + oneDay,
 };
@@ -112,6 +112,8 @@ export default function SearchCars({ history }) {
         onSubmit={(newSearchState) => {
           handleNewSearch(newSearchState);
         }}
+        label1="گزارش گرفته نشده"
+        label2="گزارش گرفته شده"
         placeholder="شرح یا صاحب بار"
       />
       {cars ? (
