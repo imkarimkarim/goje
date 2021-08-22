@@ -18,6 +18,6 @@ export default function Expense({num}) {
   }
 
   num = letsWriterBetter(num);
-  
-  return <>{num} ﷼</>
+
+  return <>{num} <span className="rial">﷼</span></>
 }

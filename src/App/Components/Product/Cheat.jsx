@@ -68,30 +68,30 @@ const Cheat = React.memo(({ productId, setCountI }) => {
           value={amount}
           label="تعداد*"
           fun={(e) => {
-            setAmount(convertToFloatIfIsNumber(e.target.value));
+            setAmount(e.target.value);
           }}
         />
         <Input
           value={weight}
           label="وزن*"
           fun={(e) => {
-            setWeight(convertToFloatIfIsNumber(e.target.value));
+            setWeight(e.target.value);
           }}
         />
         <ExpenseInput
           value={price}
           label="فی فروش*"
           fun={(e) => {
-            setPrice(convertToFloatIfIsNumber(e.target.value));
+            setPrice(e.target.value);
           }}
         />
         <Button
           className="newFactorAddProductInputButton"
           disabled={
             !(
-              amount.toString().length >= 1 &&
-              weight.toString().length >= 1 &&
-              price.toString().length >= 1
+              amount.length >= 1 &&
+              weight.length >= 1 &&
+              price.length >= 1
             )
           }
           onClick={cheatProduct}

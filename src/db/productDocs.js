@@ -270,8 +270,10 @@ const updateCarProduct = (productId, product, callback) => {
         { _id: doc._id },
         {
           ...product,
-          customeId: productId,
           docType: "product",
+          customeId: productId,
+          isProductFinish: doc.isProductFinish,
+          finishDate: doc.finishDate,
         },
         {},
         function () {

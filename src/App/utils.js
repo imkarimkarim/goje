@@ -30,6 +30,7 @@ const persianNumberToEnglish = (num) => {
 };
 
 export const convertToFloatIfIsNumber = (number) => {
+  if(!number) return number;
   number = persianNumberToEnglish(number);
   if (
     !isNaN(number) &&
