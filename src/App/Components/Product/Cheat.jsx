@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import DoneIcon from "@material-ui/icons/Done";
 const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
@@ -15,17 +14,15 @@ const Cheat = React.memo(({ productId, setCountI }) => {
   const [amount, setAmount] = useState("");
   const [weight, setWeight] = useState("");
   const [price, setPrice] = useState("");
-  const [edited, setEdited] = useState(false);
   const { pushNotif } = useContext(NotifContext);
-  const init = useRef(true);
 
   const cheatProduct = () => {
     ipcRenderer.send("cheatProduct", {
       productId: productId,
       cheat: {
-        amount: amount,
-        weight: weight,
-        price: price,
+        amount: convertToFloatIfIsNumber(amount),
+        weight: convertToFloatIfIsNumber(weight),
+        price: convertToFloatIfIsNumber(price),
       },
     });
   };
@@ -58,7 +55,7 @@ const Cheat = React.memo(({ productId, setCountI }) => {
     };
   });
 
-  return productId && !edited ? (
+  return productId ? (
     <div className="cheat-wrapper">
       <span className="hint">
         مقادیر دلخواه را با دقت وارد کنید | (تغییر بار {productId})
@@ -88,11 +85,7 @@ const Cheat = React.memo(({ productId, setCountI }) => {
         <Button
           className="newFactorAddProductInputButton"
           disabled={
-            !(
-              amount.length >= 1 &&
-              weight.length >= 1 &&
-              price.length >= 1
-            )
+            !(amount.length >= 0 && weight.length >= 1 && price.length >= 1)
           }
           onClick={cheatProduct}
           variant="outlined"

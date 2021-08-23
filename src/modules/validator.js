@@ -130,7 +130,7 @@ const validateCar = (car, callback) => {
   }
 
   // cash
-  if (car.cash === ps.cash.defaultValue) {
+  if (car.cash === "") {
     status = false;
     errorMessage = `${errorMessage}
    / دستی وارد نشده است (در صورت نداشتن دستی صفر وارد کنید)`;

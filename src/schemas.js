@@ -168,7 +168,7 @@ export const carSchema = {
     commission: { type: 'number', required: true, range: [0, 100], defaultValue: '' },
     unload: { type: 'number', required: true, range: [0], defaultValue: '' },
     portage: { type: 'number', required: true, range: [0], defaultValue: '' },
-    cash: { type: 'number', required: true, range: [0], defaultValue: '' },
+    cash: { type: 'number', required: true, range: [0], defaultValue: 0 },
     plaque: { type: 'string', required: false, range: [0, 17], defaultValue: '' },
     ps: { type: 'string', required: false, range: [0, 550], defaultValue: '' },
     isPrinted: { type: 'boolean', required: true, range: [], defaultValue: false },

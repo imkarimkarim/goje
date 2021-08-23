@@ -45,6 +45,10 @@ export function reducer(state, action) {
         weight: convertToFloatIfIsNumber(action.payload3),
         price: convertToFloatIfIsNumber(action.payload4),
       });
+      return {
+        ...state,
+        products: state.products,
+      };
     case "addPay":
       return {
         ...state,

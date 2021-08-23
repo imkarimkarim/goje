@@ -24,7 +24,12 @@ const CarProductInput = React.memo(({ formDispatch }) => {
   const addProductToCar = () => {
     formDispatch({
       type: "addProduct",
-      payload: state,
+      payload: {
+        ...state,
+        amount: convertToFloatIfIsNumber(state.amount),
+        weight: convertToFloatIfIsNumber(state.weight),
+        price: convertToFloatIfIsNumber(state.price),
+      },
     });
     setState(defaultState);
     document.getElementById("productName").focus();
@@ -56,7 +61,7 @@ const CarProductInput = React.memo(({ formDispatch }) => {
         fun={(e) => {
           setState({
             ...state,
-            amount: convertToFloatIfIsNumber(e.target.value),
+            amount: e.target.value,
           });
         }}
       />
@@ -66,7 +71,7 @@ const CarProductInput = React.memo(({ formDispatch }) => {
         fun={(e) => {
           setState({
             ...state,
-            weight: convertToFloatIfIsNumber(e.target.value),
+            weight: e.target.value,
           });
         }}
       />
@@ -74,7 +79,10 @@ const CarProductInput = React.memo(({ formDispatch }) => {
         value={state.price}
         label="فی حدودی"
         fun={(e) => {
-          setState({ ...state, price: convertToFloatIfIsNumber(e.target.value) });
+          setState({
+            ...state,
+            price: e.target.value,
+          });
         }}
       />
       <Button

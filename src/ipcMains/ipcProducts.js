@@ -2,7 +2,6 @@ const { ipcMain } = require("electron");
 const productDocs = require("../db/productDocs");
 const calcOneProduct = require("../calculators/calcOneProduct");
 const { validateProduct, validateCheat } = require("../modules/validator");
-const { convertToFloatIfIsNumber } = require("../App/utils");
 
 ipcMain.on("getUnFinishedProducts", (event) => {
   productDocs.getUnFinished((docs) => {
@@ -73,9 +72,6 @@ ipcMain.on("editProduct", (event, product) => {
 });
 
 ipcMain.on("cheatProduct", (event, cheat) => {
-  cheat.cheat.amount = convertToFloatIfIsNumber(cheat.cheat.amount);
-  cheat.cheat.weight = convertToFloatIfIsNumber(cheat.cheat.weight);
-  cheat.cheat.price = convertToFloatIfIsNumber(cheat.cheat.price);
   validateCheat(cheat.cheat, (status, message) => {
     if (status === true) {
       productDocs.addCheat(cheat.productId, cheat.cheat, () => {
