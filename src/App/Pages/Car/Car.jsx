@@ -318,7 +318,6 @@ const Car = ({ history }) => {
   };
 
   useEffect(() => {
-    console.log('useEffect');
     if (init.current) {
       init.current = false;
       getOneCar(id);

@@ -21,7 +21,7 @@ ipcMain.on("includeCar", (event, car) => {
   validateCar(car, (status, message) => {
     if (status === true) {
       carDocs.insert(car, (newCar) => {
-        createProductsBasedOnCar(car, newCar.customeId, (products) => {
+        createProductsBasedOnCar(newCar, newCar.customeId, (products) => {
           // inserting each product based on
           // objects created by createProductsBasedOnCar
           for (let i = 0; i < products.length; i++) {
@@ -39,7 +39,7 @@ ipcMain.on("includeCar", (event, car) => {
                     });
                   }
                 });
-              }, 100 + 100 * ind);
+              }, 100 + 300 * ind);
             })(i);
           }
         });
@@ -67,16 +67,18 @@ ipcMain.on("editCar", (event, car) => {
               ) {
                 productDocs.updateCarProduct(
                   car.products[ind].customeId,
-                  products[ind]
+                  products[ind],
+                  () => {
+                    if (i === products.length - 1) {
+                      carDocs.update(car._id, car, () => {
+                        event.reply("editCar", {
+                          status: status,
+                          message: "بار با موفقیت ویرایش شد",
+                        });
+                      });
+                    }
+                  }
                 );
-                if (i === products.length - 1) {
-                  carDocs.update(car._id, car, () => {
-                    event.reply("editCar", {
-                      status: status,
-                      message: "بار با موفقیت ویرایش شد",
-                    });
-                  });
-                }
               } else {
                 productDocs.insert(products[ind], (newProduct) => {
                   // saving product customeId for later use cases on car object
@@ -91,7 +93,7 @@ ipcMain.on("editCar", (event, car) => {
                   }
                 });
               }
-            }, 100 + 100 * ind);
+            }, 100 + 300 * ind);
           })(i);
         }
       });
