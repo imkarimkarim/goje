@@ -39,7 +39,7 @@ ipcMain.on("includeCar", (event, car) => {
                     });
                   }
                 });
-              }, 100 + 300 * ind);
+              }, 100 + 400 * ind);
             })(i);
           }
         });
@@ -93,7 +93,7 @@ ipcMain.on("editCar", (event, car) => {
                   }
                 });
               }
-            }, 100 + 300 * ind);
+            }, 100 + 400 * ind);
           })(i);
         }
       });

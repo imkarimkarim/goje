@@ -107,7 +107,7 @@ const FactorProductInputEditor = React.memo(({ formDispatch, label, state }) => 
         <Button
           className="newFactorAddProductInputButton"
           disabled={
-            !(productState.id && productState.name && amount && weight && price)
+            !(productState.id && productState.name && (amount || amount === 0) && (weight || weight === 0) && (price || price === 0))
           }
           onClick={editProductOfFactor}
           variant="outlined"

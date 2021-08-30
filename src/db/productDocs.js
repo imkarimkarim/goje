@@ -192,6 +192,25 @@ const toggleProductFinish = (id, callback) => {
   });
 };
 
+const isProductBug = (productId, carId, callback) => {
+  if (!productId || !carId) return;
+  db.findOne({ $and: [{ docType: "car" }, { customeId: carId }] }, function (
+    err,
+    car
+  ) {
+    if (err) throw err;
+
+    const isInCarProducts = car.products.filter(
+      (p) => p.customeId === productId
+    );
+    const bool = isInCarProducts.length === 1 ? false : true;
+
+    if (typeof callback === "function") {
+      callback(bool);
+    }
+  });
+};
+
 const addCheat = (productId, cheat, callback) => {
   if (!productId) return;
   db.findOne(
@@ -298,18 +317,24 @@ const remove = (id, callback) => {
   );
 };
 
+const removeById = (id) => {
+  db.remove({ _id: id }, {}, function (err, numRemoved) {});
+};
+
 module.exports = {
   getAll,
   insert,
   update,
   updateCarProduct,
   remove,
+  removeById,
   getUnFinished,
   getInCar,
   getFinished,
   getOne,
   search,
   toggleProductFinish,
+  isProductBug,
   isProductHasDependency,
   addCheat,
   removeCheat,

@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import JDate from "jalali-date";
 import Header from "../../Components/Header.jsx";
 import Footer from "../../Components/Footer.jsx";
@@ -94,7 +95,7 @@ function SaleSection({ products, car, history }) {
         (function (ind) {
           setTimeout(function () {
             getOneProductCalcs(products[ind].customeId);
-          }, 100 + 100 * ind);
+          }, 100 + 500 * ind);
         })(i);
       }
     }
@@ -189,12 +190,12 @@ function SaleSection({ products, car, history }) {
               </div>
               <div className="rectangle-border">
                 <span>کارمزد</span>
-                <span>)</span>
+                <span>(</span>
                 <span>
                   <span>{car.commission}</span>٪
                 </span>
                 <span>
-                  (<span> :</span>
+                  )<span> :</span>
                 </span>
                 <br />
                 <span>{<Expense num={sumSaleCommission} />}</span>
@@ -246,6 +247,7 @@ function SaleSection({ products, car, history }) {
 export default function PrintCar({ history }) {
   const [products, setProducts] = useState();
   const [car, setCar] = useState();
+  const { clearNotifs } = useContext(NotifContext);
   let { id } = useParams();
   const init = useRef(true);
 
@@ -263,6 +265,7 @@ export default function PrintCar({ history }) {
 
   useEffect(() => {
     if (init.current) {
+      clearNotifs();
       init.current = false;
       getOneCar(id);
       getInCarProducts(id);
@@ -285,7 +288,7 @@ export default function PrintCar({ history }) {
         (function (ind) {
           setTimeout(function () {
             getOneProduct(inCarProducts[ind].customeId);
-          }, 100 + 100 * ind);
+          }, 100 + 300 * ind);
         })(i);
       }
     });

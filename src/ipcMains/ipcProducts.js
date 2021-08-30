@@ -55,6 +55,12 @@ ipcMain.on("toggleProductFinish", (event, id) => {
   productDocs.toggleProductFinish(id);
 });
 
+ipcMain.on("isProductBug", (event, { productId, carId }) => {
+  productDocs.isProductBug(productId, carId, (bool) => {
+    event.reply("isProductBug", bool);
+  });
+});
+
 ipcMain.on("editProduct", (event, product) => {
   validateProduct(product, (status, message) => {
     if (status === true) {
@@ -107,4 +113,8 @@ ipcMain.on("removeProduct", (event, productId) => {
       event.reply("removeProduct", { status: false, message: "بار حذف نشد" });
     }
   });
+});
+
+ipcMain.on("removeProductById", (event, id) => {
+  productDocs.removeById(id);
 });

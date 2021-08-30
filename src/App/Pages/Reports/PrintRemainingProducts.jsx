@@ -1,5 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
+import { PathStackContext } from "../../Contexts/PathStackContext.jsx";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
@@ -13,6 +15,9 @@ import "./PrintRemainingProducts.css";
 function RenderProduct({ index, product, productsLength, history }) {
   const [goBack, setGoBack] = useState(false);
   const report = useRef(false);
+  const { setCurrentPath, getBackPath } = useContext(PathStackContext);
+
+  setCurrentPath(history.location.pathname);
 
   useEffect(() => {
     if (productsLength === index + 1 && !report.current && !goBack) {
@@ -37,7 +42,7 @@ function RenderProduct({ index, product, productsLength, history }) {
   return (
     <div>
       {goBack ? (
-        <Redirect to="/welcome" />
+        <Redirect to={getBackPath()} />
       ) : (
         <div className="remainingProduct">
           {product.name == "کارگری" ||
@@ -65,6 +70,7 @@ export default function PrintRemainingProducts({ history }) {
   const [products, setProducts] = useState();
   const [remainigDetails, setRemainigDetails] = useState([]);
   const init = useRef(true);
+  const { clearNotifs } = useContext(NotifContext);
   let extractedData = [];
 
   const getUnFinishedProducts = () => {
@@ -86,6 +92,7 @@ export default function PrintRemainingProducts({ history }) {
 
   useEffect(() => {
     if (init.current) {
+      clearNotifs();
       getUnFinishedProducts();
       init.current = false;
     }

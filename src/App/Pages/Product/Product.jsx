@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -14,6 +14,9 @@ import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
+import { PathStackContext } from "../../Contexts/PathStackContext.jsx";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
+import { Redirect } from "react-router-dom";
 import Cheat from "../../Components/Product/Cheat.jsx";
 import "./Product.css";
 
@@ -206,14 +209,36 @@ function SaleSection({ productId, product }) {
 }
 
 export default function Product({ history }) {
+  const { pushNotif } = useContext(NotifContext);
   const [product, setProduct] = useState();
   const [countI, setCountI] = useState(0);
+  const [isBug, setIsBug] = useState(false);
+  const [goBack, setGoBack] = useState(false);
+  const { setCurrentPath, getBackPath } = useContext(PathStackContext);
+
+  setCurrentPath(history.location.pathname);
 
   let { id } = useParams();
+  let iidd;
+  if(product){
+    iidd = product._id;
+  }
   const init = useRef(true);
 
   const getOneProduct = (id) => {
     ipcRenderer.send("getOneProduct", id);
+  };
+
+  const handleRemove = () => {
+    ipcRenderer.send("isProductHasDependency", id);
+  };
+
+  const removeProduct = (iidd) => {
+    ipcRenderer.send("removeProductById", iidd);
+  };
+
+  const isProductBug = (productId, carId) => {
+    ipcRenderer.send("isProductBug", { productId: productId, carId: carId });
   };
 
   const toggleProductFinish = (id) => {
@@ -243,16 +268,34 @@ export default function Product({ history }) {
 
     ipcRenderer.on("getOneProduct", (event, product) => {
       setProduct(product);
+      isProductBug(product.customeId, product.inCar);
+    });
+
+    ipcRenderer.on("isProductHasDependency", (event, dependencyStatus) => {
+      if (dependencyStatus.status === true) {
+        pushNotif("error", dependencyStatus.message);
+      } else if (dependencyStatus.status === false) {
+        removeProduct(iidd);
+        setGoBack(true);
+      }
+    });
+
+    ipcRenderer.on("isProductBug", (event, bool) => {
+      setIsBug(bool);
     });
 
     // clean up
     return () => {
       document.removeEventListener("keydown", handleKeyBoardEvent);
       ipcRenderer.removeAllListeners("getOneProduct");
+      ipcRenderer.removeAllListeners("isProductBug");
+      ipcRenderer.removeAllListeners("isProductHasDependency");
     };
   });
 
-  return product ? (
+  return goBack ? (
+    <Redirect to={getBackPath()} />
+  ) : product ? (
     product.inCar ? (
       <div>
         {countI > 4 ? (
@@ -266,7 +309,27 @@ export default function Product({ history }) {
           <InfoSection product={product} />
           <SaleSection productId={product.customeId} product={product} />
           <br />
+          {isBug === true ? (
+            <p className="red-color">
+              این بار به دلیل نقص سیستمی ایجاد شده است لطفا پس از انتقال وابستگی
+              ها آنرا حذف کنید
+            </p>
+          ) : (
+            <div></div>
+          )}
           <div className="actions">
+            {isBug === true ? (
+              <Button
+                className="deleteCheats"
+                onClick={handleRemove}
+                variant="outlined"
+                color="secondary"
+              >
+                حذف
+              </Button>
+            ) : (
+              <div></div>
+            )}
             <Link to={`/productDetails/${product.customeId}`}>
               <Button variant="outlined" color="primary">
                 مشاهده ریز فروش

@@ -11,25 +11,35 @@ export const NotifProvider = (props) => {
       type !== notifs[notifs.length - 1].type &&
       message !== notifs[notifs.length - 1].message
     ) {
-      setNotifs([{ type: type, message: message, id: notifs.length+1 }, ...notifs]);
+      setNotifs([
+        { type: type, message: message, id: notifs.length + 1 },
+        ...notifs,
+      ]);
     }
     if (notifs.length === 0) {
-      setNotifs([...notifs, { type: type, message: message, id: notifs.length+1 }]);
+      setNotifs([
+        ...notifs,
+        { type: type, message: message, id: notifs.length + 1 },
+      ]);
     }
     setTimeout(function () {
-      removeNotif(notifs.length+1);
+      removeNotif(notifs.length + 1);
     }, 5000);
   };
 
   const removeNotif = (index) => {
     let tmpNotif = [...notifs];
-    tmpNotif.splice(tmpNotif.length-1);
+    tmpNotif.splice(tmpNotif.length - 1);
     setNotifs(tmpNotif);
+  };
+
+  const clearNotifs = (index) => {
+    setNotifs([]);
   };
 
   return (
     <NotifContext.Provider
-      value={{ pushNotif: pushNotif, notifs: notifs }}
+      value={{ pushNotif: pushNotif, notifs: notifs, clearNotifs: clearNotifs }}
     >
       {props.children}
     </NotifContext.Provider>

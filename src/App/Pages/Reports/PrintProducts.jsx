@@ -1,7 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
+import { PathStackContext } from "../../Contexts/PathStackContext.jsx";
 import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
 import Header from "../../Components/Header.jsx";
@@ -114,6 +116,9 @@ function SaleSection({ products, history }) {
   const [salesInfos, setsalesInfos] = useState();
   const [goBack, setGoBack] = useState(false);
   const init = useRef(true);
+  const { setCurrentPath, getBackPath } = useContext(PathStackContext);
+
+  setCurrentPath(history.location.pathname);
 
   let sumPortage,
     sumUnload,
@@ -167,7 +172,12 @@ function SaleSection({ products, history }) {
       }
     });
 
-    if (salesInfos && products && salesInfos.length === products.length && !goBack) {
+    if (
+      salesInfos &&
+      products &&
+      salesInfos.length === products.length &&
+      !goBack
+    ) {
       const date = new JDate(new Date(products[0].arrivalDate));
       const fileName = `(${products[0].customeId}) صورتحساب ${products[0].owner} ${date.date[2]}-${date.date[1]}-${date.date[0]}.pdf`;
       const options = {
@@ -193,7 +203,7 @@ function SaleSection({ products, history }) {
   return salesInfos && products && salesInfos.length === products.length ? (
     <div>
       {goBack ? (
-        <Redirect to="/welcome" />
+        <Redirect to={getBackPath()} />
       ) : (
         <div className="sale">
           <Grid container spacing={1}>
@@ -298,6 +308,7 @@ export default function PrintProducts({ history }) {
   let { ids } = useParams();
   ids = ids.split(",");
   const init = useRef(true);
+  const { clearNotifs } = useContext(NotifContext);
 
   const getOneProduct = (id) => {
     ipcRenderer.send("getOneProduct", id);
@@ -305,6 +316,7 @@ export default function PrintProducts({ history }) {
 
   useEffect(() => {
     if (init.current) {
+      clearNotifs();
       init.current = false;
       for (let i = 0; i < ids.length; i++) {
         (function (ind) {

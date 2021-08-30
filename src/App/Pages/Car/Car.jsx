@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import Loading from "../../Components/Loading.jsx";
+import DoneIcon from "@material-ui/icons/Done";
 import DescriptionIcon from "@material-ui/icons/Description";
 import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
@@ -127,6 +128,7 @@ function SaleSection({ products, car }) {
             <table>
               <thead>
                 <tr>
+                  <th>اتمام</th>
                   <th>شرح بار</th>
                   <th>تعداد</th>
                   <th>وزن</th>
@@ -163,6 +165,13 @@ function SaleSection({ products, car }) {
 
                   return (
                     <tr key={index}>
+                      <td>
+                        {products[index].isProductFinish ? (
+                          <DoneIcon style={{ color: "green" }} />
+                        ) : (
+                          <span></span>
+                        )}
+                      </td>
                       <td>
                         <Link to={"/product/" + products[index].customeId}>
                           <span className={color + "-color"}>
@@ -341,7 +350,7 @@ const Car = ({ history }) => {
         (function (ind) {
           setTimeout(function () {
             getOneProduct(inCarProducts[ind].customeId);
-          }, 100 + 100 * ind);
+          }, 100 + 300 * ind);
         })(i);
       }
     });
@@ -364,7 +373,8 @@ const Car = ({ history }) => {
     }
   }
 
-  return car && products && products.length === car.products.length ? (
+  return (car && products && products.length === car.products.length) ||
+    (car && products && products.length > car.products.length) ? (
     <div>
       <Nav history={history} />
       <div className="car">

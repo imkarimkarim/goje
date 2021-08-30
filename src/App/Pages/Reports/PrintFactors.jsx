@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 const { ipcRenderer } = require("electron");
 import JDate from "jalali-date";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import { PathStackContext } from "../../Contexts/PathStackContext.jsx";
+import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
 import Header from "../../Components/Header.jsx";
@@ -41,6 +43,9 @@ const RenderPays = ({ pays }) => {
 
 const RenderFactor = ({ factor, index, factorsLength, history }) => {
   const [goBack, setGoBack] = useState(false);
+  const { setCurrentPath, getBackPath } = useContext(PathStackContext);
+
+  setCurrentPath(history.location.pathname);
 
   useEffect(() => {
     if (factorsLength === index + 1 && !goBack) {
@@ -70,7 +75,7 @@ const RenderFactor = ({ factor, index, factorsLength, history }) => {
   return (
     <div>
       {goBack ? (
-        <Redirect to="/welcome" />
+        <Redirect to={getBackPath()} />
       ) : (
         <div className="factorsPrint-wrapper">
           <Header />
@@ -169,6 +174,7 @@ export default function PrintFactors({ history }) {
   date = parseInt(date);
   date2 = parseInt(date2);
   const init = useRef(true);
+  const { clearNotifs } = useContext(NotifContext);
 
   const printCreditFactorsByDate = (fromm, till) => {
     ipcRenderer.send("printCreditFactorsByDate", { from: fromm, till: till });
@@ -176,6 +182,7 @@ export default function PrintFactors({ history }) {
 
   useEffect(() => {
     if (init.current) {
+      clearNotifs();
       printCreditFactorsByDate(date, date2);
       init.current = false;
     }

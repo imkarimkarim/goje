@@ -26,6 +26,7 @@ import PrintCar from "./Pages/Reports/PrintCar.jsx";
 import PrintFactors from "./Pages/Reports/PrintFactors.jsx";
 import ProductDetails from "./Pages/Product/ProductDetails.jsx";
 import { NotifProvider } from "./Contexts/NotifContext.jsx";
+import { PathStackProvider } from "./Contexts/PathStackContext.jsx";
 import Notif from "./Components/Notif.jsx";
 
 export default function App() {
@@ -40,34 +41,39 @@ export default function App() {
   return (
     <Router>
       {/* redirect to /welcome in first load */}
-        {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
+      {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
       <Container>
         <Switch>
-          <NotifProvider>
-            <Notif />
-            <Route path="/welcome" component={Welcome} />
-            <Route path="/includeCar" component={IncludeCar} />
-            <Route path="/newFactor" component={NewFactor} />
-            <Route path="/newName" component={NewName} />
-            <Route path="/reports" component={Reports} />
-            <Route path="/searchProducts" component={SearchProducts} />
-            <Route path="/searchCars" component={SearchCars} />
-            <Route path="/searchFactors" component={SearchFactors} />
-            <Route path="/product/:id" component={Product} />
-            <Route path="/car/:id" component={Car} />
-            <Route path="/factor/:id" component={Factor} />
-            <Route path="/editFactor/:id" component={EditFactor} />
-            <Route path="/editProduct/:id" component={EditProduct} />
-            <Route path="/editCar/:id" component={EditCar} />
-            <Route path="/productDetails/:id" component={ProductDetails} />
-            <Route path="/printProducts/:ids" component={PrintProducts} />
-            <Route path="/printCar/:id" component={PrintCar} />
-            <Route path="/printFactors/:date/:date2" component={PrintFactors} />
-            <Route
-              path="/printRemainingProducts"
-              component={PrintRemainingProducts}
-            />
-          </NotifProvider>
+          <PathStackProvider>
+            <NotifProvider>
+              <Notif />
+              <Route path="/welcome" component={Welcome} />
+              <Route path="/includeCar" component={IncludeCar} />
+              <Route path="/newFactor" component={NewFactor} />
+              <Route path="/newName" component={NewName} />
+              <Route path="/reports" component={Reports} />
+              <Route path="/searchProducts" component={SearchProducts} />
+              <Route path="/searchCars" component={SearchCars} />
+              <Route path="/searchFactors" component={SearchFactors} />
+              <Route path="/product/:id" component={Product} />
+              <Route path="/car/:id" component={Car} />
+              <Route path="/factor/:id" component={Factor} />
+              <Route path="/editFactor/:id" component={EditFactor} />
+              <Route path="/editProduct/:id" component={EditProduct} />
+              <Route path="/editCar/:id" component={EditCar} />
+              <Route path="/productDetails/:id" component={ProductDetails} />
+              <Route path="/printProducts/:ids" component={PrintProducts} />
+              <Route path="/printCar/:id" component={PrintCar} />
+              <Route
+                path="/printFactors/:date/:date2"
+                component={PrintFactors}
+              />
+              <Route
+                path="/printRemainingProducts"
+                component={PrintRemainingProducts}
+              />
+            </NotifProvider>
+          </PathStackProvider>
         </Switch>
       </Container>
     </Router>
