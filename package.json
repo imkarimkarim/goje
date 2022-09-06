@@ -6,7 +6,7 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
-    "dev": "DEBUG=true electron-forge start",
+    "dev": "set DEBUG=true&& electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "make-mac": "electron-forge make --platform darwin",
