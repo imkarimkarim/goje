@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import JDate from "jalali-date";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import DescriptionIcon from "@material-ui/icons/Description";
 import Button from "@material-ui/core/Button";
@@ -220,7 +218,7 @@ export default function Product({ history }) {
 
   let { id } = useParams();
   let iidd;
-  if(product){
+  if (product) {
     iidd = product._id;
   }
   const init = useRef(true);

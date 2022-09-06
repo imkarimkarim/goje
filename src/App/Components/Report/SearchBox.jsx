@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
@@ -5,7 +6,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { DatePicker } from "jalali-react-datepicker";
-import JDate from "jalali-date";
 import CustomerInput from "../Customer/CustomerInput.jsx";
 import "./SearchBox.css";
 import { cleanTime, oneDay } from "../../utils.js";
@@ -24,16 +24,16 @@ const SearchBox = React.memo(
     const [searchState, setSearchState] = useState(defaultState);
 
     const handleKeyBoardEvent = (e) => {
-      if(e.key === 'Enter') onSubmit(searchState);;
-    }
+      if (e.key === "Enter") onSubmit(searchState);
+    };
 
     useEffect(() => {
-      document.addEventListener('keydown', handleKeyBoardEvent);
+      document.addEventListener("keydown", handleKeyBoardEvent);
 
       return () => {
-        document.removeEventListener('keydown', handleKeyBoardEvent);
-      }
-    })
+        document.removeEventListener("keydown", handleKeyBoardEvent);
+      };
+    });
 
     let searchInput;
     if (searchForCustomers) {

@@ -8,7 +8,6 @@ import React, {
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { DatePicker } from "jalali-react-datepicker";
-import JDate from "jalali-date";
 import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";

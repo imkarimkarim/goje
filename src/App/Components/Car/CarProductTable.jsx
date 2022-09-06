@@ -1,5 +1,4 @@
 import React from "react";
-const { ipcRenderer } = require("electron");
 import DeleteIcon from "@material-ui/icons/Delete";
 import Divider from "@material-ui/core/Divider";
 import Expense from "../Expense.jsx";

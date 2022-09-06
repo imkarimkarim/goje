@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 const { ipcRenderer } = require("electron");
 import List from "@material-ui/core/List";
 import DoneIcon from "@material-ui/icons/Done";
@@ -9,7 +8,6 @@ import SearchResultItem from "../../Components/Report/SearchResultItem.jsx";
 import Loading from "../../Components/Loading.jsx";
 import Nav from "../../Components/Nav.jsx";
 import SearchBox from "../../Components/Report/SearchBox.jsx";
-import JDate from "jalali-date";
 import ShowDate from "../../Components/ShowDate.jsx";
 import { cleanTime, oneDay, oneWeek } from "../../utils.js";
 

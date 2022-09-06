@@ -1,8 +1,8 @@
+/* eslint-disable react/display-name */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import DoneIcon from "@material-ui/icons/Done";
-const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
 import "./CarProductInput.css";

@@ -4,7 +4,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import "./Loading.css";
 import { Redirect } from "react-router-dom";
 
-export default function Loading({ history }) {
+export default function Loading() {
   const [goBack, setGoBack] = useState(false);
 
   return (

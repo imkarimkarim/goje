@@ -54,6 +54,9 @@ ipcMain.on("includeCar", (event, car) => {
 ipcMain.on("editCar", (event, car) => {
   // isCarProductsHaveDependency
   validateCar(car, (status, message) => {
+    // log car
+    // log a lot of things
+    // pass car and edit new car
     if (status === true) {
       createProductsBasedOnCar(car, car.customeId, (products) => {
         // inserting/editing each product based on

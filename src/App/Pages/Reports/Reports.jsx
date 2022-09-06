@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
-import SubjectIcon from "@material-ui/icons/Subject";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import SearchIcon from "@material-ui/icons/Search";

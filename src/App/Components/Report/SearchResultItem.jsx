@@ -1,7 +1,7 @@
+/* eslint-disable react/display-name */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Divider from "@material-ui/core/Divider";
 import Checkbox from "@material-ui/core/Checkbox";

@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 
- const Input = React.memo(({label, fun, value, id}) => {
-   id = (id) ? id : 'outlined-basic';
+const Input = React.memo(({ label, fun, value, id }) => {
+  id = id ? id : "outlined-basic";
   return (
     <TextField
       id={id}
@@ -14,5 +15,5 @@ import TextField from "@material-ui/core/TextField";
     />
   );
 });
- 
+
 export default Input;

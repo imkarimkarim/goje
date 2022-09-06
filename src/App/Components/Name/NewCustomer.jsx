@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext, useReducer } from "react";
 const { ipcRenderer } = require("electron");
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
-import Nav from "../../Components/Nav.jsx";
 import Input from "../../Components/Input.jsx";
 import Grid from "@material-ui/core/Grid";
 import reducer from "../../Reducers/NewCustomerReducer.jsx";

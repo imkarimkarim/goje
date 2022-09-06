@@ -1,11 +1,11 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
 export const PathStackContext = createContext();
 
 export const PathStackProvider = (props) => {
   const [paths, setPaths] = useState([]);
 
-  const getBackPath = (callabck) => {
+  const getBackPath = () => {
     if (paths.length === 1) {
       return paths[0];
     } else {

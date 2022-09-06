@@ -3,8 +3,6 @@ const { ipcRenderer } = require("electron");
 import { PathStackContext } from "../../Contexts/PathStackContext.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import JDate from "jalali-date";
-import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
 import Loading from "../../Components/Loading.jsx";
 import Header from "../../Components/Header.jsx";
 import Footer from "../../Components/Footer.jsx";

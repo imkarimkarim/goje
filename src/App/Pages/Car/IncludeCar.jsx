@@ -1,14 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useReducer,
-  useContext,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import { DatePicker } from "jalali-react-datepicker";
-import JDate from "jalali-date";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
 import Grid from "@material-ui/core/Grid";

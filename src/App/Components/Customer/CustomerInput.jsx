@@ -1,10 +1,11 @@
+/* eslint-disable react/display-name */
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import TextField from "@material-ui/core/TextField";
 import "./CustomerInput.css";
-import CustomerPicker from './CustomerPicker.jsx';
+import CustomerPicker from "./CustomerPicker.jsx";
 
-const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
+const CustomerInput = React.memo(({ ownerName, onPick, label }) => {
   const [allCustomers, setAllCustomers] = useState();
   const [showCustomerPicker, setShowCustomerPicker] = useState(false);
 
@@ -12,7 +13,7 @@ const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
     ipcRenderer.send("getAllCustomers");
   };
 
-  const handleFocus = (e) => {
+  const handleFocus = () => {
     getAllCustomers();
     setShowCustomerPicker(true);
   };
@@ -49,6 +50,6 @@ const CustomerInput = React.memo(({ owner, ownerName, onPick, label }) => {
       />
     </span>
   );
-})
+});
 
 export default CustomerInput;

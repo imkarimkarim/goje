@@ -8,8 +8,6 @@ import React, {
 const { ipcRenderer } = require("electron");
 import { DatePicker } from "jalali-react-datepicker";
 import { useParams } from "react-router-dom";
-import JDate from "jalali-date";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
 import Grid from "@material-ui/core/Grid";
@@ -23,7 +21,6 @@ import CarEditableProductTable from "../../Components/Car/CarEditableProductTabl
 import CarProductInput from "../../Components/Car/CarProductInput.jsx";
 import ProductOwnerInput from "../../Components/ProductOwner/ProductOwnerInput.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
-import { generateInputByUserCarSchema } from "../../../schemas.js";
 
 const schema = {};
 

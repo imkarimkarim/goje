@@ -1,18 +1,14 @@
 import React, { useState, useReducer, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import { DatePicker } from "jalali-react-datepicker";
-import JDate from "jalali-date";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import DoneIcon from "@material-ui/icons/Done";
 import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
 import Nav from "../../Components/Nav.jsx";
-import Input from "../../Components/Input.jsx";
 import CustomerInput from "../../Components/Customer/CustomerInput.jsx";
-import ExpenseInput from "../../Components/ExpenseInput.jsx";
 import FactorProductsTable from "../../Components/Factor/FactorProductsTable.jsx";
-import Expense from "../../Components/Expense.jsx";
 import Conclusion from "../../Components/Factor/Conclusion.jsx";
 import FactorProductInput from "../../Components/Factor/FactorProductInput.jsx";
 import Pays from "../../Components/Factor/Pays.jsx";

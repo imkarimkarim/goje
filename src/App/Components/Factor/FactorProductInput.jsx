@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
@@ -40,7 +41,7 @@ const FactorProductInput = React.memo(({ formDispatch, label }) => {
     ipcRenderer.send("getUnFinishedProducts");
   };
 
-  const handleFocus = (e) => {
+  const handleFocus = () => {
     getUnFinishedProducts();
     setShowProductPicker(true);
   };

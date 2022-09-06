@@ -3,14 +3,12 @@ import ListItem from "@material-ui/core/ListItem";
 import { FixedSizeList } from "react-window";
 import LocalGroceryStoreIcon from "@material-ui/icons/LocalGroceryStore";
 import CloseIcon from "@material-ui/icons/Close";
-import Input from "../Input.jsx";
 import ShowDate from "../ShowDate.jsx";
 import "./FactorProductPicker.css";
 import InfoIcon from "@material-ui/icons/Info";
 
 export default function FactorProductPicker({
   products,
-  productState,
   setProductState,
   setShowProductPicker,
 }) {

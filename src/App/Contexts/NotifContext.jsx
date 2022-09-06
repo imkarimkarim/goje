@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
 export const NotifContext = createContext();
 
@@ -27,13 +27,13 @@ export const NotifProvider = (props) => {
     }, 5000);
   };
 
-  const removeNotif = (index) => {
+  const removeNotif = () => {
     let tmpNotif = [...notifs];
     tmpNotif.splice(tmpNotif.length - 1);
     setNotifs(tmpNotif);
   };
 
-  const clearNotifs = (index) => {
+  const clearNotifs = () => {
     setNotifs([]);
   };
 

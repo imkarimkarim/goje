@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 const { ipcRenderer } = require("electron");
 import JDate from "jalali-date";
-import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
 import { PathStackContext } from "../../Contexts/PathStackContext.jsx";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import Loading from "../../Components/Loading.jsx";

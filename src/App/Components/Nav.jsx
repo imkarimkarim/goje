@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useContext } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import HomeIcon from "@material-ui/icons/Home";
@@ -11,11 +11,10 @@ import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PathStackContext } from "../Contexts/PathStackContext.jsx";
 import "./Nav.css";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-export default function Nav({ title, history }) {
+export default function Nav({ history }) {
   const [anchorEl, setAnchorEl] = useState();
   const [goBack, setGoBack] = useState(false);
   const { setCurrentPath, getBackPath } = useContext(PathStackContext);

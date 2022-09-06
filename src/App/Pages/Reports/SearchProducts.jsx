@@ -10,7 +10,6 @@ import SearchResultItem from "../../Components/Report/SearchResultItem.jsx";
 import Loading from "../../Components/Loading.jsx";
 import Nav from "../../Components/Nav.jsx";
 import SearchBox from "../../Components/Report/SearchBox.jsx";
-import JDate from "jalali-date";
 import ShowDate from "../../Components/ShowDate.jsx";
 import "./SearchProducts.css";
 import { cleanTime, oneDay, oneYear } from "../../utils.js";

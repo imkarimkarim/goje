@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-const { ipcRenderer } = require("electron");
+/* eslint-disable react/display-name */
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
 import Input from "../Input.jsx";
 import ExpenseInput from "../ExpenseInput.jsx";
 import "./CarProductInput.css";

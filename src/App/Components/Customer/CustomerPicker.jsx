@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { useState, useEffect } from "react";
 import { FixedSizeList } from "react-window";
 import CloseIcon from "@material-ui/icons/Close";

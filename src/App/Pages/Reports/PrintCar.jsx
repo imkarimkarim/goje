@@ -1,18 +1,14 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { NotifContext } from "../../Contexts/NotifContext.jsx";
 import JDate from "jalali-date";
 import Header from "../../Components/Header.jsx";
 import Footer from "../../Components/Footer.jsx";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import Loading from "../../Components/Loading.jsx";
 import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
-import { productsToString } from "../../utils.js";
 import "./PrintCar.css";
 import html2pdf from "html2pdf.js";
 import { Redirect } from "react-router-dom";
@@ -69,7 +65,7 @@ function InfoSection({ car }) {
   );
 }
 
-function SaleSection({ products, car, history }) {
+function SaleSection({ products, car }) {
   const [salesInfos, setsalesInfos] = useState();
   const [goBack, setGoBack] = useState(false);
   const init = useRef(true);

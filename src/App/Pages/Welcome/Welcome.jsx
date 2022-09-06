@@ -1,7 +1,6 @@
 import React from "react";
 // TODO: add: (سایت گوجه +‌ آموزش استفاده)
 import { Link } from "react-router-dom";
-import Box from "@material-ui/core/Box";
 import "./Welcome.css";
 import Button from "@material-ui/core/Button";
 import NoteAddIcon from "@material-ui/icons/NoteAdd";

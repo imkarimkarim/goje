@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import JDate from "jalali-date";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
@@ -13,7 +11,7 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import Expense from "../../Components/Expense.jsx";
 import ShowDate from "../../Components/ShowDate.jsx";
 import Nav from "../../Components/Nav.jsx";
-import { productsToString, isRangeOk } from "../../utils.js";
+import { isRangeOk } from "../../utils.js";
 import "./Car.css";
 
 function InfoSection({ car }) {
@@ -105,6 +103,10 @@ function SaleSection({ products, car }) {
         })(i);
       }
     }
+
+    // waht if
+    // اولیو توی ایف بالا بگیره و بقیه رو تو ریپلای
+    // ipcRenderer.on...
 
     ipcRenderer.on("oneProductCalcs", (event, product) => {
       if (!salesInfos || salesInfos.length === 0) {

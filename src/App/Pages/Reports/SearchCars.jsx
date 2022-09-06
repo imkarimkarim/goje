@@ -1,18 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 const { ipcRenderer } = require("electron");
 import List from "@material-ui/core/List";
-import Button from "@material-ui/core/Button";
-import DoneAllIcon from "@material-ui/icons/DoneAll";
-import DescriptionIcon from "@material-ui/icons/Description";
-import CloseIcon from "@material-ui/icons/Close";
 import PrintIcon from "@material-ui/icons/Print";
 import PrintDisabledIcon from "@material-ui/icons/PrintDisabled";
 import SearchResultItem from "../../Components/Report/SearchResultItem.jsx";
 import Loading from "../../Components/Loading.jsx";
 import Nav from "../../Components/Nav.jsx";
 import SearchBox from "../../Components/Report/SearchBox.jsx";
-import JDate from "jalali-date";
 import ShowDate from "../../Components/ShowDate.jsx";
 import "./SearchProducts.css";
 import { cleanTime, oneDay, oneYear, productsToString } from "../../utils.js";

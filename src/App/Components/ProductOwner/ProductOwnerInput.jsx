@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
 import TextField from "@material-ui/core/TextField";
 import "./ProductOwnerInput.css";
-import ProductOwnerPicker from './ProductOwnerPicker.jsx';
+import ProductOwnerPicker from "./ProductOwnerPicker.jsx";
 
 const ProductOwnerInput = React.memo(({ owner, onPick, label }) => {
   const [allProductOwners, setAllProductOwners] = useState();
@@ -12,7 +13,7 @@ const ProductOwnerInput = React.memo(({ owner, onPick, label }) => {
     ipcRenderer.send("getAllProductOwners");
   };
 
-  const handleFocus = (e) => {
+  const handleFocus = () => {
     getAllProductOwners();
     setShowProductOwnerPicker(true);
   };
@@ -49,6 +50,6 @@ const ProductOwnerInput = React.memo(({ owner, onPick, label }) => {
       />
     </span>
   );
-})
+});
 
 export default ProductOwnerInput;

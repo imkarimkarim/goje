@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import "./Notif.css";
 import WarningIcon from "@material-ui/icons/Warning";
 import DoneIcon from "@material-ui/icons/Done";
 import { NotifContext } from "../Contexts/NotifContext.jsx";
 
-export default function Notif({ type, message }) {
-  const [showNotif, setShowNotif] = useState(true);
+export default function Notif() {
   const { notifs } = useContext(NotifContext);
 
   return (

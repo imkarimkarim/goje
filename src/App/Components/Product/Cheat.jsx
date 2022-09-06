@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+/* eslint-disable react/display-name */
+import React, { useState, useEffect, useContext } from "react";
 import DoneIcon from "@material-ui/icons/Done";
 const { ipcRenderer } = require("electron");
 import Button from "@material-ui/core/Button";
