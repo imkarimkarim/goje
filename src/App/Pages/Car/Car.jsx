@@ -93,20 +93,16 @@ function SaleSection({ products, car }) {
   }
 
   useEffect(() => {
+    if (salesInfos && salesInfos.length !== products.length) {
+      getOneProductCalcs(products[salesInfos.length].customeId);
+    }
+  }, [salesInfos]);
+
+  useEffect(() => {
     if (init.current) {
       init.current = false;
-      for (let i = 0; i < products.length; i++) {
-        (function (ind) {
-          setTimeout(function () {
-            getOneProductCalcs(products[ind].customeId);
-          }, 100 + 500 * ind);
-        })(i);
-      }
+      getOneProductCalcs(products[0].customeId);
     }
-
-    // waht if
-    // اولیو توی ایف بالا بگیره و بقیه رو تو ریپلای
-    // ipcRenderer.on...
 
     ipcRenderer.on("oneProductCalcs", (event, product) => {
       if (!salesInfos || salesInfos.length === 0) {
