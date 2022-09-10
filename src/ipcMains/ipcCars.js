@@ -39,7 +39,7 @@ ipcMain.on("includeCar", (event, car) => {
                     });
                   }
                 });
-              }, 100 + 400 * ind);
+              }, 100 + 600 * ind);
             })(i);
           }
         });

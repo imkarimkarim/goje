@@ -53,18 +53,18 @@ const isProductHasDependency = (id, callback) => {
 };
 
 const getInCar = (carId, callback) => {
-  db.find({ $and: [{ docType: "product" }, { inCar: carId }] }, function (
-    err,
-    docs
-  ) {
-    if (err) throw err;
-    if (typeof callback === "function") {
-      if (docs) {
-        docs = sortProductsArray(docs);
-        callback(docs);
+  db.find(
+    { $and: [{ docType: "product" }, { inCar: carId }] },
+    function (err, docs) {
+      if (err) throw err;
+      if (typeof callback === "function") {
+        if (docs) {
+          docs = sortProductsArray(docs);
+          callback(docs);
+        }
       }
     }
-  });
+  );
 };
 
 const search = (searchFilters, callback) => {
@@ -149,15 +149,15 @@ const getFinished = (callback) => {
 
 const getOne = (id, callback) => {
   if (!id) return;
-  db.findOne({ $and: [{ docType: "product" }, { customeId: id }] }, function (
-    err,
-    doc
-  ) {
-    if (err) throw err;
-    if (typeof callback === "function") {
-      callback(doc);
+  db.findOne(
+    { $and: [{ docType: "product" }, { customeId: id }] },
+    function (err, doc) {
+      if (err) throw err;
+      if (typeof callback === "function") {
+        callback(doc);
+      }
     }
-  });
+  );
 };
 
 const insert = (product, callback) => {
@@ -194,21 +194,21 @@ const toggleProductFinish = (id, callback) => {
 
 const isProductBug = (productId, carId, callback) => {
   if (!productId || !carId) return;
-  db.findOne({ $and: [{ docType: "car" }, { customeId: carId }] }, function (
-    err,
-    car
-  ) {
-    if (err) throw err;
+  db.findOne(
+    { $and: [{ docType: "car" }, { customeId: carId }] },
+    function (err, car) {
+      if (err) throw err;
 
-    const isInCarProducts = car.products.filter(
-      (p) => p.customeId === productId
-    );
-    const bool = isInCarProducts.length === 1 ? false : true;
+      const isInCarProducts = car.products.filter(
+        (p) => p.customeId === productId
+      );
+      const bool = isInCarProducts.length === 1 ? false : true;
 
-    if (typeof callback === "function") {
-      callback(bool);
+      if (typeof callback === "function") {
+        callback(bool);
+      }
     }
-  });
+  );
 };
 
 const addCheat = (productId, cheat, callback) => {
@@ -293,6 +293,7 @@ const updateCarProduct = (productId, product, callback) => {
           customeId: doc.customeId,
           isProductFinish: doc.isProductFinish,
           finishDate: doc.finishDate,
+          ...doc,
         },
         {},
         function () {
