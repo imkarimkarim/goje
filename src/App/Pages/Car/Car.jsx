@@ -316,10 +316,6 @@ const Car = ({ history }) => {
     ipcRenderer.send("getOneCar", id);
   };
 
-  const getOneProduct = (id) => {
-    ipcRenderer.send("getOneProduct", id);
-  };
-
   const getInCarProducts = (carId) => {
     ipcRenderer.send("getInCarProducts", carId);
   };
@@ -339,22 +335,8 @@ const Car = ({ history }) => {
       setCar(car);
     });
 
-    ipcRenderer.on("getOneProduct", (event, product) => {
-      if (!products || products.length === 0) {
-        setProducts([product]);
-      } else {
-        setProducts([...products, product]);
-      }
-    });
-
     ipcRenderer.on("getInCarProducts", (event, inCarProducts) => {
-      for (let i = 0; i < inCarProducts.length; i++) {
-        (function (ind) {
-          setTimeout(function () {
-            getOneProduct(inCarProducts[ind].customeId);
-          }, 100 + 300 * ind);
-        })(i);
-      }
+      setProducts(inCarProducts);
     });
 
     // clean up
