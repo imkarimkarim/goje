@@ -1,4 +1,4 @@
-![goje logo](src/assets/goje.png)
+<img src="src/assets/goje.png" alt="goje logo" width="140px">
 
 # گوجه
 
@@ -8,6 +8,16 @@
 
 [Read english version](README.md)
 
+## امکانات
+
+- مشتری
+- بار
+- فاکتور
+- صاحب بار
+- وضعیت فروش
+- خروجی pdf
+- و...
+
 ## نصب
 
 برای نصب آخرین نسخه موجود برای سیستم عامل خود را از [اینجا](https://github.com/imkarimkarim/goje/releases) دانلود کرده و نصب کنید
@@ -16,4 +26,4 @@
 
 ## اسکرین شات ها
 
-اگر تمایل دارید قبل از نصب اسکریت شات های برنامه را از [اینجا](docs/DOCS.md) تماشا کنید
+اگر تمایل دارید قبل از نصب اسکریت شات های برنامه را از [اینجا](docs/screenshots.md) تماشا کنید

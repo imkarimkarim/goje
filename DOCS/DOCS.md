@@ -1,7 +1,13 @@
-## Screen Shots
+# DOCS
 
-![home page screenshot](screenshots/1.png)
-![insert factor screenshot](screenshots/2.png)
-![insert car screenshot](screenshots/3.png)
-![insert person screenshot](screenshots/4.png)
-![exports/statuses screenshot](screenshots/5.png)
+<i> ⚠️ dev docs is still under development... </i>
+
+## core concept
+
+app has few main concepts:
+product, factor, customer, productOwner, car
+checkout the relationship between this entities [here](concept.png)
+
+## how to works
+
+...
