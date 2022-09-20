@@ -25,7 +25,7 @@ download the latest release of your operating system choice [here](https://githu
 
 ## Screen Shots
 
-if you want to see screen shots before installing check [here](docs/screenshots.md)
+if you want to see screen shots before installing check [here](DOCS/screenshots.md)
 
 ## Dev docs
 
