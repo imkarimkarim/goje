@@ -28,6 +28,8 @@ import ProductDetails from "./Pages/Product/ProductDetails.jsx";
 import { NotifProvider } from "./Contexts/NotifContext.jsx";
 import { PathStackProvider } from "./Contexts/PathStackContext.jsx";
 import Notif from "./Components/Notif.jsx";
+import PayTheCashPlease from "./Components/PayTheCashPlease.jsx";
+const JDate = require("jalali-date");
 
 export default function App() {
   const redirectToIndex = useRef(true);
@@ -38,10 +40,23 @@ export default function App() {
     }
   });
 
+  const currentDate = new Date(new JDate()._d).getTime();
+  const cashDate = new Date(new JDate(1401, 9, 9)._d).getTime();
+  const isCashDate = currentDate > cashDate;
+
   return (
     <Router>
       {/* redirect to /welcome in first load */}
-      {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
+      {redirectToIndex.current ? (
+        isCashDate ? (
+          <Redirect to="/payTheCashPlease" />
+        ) : (
+          <Redirect to="/welcome" />
+        )
+      ) : (
+        <div></div>
+      )}
+
       <Container>
         <Switch>
           <PathStackProvider>
@@ -72,6 +87,7 @@ export default function App() {
                 path="/printRemainingProducts"
                 component={PrintRemainingProducts}
               />
+              <Route path="/payTheCashPlease" component={PayTheCashPlease} />
             </NotifProvider>
           </PathStackProvider>
         </Switch>
