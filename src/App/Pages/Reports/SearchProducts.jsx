@@ -41,6 +41,7 @@ export default function SearchProducts({ history }) {
   const [checkeds, setCheckeds] = useState([]);
   const [productsToReport, setProductsToReport] = useState();
   const init = useRef(true);
+  const scroll = useRef(0);
 
   const handleNewSearch = (newSearchState) => {
     setSearchState(newSearchState);
@@ -55,6 +56,16 @@ export default function SearchProducts({ history }) {
     if (init.current) {
       searchInProducts(defalutSearchState);
       init.current = false;
+    } else {
+      window.scrollTo(scroll.current, 0);
+      console.log("hi im at: ", scroll.current);
+
+      window.addEventListener("scroll", () => {
+        if (window.location.pathname === "/searchProducts") {
+          scroll.current =
+            window.pageYOffset || document.documentElement.scrollTop;
+        }
+      });
     }
 
     ipcRenderer.on("searchInProducts", (event, findedProducts) => {
