@@ -28,6 +28,7 @@ import ProductDetails from "./Pages/Product/ProductDetails.jsx";
 import { NotifProvider } from "./Contexts/NotifContext.jsx";
 import { PathStackProvider } from "./Contexts/PathStackContext.jsx";
 import Notif from "./Components/Notif.jsx";
+import SearchProductOwners from "./Pages/Reports/SearchProductOwners.jsx";
 import { createMemoryHistory } from "history";
 import { hot } from "react-hot-loader";
 
@@ -59,6 +60,10 @@ const App = () => {
               <Route path="/searchProducts" component={SearchProducts} />
               <Route path="/searchCars" component={SearchCars} />
               <Route path="/searchFactors" component={SearchFactors} />
+              <Route
+                path="/searchProductOwners"
+                component={SearchProductOwners}
+              />
               <Route path="/product/:id" component={Product} />
               <Route path="/car/:id" component={Car} />
               <Route path="/factor/:id" component={Factor} />

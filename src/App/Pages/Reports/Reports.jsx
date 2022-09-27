@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import PersonIcon from "@material-ui/icons/Person";
 import SearchIcon from "@material-ui/icons/Search";
 import NoteIcon from "@material-ui/icons/Note";
 import { DatePicker } from "jalali-react-datepicker";
@@ -40,6 +41,12 @@ export default function Reports({ history }) {
             <Button variant="outlined">
               صافی ها
               <AssignmentIcon />
+            </Button>
+          </Link>
+          <Link to="/searchProductOwners">
+            <Button variant="outlined">
+              صاحب بار ها
+              <PersonIcon />
             </Button>
           </Link>
           <br />
