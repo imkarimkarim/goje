@@ -28,8 +28,10 @@ import ProductDetails from "./Pages/Product/ProductDetails.jsx";
 import { NotifProvider } from "./Contexts/NotifContext.jsx";
 import { PathStackProvider } from "./Contexts/PathStackContext.jsx";
 import Notif from "./Components/Notif.jsx";
+import { createMemoryHistory } from "history";
+import { hot } from "react-hot-loader";
 
-export default function App() {
+const App = () => {
   const redirectToIndex = useRef(true);
 
   useEffect(() => {
@@ -38,8 +40,10 @@ export default function App() {
     }
   });
 
+  const history = createMemoryHistory();
+
   return (
-    <Router>
+    <Router history={history}>
       {/* redirect to /welcome in first load */}
       {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
       <Container>
@@ -78,4 +82,6 @@ export default function App() {
       </Container>
     </Router>
   );
-}
+};
+
+export default hot(module)(App);
