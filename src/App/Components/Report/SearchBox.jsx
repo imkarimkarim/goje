@@ -100,30 +100,35 @@ const SearchBox = React.memo(
           <div></div>
         )}
 
-        <div className="searchbox-datePicker">
-          از تاریخ:
-          <DatePicker
-            timePicker={false}
-            value={searchState.fromm}
-            onClickSubmitButton={({ value }) => {
-              setSearchState({
-                ...searchState,
-                fromm: cleanTime(value._d.getTime()),
-              });
-            }}
-          />
-          تا تاریخ:
-          <DatePicker
-            timePicker={false}
-            value={searchState.till}
-            onClickSubmitButton={({ value }) => {
-              setSearchState({
-                ...searchState,
-                till: cleanTime(value._d.getTime()) + oneDay,
-              });
-            }}
-          />
-        </div>
+        {searchState && searchState.fromm && searchState.till ? (
+          <div className="searchbox-datePicker">
+            از تاریخ:
+            <DatePicker
+              timePicker={false}
+              value={searchState.fromm}
+              onClickSubmitButton={({ value }) => {
+                setSearchState({
+                  ...searchState,
+                  fromm: cleanTime(value._d.getTime()),
+                });
+              }}
+            />
+            تا تاریخ:
+            <DatePicker
+              timePicker={false}
+              value={searchState.till}
+              onClickSubmitButton={({ value }) => {
+                setSearchState({
+                  ...searchState,
+                  till: cleanTime(value._d.getTime()) + oneDay,
+                });
+              }}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+
         <IconButton
           onClick={() => {
             onSubmit(searchState);

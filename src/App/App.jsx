@@ -28,10 +28,13 @@ import ProductDetails from "./Pages/Product/ProductDetails.jsx";
 import { NotifProvider } from "./Contexts/NotifContext.jsx";
 import { PathStackProvider } from "./Contexts/PathStackContext.jsx";
 import Notif from "./Components/Notif.jsx";
+import SearchProductOwners from "./Pages/Reports/SearchProductOwners.jsx";
+import { createMemoryHistory } from "history";
+import { hot } from "react-hot-loader";
 import PayTheCashPlease from "./Components/PayTheCashPlease.jsx";
 const JDate = require("jalali-date");
 
-export default function App() {
+const App = () => {
   const redirectToIndex = useRef(true);
 
   useEffect(() => {
@@ -40,12 +43,13 @@ export default function App() {
     }
   });
 
+  const history = createMemoryHistory();
   const currentDate = new Date(new JDate()._d).getTime();
   const cashDate = new Date(new JDate(1401, 9, 9)._d).getTime();
   const isCashDate = currentDate > cashDate;
 
   return (
-    <Router>
+    <Router history={history}>
       {/* redirect to /welcome in first load */}
       {redirectToIndex.current ? (
         isCashDate ? (
@@ -70,6 +74,10 @@ export default function App() {
               <Route path="/searchProducts" component={SearchProducts} />
               <Route path="/searchCars" component={SearchCars} />
               <Route path="/searchFactors" component={SearchFactors} />
+              <Route
+                path="/searchProductOwners"
+                component={SearchProductOwners}
+              />
               <Route path="/product/:id" component={Product} />
               <Route path="/car/:id" component={Car} />
               <Route path="/factor/:id" component={Factor} />
@@ -94,4 +102,6 @@ export default function App() {
       </Container>
     </Router>
   );
-}
+};
+
+export default hot(module)(App);
