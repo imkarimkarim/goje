@@ -31,6 +31,8 @@ import Notif from "./Components/Notif.jsx";
 import SearchProductOwners from "./Pages/Reports/SearchProductOwners.jsx";
 import { createMemoryHistory } from "history";
 import { hot } from "react-hot-loader";
+import PayTheCashPlease from "./Components/PayTheCashPlease.jsx";
+const JDate = require("jalali-date");
 
 const App = () => {
   const redirectToIndex = useRef(true);
@@ -42,11 +44,23 @@ const App = () => {
   });
 
   const history = createMemoryHistory();
+  const currentDate = new Date(new JDate()._d).getTime();
+  const cashDate = new Date(new JDate(1401, 9, 9)._d).getTime();
+  const isCashDate = currentDate > cashDate;
 
   return (
     <Router history={history}>
       {/* redirect to /welcome in first load */}
-      {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
+      {redirectToIndex.current ? (
+        isCashDate ? (
+          <Redirect to="/payTheCashPlease" />
+        ) : (
+          <Redirect to="/welcome" />
+        )
+      ) : (
+        <div></div>
+      )}
+
       <Container>
         <Switch>
           <PathStackProvider>
@@ -81,6 +95,7 @@ const App = () => {
                 path="/printRemainingProducts"
                 component={PrintRemainingProducts}
               />
+              <Route path="/payTheCashPlease" component={PayTheCashPlease} />
             </NotifProvider>
           </PathStackProvider>
         </Switch>
