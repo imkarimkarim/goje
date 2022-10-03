@@ -21,7 +21,11 @@ function InfoSection({ car }) {
         <span>صورتحساب</span>
         <span> </span>
         <span>
-          <h3>{car.owner}</h3>
+          <h3>
+            <Link to={"/searchProductOwnerCars/" + car.ownerId}>
+              {car.owner}
+            </Link>
+          </h3>
         </span>
       </p>
       <Grid container spacing={3}>
@@ -89,9 +93,12 @@ function SaleSection({ products, car }) {
     for (let i = 0; i < products.length; i++) {
       fullSum += salesInfos[i].FULL_SALE;
     }
+    // 0.01 for getting % (shortcut of Proportionality)
     sumSaleCommission = Math.floor(fullSum * (car.commission * 0.01));
   }
 
+  // TODO: cleanCode(move all this stuff to a ipc)
+  // TODO: move all the logic to ipc
   useEffect(() => {
     if (salesInfos && salesInfos.length !== products.length) {
       getOneProductCalcs(products[salesInfos.length].customeId);
@@ -275,6 +282,7 @@ function SaleSection({ products, car }) {
               0 ? (
                 <span>
                   <Expense
+                    to={"/searchProductOwners"}
                     num={
                       fullSum -
                       (sumSaleCommission + car.portage + car.unload + car.cash)
