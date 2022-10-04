@@ -52,16 +52,11 @@ const App = () => {
 
   return (
     <Router history={history}>
-      {/* redirect to /welcome in first load */}
       {redirectToIndex.current ? (
         isCashDate ? (
           <Redirect to="/payTheCashPlease" />
         ) : (
-          // <Redirect
-          //   // to={`/printSumProductOwnerSelectedCars/آقای بهشاد قنبرزاده 12/${ids}`}
-          // />
-          // <Redirect to="/welcome" />
-          <Redirect to="/searchProductOwners" />
+          <Redirect to="/welcome" />
         )
       ) : (
         <div></div>
