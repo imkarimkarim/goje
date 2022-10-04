@@ -70,12 +70,14 @@ function SaleSection({ products, car }) {
   const [goBack, setGoBack] = useState(false);
   const init = useRef(true);
 
-  let fullSum, sumSaleCommission;
+  let fullSum, sumSaleCommission, fullSumKG;
 
   if (salesInfos && products && salesInfos.length === products.length) {
     fullSum = 0;
+    fullSumKG = 0;
     for (let i = 0; i < products.length; i++) {
       fullSum += salesInfos[i].FULL_SALE;
+      fullSumKG += salesInfos[i].SUM_KG;
     }
     sumSaleCommission = Math.floor(fullSum * (car.commission * 0.01));
   }
@@ -170,6 +172,13 @@ function SaleSection({ products, car }) {
                 <span> </span>
                 <span>{<Expense num={fullSum} />}</span>
               </span>
+              <br />
+            <span className="fullSomProduct">
+              <span>وزن کل</span>
+              <span>: </span>
+              <span> </span>
+              <span>{Math.round(fullSumKG)}</span>
+            </span>
             </Grid>
             <Grid className="saleInfo-costs" item xs={3}>
               <div className="rectangle-border">

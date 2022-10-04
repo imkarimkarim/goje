@@ -86,12 +86,14 @@ function SaleSection({ products, car }) {
     ipcRenderer.send("getOneProductCalcs", productId);
   };
 
-  let fullSum, sumSaleCommission;
+  let fullSum, sumSaleCommission, fullSumKG;
 
   if (salesInfos && products && salesInfos.length === products.length) {
     fullSum = 0;
+    fullSumKG = 0;
     for (let i = 0; i < products.length; i++) {
       fullSum += salesInfos[i].FULL_SALE;
+      fullSumKG += salesInfos[i].SUM_KG;
     }
     // 0.01 for getting % (shortcut of Proportionality)
     sumSaleCommission = Math.floor(fullSum * (car.commission * 0.01));
@@ -220,6 +222,13 @@ function SaleSection({ products, car }) {
               <span>: </span>
               <span> </span>
               <span>{<Expense num={fullSum} />}</span>
+            </span>
+            <br />
+            <span className="fullSomProduct">
+              <span>وزن کل</span>
+              <span>: </span>
+              <span> </span>
+              <span>{Math.round(fullSumKG)}</span>
             </span>
           </Grid>
           <Grid item xs={4}>
