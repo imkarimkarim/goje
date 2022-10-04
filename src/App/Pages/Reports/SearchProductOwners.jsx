@@ -49,7 +49,7 @@ export default function SearchProductOwners({ history }) {
           <SearchResultItem
             itemTitle={productOwner.name}
             customeId={productOwner.customeId}
-            to={`/productOwner/${productOwner.customeId}`}
+            to={`/searchProductOwnerCars/${productOwner.customeId}`}
           />
         </div>
       );
@@ -65,6 +65,16 @@ export default function SearchProductOwners({ history }) {
         }}
       />
       {resultsList ? <List>{resultsList}</List> : <></>}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

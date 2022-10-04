@@ -32,6 +32,8 @@ import SearchProductOwners from "./Pages/Reports/SearchProductOwners.jsx";
 import { createMemoryHistory } from "history";
 import { hot } from "react-hot-loader";
 import PayTheCashPlease from "./Components/PayTheCashPlease.jsx";
+import SearchProductOwnerCars from "./Pages/Reports/SearchProductOwnerCars.jsx";
+import PrintSumProductOwnerSelectedCars from "./Pages/Reports/PrintSumProductOwnerSelectedCars.jsx";
 const JDate = require("jalali-date");
 
 const App = () => {
@@ -55,7 +57,11 @@ const App = () => {
         isCashDate ? (
           <Redirect to="/payTheCashPlease" />
         ) : (
-          <Redirect to="/welcome" />
+          // <Redirect
+          //   // to={`/printSumProductOwnerSelectedCars/آقای بهشاد قنبرزاده 12/${ids}`}
+          // />
+          // <Redirect to="/welcome" />
+          <Redirect to="/searchProductOwners" />
         )
       ) : (
         <div></div>
@@ -94,6 +100,14 @@ const App = () => {
               <Route
                 path="/printRemainingProducts"
                 component={PrintRemainingProducts}
+              />
+              <Route
+                path="/searchProductOwnerCars/:id"
+                component={SearchProductOwnerCars}
+              />
+              <Route
+                path="/printSumProductOwnerSelectedCars/:ownerName/:selectedCars"
+                component={PrintSumProductOwnerSelectedCars}
               />
               <Route path="/payTheCashPlease" component={PayTheCashPlease} />
             </NotifProvider>

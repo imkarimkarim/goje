@@ -52,15 +52,9 @@ ipcMain.on("includeCar", (event, car) => {
 });
 
 ipcMain.on("editCar", (event, car) => {
-  // isCarProductsHaveDependency
   validateCar(car, (status, message) => {
-    // log car
-    // log a lot of things
-    // pass car and edit new car
     if (status === true) {
       createProductsBasedOnCar(car, car.customeId, (products) => {
-        // inserting/editing each product based on
-        // objects created by createProductsBasedOnCar
         for (let i = 0; i < products.length; i++) {
           (function (ind) {
             setTimeout(function () {
@@ -84,7 +78,6 @@ ipcMain.on("editCar", (event, car) => {
                 );
               } else {
                 productDocs.insert(products[ind], (newProduct) => {
-                  // saving product customeId for later use cases on car object
                   car.products[ind].customeId = newProduct.customeId;
                   if (i === products.length - 1) {
                     carDocs.update(car._id, car, () => {
