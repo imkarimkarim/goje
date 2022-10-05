@@ -44,6 +44,7 @@ ipcMain.on("sumProductOwnerSelectedCars", (event, carsId) => {
               cars.push({
                 ownerEarnings: res,
                 arrivalDate: car.arrivalDate,
+                printDate: car.printDate,
                 plaque: car.plaque,
                 customeId: car.customeId,
               });

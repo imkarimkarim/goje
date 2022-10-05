@@ -52,19 +52,21 @@ function SaleSection({ cars, ownerName }) {
               <table>
                 <thead>
                   <tr>
+                    <th>ردیف</th>
                     <th>تاریخ ورود</th>
                     <th>پلاک</th>
-                    <th>کد ماشین</th>
-                    <th>صافی</th>
+                    <th>اعلام صافی</th>
+                    <th>صافی(ريال)</th>
                   </tr>
                 </thead>
                 <tbody>
                   {cars.map((car, index) => {
                     return (
                       <tr key={index}>
+                        <td>{index + 1}</td>
                         <td>{<ShowDate timestamp={car.arrivalDate} />}</td>
                         <td>{car.plaque}</td>
-                        <td>{car.customeId}</td>
+                        <td>{<ShowDate timestamp={car.printDate} />}</td>
                         <td>{<Expense num={car.ownerEarnings} />}</td>
                       </tr>
                     );
