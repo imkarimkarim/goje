@@ -1,7 +1,7 @@
 {
   "name": "goje",
   "productName": "goje",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "a Electron cross-platform desktop app for fruit stores",
   "main": ".webpack/main",
   "scripts": {
@@ -11,7 +11,7 @@
     "make": "electron-forge make",
     "make-mac": "electron-forge make --platform darwin",
     "make-win": "electron-forge make --platform win32",
-    "publish": "electron-forge publish",
+    "forge-publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
   "keywords": [],
@@ -56,6 +56,21 @@
           }
         }
       ],
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "platforms": [
+            "win32"
+          ],
+          "config": {
+            "repository": {
+              "owner": "imkarimkarim",
+              "name": "goje"
+            },
+            "prerelease": false
+          }
+        }
+      ],
       "plugins": [
         [
           "@electron-forge/plugin-webpack",
@@ -84,6 +99,7 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@electron-forge/plugin-webpack": "6.0.0-beta.54",
+    "@electron-forge/publisher-github": "^6.0.0-beta.66",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "css-loader": "^4.2.1",
     "electron": "11.3.0",
