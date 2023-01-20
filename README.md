@@ -1,3 +1,8 @@
+⚠️⚠️⚠️⚠️  
+this project is no longer maintaned  
+use it at you'r own risk  
+⚠️⚠️⚠️⚠️
+
 <img src="src/assets/goje.png" alt="goje logo" width="140px">
 
 # goje
