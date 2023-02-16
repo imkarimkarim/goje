@@ -1,132 +1,135 @@
 {
-  "name": "goje",
-  "productName": "goje",
-  "version": "1.6.2",
-  "description": "a Electron cross-platform desktop app for fruit stores",
-  "main": ".webpack/main",
-  "scripts": {
-    "start": "electron-forge start",
-    "dev": "set DEBUG=true&& electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "make-mac": "electron-forge make --platform darwin",
-    "make-win": "electron-forge make --platform win32",
-    "forge-publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
-  },
-  "keywords": [],
-  "author": {
-    "name": "imkarimkarim",
-    "email": "allalirezamail@gmail.com"
-  },
-  "license": "MIT",
-  "config": {
-    "forge": {
-      "packagerConfig": {
-        "icon": "./src/assets/goje.png",
-        "name": "goje",
-        "executableName": "goje"
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "icon": "./src/assets/goje.png",
-            "name": "goje"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {
-            "icon": "./src/assets/goje.png",
-            "name": "goje"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {
-            "icon": "./src/assets/goje.png",
-            "name": "goje"
-          }
-        }
-      ],
-      "publishers": [
-        {
-          "name": "@electron-forge/publisher-github",
-          "platforms": [
-            "win32"
-          ],
-          "config": {
-            "repository": {
-              "owner": "imkarimkarim",
-              "name": "goje"
+    "name": "goje",
+    "productName": "goje",
+    "version": "1.6.2",
+    "description": "a Electron cross-platform desktop app for fruit stores",
+    "main": ".webpack/main",
+    "engines": {
+        "node": "14.21.2"
+    },
+    "scripts": {
+        "start": "electron-forge start",
+        "dev": "set DEBUG=true&& electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make",
+        "make-mac": "electron-forge make --platform darwin",
+        "make-win": "electron-forge make --platform win32",
+        "forge-publish": "electron-forge publish",
+        "lint": "echo \"No linting configured\""
+    },
+    "keywords": [],
+    "author": {
+        "name": "imkarimkarim",
+        "email": "allalirezamail@gmail.com"
+    },
+    "license": "MIT",
+    "config": {
+        "forge": {
+            "packagerConfig": {
+                "icon": "./src/assets/goje.png",
+                "name": "goje",
+                "executableName": "goje"
             },
-            "prerelease": false
-          }
-        }
-      ],
-      "plugins": [
-        [
-          "@electron-forge/plugin-webpack",
-          {
-            "mainConfig": "./webpack.main.config.js",
-            "renderer": {
-              "config": "./webpack.renderer.config.js",
-              "entryPoints": [
+            "makers": [
                 {
-                  "rhmr": "react-hot-loader/patch",
-                  "html": "./src/index.html",
-                  "js": "./src/renderer.jsx",
-                  "name": "main_window"
+                    "name": "@electron-forge/maker-squirrel",
+                    "config": {
+                        "icon": "./src/assets/goje.png",
+                        "name": "goje"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-zip",
+                    "platforms": [
+                        "darwin"
+                    ]
+                },
+                {
+                    "name": "@electron-forge/maker-deb",
+                    "config": {
+                        "icon": "./src/assets/goje.png",
+                        "name": "goje"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-rpm",
+                    "config": {
+                        "icon": "./src/assets/goje.png",
+                        "name": "goje"
+                    }
                 }
-              ]
-            }
-          }
-        ]
-      ]
+            ],
+            "publishers": [
+                {
+                    "name": "@electron-forge/publisher-github",
+                    "platforms": [
+                        "win32"
+                    ],
+                    "config": {
+                        "repository": {
+                            "owner": "imkarimkarim",
+                            "name": "goje"
+                        },
+                        "prerelease": false
+                    }
+                }
+            ],
+            "plugins": [
+                [
+                    "@electron-forge/plugin-webpack",
+                    {
+                        "mainConfig": "./webpack.main.config.js",
+                        "renderer": {
+                            "config": "./webpack.renderer.config.js",
+                            "entryPoints": [
+                                {
+                                    "rhmr": "react-hot-loader/patch",
+                                    "html": "./src/index.html",
+                                    "js": "./src/renderer.jsx",
+                                    "name": "main_window"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            ]
+        }
+    },
+    "devDependencies": {
+        "@electron-forge/cli": "^6.0.0-beta.54",
+        "@electron-forge/maker-deb": "^6.0.0-beta.54",
+        "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+        "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+        "@electron-forge/maker-zip": "^6.0.0-beta.54",
+        "@electron-forge/plugin-webpack": "6.0.0-beta.54",
+        "@electron-forge/publisher-github": "^6.0.0-beta.66",
+        "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+        "css-loader": "^4.2.1",
+        "electron": "11.3.0",
+        "eslint": "^7.21.0",
+        "eslint-plugin-react": "^7.22.0",
+        "node-loader": "^1.0.1",
+        "style-loader": "^1.2.1"
+    },
+    "dependencies": {
+        "@babel/core": "^7.13.8",
+        "@babel/preset-env": "^7.13.8",
+        "@babel/preset-react": "^7.12.13",
+        "@material-ui/core": "^4.11.3",
+        "@material-ui/icons": "^4.11.2",
+        "@material-ui/system": "^4.11.3",
+        "babel-loader": "^8.2.2",
+        "cleave.js": "^1.6.0",
+        "electron-squirrel-startup": "^1.0.0",
+        "html2pdf.js": "^0.9.3",
+        "jalali-date": "^1.1.2",
+        "jalali-react-datepicker": "^1.2.1",
+        "nedb": "^1.8.0",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-hot-loader": "^4.13.0",
+        "react-router-dom": "^5.2.0",
+        "react-window": "^1.8.6",
+        "url-loader": "^4.1.1"
     }
-  },
-  "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "@electron-forge/plugin-webpack": "6.0.0-beta.54",
-    "@electron-forge/publisher-github": "^6.0.0-beta.66",
-    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
-    "css-loader": "^4.2.1",
-    "electron": "11.3.0",
-    "eslint": "^7.21.0",
-    "eslint-plugin-react": "^7.22.0",
-    "node-loader": "^1.0.1",
-    "style-loader": "^1.2.1"
-  },
-  "dependencies": {
-    "@babel/core": "^7.13.8",
-    "@babel/preset-env": "^7.13.8",
-    "@babel/preset-react": "^7.12.13",
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/system": "^4.11.3",
-    "babel-loader": "^8.2.2",
-    "cleave.js": "^1.6.0",
-    "electron-squirrel-startup": "^1.0.0",
-    "html2pdf.js": "^0.9.3",
-    "jalali-date": "^1.1.2",
-    "jalali-react-datepicker": "^1.2.1",
-    "nedb": "^1.8.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-hot-loader": "^4.13.0",
-    "react-router-dom": "^5.2.0",
-    "react-window": "^1.8.6",
-    "url-loader": "^4.1.1"
-  }
 }
