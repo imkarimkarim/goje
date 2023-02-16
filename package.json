@@ -1,7 +1,7 @@
 {
     "name": "goje",
     "productName": "goje",
-    "version": "1.6.2",
+    "version": "1.7.0",
     "description": "a Electron cross-platform desktop app for fruit stores",
     "main": ".webpack/main",
     "engines": {
