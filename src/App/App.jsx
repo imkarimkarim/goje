@@ -34,83 +34,60 @@ import { hot } from "react-hot-loader";
 import PayTheCashPlease from "./Components/PayTheCashPlease.jsx";
 import SearchProductOwnerCars from "./Pages/Reports/SearchProductOwnerCars.jsx";
 import PrintSumProductOwnerSelectedCars from "./Pages/Reports/PrintSumProductOwnerSelectedCars.jsx";
-const JDate = require("jalali-date");
+import Customers from "./Pages/EditVisibleNames/Customers.jsx";
+import ProductOwners from "./Pages/EditVisibleNames/ProductOwners.jsx";
 
 const App = () => {
-  const redirectToIndex = useRef(true);
+    const redirectToIndex = useRef(true);
 
-  useEffect(() => {
-    if (redirectToIndex.current) {
-      redirectToIndex.current = false;
-    }
-  });
+    useEffect(() => {
+        if (redirectToIndex.current) {
+            redirectToIndex.current = false;
+        }
+    });
 
-  const history = createMemoryHistory();
-  const currentDate = new Date(new JDate()._d).getTime();
-  const cashDate = new Date(new JDate(1401, 9, 9)._d).getTime();
-  const isCashDate = currentDate > cashDate;
+    const history = createMemoryHistory();
 
-  return (
-    <Router history={history}>
-      {redirectToIndex.current ? (
-        isCashDate ? (
-          <Redirect to="/payTheCashPlease" />
-        ) : (
-          <Redirect to="/welcome" />
-        )
-      ) : (
-        <div></div>
-      )}
+    return (
+        <Router history={history}>
+            {redirectToIndex.current ? <Redirect to="/welcome" /> : <div></div>}
 
-      <Container>
-        <Switch>
-          <PathStackProvider>
-            <NotifProvider>
-              <Notif />
-              <Route path="/welcome" component={Welcome} />
-              <Route path="/includeCar" component={IncludeCar} />
-              <Route path="/newFactor" component={NewFactor} />
-              <Route path="/newName" component={NewName} />
-              <Route path="/reports" component={Reports} />
-              <Route path="/searchProducts" component={SearchProducts} />
-              <Route path="/searchCars" component={SearchCars} />
-              <Route path="/searchFactors" component={SearchFactors} />
-              <Route
-                path="/searchProductOwners"
-                component={SearchProductOwners}
-              />
-              <Route path="/product/:id" component={Product} />
-              <Route path="/car/:id" component={Car} />
-              <Route path="/factor/:id" component={Factor} />
-              <Route path="/editFactor/:id" component={EditFactor} />
-              <Route path="/editProduct/:id" component={EditProduct} />
-              <Route path="/editCar/:id" component={EditCar} />
-              <Route path="/productDetails/:id" component={ProductDetails} />
-              <Route path="/printProducts/:ids" component={PrintProducts} />
-              <Route path="/printCar/:id" component={PrintCar} />
-              <Route
-                path="/printFactors/:date/:date2"
-                component={PrintFactors}
-              />
-              <Route
-                path="/printRemainingProducts"
-                component={PrintRemainingProducts}
-              />
-              <Route
-                path="/searchProductOwnerCars/:id"
-                component={SearchProductOwnerCars}
-              />
-              <Route
-                path="/printSumProductOwnerSelectedCars/:ownerName/:selectedCars"
-                component={PrintSumProductOwnerSelectedCars}
-              />
-              <Route path="/payTheCashPlease" component={PayTheCashPlease} />
-            </NotifProvider>
-          </PathStackProvider>
-        </Switch>
-      </Container>
-    </Router>
-  );
+            <Container>
+                <Switch>
+                    <PathStackProvider>
+                        <NotifProvider>
+                            <Notif />
+                            <Route path="/welcome" component={Welcome} />
+                            <Route path="/includeCar" component={IncludeCar} />
+                            <Route path="/newFactor" component={NewFactor} />
+                            <Route path="/newName" component={NewName} />
+                            <Route path="/reports" component={Reports} />
+                            <Route path="/searchProducts" component={SearchProducts} />
+                            <Route path="/searchCars" component={SearchCars} />
+                            <Route path="/searchFactors" component={SearchFactors} />
+                            <Route path="/searchProductOwners" component={SearchProductOwners} />
+                            <Route path="/product/:id" component={Product} />
+                            <Route path="/car/:id" component={Car} />
+                            <Route path="/factor/:id" component={Factor} />
+                            <Route path="/editFactor/:id" component={EditFactor} />
+                            <Route path="/editProduct/:id" component={EditProduct} />
+                            <Route path="/editCar/:id" component={EditCar} />
+                            <Route path="/productDetails/:id" component={ProductDetails} />
+                            <Route path="/printProducts/:ids" component={PrintProducts} />
+                            <Route path="/printCar/:id" component={PrintCar} />
+                            <Route path="/printFactors/:date/:date2" component={PrintFactors} />
+                            <Route path="/printRemainingProducts" component={PrintRemainingProducts} />
+                            <Route path="/searchProductOwnerCars/:id" component={SearchProductOwnerCars} />
+                            <Route path="/printSumProductOwnerSelectedCars/:ownerName/:selectedCars" component={PrintSumProductOwnerSelectedCars} />
+                            <Route path="/payTheCashPlease" component={PayTheCashPlease} />
+                            <Route path="/editVisibleNames/customers" component={Customers} />
+                            <Route path="/editVisibleNames/productOwners" component={ProductOwners} />
+                        </NotifProvider>
+                    </PathStackProvider>
+                </Switch>
+            </Container>
+        </Router>
+    );
 };
 
 export default hot(module)(App);

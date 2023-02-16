@@ -22,6 +22,10 @@ const ProductOwnerPicker = React.memo(
       };
     });
 
+    productOwners = productOwners.filter((c) => {
+        return c.hideInOwnersInput === undefined || c.hideInOwnersInput === false;
+    });
+
     if (search) {
       productOwners = productOwners.filter((c) => c.name.includes(search));
     }

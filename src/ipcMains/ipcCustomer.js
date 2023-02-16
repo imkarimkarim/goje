@@ -8,6 +8,12 @@ ipcMain.on("getAllCustomers", (event) => {
   });
 });
 
+ipcMain.on("toggleHideInCustomerInput", (event, customerId) => {
+    customerDocs.toggleHideInCustomerInput(customerId, () => {
+        event.reply("toggleHideInCustomerInput", true);
+    });
+});
+
 ipcMain.on("addNewCustomer", (event, customer) => {
   validateCustomer(customer, (status, message) => {
     if (status === true) {

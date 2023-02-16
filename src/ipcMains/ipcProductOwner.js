@@ -11,6 +11,12 @@ ipcMain.on("getAllProductOwners", (event) => {
   });
 });
 
+ipcMain.on("toggleHideInOwnersInput", (event, ownerId) => {
+    productOwnerDocs.toggleHideInOwnersInput(ownerId, () => {
+        event.reply("toggleHideInOwnersInput", true);
+    });
+});
+
 ipcMain.on("getOneProductOwner", (event, id) => {
   productOwnerDocs.getOne(id, (docs) => {
     event.reply("getOneProductOwner", docs);

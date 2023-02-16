@@ -22,6 +22,10 @@ const CustomerPicker = React.memo(
       };
     });
 
+    customers = customers.filter((c) => {
+        return c.hideInCustomerInput === undefined || c.hideInCustomerInput === false;
+    });
+
     if (search) {
       customers = customers.filter((c) => c.name.includes(search));
     }

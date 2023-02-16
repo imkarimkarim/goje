@@ -23,62 +23,88 @@ const getAll = (callback) => {
   });
 };
 
+const toggleHideInOwnersInput = (ownerId, callback) => {
+    db.findOne({ $and: [{ docType: "productOwner" }, { customeId: ownerId }] }, function (err, doc) {
+        if (err) throw err;
+        let hide = doc.hideInOwnersInput;
+        if (hide === undefined || hide === false) {
+            hide = true;
+        } else {
+            hide = false;
+        }
+        db.update(
+            { _id: doc._id },
+            {
+                ...doc,
+                hideInOwnersInput: hide,
+            },
+            {},
+            function () {
+                if (typeof callback === "function") {
+                    callback();
+                }
+            }
+        );
+    });
+};
+
 const getOne = (id, callback) => {
-  if (!id) return;
-  db.find(
-    {
-      $and: [{ docType: "productOwner" }, { customeId: id }],
-    },
-    function (err, docs) {
-      if (err) throw err;
-      if (typeof callback === "function") {
-        callback(docs[0]);
-      }
-    }
-  );
+    if (!id) return;
+    db.find(
+        {
+            $and: [{ docType: "productOwner" }, { customeId: id }],
+        },
+        function (err, docs) {
+            if (err) throw err;
+            if (typeof callback === "function") {
+                callback(docs[0]);
+            }
+        }
+    );
 };
 
 const isProductOwnerExists = (productOwner, callback) => {
-  db.find({ docType: "productOwner", name: productOwner.name }, (err, docs) => {
-    if (err) throw err;
-    if (typeof callback === "function") {
-      callback(docs);
-    }
-  });
+    db.find({ docType: "productOwner", name: productOwner.name }, (err, docs) => {
+        if (err) throw err;
+        if (typeof callback === "function") {
+            callback(docs);
+        }
+    });
 };
 
 const search = (id, callback) => {
-  if (!id) return;
-  db.find(
-    {
-      $and: [{ docType: "car" }, { ownerId: id }],
-    },
-    function (err, docs) {
-      if (err) throw err;
-      if (typeof callback === "function") {
-        if (docs) {
-          docs = sortCarArray(docs);
-          callback(docs);
+    if (!id) return;
+    db.find(
+        {
+            $and: [{ docType: "car" }, { ownerId: id }],
+        },
+        function (err, docs) {
+            if (err) throw err;
+            if (typeof callback === "function") {
+                if (docs) {
+                    docs = sortCarArray(docs);
+                    callback(docs);
+                }
+            }
         }
-      }
-    }
-  );
+    );
 };
 
 const insert = (productOwner, callback) => {
-  autoFiller.autoFillProductOwnerAutoInputs(productOwner, (obj) => {
-    db.insert(obj, function () {
-      if (typeof callback === "function") {
-        callback();
-      }
+    autoFiller.autoFillProductOwnerAutoInputs(productOwner, (obj) => {
+        db.insert(obj, function () {
+            if (typeof callback === "function") {
+                callback();
+            }
+        });
     });
-  });
 };
 
 module.exports = {
-  getAll,
-  getOne,
-  search,
-  insert,
-  isProductOwnerExists,
+    getAll,
+    toggleHideInOwnersInput,
+    getOne,
+    search,
+    insert,
+    isProductOwnerExists,
 };

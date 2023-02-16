@@ -10,27 +10,53 @@ const getAll = (callback) => {
   });
 };
 
+const toggleHideInCustomerInput = (customerId, callback) => {
+    db.findOne({ $and: [{ docType: "customer" }, { customeId: customerId }] }, function (err, doc) {
+        if (err) throw err;
+        let hide = doc.hideInCustomerInput;
+        if (hide === undefined || hide === false) {
+            hide = true;
+        } else {
+            hide = false;
+        }
+        db.update(
+            { _id: doc._id },
+            {
+                ...doc,
+                hideInCustomerInput: hide,
+            },
+            {},
+            function () {
+                if (typeof callback === "function") {
+                    callback();
+                }
+            }
+        );
+    });
+};
+
 const isCustomerExists = (customer, callback) => {
-  db.find({ docType: "customer", name: customer.name }, (err, docs) => {
-    if (err) throw err;
-    if (typeof callback === "function") {
-      callback(docs);
-    }
-  });
+    db.find({ docType: "customer", name: customer.name }, (err, docs) => {
+        if (err) throw err;
+        if (typeof callback === "function") {
+            callback(docs);
+        }
+    });
 };
 
 const insert = (customer, callback) => {
-  autoFiller.autoFillCustomerAutoInputs(customer, (obj) => {
-    db.insert(obj, function () {
-      if (typeof callback === "function") {
-        callback();
-      }
+    autoFiller.autoFillCustomerAutoInputs(customer, (obj) => {
+        db.insert(obj, function () {
+            if (typeof callback === "function") {
+                callback();
+            }
+        });
     });
-  });
 };
 
 module.exports = {
-  getAll,
-  insert,
-  isCustomerExists,
+    getAll,
+    toggleHideInCustomerInput,
+    insert,
+    isCustomerExists,
 };
