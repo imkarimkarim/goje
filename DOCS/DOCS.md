@@ -20,3 +20,7 @@ component <- ipcRendered <- db(docs)
 
 for now goje relying on old version of packages(like electron 11)
 but it will upgrade to new versions soon...
+
+## Build
+
+// TODO (check node engine on package.json) windows powershell, linux building on ubuntu with rpm package... etc...
