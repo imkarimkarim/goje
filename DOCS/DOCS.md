@@ -10,7 +10,7 @@ checkout the relationship between this entities [here](concept.png)
 
 ## data transfer system
 
-component -> ipcRendered -> db(docs)
+component -> ipcRendered -> db(docs)  
 component <- ipcRendered <- db(docs)
 
 ...
