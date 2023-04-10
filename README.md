@@ -1,5 +1,5 @@
 ⚠️⚠️⚠️⚠️  
-this project is no longer maintaned  
+this project is no longer maintaned(yet...(new plans maybe in future...))  
 use it at you'r own risk  
 ⚠️⚠️⚠️⚠️
 
