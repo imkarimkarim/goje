@@ -87,3 +87,6 @@ typings/
 
 # Electron-Forge
 out/
+
+# node virtual environment
+env
